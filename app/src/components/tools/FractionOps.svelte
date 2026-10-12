@@ -238,6 +238,9 @@
   .bar.fine .cell { border-radius: 0; border: 0; border-left: 1.5px solid rgba(230, 240, 255, 0.55); }
   .bar.fine .cell:first-child { border-left: 0; }
   .bar.fine .cell.edge { border-left: 3.5px solid #ffffff; }
+  /* Dividers inside a filled part: background-coloured gaps (white on cyan or yellow is hard to see). */
+  .bar.fine .cell.on { border-left-color: #05070d; }
+  .bar.fine .cell.on.edge { border-left: 3.5px solid #ffffff; box-shadow: inset 2px 0 0 #05070d, -2px 0 0 #05070d; }
   .bar.fine .cell.a.on { background: var(--sky); box-shadow: none; }
   .bar.fine .cell.b.on { background: var(--sun); box-shadow: none; }
   .bar.fine .cell.gone { background: repeating-linear-gradient(135deg, var(--sun-soft) 0 4px, transparent 4px 8px); outline: 2px solid var(--sun); outline-offset: -2px; }

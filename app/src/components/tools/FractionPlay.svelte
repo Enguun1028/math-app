@@ -175,16 +175,16 @@
         {#each Array(L - 1) as _, i}
           {@const k = row === 0 ? ka : kb}
           {#if (i + 1) % k !== 0}
-            <line class="thin" class:on={cut} x1={xAt(i + 1)} x2={xAt(i + 1)} y1={y + 2} y2={y + BH - 2} style:transition-delay="{cut && !same ? i * 0.04 : 0}s" />
+            <line class="thin" class:on={cut} class:dark={!moved && i + 1 < (row === 0 ? an : bn)} x1={xAt(i + 1)} x2={xAt(i + 1)} y1={y + 2} y2={y + BH - 2} style:transition-delay="{cut && !same ? i * 0.04 : 0}s" />
           {/if}
         {/each}
       {/each}
       <!-- thick white lines: the original parts -->
-      {#each Array(a.d - 1) as _, k}<line class="thick" x1={X0 + ((k + 1) * W) / a.d} x2={X0 + ((k + 1) * W) / a.d} y1={yA} y2={yA + BH} />{/each}
-      {#each Array(b.d - 1) as _, k}<line class="thick" x1={X0 + ((k + 1) * W) / b.d} x2={X0 + ((k + 1) * W) / b.d} y1={yB} y2={yB + BH} />{/each}
+      {#each Array(a.d - 1) as _, k}<line class="halo" x1={X0 + ((k + 1) * W) / a.d} x2={X0 + ((k + 1) * W) / a.d} y1={yA} y2={yA + BH} /><line class="thick" x1={X0 + ((k + 1) * W) / a.d} x2={X0 + ((k + 1) * W) / a.d} y1={yA} y2={yA + BH} />{/each}
+      {#each Array(b.d - 1) as _, k}<line class="halo" x1={X0 + ((k + 1) * W) / b.d} x2={X0 + ((k + 1) * W) / b.d} y1={yB} y2={yB + BH} /><line class="thick" x1={X0 + ((k + 1) * W) / b.d} x2={X0 + ((k + 1) * W) / b.d} y1={yB} y2={yB + BH} />{/each}
       <!-- answer bar slice lines -->
       {#each Array(rows) as _, r}
-        {#each Array(L - 1) as _, i}<line class="thin res" class:on={phase >= 6} x1={xAt(i + 1)} x2={xAt(i + 1)} y1={yR + r * (BH + 22) + 2} y2={yR + r * (BH + 22) + BH - 2} />{/each}
+        {#each Array(L - 1) as _, i}<line class="thin res" class:on={phase >= 6} class:dark={r * L + i + 1 < (plus ? an + bn : Math.max(0, an - bn))} x1={xAt(i + 1)} x2={xAt(i + 1)} y1={yR + r * (BH + 22) + 2} y2={yR + r * (BH + 22) + BH - 2} />{/each}
       {/each}
 
       <!-- stage 1: the first bar's lines dropped onto the second -->
@@ -246,6 +246,11 @@
   .piece.gone { opacity: 0; }
   .thin { stroke: #ffffff; stroke-width: 1.2; opacity: 0; transition: opacity 0.25s; }
   .thin.on { opacity: 0.75; }
+  /* On a filled part the divider is a gap in the background colour; on an empty part it is light. */
+  .thin.dark { stroke: #05070d; stroke-width: 1.8; }
+  .thin.dark.on { opacity: 1; }
+  .halo { stroke: #05070d; stroke-width: 6.5; }
+  .thin.res.dark { stroke: #05070d; }
   .thin.res { stroke: rgba(255, 255, 255, 0.8); }
   .thick { stroke: #ffffff; stroke-width: 3.2; }
   .guide { stroke: var(--warn); stroke-width: 2; stroke-dasharray: 4 4; opacity: 0; transition: opacity 0.4s; }

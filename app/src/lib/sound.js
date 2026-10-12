@@ -81,18 +81,22 @@ export const cue = {
   success: () => { [523.25, 659.25, 783.99, 1046.5, 1318.51].forEach((f, k) => note(f, { at: k * 0.08, dur: 1.1, vol: 0.09 })); },
 };
 
-// ---- music: an original, cheerful 8-bit loop (square lead, triangle bass, light drums), about 112 BPM ----
-// 4 bars over C · Am · F · G, 16 steps per bar. Notes are MIDI numbers; null is a rest.
-const BPM = 112;
+// ---- music: an original jazzy, wonky 8-bit loop (owner wanted something less generic) ----
+// Extended chords (Fmaj9, Em7, Dm9, G13sus), swung 16ths, detuned square stabs, a lead that bends into its notes.
+// 4 bars, 16 steps each, about 94 BPM. Original: not based on any existing song.
+const BPM = 94;
 const STEP = 60 / BPM / 4;
+const SWING = 0.32; // late off-beats
+const CHORDS = [[57, 60, 64, 67], [55, 59, 62, 64], [53, 57, 60, 64], [53, 57, 59, 64]];
+const BASS = [41, 40, 38, 43];
+const STABS = [0, 3, 6, 10, 13];
+const BASS_STEPS = { 0: 0, 6: 0, 8: 12, 11: 7, 14: 0 };
 const LEAD = [
-  76, null, 79, null, 84, null, 79, null, 76, null, 74, null, 72, null, null, null,
-  72, null, 76, null, 81, null, 79, null, 76, null, 74, null, 76, null, null, null,
-  77, null, 81, null, 84, null, 81, null, 79, null, 77, null, 76, null, 74, null,
-  74, null, 79, null, 83, null, 79, null, 74, null, 76, null, 79, null, 81, 83,
+  72, null, null, 76, null, 79, null, null, 77, null, 76, null, 74, null, null, null,
+  null, null, 71, null, 74, null, 76, 79, null, null, 76, null, 74, null, 71, null,
+  69, null, null, 72, null, 76, null, null, 79, null, 77, 76, null, 74, null, null,
+  null, null, 74, null, 77, 79, null, 81, null, 79, null, 77, null, 76, 74, null,
 ];
-const ROOTS = [48, 45, 41, 43];
-const BASS_STEPS = { 0: 0, 4: 12, 8: 0, 12: 7 };
 const hz = (m) => 440 * 2 ** ((m - 69) / 12);
 
 let music = null;
@@ -104,6 +108,20 @@ function blip(freq, t, dur, type, vol, dest) {
   o.frequency.setValueAtTime(freq, t);
   g.gain.setValueAtTime(vol, t);
   g.gain.setValueAtTime(vol, t + dur * 0.7);
+  g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+  o.connect(g).connect(dest);
+  o.start(t);
+  o.stop(t + dur + 0.02);
+}
+function bend(freq, t, dur, dest) {
+  const o = ctx.createOscillator();
+  const g = ctx.createGain();
+  o.type = 'square';
+  o.frequency.setValueAtTime(freq * 0.94, t);
+  o.frequency.exponentialRampToValueAtTime(freq, t + 0.06);
+  g.gain.setValueAtTime(0.0001, t);
+  g.gain.exponentialRampToValueAtTime(0.06, t + 0.015);
+  g.gain.setValueAtTime(0.06, t + dur * 0.6);
   g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
   o.connect(g).connect(dest);
   o.start(t);
@@ -153,11 +171,16 @@ export function startMusic() {
     while (next < ctx.currentTime + 0.12) {
       const i = step % LEAD.length;
       const bar = Math.floor(i / 16), s16 = i % 16;
-      if (LEAD[i]) blip(hz(LEAD[i]), next, STEP * 1.8, 'square', 0.07, bus);
-      if (s16 in BASS_STEPS) blip(hz(ROOTS[bar] + BASS_STEPS[s16]), next, STEP * 3, 'triangle', 0.22, bus);
-      if (s16 === 0 || s16 === 8) kick(next, bus);
-      if (s16 % 4 === 2) hat(next, bus);
-      if (s16 === 4 || s16 === 12) hat(next, bus, 0.16, 0.09);
+      const t = next + (s16 % 2 ? STEP * SWING : 0);
+      if (STABS.includes(s16)) for (const m of CHORDS[bar]) {
+        blip(hz(m) * 1.004, t, STEP * 1.4, 'square', 0.022, bus);
+        blip(hz(m) * 0.996, t, STEP * 1.4, 'square', 0.022, bus);
+      }
+      if (LEAD[i]) bend(hz(LEAD[i]), t, STEP * 2.2, bus);
+      if (s16 in BASS_STEPS) blip(hz(BASS[bar] + BASS_STEPS[s16]), t, STEP * 1.8, 'triangle', 0.24, bus);
+      if (s16 === 0 || s16 === 7 || s16 === 10) kick(t, bus);
+      if (s16 % 2 === 0) hat(t, bus, s16 % 4 === 2 ? 0.1 : 0.05);
+      if (s16 === 4 || s16 === 12) hat(t, bus, 0.18, 0.11);
       step++;
       next += STEP;
     }
