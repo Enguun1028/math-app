@@ -66,6 +66,12 @@
   if (!reduced) setTimeout(() => run(0), 50);
   onDestroy(() => clearTimeout(timer));
   const jump = (p) => { clearTimeout(timer); playing = false; phase = p; };
+  // Pause holds the current stage; play carries on from it (from the start once it has finished).
+  let done = $derived(!playing && phase === steps.at(-1));
+  function toggle() {
+    if (playing) { clearTimeout(timer); playing = false; }
+    else run(done ? steps[0] : phase);
+  }
 
   // Where each slice ends up in the answer bar.
   const target = (t) => ({ x: xAt(t % L), y: yR + Math.floor(t / L) * (BH + 22) });
@@ -149,7 +155,12 @@
     <div class="dots" role="group" aria-label="Алхам">
       {#each steps as s}<button class="dot" class:on={phase === s} aria-label="{s + 1}-р алхам" onclick={() => jump(s)}></button>{/each}
     </div>
-    <button class="btn" onclick={() => run(steps[0])}>{playing ? '↻ Эхнээс' : '↻ Дахин'}</button>
+    <div class="btns">
+      <button class="btn icon" aria-label="Эхнээс нь" onclick={() => run(steps[0])}>↻</button>
+      <button class="btn primary" aria-label={playing ? 'Түр зогсоох' : 'Тоглуулах'} onclick={toggle}>
+        {#if playing}<span class="pz" aria-hidden="true"></span> Зогсоох{:else if done}↻ Дахин{:else}▶ Үргэлжлүүлэх{/if}
+      </button>
+    </div>
   </div>
   {#if phase >= 6 && rn > L && plus}<p class="small muted">1-ээс их: бүтэн {Math.floor(rn / L)} ба {rn % L} хэсэг.</p>{/if}
   {#if phase >= 6 && rn < 0}<p class="small muted">Хасах хэсэг ({bn}) байгаагаасаа ({an}) их тул хариу сөрөг.</p>{/if}
@@ -188,7 +199,10 @@
   .m { min-width: 32px; padding: 3px 6px; text-align: center; border-radius: 8px; border: 1px solid var(--line); color: var(--muted); font-variant-numeric: tabular-nums; animation: pop 0.35s both; }
   .m.hit { background: var(--grass); border-color: var(--grass); color: #052012; font-weight: 800; box-shadow: 0 0 10px rgba(94, 234, 154, 0.55); }
   @keyframes pop { from { opacity: 0; transform: translateY(6px) scale(0.9); } }
-  .ctl { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .ctl { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  .btns { display: flex; gap: 8px; }
+  .btn.icon { width: 44px; padding: 0; font-size: 1.2rem; }
+  .pz { display: inline-block; width: 10px; height: 12px; border-left: 3.5px solid currentColor; border-right: 3.5px solid currentColor; }
   .dots { display: flex; gap: 6px; }
   .dot { width: 34px; height: 34px; border-radius: 50%; border: 0; background: none; display: grid; place-items: center; padding: 0; }
   .dot::before { content: ''; width: 9px; height: 9px; border-radius: 50%; background: var(--line); transition: background 0.2s, transform 0.2s; }
