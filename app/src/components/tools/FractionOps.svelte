@@ -5,12 +5,21 @@
   // ×: area model. The first fraction cuts a rectangle into columns, the second into rows; the overlap is the answer.
   import { fly } from 'svelte/transition';
   import RichText from '../RichText.svelte';
+  import FractionPlay from './FractionPlay.svelte';
   import { ms, ease } from '../../lib/motion.js';
 
   const MAXD = 12;
   let A = $state({ n: 1, d: 3 });
   let B = $state({ n: 1, d: 4 });
   let op = $state('+');
+  // The animation starts on "Эхлэх" and is reset whenever a value or the operation changes.
+  let started = $state(false);
+  let playKey = $state(0);
+  $effect(() => {
+    A.n; A.d; B.n; B.d; op;
+    started = false;
+  });
+  const start = () => { started = true; playKey++; };
 
   const gcd = (a, b) => (b ? gcd(b, a % b) : Math.abs(a));
   const lcm = (a, b) => (a / gcd(a, b)) * b;
@@ -82,6 +91,13 @@
   {#key op}
   <div class="steps" in:fly={{ y: 10, duration: ms(260), easing: ease }}>
     {#if op !== '×'}
+      {#if !started}
+        <button class="go" onclick={start}>▶ Эхлэх <span class="small">харуулж тайлбарлана</span></button>
+      {:else}
+        {#key playKey}<FractionPlay {A} {B} {op} />{/key}
+      {/if}
+      <details class="more">
+      <summary>Алхмуудыг бичгээр харах</summary>
       <section class="stp">
         <h3>1. Ерөнхий хуваарь олно</h3>
         {#if A.d === B.d}
@@ -130,6 +146,7 @@
           {:else}Цэнхэр {an} хэсгээс зураастай {bn}-ийг авч хаяхад {rn} үлдэнэ.{/if}
         </p>
       </section>
+      </details>
     {:else}
       <section class="stp">
         <h3>1. Эхний бутархай: тэгш өнцөгтийг {A.d} баганад хуваагаад {A.n}-ийг нь будна</h3>
@@ -178,6 +195,16 @@
 
 <style>
   .ops { display: grid; gap: 14px; }
+  .go {
+    display: grid; justify-items: center; gap: 2px; min-height: 64px; padding: 10px; border: 0; border-radius: 18px;
+    background: var(--sky); color: var(--on-sky); font: 800 1.2rem var(--font); box-shadow: var(--glow);
+  }
+  .go .small { font-weight: 600; opacity: 0.8; }
+  .more { display: grid; gap: 12px; }
+  .more summary { min-height: 44px; display: flex; align-items: center; color: var(--sky); font-weight: 700; cursor: pointer; list-style: none; }
+  .more summary::-webkit-details-marker { display: none; }
+  .more summary::after { content: ' ›'; margin-left: 6px; }
+  .more[open] { gap: 12px; }
   .opsel { display: flex; gap: 8px; flex-wrap: wrap; }
   .opsel .chip { color: var(--ink); background: transparent; }
   .opsel .chip.on { background: var(--sky); border-color: var(--sky); color: var(--on-sky); }
