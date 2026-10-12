@@ -26,6 +26,9 @@ Research also shows the gap is fixable: a student who is behind is usually missi
 - **A journey map of school math.** 8 areas ("spheres"), from number basics to calculus, 39 topics in total, ordered by what depends on what rather than by school grade.
 - **Find your gap.** An optional, short start check ("Дутагдлаа олъё") tests the basics first and marks which spheres the student already knows. It is never forced, and a student can stop at any point.
 - **A dictionary inside the map.** Every term, concept and sign (=, −, ÷, %, √ …) has its own page: a one-sentence definition, a visual, prerequisites, what it unlocks, worked and real-life examples, common mistakes, and a mini test.
+- **Learning by doing.** Worked examples for column addition and subtraction run one step per tap, then the student solves a new problem themselves on a digit keypad, with a hint for the exact column they got wrong.
+- **Feedback that teaches.** A wrong answer first gets a hint and another try, then the worked step and a link to the topic underneath. Every question has an "I don't know" button, so nobody has to guess. Wrong answers are shown calmly, never in red.
+- **Kind progress.** After the start check, known areas light up on the map and the next step is named. Results say what the student has, not what they lack. Coming back after a few days brings a welcome and a 3-question warm-up instead of a broken streak.
 - **Math-aware search.** Typing `3x+7^2` shows it the way a textbook prints it and finds the related topics.
 - **Tool bag.** A number line, balance scale, fraction bar and coordinate plane are always one tap away.
 - **Feedback on every page.** Students can report a mistake or say a part is unclear.

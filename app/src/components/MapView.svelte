@@ -9,7 +9,7 @@
   import { spheres, topics, sphereById, topicEntries } from '../lib/content.js';
   import { sphereLayout, topicLayout, world } from '../lib/layout.js';
   import { sphereState, nextTopic, GOALS, levelChecked, checkLeft, entryState } from '../lib/logic.js';
-  import { progress, save } from '../lib/progress.svelte.js';
+  import { progress, save, daysThisWeek } from '../lib/progress.svelte.js';
   import { ui } from '../lib/ui.svelte.js';
   import { go } from '../lib/router.svelte.js';
   import { search } from '../lib/search.js';
@@ -132,6 +132,8 @@
     addEventListener('resize', resize);
     // Wait until the map has its real size before scrolling it.
     tick().then(restore);
+    // After the level check, known spheres light up one by one, once.
+    if (ui.reveal) setTimeout(() => (ui.reveal = false), 4500);
     return () => {
       removeEventListener('resize', resize);
       if (!opening) ui.scrollY = scroller.scrollTop;
@@ -175,6 +177,7 @@
   // No "next step" until we know the student's level. Before that, a small "Дутагдлаа олъё" button
   // opens the explanation and the check. After it, a card names the next topic with "Сурах цаг!".
   let known = $derived(levelChecked());
+  const week = daysThisWeek();
   let left = $derived(checkLeft().length);
   let goalName = $derived(GOALS.find((g) => g.id === progress.goal)?.name);
   function learn() {
@@ -222,6 +225,8 @@
             <g class="dy" style:animation-duration="{drift[i].dy}s" style:animation-delay="{drift[i].delay * 1.3}s">
               <g
                 class="sphere {st}"
+                class:reveal={ui.reveal && (st === 'known' || st === 'faded')}
+                style:--d="{0.3 + i * 0.28}s"
                 style:--c={L.color}
                 role="button"
                 tabindex="0"
@@ -249,6 +254,7 @@
   <header class="hud-top">
     <div class="toprow">
       <div class="brand">Математикийн аялал</div>
+      {#if week >= 2}<span class="week">Энэ долоо хоногт {week} өдөр</span>{/if}
       {#if progress.goalPicked}
         <button class="goalchip" onclick={() => (ui.level = true)} transition:fly={{ y: -8, duration: ms(220), easing: ease }}>
           <span class="muted">Зорилго:</span> {goalName}
@@ -261,6 +267,16 @@
       <input type="search" bind:value={q} placeholder={HINTS[hint]} autocomplete="off" enterkeyhint="search"
         onfocus={() => (focused = true)} onblur={() => setTimeout(() => (focused = false), 150)} />
     </label>
+    {#if ui.welcome && !focused && !q.trim()}
+      <div class="welcome" transition:fly={{ y: -8, duration: ms(260), easing: ease }}>
+        <div>
+          <strong>Тавтай морил.</strong>
+          <span class="small muted">Газрын зураг чинь хэвээрээ.</span>
+        </div>
+        <a class="btn primary" href="#/warmup" onclick={() => (ui.welcome = false)}>3 асуултаар сэргээх</a>
+        <button class="sheet-close" aria-label="Хаах" onclick={() => (ui.welcome = false)}>×</button>
+      </div>
+    {/if}
     {#if focused && !q.trim()}
       <div class="results starters" transition:fly={{ y: -8, duration: ms(200), easing: ease }}>
         {#if progress.recent?.length}
@@ -338,6 +354,10 @@
   .sphere.known .rim { stroke-opacity: 0.9; }
   .sphere.faded .rim { stroke: var(--dusk); }
   .sphere.later .body { opacity: 0.6; }
+  .sphere.reveal .rim { animation: lightup 1.1s var(--d) cubic-bezier(0.32, 0.72, 0, 1) both; }
+  .sphere.reveal .body { animation: fillup 1.1s var(--d) ease-out both; }
+  @keyframes lightup { from { stroke-opacity: 0.1; stroke-width: 0; } 60% { stroke-opacity: 1; filter: drop-shadow(0 0 14px var(--c)); } }
+  @keyframes fillup { from { opacity: 0.2; } }
   .halo { fill: var(--sun); fill-opacity: 0.1; }
   .pulse { fill: none; stroke: var(--sun); animation: pulse 2.6s ease-in-out infinite; }
   @keyframes pulse { 50% { stroke-opacity: 0.2; } }
@@ -351,6 +371,14 @@
   .toprow { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 30px; margin-bottom: 8px; pointer-events: none; }
   .toprow > button { pointer-events: auto; }
   .brand { font-size: 1.1rem; font-weight: 800; letter-spacing: -0.01em; color: var(--sky); text-shadow: 0 0 12px rgba(34, 211, 238, 0.45); }
+  .week { font-size: 0.8rem; font-weight: 700; color: var(--grass); margin-left: auto; }
+  .welcome {
+    position: relative; margin-top: 10px; padding: 14px 52px 14px 16px; display: grid; gap: 10px; justify-items: start;
+    border-radius: 18px; background: rgba(10, 14, 24, 0.94); border: 1px solid color-mix(in srgb, var(--grass) 45%, var(--line));
+    backdrop-filter: blur(12px);
+  }
+  .welcome > div { display: grid; }
+  .welcome a { text-decoration: none; }
   .goalchip {
     min-height: 30px; padding: 0 12px; border-radius: 999px; font-size: 0.8rem; font-weight: 700; white-space: nowrap;
     background: rgba(10, 14, 24, 0.8); border: 1px solid rgba(255, 204, 102, 0.45); color: var(--sun); backdrop-filter: blur(8px);
@@ -378,7 +406,7 @@
 
   .hud-bottom {
     position: fixed; left: 0; right: 0; bottom: 0; z-index: 5; display: grid; gap: 10px;
-    padding: 0 84px calc(16px + env(safe-area-inset-bottom)) 16px; max-width: 640px; margin: 0 auto; pointer-events: none;
+    padding: 0 84px calc(16px + env(safe-area-inset-bottom)) 16px; max-width: 560px; margin: 0 auto; pointer-events: none;
   }
   .hud-bottom > * { pointer-events: auto; grid-area: 1 / 1; }
   .find {

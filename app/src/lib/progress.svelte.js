@@ -38,3 +38,27 @@ export function resetProgress() {
   progress.levelChecked = false;
   save();
 }
+
+// Days the app was opened (local dates, last 60 kept). Used for a kind weekly count, never a breakable streak.
+const today = () => new Date().toLocaleDateString('sv'); // YYYY-MM-DD
+
+// Records today's visit; returns how many days have passed since the previous visit (0 if none or same day).
+export function recordVisit() {
+  const days = progress.days ?? [];
+  const t = today();
+  const prev = days.filter((d) => d !== t).at(-1);
+  if (days.at(-1) !== t) {
+    progress.days = [...days, t].slice(-60);
+    save();
+  }
+  return prev ? Math.round((new Date(t) - new Date(prev)) / 864e5) : 0;
+}
+
+// Days opened this week (Monday to today).
+export function daysThisWeek() {
+  const now = new Date();
+  const monday = new Date(now);
+  monday.setDate(now.getDate() - ((now.getDay() + 6) % 7));
+  const from = monday.toLocaleDateString('sv');
+  return (progress.days ?? []).filter((d) => d >= from).length;
+}

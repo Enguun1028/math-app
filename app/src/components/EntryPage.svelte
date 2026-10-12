@@ -11,6 +11,7 @@
   import Visual from './Visual.svelte';
   import Quiz from './Quiz.svelte';
   import ColumnCalc from './ColumnCalc.svelte';
+  import ColumnPractice from './ColumnPractice.svelte';
   import Feedback from './Feedback.svelte';
 
   const SHOW_MISTAKES = false;
@@ -61,6 +62,11 @@
   let idea = $derived(e ? splitIdea(e.definition) : ['', '']);
   let worked = $derived(e ? steps(e.example.worked) : null);
   let missing = $derived(e ? e.prereq.filter((p) => entryState(p) !== 'known') : []);
+  // A question that shows a gap points to the first base topic not yet known.
+  const help = () => {
+    const p = e.prereq.find((p) => entryState(p) !== 'known') ?? e.prereq[0];
+    return p && entries[p] ? { label: 'Суурь сэдэв: ' + entries[p].title, href: '#/e/' + p } : null;
+  };
   let need = $derived(e ? Math.ceil(ENTRY_PASS * e.test.length) : 0);
 </script>
 
@@ -108,6 +114,13 @@
         {/if}
       </li>
 
+      {#if e.example.column?.practice}
+        <li class="step">
+          <h2>Одоо чи бод</h2>
+          <div class="worked"><ColumnPractice {...e.example.column.practice} op={e.example.column.op} /></div>
+        </li>
+      {/if}
+
       <li class="step">
         <h2>Амьдрал дээр</h2>
         <p class="life"><RichText text={e.example.life} /></p>
@@ -142,12 +155,18 @@
         <div class="quizcard">
           {#if result === null}
             {#key quizKey}
-              <Quiz questions={e.test} onmistake={SHOW_MISTAKES ? (q) => showMistake(q.mistake) : null} ondone={done} />
+              <Quiz questions={e.test} {help} ondone={done} />
             {/key}
           {:else}
             <p class="result">
               {#if result >= ENTRY_PASS}
                 <strong>Мэднэ боллоо.</strong> {Math.round(result * e.test.length)} / {e.test.length} зөв. Сайн ажилласан.
+                {#if unlocks[e.id].length}
+                  <span class="opened">
+                    <span class="small muted">Үүгээр нээгдлээ:</span>
+                    {#each unlocks[e.id] as u, k}<a class="chip pop" style:animation-delay="{0.15 + k * 0.12}s" href="#/e/{u}">{entries[u].title}</a>{/each}
+                  </span>
+                {/if}
               {:else}
                 {Math.round(result * e.test.length)} / {e.test.length} зөв. Дээрх жишээг дахин харчихаад дахиад оролдоорой.
               {/if}
@@ -261,7 +280,11 @@
   .play { width: 56px; height: 56px; border-radius: 16px; background: var(--sky-soft); color: var(--sky); border: 1px solid var(--sky); display: grid; place-items: center; flex: none; }
 
   .sub { font-size: 0.9rem; margin-top: -6px; }
-  .result { margin-bottom: 12px; }
+  .result { margin-bottom: 12px; display: grid; gap: 6px; }
+  .opened { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 6px; }
+  .opened a { text-decoration: none; color: var(--ink); border-color: color-mix(in srgb, var(--grass) 50%, var(--line)); }
+  .pop { animation: pop 0.45s cubic-bezier(0.32, 0.72, 0, 1) both; }
+  @keyframes pop { from { opacity: 0; transform: translateY(8px) scale(0.92); } }
   .row { display: flex; gap: 8px; flex-wrap: wrap; }
 
   /* Where this topic sits on the journey: before -> here -> after. */

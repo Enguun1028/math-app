@@ -8,6 +8,11 @@
   import EntryPage from './components/EntryPage.svelte';
   import TestPage from './components/TestPage.svelte';
   import StartCheck from './components/StartCheck.svelte';
+  import WarmUp from './components/WarmUp.svelte';
+  import { progress, recordVisit } from './lib/progress.svelte.js';
+
+  // Back after a few days with something learned: say hello and offer a short warm-up (no streak guilt).
+  if (recordVisit() >= 3 && Object.keys(progress.known).length) ui.welcome = true;
   import TermSheet from './components/TermSheet.svelte';
   import TopicSheet from './components/TopicSheet.svelte';
   import ToolBag from './components/ToolBag.svelte';
@@ -42,6 +47,8 @@
             <TestPage {id} />
           {:else if page === 'start'}
             <StartCheck />
+          {:else if page === 'warmup'}
+            <WarmUp />
           {/if}
         </div>
       {/key}

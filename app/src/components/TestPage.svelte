@@ -27,7 +27,7 @@
   </header>
   <section class="quizcard">
     {#if score === null}
-      <Quiz {questions} onmistake={(q) => go(`/e/${q.entry}?m=${q.mistake}`)} ondone={done} />
+      <Quiz {questions} help={(q) => ({ label: 'Хичээл: ' + entries[q.entry].title, href: '#/e/' + q.entry })} ondone={done} />
     {:else}
       <div class="stack">
         {#if score >= PASS}

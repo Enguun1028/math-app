@@ -2,7 +2,9 @@
   // "Дутагдлаа олъё": short sections, simplest first. The plan comes from the goal (see LevelSheet).
   // Stop any time: finished sections are kept, and the check picks up at the first unfinished one.
   import { fly } from 'svelte/transition';
-  import { checkLeft, checkSpheres, sphereQuestions, applySphereTest, PASS } from '../lib/logic.js';
+  import { checkLeft, checkSpheres, sphereQuestions, applySphereTest, PASS, topicKnown, nextTopic } from '../lib/logic.js';
+  import { topics } from '../lib/content.js';
+  import { ui } from '../lib/ui.svelte.js';
   import { go } from '../lib/router.svelte.js';
   import { ms, ease } from '../lib/motion.js';
   import Quiz from './Quiz.svelte';
@@ -21,6 +23,13 @@
 
   function done(_, results) {
     score = applySphereTest(s, questions, results);
+  }
+  // Results say what the student has, then one next step. No score totals or grade levels.
+  let knownCount = $derived(score === null ? 0 : Object.keys(topics).filter(topicKnown).length);
+  let nextName = $derived(score === null ? null : topics[nextTopic()]?.name);
+  function toMap() {
+    ui.reveal = true;
+    go('/');
   }
   function cont() {
     at += 1;
@@ -47,18 +56,19 @@
 
   <section class="quizcard">
     {#if score === null}
-      {#key at}<div in:fly={{ x: 24, duration: ms(280), easing: ease }}><Quiz {questions} bar={false} ondone={done} /></div>{/key}
+      {#key at}<div in:fly={{ x: 24, duration: ms(280), easing: ease }}><Quiz {questions} mode="check" bar={false} ondone={done} /></div>{/key}
     {:else}
       <div class="stack" in:fly={{ y: 12, duration: ms(280), easing: ease }}>
-        <h2>{Math.round(score * questions.length)} / {questions.length} зөв</h2>
+        <h2>{score >= PASS ? 'Энэ хэсгийг мэддэг байна.' : 'Эхлэх газраа оллоо.'}</h2>
         <p>
-          {#if score >= PASS}Энэ хэсгийг мэддэг байна. Газрын зурагт тэмдэглэлээ.{:else}Эндээс эхэлбэл хамгийн тохиромжтой. Газрын зураг дээр энэ хэсэг гэрэлтэнэ.{/if}
+          {#if knownCount}Чи одоо {knownCount} сэдвийг мэдэж байна.{/if}
+          {#if nextName}Дараагийн алхам: <strong>{nextName}</strong>.{/if}
         </p>
         <div class="row">
           {#if !last}
             <button class="btn" class:sun={score >= PASS} onclick={cont}>Дараагийн хэсэг →</button>
           {/if}
-          <button class="btn" class:primary={score < PASS || last} onclick={() => go('/')}>Газрын зургаа харах</button>
+          <button class="btn" class:primary={score < PASS || last} onclick={toMap}>Газрын зургаа харах</button>
         </div>
       </div>
     {/if}
