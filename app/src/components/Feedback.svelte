@@ -20,7 +20,7 @@
 
 <section class="fb">
   {#if status === 'sent'}
-    <p><strong>Баярлалаа!</strong> Бид шалгаад засна.</p>
+    <p><strong>Баярлалаа.</strong> Бид шалгаад засна.</p>
   {:else if kind}
     <form class="stack" onsubmit={send}>
       <label class="small muted" for="fb-msg">{kind === 'error' ? 'Ямар алдаа байна вэ?' : 'Аль хэсэг нь ойлгомжгүй байна вэ?'}</label>

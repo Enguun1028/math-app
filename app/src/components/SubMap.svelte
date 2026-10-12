@@ -1,6 +1,7 @@
 <script>
   // A sphere opened up: a small map of its topics, laid out by what depends on what.
   import { sphereById, topics, topicUnlocks, strands } from '../lib/content.js';
+  import SvgMath from './SvgMath.svelte';
   import { sphereLayout } from '../lib/layout.js';
   import { topicState, sphereState, readiness, sphereKnown } from '../lib/logic.js';
   import { ui } from '../lib/ui.svelte.js';
@@ -109,19 +110,6 @@
       {#if st === 'known' || st === 'faded'}<span class="badge known">Мэднэ</span>{:else if st === 'next'}<span class="badge next">Дараагийн алхам энд байна</span>{/if}
     </header>
 
-    {#if from.length}
-      <div class="edge-row">
-        <span class="small muted">Эндээс ирнэ:</span>
-        {#each from as f}<button class="chip {topicState(f)}" onclick={() => (ui.topic = f)}><span class="dot"></span>{topics[f].name}</button>{/each}
-      </div>
-      {#if readiness(s) < 1 && !sphereKnown(s)}
-        <p class="note small">
-          {#if readiness(s) > 0}Суурь сэдвүүдийн {Math.round(readiness(s) * 100)}% нь танд бий.{/if}
-          Эхлээд эдгээр суурийг үзвэл илүү амархан. Гэхдээ хүссэнээ үзэж болно.
-        </p>
-      {/if}
-    {/if}
-
      <svg bind:this={mini} viewBox="0 0 {W} {layout.rows * ROW}" class="mini" out:home|global role="group" aria-label="{s.title}: сэдвүүд">
       {#each edges as e}<path d={edge(e.a, e.b)} class="e" class:on={e.on} />{/each}
       {#each s.topics as t (t)}
@@ -139,27 +127,44 @@
         >
           {#if ts === 'next'}<circle cx={n.x} cy={n.y} r={R + 8} class="halo" />{/if}
           <circle cx={n.x} cy={n.y} r={R} class="c" />
-          <text x={n.x} y={n.y + 1} class="f" font-size={fs(topics[t].formula)}>{topics[t].formula}</text>
-          {#each twoLines(topics[t].name, 16) as line, j}
-            <text x={n.x} y={n.y + R + 20 + j * 16} class="n">{line}</text>
+          <SvgMath x={n.x} y={n.y + 1} size={fs(topics[t].formula)} text={topics[t].formula} cls="tf" color="#fff" />
+          {#each twoLines(topics[t].name, 12) as line, j}
+            <text x={n.x} y={n.y + R + 21 + j * 17} class="n">{line}</text>
           {/each}
           {#if ts === 'known' || ts === 'faded'}<text x={n.x + R * 0.75} y={n.y - R * 0.7} class="ok">✓</text>{/if}
         </g>
       {/each}
     </svg>
 
-    {#if onward.length}
-      <div class="edge-row">
-        <span class="small muted">Цааш нээгдэх:</span>
-        {#each onward as o}<button class="chip {topicState(o)}" onclick={() => (ui.topic = o)}><span class="dot"></span>{topics[o].name}</button>{/each}
-      </div>
+    {#if from.length || onward.length}
+      <section class="journey">
+        <h2>Аялал дээр</h2>
+        {#if from.length}
+          <p class="label">Өмнө нь</p>
+          <div class="chips">
+            {#each from as f}<button class="chip {topicState(f)}" onclick={() => (ui.topic = f)}><span class="dot"></span>{topics[f].name}</button>{/each}
+          </div>
+          {#if readiness(s) < 1 && !sphereKnown(s)}
+            <p class="note small">
+              {#if readiness(s) > 0}Суурь сэдвүүдийн {Math.round(readiness(s) * 100)}% нь танд бий.{/if}
+              Эхлээд эдгээр суурийг үзвэл илүү амархан. Гэхдээ хүссэнээ үзэж болно.
+            </p>
+          {/if}
+        {/if}
+        {#if onward.length}
+          <p class="label">Дараа нь нээгдэнэ</p>
+          <div class="chips">
+            {#each onward as o}<button class="chip {topicState(o)}" onclick={() => (ui.topic = o)}><span class="dot"></span>{topics[o].name}</button>{/each}
+          </div>
+        {/if}
+      </section>
     {/if}
 
     <div class="actions">
       {#if s.entries.length}
         <a class="btn primary" href="#/test/{s.id}">Бүх бөмбөлгийн шалгалт</a>
       {/if}
-      <button class="btn" onclick={() => { ui.fly = { sphere: s.id }; location.hash = '/'; }}>Газрын зураг дээр харах</button>
+      <button class="link" onclick={() => { ui.fly = { sphere: s.id }; location.hash = '/'; }}>Газрын зураг дээр харах</button>
     </div>
   </div>
 {/if}
@@ -170,10 +175,13 @@
   .page.morphing > :not(.mini) { opacity: 0; transform: translateY(8px); }
   .page.morphing .e, .page.morphing .n, .page.morphing .ok, .page.morphing .halo { opacity: 0; }
   .head { padding: 12px 0 16px; display: grid; gap: 6px; justify-items: start; }
-  h1 { font-size: 1.8rem; font-weight: 800; letter-spacing: -0.01em; color: var(--c); text-shadow: 0 0 18px color-mix(in srgb, var(--c) 50%, transparent); }
-  .edge-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 6px 0; }
-  .edge-row .chip { background: transparent; color: var(--ink); }
-  .note { padding: 10px 12px; border-radius: 12px; background: var(--sun-soft); margin: 6px 0; }
+  h1 { color: var(--c); text-shadow: 0 0 18px color-mix(in srgb, var(--c) 50%, transparent); }
+  .journey { display: grid; gap: 4px; margin-top: 24px; }
+  .journey h2 { margin-bottom: 8px; }
+  .journey .label { margin: 8px 0 4px; }
+  .journey .chip { background: transparent; color: var(--ink); }
+  .link { min-height: 44px; border: 0; background: none; padding: 0 8px; color: var(--sky); font-weight: 700; }
+  .note { padding: 10px 12px; border-radius: 12px; background: var(--sun-soft); color: var(--sun); margin: 6px 0; }
   .mini { width: 100%; height: auto; margin: 8px 0; overflow: visible; }
   .e { fill: none; stroke: var(--line); stroke-width: 2; }
   .e.on { stroke: var(--sky); stroke-opacity: 0.8; filter: drop-shadow(0 0 4px var(--sky)); }
@@ -185,10 +193,10 @@
   .node.later { opacity: 0.55; }
   .halo { fill: none; stroke: var(--sun); stroke-width: 3; animation: pulse 2.2s ease-in-out infinite; }
   @keyframes pulse { 50% { stroke-opacity: 0.25; } }
-  .f { fill: #fff; text-anchor: middle; dominant-baseline: middle; font-family: var(--math); filter: drop-shadow(0 0 5px var(--tc)); pointer-events: none; }
-  .n { fill: var(--ink); font-size: 13px; font-weight: 600; text-anchor: middle; pointer-events: none; }
+  :global(.tf) { fill: #fff; text-anchor: middle; dominant-baseline: middle; font-family: var(--math); filter: drop-shadow(0 0 5px var(--tc)); pointer-events: none; }
+  .n { fill: var(--ink); font-size: 14px; font-weight: 600; text-anchor: middle; pointer-events: none; }
   .ok { fill: var(--grass); font-size: 16px; font-weight: 800; pointer-events: none; }
-  .actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+  .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 28px; }
   .actions a { text-decoration: none; }
   @media (prefers-reduced-motion: reduce) { .halo { animation: none; } }
 </style>

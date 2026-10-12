@@ -45,9 +45,9 @@
     <p class="muted">Мэдэхгүй бол таамаглах хэрэггүй. Хүссэн үедээ зогсоож болно, дууссан хэсэг хадгалагдана.</p>
   </header>
 
-  <section class="card">
+  <section class="quizcard">
     {#if score === null}
-      {#key at}<div in:fly={{ x: 24, duration: ms(280), easing: ease }}><Quiz {questions} ondone={done} /></div>{/key}
+      {#key at}<div in:fly={{ x: 24, duration: ms(280), easing: ease }}><Quiz {questions} bar={false} ondone={done} /></div>{/key}
     {:else}
       <div class="stack" in:fly={{ y: 12, duration: ms(280), easing: ease }}>
         <h2>{Math.round(score * questions.length)} / {questions.length} зөв</h2>
@@ -68,9 +68,7 @@
 <style>
   .head { padding: 16px 0; display: grid; gap: 8px; }
   .top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-  .stop { min-height: 32px; }
   .bar { height: 4px; border-radius: 4px; background: var(--line); overflow: hidden; }
   .bar span { display: block; height: 100%; background: var(--sun); transform-origin: left; transition: transform 0.4s ease-out; }
-  h1 { font-size: 1.6rem; font-weight: 800; }
   .row { display: flex; gap: 8px; flex-wrap: wrap; }
 </style>

@@ -1,4 +1,5 @@
 <script>
+  import RichText from './RichText.svelte';
   // Topic card: its formula, what it needs, what it opens, and the dictionary entries inside it.
   import { topics, topicUnlocks, topicEntries, entries, sphereById, strands } from '../lib/content.js';
   import { topicState, entryState, markTopic } from '../lib/logic.js';
@@ -29,7 +30,7 @@
     {#key t.id}
     <div class="body" in:fade={{ duration: ms(220) }}>
     <div class="head">
-      <span class="f">{t.formula}</span>
+      <span class="f"><RichText text={t.formula} /></span>
       <div>
         <p class="small muted">{sphereById[t.sphere].title} · {strands[t.strand].name}</p>
         <h2>{t.name}</h2>
@@ -37,6 +38,18 @@
       </div>
     </div>
     <p>{t.text}</p>
+    <div class="row">
+      {#if es.length}
+        <button class="btn sun" onclick={() => open('/e/' + firstOpen)}>Сурах цаг!</button>
+      {:else}
+        <button class="btn" class:primary={st !== 'known'} onclick={() => markTopic(t.id, st !== 'known' && st !== 'faded')}>
+          {st === 'known' || st === 'faded' ? 'Тэмдэглэгээг болиулах' : 'Би үүнийг мэднэ'}
+        </button>
+      {/if}
+      {#if route.parts[0] !== 's'}
+        <button class="link" onclick={() => open('/s/' + t.sphere)}>Бөмбөлгийн зураг →</button>
+      {/if}
+    </div>
     {#if t.with}
       <p class="with small">
         <strong>Хамт үзнэ:</strong>
@@ -73,38 +86,17 @@
       <p class="small muted">Энэ сэдвийн бүрэн тайлбар, тест удахгүй нэмэгдэнэ.</p>
     {/if}
 
-    <div class="row">
-      {#if es.length}
-        <button class="btn sun" onclick={() => open('/e/' + firstOpen)}>Сурах цаг!</button>
-      {:else}
-        <button class="btn" class:primary={st !== 'known'} onclick={() => markTopic(t.id, st !== 'known' && st !== 'faded')}>
-          {st === 'known' || st === 'faded' ? 'Тэмдэглэгээг болиулах' : 'Би үүнийг мэднэ'}
-        </button>
-      {/if}
-      {#if route.parts[0] !== 's'}
-        <button class="btn" onclick={() => open('/s/' + t.sphere)}>Бөмбөлгийн зураг</button>
-      {/if}
-    </div>
     </div>
     {/key}
   </div>
 {/if}
 
 <style>
-  .scrim { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.45); z-index: 40; }
-  .sheet {
-    position: fixed; left: 0; right: 0; bottom: 0; z-index: 41; max-height: 82vh; overflow-y: auto;
-    max-width: 560px; margin: 0 auto; padding: 12px 20px calc(20px + env(safe-area-inset-bottom));
-    background: var(--surface-solid); border: 1px solid var(--line); border-bottom: 0; border-radius: 22px 22px 0 0;
-    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.6), 0 -1px 0 color-mix(in srgb, var(--c) 50%, transparent);
-    display: grid; gap: 12px; transition: border-color 0.3s, box-shadow 0.3s;
-  }
+  .sheet { box-shadow: 0 -12px 40px rgba(0, 0, 0, 0.6), 0 -1px 0 color-mix(in srgb, var(--c) 50%, transparent); }
   .body { display: grid; gap: 12px; }
-  .grab { width: 40px; height: 4px; border-radius: 4px; background: var(--line); margin: 0 auto; }
   .head { display: flex; gap: 14px; align-items: center; }
   .head > div { display: grid; gap: 4px; justify-items: start; }
-  h2 { font-size: 1.25rem; }
-  h3 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 6px; }
+  h3 { font-size: 0.95rem; font-weight: 700; color: var(--muted); margin-bottom: 8px; }
   .f {
     min-width: 72px; height: 72px; padding: 0 10px; flex: none; display: grid; place-items: center; border-radius: 50%;
     font-family: var(--math); font-size: 1.1rem; color: #fff; white-space: nowrap;
@@ -119,5 +111,8 @@
   .entry:hover { border-color: var(--sky); }
   .sym { min-width: 30px; height: 30px; display: grid; place-items: center; border-radius: 8px; background: var(--sky-soft); color: var(--sky); font-family: var(--math); }
   .ok { margin-left: auto; color: var(--grass); }
-  .row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .row .btn { min-height: 48px; padding: 0 22px; }
+  .link { min-height: 44px; border: 0; background: none; padding: 0 8px; color: var(--sky); font-weight: 700; }
+  .grp { padding-top: 4px; }
 </style>

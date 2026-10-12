@@ -25,13 +25,13 @@
     <p class="small muted">Бүх бөмбөлгийн шалгалт</p>
     <h1>{s.title}</h1>
   </header>
-  <section class="card">
+  <section class="quizcard">
     {#if score === null}
       <Quiz {questions} onmistake={(q) => go(`/e/${q.entry}?m=${q.mistake}`)} ondone={done} />
     {:else}
       <div class="stack">
         {#if score >= PASS}
-          <h2>Мэднэ боллоо!</h2>
+          <h2>Мэднэ боллоо.</h2>
           <p>{Math.round(score * questions.length)} / {questions.length} зөв. Энэ бөмбөлгийг давлаа.</p>
         {:else}
           <h2>{Math.round(score * questions.length)} / {questions.length} зөв</h2>
@@ -53,7 +53,6 @@
 
 <style>
   .head { padding: 16px 0; display: grid; gap: 4px; }
-  h1 { font-size: 1.6rem; font-weight: 800; }
   .chips a { text-decoration: none; }
   .row { display: flex; gap: 8px; flex-wrap: wrap; }
 </style>

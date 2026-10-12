@@ -211,7 +211,7 @@
   .hero { display: grid; gap: 10px; justify-items: start; }
   .crumb { color: var(--muted); font-size: 0.85rem; font-weight: 600; text-decoration: none; }
   .crumb::after { content: ' ›'; }
-  h1 { font-size: 2.1rem; font-weight: 800; line-height: 1.1; letter-spacing: -0.025em; display: flex; align-items: center; gap: 12px; text-wrap: balance; }
+  h1 { display: flex; align-items: center; gap: 12px; text-wrap: balance; }
   .sym {
     display: inline-grid; place-items: center; flex: none; min-width: 52px; height: 52px; padding: 0 8px;
     border-radius: 16px; background: var(--sky); color: var(--on-sky); box-shadow: var(--glow); font-family: var(--math); font-size: 1.7rem;
@@ -239,7 +239,6 @@
   }
   .step.warn::before { border-color: var(--warn); color: var(--warn); box-shadow: 0 0 14px rgba(255, 122, 138, 0.35); content: '!'; }
   .step.check::before { border-color: var(--grass); color: var(--grass); box-shadow: 0 0 14px rgba(94, 234, 154, 0.35); content: '✓'; }
-  h2 { font-size: 1.25rem; font-weight: 800; letter-spacing: -0.015em; }
 
   .worked { display: grid; gap: 12px; padding: 18px; border-radius: 20px; background: var(--surface); border: 1px solid var(--line); }
   .problem { font-family: var(--math); font-size: 1.7rem; line-height: 1.2; color: var(--sky-deep); }
@@ -262,10 +261,6 @@
   .play { width: 56px; height: 56px; border-radius: 16px; background: var(--sky-soft); color: var(--sky); border: 1px solid var(--sky); display: grid; place-items: center; flex: none; }
 
   .sub { font-size: 0.9rem; margin-top: -6px; }
-  .quizcard {
-    padding: 18px; border-radius: 24px; background: var(--surface-solid);
-    border: 1px solid color-mix(in srgb, var(--grass) 35%, var(--line)); box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
-  }
   .result { margin-bottom: 12px; }
   .row { display: flex; gap: 8px; flex-wrap: wrap; }
 

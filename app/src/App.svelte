@@ -62,5 +62,5 @@
     background: color-mix(in srgb, var(--bg) 80%, transparent);
     backdrop-filter: blur(10px);
   }
-  .home { font-weight: 800; font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--sky); text-decoration: none; padding: 0 8px; }
+  .home { display: inline-flex; align-items: center; min-height: 44px; font-weight: 700; font-size: 0.95rem; color: var(--sky); text-decoration: none; padding: 0 10px; }
 </style>

@@ -32,14 +32,6 @@
 {/if}
 
 <style>
-  .scrim { position: fixed; inset: 0; background: rgba(21, 32, 51, 0.3); z-index: 40; }
-  .sheet {
-    position: fixed; left: 0; right: 0; bottom: 0; z-index: 41;
-    max-width: 560px; margin: 0 auto; padding: 12px 20px calc(20px + env(safe-area-inset-bottom));
-    background: var(--surface-solid); border-radius: 22px 22px 0 0; box-shadow: 0 -8px 32px rgba(21, 32, 51, 0.18);
-    display: grid; gap: 10px;
-  }
-  .grab { width: 40px; height: 4px; border-radius: 4px; background: var(--line); margin: 0 auto 4px; }
   .t { font-size: 1.3rem; font-weight: 800; }
   .sym { display: inline-grid; place-items: center; min-width: 36px; height: 36px; margin-right: 10px; border-radius: 10px; background: var(--sky-soft); color: var(--sky-deep); }
   .row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }

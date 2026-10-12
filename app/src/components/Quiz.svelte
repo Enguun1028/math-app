@@ -3,7 +3,7 @@
   import RichText from './RichText.svelte';
 
   // questions: [{ q, choices, answer, why, mistake?, entry? }]
-  let { questions, onmistake, ondone } = $props();
+  let { questions, onmistake, ondone, bar = true } = $props();
 
   let i = $state(0);
   let picked = $state(null);
@@ -12,7 +12,7 @@
   let score = $derived(results.filter(Boolean).length);
   let cur = $derived(questions[i]);
 
-  const praise = ['Зөв! Сайн бодлоо.', 'Зөв. Аргаа зөв сонгосон байна.', 'Яг зөв!', 'Зөв. Алхам бүрээ сайн шалгажээ.'];
+  const praise = ['Зөв. Сайн бодлоо.', 'Зөв. Аргаа зөв сонгосон байна.', 'Яг зөв.', 'Зөв. Алхам бүрээ сайн шалгажээ.'];
 
   function pick(k) {
     if (picked !== null) return;
@@ -32,7 +32,10 @@
 
 {#if !finished && cur}
     <div class="quiz">
-      <p class="small muted">{i + 1} / {questions.length}</p>
+      <div class="top">
+        <span class="small muted">{i + 1} / {questions.length}</span>
+        {#if bar}<span class="qbar" aria-hidden="true"><span style:transform="scaleX({results.length / questions.length})"></span></span>{/if}
+      </div>
       <p class="q"><RichText text={cur.q} /></p>
       <div class="choices">
         {#each cur.choices as c, k}
@@ -60,7 +63,10 @@
 
 <style>
   .quiz { display: grid; gap: 12px; }
-  .q { font-size: 1.15rem; font-weight: 700; }
+  .top { display: flex; align-items: center; gap: 12px; }
+  .qbar { flex: 1; height: 4px; border-radius: 4px; background: var(--line); overflow: hidden; }
+  .qbar span { display: block; height: 100%; background: var(--grass); transform-origin: left; transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1); }
+  .q { font-size: 1.25rem; font-weight: 700; line-height: 1.4; }
   .choices { display: grid; gap: 8px; }
   .choice {
     min-height: 48px; padding: 8px 16px; text-align: left; border-radius: 12px;

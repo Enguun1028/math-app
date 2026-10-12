@@ -31,10 +31,24 @@
     return el ? { x: el.offsetLeft, w: el.offsetWidth } : null;
   });
 
+  // On pages that scroll, the button steps aside while reading down (so it never covers answers)
+  // and comes back on any scroll up or near the bottom. The map scrolls inside itself, so it stays there.
+  let hidden = $state(false);
+  let lastY = 0;
+  function onScroll() {
+    const y = scrollY;
+    const nearEnd = innerHeight + y > document.documentElement.scrollHeight - 80;
+    if (Math.abs(y - lastY) < 6) return;
+    hidden = y > lastY && y > 80 && !nearEnd;
+    lastY = y;
+  }
+
 
 </script>
 
-<button class="fab" onclick={() => (ui.tools = !ui.tools)} aria-expanded={ui.tools} aria-label="Хэрэгслийн цүнх">
+<svelte:window onscroll={onScroll} />
+
+<button class="fab" class:away={hidden && !ui.tools} onclick={() => (ui.tools = !ui.tools)} aria-expanded={ui.tools} aria-label="Хэрэгслийн цүнх">
   <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="3" /><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 12h18" /></svg>
 </button>
 
@@ -78,23 +92,18 @@
   .fab {
     position: fixed; right: max(16px, calc(50vw - 264px)); bottom: calc(20px + env(safe-area-inset-bottom)); z-index: 30;
     width: 56px; height: 56px; border-radius: 18px; border: 0; background: var(--surface-solid); color: var(--sky); border: 1px solid rgba(34, 211, 238, 0.5);
-    display: grid; place-items: center; box-shadow: 0 8px 24px rgba(21, 32, 51, 0.3);
+    display: grid; place-items: center; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
   }
+  .fab { transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1), opacity 0.3s; }
+  .fab.away { transform: translateY(120%); opacity: 0; pointer-events: none; }
   .fab svg { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linejoin: round; }
   .fab:focus-visible { outline: 3px solid var(--sky); outline-offset: 3px; }
-  .scrim { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.5); z-index: 40; }
-  .sheet {
-    position: fixed; left: 0; right: 0; bottom: 0; z-index: 41; max-height: 85vh; overflow-y: auto;
-    max-width: 560px; margin: 0 auto; padding: 16px 16px calc(20px + env(safe-area-inset-bottom));
-    background: var(--surface-solid); border: 1px solid var(--line); border-bottom: 0; border-radius: 22px 22px 0 0; box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.6);
-    display: grid; gap: 12px;
-  }
   .top { display: flex; justify-content: space-between; align-items: center; }
   .tabs { position: relative; display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
   .tabs .chip { flex: none; position: relative; z-index: 1; transition: color 0.25s, border-color 0.25s; }
   .tabs .chip.on { background: transparent; border-color: transparent; }
   .pill {
-    position: absolute; left: 0; top: 0; height: 36px; border-radius: 999px; background: var(--sky);
+    position: absolute; left: 0; top: 0; height: 44px; border-radius: 999px; background: var(--sky);
     box-shadow: var(--glow); transition: transform 0.32s cubic-bezier(0.22, 0.8, 0.24, 1), width 0.32s cubic-bezier(0.22, 0.8, 0.24, 1);
   }
   .tool { display: grid; gap: 12px; }

@@ -1,4 +1,6 @@
 <script>
+  import RichText from './RichText.svelte';
+  import SvgMath from './SvgMath.svelte';
   // The explorable neon map. It scrolls like a feed, using the phone's own scrolling (momentum and
   // rubber band come from the system, exactly as in Instagram). No zoom: tapping a sphere opens it.
   // Spheres drift slightly, like a slow DVD-logo bounce.
@@ -233,12 +235,7 @@
                   <circle cx={L.x} cy={L.y} r={L.R + 10 / k} class="halo" />
                   <circle cx={L.x} cy={L.y} r={L.R + 14 / k} class="pulse" style:stroke-width={4 / k} />
                 {/if}
-                <!-- The sphere's topics as faint dots, so the opening animation has something to grow out of. -->
-                {#each s.topics as t}
-                  {@const T = topicLayout[t]}
-                  <circle cx={T.x} cy={T.y} r={T.r} class="tdot" style:stroke-width={1.2 / k} />
-                {/each}
-                <text x={L.x} y={L.y + L.R * 0.08} class="sformula" font-size={L.R * 0.34}>{s.formula}</text>
+                <SvgMath x={L.x} y={L.y + L.R * 0.08} size={L.R * 0.34} text={s.formula} cls="sformula" color={L.color} />
                 <text x={L.x} y={L.y + L.R * 0.5} class="scount" font-size={13 / k}>{s.topics.length} сэдэв</text>
               </g>
             </g>
@@ -278,14 +275,17 @@
         {#if looksLikeMath(q)}<p class="preview">{@html formatMath(q)}</p>{/if}
         {#each results as r (r.kind + r.id)}
           <button class="res" onclick={() => openSearchResult(r)}>
-            <span class="rf">{r.kind === 'topic' ? r.item.formula : r.item.symbol ?? '·'}</span>
+            <span class="rf"><RichText text={r.kind === 'topic' ? r.item.formula : r.item.symbol ?? '·'} /></span>
             <span class="rt">
               <strong>{r.kind === 'topic' ? r.item.name : r.item.title}</strong>
               <span class="small muted">{r.kind === 'topic' ? 'Газрын зураг · ' + sphereById[r.item.sphere].title : 'Толь бичиг · ' + r.item.type}</span>
             </span>
           </button>
         {:else}
-          <p class="small muted pad">Одоогоор олдсонгүй. Өөр үгээр асууж үзээрэй.</p>
+          <div class="starters">
+            <p class="small muted pad0">Одоогоор олдсонгүй. Эдгээрээс эхэлж үзээрэй:</p>
+            <div class="chips">{#each STARTERS as st}<button class="chip" onmousedown={(e) => e.preventDefault()} onclick={() => (q = st.q)}>{st.label}</button>{/each}</div>
+          </div>
         {/each}
       </div>
     {/if}
@@ -300,7 +300,7 @@
     {:else if next}
       <div class="nextcard" transition:fly={{ y: 40, duration: ms(320), easing: ease }}>
         <button class="nt" onclick={() => { scrollToWorldY(sphereLayout[topics[next].sphere].y); ui.topic = next; }}>
-          <span class="nf">{topics[next].formula}</span>
+          <span class="nf"><RichText text={topics[next].formula} /></span>
           <span class="nn"><span class="small">Дараагийн алхам</span><strong>{topics[next].name}</strong></span>
         </button>
         <button class="btn sun" onclick={learn}>Сурах цаг!</button>
@@ -312,6 +312,10 @@
 
 <style>
   .map { position: fixed; inset: 0; overflow: hidden; transition: opacity 0.45s ease-out; }
+  /* Soft fades behind the top and bottom controls, so map labels slide under them instead of clashing. */
+  .map::before, .map::after { content: ''; position: fixed; left: 0; right: 0; z-index: 4; pointer-events: none; }
+  .map::before { top: 0; height: 110px; background: linear-gradient(var(--bg) 35%, transparent); }
+  .map::after { bottom: 0; height: 130px; background: linear-gradient(transparent, var(--bg) 80%); }
   .map:global(.leaving) { opacity: 0; pointer-events: none; }
   .map:global(.returning) { opacity: 0; transition: none; }
   /* The phone's own scrolling: momentum and rubber band come from the system. */
@@ -334,20 +338,19 @@
   .sphere.known .rim { stroke-opacity: 0.9; }
   .sphere.faded .rim { stroke: var(--dusk); }
   .sphere.later .body { opacity: 0.6; }
-  .tdot { fill: none; stroke: var(--c); stroke-opacity: 0.22; }
   .halo { fill: var(--sun); fill-opacity: 0.1; }
   .pulse { fill: none; stroke: var(--sun); animation: pulse 2.6s ease-in-out infinite; }
   @keyframes pulse { 50% { stroke-opacity: 0.2; } }
   .stitle { fill: var(--ink); font-weight: 800; text-anchor: middle; letter-spacing: 0.01em; paint-order: stroke; stroke: var(--bg); pointer-events: none; }
   .stitle.next { fill: var(--sun); }
-  .sformula { fill: var(--c); text-anchor: middle; dominant-baseline: middle; font-family: var(--math); pointer-events: none; }
+  :global(.sformula) { fill: var(--c); text-anchor: middle; dominant-baseline: middle; font-family: var(--math); pointer-events: none; }
   .scount { fill: var(--muted); text-anchor: middle; font-weight: 600; pointer-events: none; }
 
   .hud-top { position: fixed; top: 0; left: 0; right: 0; padding: 14px 16px 0; max-width: 560px; margin: 0 auto; z-index: 5; pointer-events: none; }
   .hud-top > * { pointer-events: auto; }
   .toprow { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 30px; margin-bottom: 8px; pointer-events: none; }
   .toprow > button { pointer-events: auto; }
-  .brand { font-size: 0.8rem; font-weight: 800; letter-spacing: 0.3em; text-transform: uppercase; color: var(--sky); text-shadow: 0 0 12px rgba(34, 211, 238, 0.6); }
+  .brand { font-size: 1.1rem; font-weight: 800; letter-spacing: -0.01em; color: var(--sky); text-shadow: 0 0 12px rgba(34, 211, 238, 0.45); }
   .goalchip {
     min-height: 30px; padding: 0 12px; border-radius: 999px; font-size: 0.8rem; font-weight: 700; white-space: nowrap;
     background: rgba(10, 14, 24, 0.8); border: 1px solid rgba(255, 204, 102, 0.45); color: var(--sun); backdrop-filter: blur(8px);
