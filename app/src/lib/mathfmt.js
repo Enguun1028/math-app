@@ -22,6 +22,8 @@ export function formatMath(q) {
   s = s.replace(/sqrt\s*\(([^)]*)\)/gi, '√<span class="ovl">$1</span>');
   s = s.replace(/\^\s*\(([^)]*)\)/g, '<sup>$1</sup>');
   s = s.replace(/\^\s*(−?(?:<i>\w<\/i>|[\w.])+)/g, '<sup>$1</sup>');
+  // Fractions stacked, never with a slash (owner rule).
+  s = s.replace(/(\d+|<i>\w<\/i>)\/(\d+|<i>\w<\/i>)/g, '<span class="frac"><span class="n">$1</span><span class="d">$2</span></span>');
   return s.replace(/\s+/g, ' ').trim();
 }
 

@@ -29,6 +29,7 @@ Research also shows the gap is fixable: a student who is behind is usually missi
 - **Learning by doing.** Worked examples for column addition and subtraction run one step per tap, then the student solves a new problem themselves on a digit keypad, with a hint for the exact column they got wrong.
 - **Feedback that teaches.** A wrong answer first gets a hint and another try, then the worked step and a link to the topic underneath. Every question has an "I don't know" button, so nobody has to guess. Wrong answers are shown calmly, never in red.
 - **Kind progress.** After the start check, known areas light up on the map and the next step is named. Results say what the student has, not what they lack. Coming back after a few days brings a welcome and a 3-question warm-up instead of a broken streak.
+- **Search for all of math ("Бүхнийг хай").** The middle tab of an Instagram-style bottom bar. A typed formula is recognised by its shape, so `a²+b²=c²`, `x^2+y^2=z^2` and `c^2=a^2+b^2` all open the Pythagorean theorem: what it is, where it comes from, how to prove it, where it is used and what comes next. When a formula could mean two things, both are offered. The idea map behind it is growing toward all of school math (drafts, checked over time).
 - **Math-aware search.** Typing `3x+7^2` shows it the way a textbook prints it and finds the related topics.
 - **Tool bag.** A number line, balance scale, fraction bar and coordinate plane are always one tap away.
 - **Feedback on every page.** Students can report a mistake or say a part is unclear.

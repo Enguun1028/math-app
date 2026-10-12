@@ -15,10 +15,18 @@
   if (recordVisit() >= 3 && Object.keys(progress.known).length) ui.welcome = true;
   import TermSheet from './components/TermSheet.svelte';
   import TopicSheet from './components/TopicSheet.svelte';
-  import ToolBag from './components/ToolBag.svelte';
+  import TabBar from './components/TabBar.svelte';
+  import SearchPage from './components/SearchPage.svelte';
+  import IdeaPage from './components/IdeaPage.svelte';
+  import PracticePage from './components/PracticePage.svelte';
+  import ToolsPage from './components/ToolsPage.svelte';
+  import MePage from './components/MePage.svelte';
   import LevelSheet from './components/LevelSheet.svelte';
 
   let [page, id] = $derived(route.parts);
+  // Tab pages stand on their own; the other pages get a top bar with "‹ Буцах".
+  const TAB_PAGES = ['practice', 'search', 'tools', 'me'];
+  let tabPage = $derived(TAB_PAGES.includes(page));
   // A sphere opened from the map animates its own circles, so the page itself only fades.
   let pageIn = $derived({ y: ui.morph ? 0 : 14, duration: ms(ui.morph ? 200 : 280), easing: ease });
   // Opening or closing a sphere is one long motion, so those layers stay a little longer.
@@ -32,10 +40,11 @@
   </div>
 {:else}
   <div class="layer" in:fade={{ duration: ms(200) }} out:fade={pageOut}>
-    <header class="bar">
-      <button class="btn ghost" onclick={back} aria-label="Буцах">‹ Буцах</button>
-      <a class="home" href="#/">Газрын зураг</a>
-    </header>
+    {#if !tabPage}
+      <header class="bar">
+        <button class="btn ghost" onclick={back} aria-label="Буцах">‹ Буцах</button>
+      </header>
+    {/if}
     <main class="wrap">
       {#key route.parts.join('/')}
         <div in:fly={pageIn}>
@@ -49,6 +58,16 @@
             <StartCheck />
           {:else if page === 'warmup'}
             <WarmUp />
+          {:else if page === 'search'}
+            <SearchPage />
+          {:else if page === 'c'}
+            <IdeaPage {id} />
+          {:else if page === 'practice'}
+            <PracticePage />
+          {:else if page === 'tools'}
+            <ToolsPage />
+          {:else if page === 'me'}
+            <MePage />
           {/if}
         </div>
       {/key}
@@ -56,7 +75,7 @@
   </div>
 {/if}
 
-<ToolBag />
+<TabBar />
 <TopicSheet />
 <TermSheet />
 <LevelSheet />
@@ -69,5 +88,4 @@
     background: color-mix(in srgb, var(--bg) 80%, transparent);
     backdrop-filter: blur(10px);
   }
-  .home { display: inline-flex; align-items: center; min-height: 44px; font-weight: 700; font-size: 0.95rem; color: var(--sky); text-decoration: none; padding: 0 10px; }
 </style>

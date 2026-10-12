@@ -8,6 +8,9 @@ export const ui = $state({
   scrollY: null, // how far the map was scrolled
   fly: null, // { sphere } or { topic } the map should scroll to when it opens
   morph: null, // { sphere, rects } screen spots of a sphere's topics, for the opening animation
+  lastQuery: null, // what was in the search box, kept when coming back to search
+  typed: null, // a typed formula, shown on the answer page as "Таны бичсэн"
+  alts: [], // other ideas the same formula could mean
   welcome: false, // back after 3+ days: a warm welcome and a 3-question warm-up on the map
   reveal: false, // after the level check: known spheres light up one by one on the map
   back: null, // { sphere, rects } the sphere that is open, so going back can fly its topics home

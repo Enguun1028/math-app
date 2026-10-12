@@ -1,0 +1,104 @@
+// Ideas for search: every map topic, plus extra, smaller ideas from content/concepts.json.
+// Each idea knows where it comes from (from), what it leads to (next), its formulas, and, when written,
+// a definition, an example, a proof and uses. Formula search compares the *shape* of what was typed.
+import extra from '../../content/concepts.json';
+import { topics, topicUnlocks, topicEntries, sphereOf } from './content.js';
+
+export const ideas = {};
+for (const t of Object.values(topics)) {
+  const e = extra[t.id] ?? {};
+  ideas[t.id] = {
+    id: t.id, name: t.name, topic: t.id, sphere: t.sphere, formula: t.formula,
+    formulas: [t.formula, ...(e.formulas ?? [])], from: t.req, def: e.def ?? t.text, short: t.text,
+    aliases: e.aliases ?? [], example: e.example, proof: e.proof, uses: e.uses, lessons: topicEntries[t.id] ?? [],
+  };
+}
+for (const [id, e] of Object.entries(extra)) {
+  if (id.startsWith('_') || topics[id]) continue;
+  ideas[id] = {
+    id, name: e.name, topic: null, sphere: e.sphere, formula: e.formula, formulas: [e.formula, ...(e.formulas ?? [])],
+    from: e.from ?? [], def: e.def, short: e.def, aliases: e.aliases ?? [], example: e.example, proof: e.proof, uses: e.uses, lessons: [],
+  };
+}
+// What each idea leads to: map unlocks plus extra ideas that name it in "from".
+for (const i of Object.values(ideas)) i.next = [...(topicUnlocks[i.id] ?? [])];
+for (const i of Object.values(ideas)) for (const f of i.from) if (ideas[f] && !ideas[f].next.includes(i.id)) ideas[f].next.push(i.id);
+for (const i of Object.values(ideas)) if (!i.sphere && i.topic) i.sphere = sphereOf(i.topic)?.id;
+
+// "Хаанаас ирсэн": the chain of first prerequisites back to a starting idea.
+export function rootPath(id) {
+  const path = [];
+  const seen = new Set();
+  for (let cur = id; cur && ideas[cur] && !seen.has(cur); cur = ideas[cur].from[0]) {
+    seen.add(cur);
+    path.unshift(cur);
+  }
+  return path;
+}
+
+// ---- formula shapes ----
+// a²+b²=c², x^2 + y^2 = z^2 and c^2 = a^2 + b^2 all become the same shape: v^2+v^2=v^2.
+const FUNCS = ['sqrt', 'sin', 'cos', 'tan', 'log', 'lim', 'ln'];
+const SUP = { '²': '^2', '³': '^3', 'ⁿ': '^n', '¹': '^1', '⁰': '^0' };
+const SUB = /[₀-₉]/g;
+
+export function shape(raw) {
+  let s = String(raw).toLowerCase()
+    .replace(/[²³ⁿ¹⁰]/g, (c) => SUP[c]).replace(SUB, '')
+    .replace(/[−–]/g, '-').replace(/[×·]/g, '*').replace(/÷/g, '/').replace(/√/g, 'sqrt').replace(/π/g, 'pi')
+    .replace(/[°;,]/g, (c) => (c === ';' || c === ',' ? ';' : '')).replace(/\s+/g, '');
+  FUNCS.forEach((f, i) => (s = s.split(f).join(`#${i}#`)));
+  s = s.split('pi').join('#P#');
+  s = s.replace(/[a-zα-ω]/g, 'v').replace(/\*/g, '');
+  s = s.replace(/#(\d)#/g, (_, i) => FUNCS[i]).replace(/#P#/g, 'pi');
+  return s.split('=').map((side) => terms(side).sort().join('+')).sort().join('=');
+}
+
+// Top-level terms of one side (a minus stays with its term).
+function terms(side) {
+  const out = [];
+  let depth = 0, cur = '';
+  for (const ch of side) {
+    if (ch === '(') depth++;
+    if (ch === ')') depth--;
+    if ((ch === '+' || ch === '-') && depth === 0) {
+      if (cur) out.push(cur);
+      cur = ch === '-' ? '-' : '';
+      continue;
+    }
+    cur += ch;
+  }
+  if (cur) out.push(cur);
+  return out;
+}
+
+const shapes = Object.values(ideas).map((i) => ({ id: i.id, list: i.formulas.filter(Boolean).map(shape) }));
+
+// Ideas whose formula has the same shape as the typed one, best first.
+// Exact shape = 100. A typed side that equals one side of a formula = 80 (a²+b²+c² → 3D distance).
+// Otherwise, sharing most terms = up to 50, offered as "did you mean".
+export function formulaMatches(raw) {
+  if (!/[\^²³=√]|sqrt|[a-z]\s*[+*/-]|\d\s*[a-z]/i.test(raw)) return [];
+  const q = shape(raw);
+  if (q.length < 3) return [];
+  const qSides = q.split('=');
+  const qTerms = qSides.flatMap((x) => x.split('+'));
+  const found = [];
+  for (const { id, list } of shapes) {
+    let best = 0;
+    for (const f of list) {
+      if (f === q) best = Math.max(best, 100);
+      const fSides = f.split('=');
+      if (qSides.length === 1 && fSides.includes(q)) best = Math.max(best, 80);
+      if (qSides.length > 1 && qSides.every((x) => fSides.includes(x))) best = Math.max(best, 90);
+      const fTerms = fSides.flatMap((x) => x.split('+'));
+      const pool = [...fTerms];
+      let common = 0;
+      for (const t of qTerms) { const k = pool.indexOf(t); if (k >= 0) { common++; pool.splice(k, 1); } }
+      const j = common / Math.max(qTerms.length, fTerms.length);
+      if (j >= 0.6) best = Math.max(best, Math.round(50 * j));
+    }
+    if (best) found.push({ id, score: best });
+  }
+  return found.sort((a, b) => b.score - a.score).slice(0, 4);
+}

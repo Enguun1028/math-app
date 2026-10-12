@@ -8,12 +8,10 @@
   import { fly } from 'svelte/transition';
   import { spheres, topics, sphereById, topicEntries } from '../lib/content.js';
   import { sphereLayout, topicLayout, world } from '../lib/layout.js';
-  import { sphereState, nextTopic, GOALS, levelChecked, checkLeft, entryState } from '../lib/logic.js';
-  import { progress, save, daysThisWeek } from '../lib/progress.svelte.js';
+  import { sphereState, nextTopic, levelChecked, checkLeft, entryState } from '../lib/logic.js';
+  import { progress, save } from '../lib/progress.svelte.js';
   import { ui } from '../lib/ui.svelte.js';
   import { go } from '../lib/router.svelte.js';
-  import { search } from '../lib/search.js';
-  import { looksLikeMath, formatMath } from '../lib/mathfmt.js';
   import { ms, ease, reduced } from '../lib/motion.js';
 
   let W = $state(400);
@@ -21,39 +19,11 @@
   let mapEl, scroller, svg;
 
   let next = $derived(nextTopic());
-  let q = $state('');
-  let results = $derived(search(q));
-
-  // Search invites a first try: the placeholder cycles through real examples, and tapping the empty field
-  // shows starter questions and the student's recent searches.
-  const HINTS = ['Хүссэн зүйлээ асуу', 'Жишээ нь: бутархай', 'Жишээ нь: 3x + 7²', 'Жишээ нь: хувь гэж юу вэ?', 'Жишээ нь: −3 + 5'];
-  const STARTERS = [
-    { label: 'Бутархай гэж юу вэ?', q: 'бутархай' },
-    { label: '−3 + 5 = ?', q: '-3 + 5' },
-    { label: 'x² гэж юу вэ?', q: 'x^2' },
-    { label: 'Хувь (%)', q: 'процент' },
-    { label: '= тэмдэг', q: 'тэнцүү' },
-    { label: 'Аль үйлдлийг түрүүлж хийх вэ?', q: 'үйлдлийн дараалал' },
-  ];
-  let hint = $state(0);
-  let focused = $state(false);
-  $effect(() => {
-    if (focused || q || reduced) return;
-    const t = setInterval(() => (hint = (hint + 1) % HINTS.length), 3200);
-    return () => clearInterval(t);
-  });
-  function remember(text) {
-    text = text.trim();
-    if (!text) return;
-    progress.recent = [text, ...(progress.recent ?? []).filter((r) => r !== text)].slice(0, 5);
-    save();
-  }
-
   // ---- geometry ----
   // One fixed scale: the map fits the phone's width. On a wide screen (phone turned sideways, computer)
   // it stays a phone-width column in the middle instead of blowing up.
-  const TOP_PAD = 130; // room under the search bar
-  const BOTTOM_PAD = 200; // room above the bottom cards
+  const TOP_PAD = 84; // room under the top row
+  const BOTTOM_PAD = 230; // room above the next-step card and the tab bar
   const MAX_COL = 560;
   const worldW = world.maxX - world.minX;
   const worldH = world.maxY - world.minY;
@@ -177,25 +147,12 @@
   // No "next step" until we know the student's level. Before that, a small "Дутагдлаа олъё" button
   // opens the explanation and the check. After it, a card names the next topic with "Сурах цаг!".
   let known = $derived(levelChecked());
-  const week = daysThisWeek();
   let left = $derived(checkLeft().length);
-  let goalName = $derived(GOALS.find((g) => g.id === progress.goal)?.name);
   function learn() {
     const es = topicEntries[next];
     ui.scrollY = scroller.scrollTop;
     if (es.length) go('/e/' + (es.find((id) => entryState(id) !== 'known') ?? es[0]));
     else ui.topic = next;
-  }
-  function openSearchResult(r) {
-    remember(q);
-    q = '';
-    if (r.kind === 'topic') {
-      scrollToWorldY(sphereLayout[r.item.sphere].y, 0.3);
-      ui.topic = r.id;
-    } else {
-      ui.scrollY = scroller.scrollTop;
-      go('/e/' + r.id);
-    }
   }
 </script>
 
@@ -254,20 +211,11 @@
   <header class="hud-top">
     <div class="toprow">
       <div class="brand">Математикийн аялал</div>
-      {#if week >= 2}<span class="week">Энэ долоо хоногт {week} өдөр</span>{/if}
-      {#if progress.goalPicked}
-        <button class="goalchip" onclick={() => (ui.level = true)} transition:fly={{ y: -8, duration: ms(220), easing: ease }}>
-          <span class="muted">Зорилго:</span> {goalName}
-        </button>
-      {/if}
+      <button class="icon" aria-label="Дутагдлаа олъё" onclick={() => (ui.level = true)}>
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5M11 8v6M8 11h6" /></svg>
+      </button>
     </div>
-    <label class="search">
-      <span class="vh">Хайх</span>
-      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" /></svg>
-      <input type="search" bind:value={q} placeholder={HINTS[hint]} autocomplete="off" enterkeyhint="search"
-        onfocus={() => (focused = true)} onblur={() => setTimeout(() => (focused = false), 150)} />
-    </label>
-    {#if ui.welcome && !focused && !q.trim()}
+    {#if ui.welcome}
       <div class="welcome" transition:fly={{ y: -8, duration: ms(260), easing: ease }}>
         <div>
           <strong>Тавтай морил.</strong>
@@ -275,34 +223,6 @@
         </div>
         <a class="btn primary" href="#/warmup" onclick={() => (ui.welcome = false)}>3 асуултаар сэргээх</a>
         <button class="sheet-close" aria-label="Хаах" onclick={() => (ui.welcome = false)}>×</button>
-      </div>
-    {/if}
-    {#if focused && !q.trim()}
-      <div class="results starters" transition:fly={{ y: -8, duration: ms(200), easing: ease }}>
-        {#if progress.recent?.length}
-          <p class="small muted pad0">Сүүлд хайсан</p>
-          <div class="chips">{#each progress.recent as r}<button class="chip" onmousedown={(e) => e.preventDefault()} onclick={() => (q = r)}>{r}</button>{/each}</div>
-        {/if}
-        <p class="small muted pad0">Эндээс эхэлж үз</p>
-        <div class="chips">{#each STARTERS as st}<button class="chip" onmousedown={(e) => e.preventDefault()} onclick={() => (q = st.q)}>{st.label}</button>{/each}</div>
-      </div>
-    {:else if q.trim()}
-      <div class="results" transition:fly={{ y: -8, duration: ms(200), easing: ease }}>
-        {#if looksLikeMath(q)}<p class="preview">{@html formatMath(q)}</p>{/if}
-        {#each results as r (r.kind + r.id)}
-          <button class="res" onclick={() => openSearchResult(r)}>
-            <span class="rf"><RichText text={r.kind === 'topic' ? r.item.formula : r.item.symbol ?? '·'} /></span>
-            <span class="rt">
-              <strong>{r.kind === 'topic' ? r.item.name : r.item.title}</strong>
-              <span class="small muted">{r.kind === 'topic' ? 'Газрын зураг · ' + sphereById[r.item.sphere].title : 'Толь бичиг · ' + r.item.type}</span>
-            </span>
-          </button>
-        {:else}
-          <div class="starters">
-            <p class="small muted pad0">Одоогоор олдсонгүй. Эдгээрээс эхэлж үзээрэй:</p>
-            <div class="chips">{#each STARTERS as st}<button class="chip" onmousedown={(e) => e.preventDefault()} onclick={() => (q = st.q)}>{st.label}</button>{/each}</div>
-          </div>
-        {/each}
       </div>
     {/if}
   </header>
@@ -330,8 +250,8 @@
   .map { position: fixed; inset: 0; overflow: hidden; transition: opacity 0.45s ease-out; }
   /* Soft fades behind the top and bottom controls, so map labels slide under them instead of clashing. */
   .map::before, .map::after { content: ''; position: fixed; left: 0; right: 0; z-index: 4; pointer-events: none; }
-  .map::before { top: 0; height: 110px; background: linear-gradient(var(--bg) 35%, transparent); }
-  .map::after { bottom: 0; height: 130px; background: linear-gradient(transparent, var(--bg) 80%); }
+  .map::before { top: 0; height: 90px; background: linear-gradient(var(--bg) 35%, transparent); }
+  .map::after { bottom: 0; height: calc(var(--tabbar-h) + 150px); background: linear-gradient(transparent, var(--bg) 75%); }
   .map:global(.leaving) { opacity: 0; pointer-events: none; }
   .map:global(.returning) { opacity: 0; transition: none; }
   /* The phone's own scrolling: momentum and rubber band come from the system. */
@@ -370,8 +290,9 @@
   .hud-top > * { pointer-events: auto; }
   .toprow { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 30px; margin-bottom: 8px; pointer-events: none; }
   .toprow > button { pointer-events: auto; }
+  .icon { width: 44px; height: 44px; margin-right: -8px; border: 0; background: none; display: grid; place-items: center; color: #fff; }
+  .icon svg { width: 27px; height: 27px; fill: none; stroke: currentColor; stroke-width: 2.1; stroke-linecap: round; }
   .brand { font-size: 1.1rem; font-weight: 800; letter-spacing: -0.01em; color: var(--sky); text-shadow: 0 0 12px rgba(34, 211, 238, 0.45); }
-  .week { font-size: 0.8rem; font-weight: 700; color: var(--grass); margin-left: auto; }
   .welcome {
     position: relative; margin-top: 10px; padding: 14px 52px 14px 16px; display: grid; gap: 10px; justify-items: start;
     border-radius: 18px; background: rgba(10, 14, 24, 0.94); border: 1px solid color-mix(in srgb, var(--grass) 45%, var(--line));
@@ -379,34 +300,10 @@
   }
   .welcome > div { display: grid; }
   .welcome a { text-decoration: none; }
-  .goalchip {
-    min-height: 30px; padding: 0 12px; border-radius: 999px; font-size: 0.8rem; font-weight: 700; white-space: nowrap;
-    background: rgba(10, 14, 24, 0.8); border: 1px solid rgba(255, 204, 102, 0.45); color: var(--sun); backdrop-filter: blur(8px);
-  }
-  .search {
-    display: flex; align-items: center; gap: 10px; padding: 0 16px; min-height: 52px;
-    background: rgba(10, 14, 24, 0.82); backdrop-filter: blur(12px);
-    border: 1px solid rgba(34, 211, 238, 0.3); border-radius: 16px; box-shadow: 0 0 24px rgba(34, 211, 238, 0.12);
-    transition: border-color 0.25s, box-shadow 0.25s;
-  }
-  .search:focus-within { border-color: var(--sky); box-shadow: 0 0 24px rgba(34, 211, 238, 0.3); }
-  .search svg { width: 20px; height: 20px; fill: none; stroke: var(--sky); stroke-width: 2; stroke-linecap: round; flex: none; }
-  .search input { flex: 1; min-width: 0; border: 0; outline: 0; background: none; font: inherit; font-size: 1rem; }
-  .results { margin-top: 8px; max-height: 60vh; overflow-y: auto; background: rgba(10, 14, 24, 0.94); backdrop-filter: blur(12px); border: 1px solid var(--line); border-radius: 16px; padding: 6px; }
-  .preview { margin: 4px 4px 8px; padding: 8px 12px; border-radius: 10px; background: var(--sky-soft); font-family: var(--math); font-size: 1.3rem; color: var(--sky-deep); }
-  .res { display: flex; gap: 12px; align-items: center; width: 100%; padding: 10px; border: 0; background: none; text-align: left; border-radius: 12px; }
-  .res:hover, .res:focus-visible { background: var(--sky-soft); outline: none; }
-  .rf { min-width: 48px; height: 40px; padding: 0 6px; display: grid; place-items: center; border-radius: 10px; background: var(--sky-soft); color: var(--sky); font-family: var(--math); font-size: 0.95rem; white-space: nowrap; }
-  .rt { display: grid; }
-  .pad { padding: 10px; }
-  .starters { display: grid; gap: 8px; padding: 10px; }
-  .pad0 { padding: 0 2px; }
-  .starters .chips { display: flex; flex-wrap: wrap; gap: 8px; }
-  .starters .chip { color: var(--ink); background: transparent; }
 
   .hud-bottom {
     position: fixed; left: 0; right: 0; bottom: 0; z-index: 5; display: grid; gap: 10px;
-    padding: 0 84px calc(16px + env(safe-area-inset-bottom)) 16px; max-width: 560px; margin: 0 auto; pointer-events: none;
+    padding: 0 16px calc(var(--tabbar-h) + env(safe-area-inset-bottom) + 12px); max-width: 560px; margin: 0 auto; pointer-events: none;
   }
   .hud-bottom > * { pointer-events: auto; grid-area: 1 / 1; }
   .find {
