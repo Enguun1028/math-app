@@ -81,43 +81,96 @@ export const cue = {
   success: () => { [523.25, 659.25, 783.99, 1046.5, 1318.51].forEach((f, k) => note(f, { at: k * 0.08, dur: 1.1, vol: 0.09 })); },
 };
 
-// ---- music: a slow, quiet pad of four chords (C, Am, F, G) ----
-let musicNodes = null;
-let musicTimer = null;
-const CHORDS = [[261.63, 329.63, 392], [220, 261.63, 329.63], [174.61, 220, 261.63], [196, 246.94, 293.66]];
+// ---- music: an original, cheerful 8-bit loop (square lead, triangle bass, light drums), about 112 BPM ----
+// 4 bars over C · Am · F · G, 16 steps per bar. Notes are MIDI numbers; null is a rest.
+const BPM = 112;
+const STEP = 60 / BPM / 4;
+const LEAD = [
+  76, null, 79, null, 84, null, 79, null, 76, null, 74, null, 72, null, null, null,
+  72, null, 76, null, 81, null, 79, null, 76, null, 74, null, 76, null, null, null,
+  77, null, 81, null, 84, null, 81, null, 79, null, 77, null, 76, null, 74, null,
+  74, null, 79, null, 83, null, 79, null, 74, null, 76, null, 79, null, 81, 83,
+];
+const ROOTS = [48, 45, 41, 43];
+const BASS_STEPS = { 0: 0, 4: 12, 8: 0, 12: 7 };
+const hz = (m) => 440 * 2 ** ((m - 69) / 12);
+
+let music = null;
+
+function blip(freq, t, dur, type, vol, dest) {
+  const o = ctx.createOscillator();
+  const g = ctx.createGain();
+  o.type = type;
+  o.frequency.setValueAtTime(freq, t);
+  g.gain.setValueAtTime(vol, t);
+  g.gain.setValueAtTime(vol, t + dur * 0.7);
+  g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+  o.connect(g).connect(dest);
+  o.start(t);
+  o.stop(t + dur + 0.02);
+}
+function kick(t, dest) {
+  const o = ctx.createOscillator();
+  const g = ctx.createGain();
+  o.frequency.setValueAtTime(150, t);
+  o.frequency.exponentialRampToValueAtTime(45, t + 0.12);
+  g.gain.setValueAtTime(0.5, t);
+  g.gain.exponentialRampToValueAtTime(0.0001, t + 0.14);
+  o.connect(g).connect(dest);
+  o.start(t);
+  o.stop(t + 0.16);
+}
+let noiseBuf = null;
+function hat(t, dest, vol = 0.12, dur = 0.04) {
+  if (!noiseBuf) {
+    noiseBuf = ctx.createBuffer(1, ctx.sampleRate * 0.2, ctx.sampleRate);
+    const d = noiseBuf.getChannelData(0);
+    for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+  }
+  const src = ctx.createBufferSource();
+  src.buffer = noiseBuf;
+  const hp = ctx.createBiquadFilter();
+  hp.type = 'highpass';
+  hp.frequency.value = 6000;
+  const g = ctx.createGain();
+  g.gain.setValueAtTime(vol, t);
+  g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+  src.connect(hp).connect(g).connect(dest);
+  src.start(t);
+  src.stop(t + dur + 0.02);
+}
 
 export function startMusic() {
-  if (!ctx || !soundOn() || musicNodes) return;
+  if (!ctx || !soundOn() || music) return;
   const bus = ctx.createGain();
   bus.gain.value = 0;
-  const lp = ctx.createBiquadFilter();
-  lp.type = 'lowpass';
-  lp.frequency.value = 900;
-  bus.connect(lp).connect(master);
-  bus.gain.linearRampToValueAtTime(0.07, ctx.currentTime + 1.5);
-  const oscs = [0, 1, 2].map(() => {
-    const o = ctx.createOscillator();
-    o.type = 'triangle';
-    o.connect(bus);
-    o.start();
-    return o;
-  });
-  let k = 0;
-  const step = () => {
-    const c = CHORDS[k++ % CHORDS.length];
-    oscs.forEach((o, i) => o.frequency.setTargetAtTime(c[i], ctx.currentTime, 0.4));
+  bus.connect(master);
+  bus.gain.linearRampToValueAtTime(0.16, ctx.currentTime + 0.8);
+  let step = 0;
+  let next = ctx.currentTime + 0.1;
+  // Schedule a little ahead of time so the beat stays steady even if the page is busy.
+  const tick = () => {
+    while (next < ctx.currentTime + 0.12) {
+      const i = step % LEAD.length;
+      const bar = Math.floor(i / 16), s16 = i % 16;
+      if (LEAD[i]) blip(hz(LEAD[i]), next, STEP * 1.8, 'square', 0.07, bus);
+      if (s16 in BASS_STEPS) blip(hz(ROOTS[bar] + BASS_STEPS[s16]), next, STEP * 3, 'triangle', 0.22, bus);
+      if (s16 === 0 || s16 === 8) kick(next, bus);
+      if (s16 % 4 === 2) hat(next, bus);
+      if (s16 === 4 || s16 === 12) hat(next, bus, 0.16, 0.09);
+      step++;
+      next += STEP;
+    }
   };
-  step();
-  musicTimer = setInterval(step, 2600);
-  musicNodes = { bus, oscs };
+  tick();
+  music = { bus, timer: setInterval(tick, 25) };
 }
 
 export function stopMusic() {
-  if (!musicNodes || !ctx) return;
-  clearInterval(musicTimer);
-  const { bus, oscs } = musicNodes;
-  musicNodes = null;
+  if (!music || !ctx) return;
+  clearInterval(music.timer);
+  const { bus } = music;
+  music = null;
   bus.gain.cancelScheduledValues(ctx.currentTime);
-  bus.gain.setTargetAtTime(0, ctx.currentTime, 0.3);
-  setTimeout(() => oscs.forEach((o) => { try { o.stop(); } catch {} }), 1500);
+  bus.gain.setTargetAtTime(0, ctx.currentTime, 0.15);
 }
