@@ -418,7 +418,7 @@
   .find svg { width: 20px; height: 20px; fill: none; stroke: var(--sun); stroke-width: 2; stroke-linecap: round; }
   @keyframes glow { 50% { box-shadow: 0 0 34px rgba(255, 204, 102, 0.45); } }
   .nextcard {
-    display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 8px 10px; padding: 10px 10px 10px 12px;
+    display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 8px 10px; padding: 10px 10px 10px 12px;
     border-radius: 18px; background: rgba(10, 14, 24, 0.96);
     border: 1px solid rgba(255, 204, 102, 0.55); box-shadow: 0 0 28px rgba(255, 204, 102, 0.2);
   }

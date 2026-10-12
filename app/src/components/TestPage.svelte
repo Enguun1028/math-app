@@ -34,8 +34,8 @@
           <h2>Мэднэ боллоо.</h2>
           <p>{Math.round(score * questions.length)} / {questions.length} зөв. Энэ бөмбөлгийг давлаа.</p>
         {:else}
-          <h2>{Math.round(score * questions.length)} / {questions.length} зөв</h2>
-          <p>Суурь чинь бий. Доорх сэдвүүдийг үзчихвэл энэ бөмбөлөг бүрэн таных болно.</p>
+          <h2>Үзэх сэдвүүдээ оллоо.</h2>
+          <p>Доорх сэдвүүдийг нэг нэгээр нь үзчихвэл энэ бөмбөлөг бүрэн таных болно. Эхнийхээс нь эхэл.</p>
         {/if}
         {#if missed.length}
           <div class="chips">{#each missed as m}<a class="chip" href="#/e/{m}">{entries[m].title}</a>{/each}</div>
