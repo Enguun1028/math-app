@@ -19,4 +19,4 @@ Vite + Svelte app. The build output is one self-contained `dist/index.html` for 
 - `src/lib/search.js`, `src/lib/mathfmt.js`: search and live math display.
 - Progress is saved only in the browser (`localStorage` key `ayalal.progress.v1`).
 
-The older prototype (`../index.html`, `../data.js`, `../structure.html`) is untouched.
+The first prototype (plain HTML, before this app) is kept in `../archive/prototype/`.
