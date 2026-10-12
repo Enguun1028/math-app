@@ -24,6 +24,7 @@
   let rd = $derived(op === '×' ? A.d * B.d : L);
   let g = $derived(gcd(rn, rd) || 1);
   let bars = $derived(op === '+' ? Math.max(1, Math.ceil((an + bn) / L)) : 1);
+  const multiples = (d) => Array.from({ length: L / d }, (_, i) => (i + 1) * d);
   const f = (n, d) => (n < 0 ? '−' : '') + `${Math.abs(n)}/${d}`;
 
   // Editing a fraction: keep 0 ≤ numerator ≤ denominator ≤ 12.
@@ -82,38 +83,70 @@
   <div class="steps" in:fly={{ y: 10, duration: ms(260), easing: ease }}>
     {#if op !== '×'}
       <section class="stp">
-        <h3>1. Хуваарийг ижилтгэнэ</h3>
+        <h3>1. Ерөнхий хуваарь олно</h3>
         {#if A.d === B.d}
-          <p class="small muted">Хуваарь аль хэдийн ижил: {A.d}. Шууд {op === '+' ? 'нэмнэ' : 'хасна'}.</p>
+          <p>Хуваарь аль хэдийн ижил: <b>{A.d}</b>. Шууд {op === '+' ? 'нэмнэ' : 'хасна'}.</p>
         {:else}
-          <p class="small muted">{A.d} ба {B.d} хоёулаа {L}-д хуваагдана. Тиймээс хэсэг бүрийг жижиглэнэ:</p>
-          <div class="row"><span class="tag a">×{ka}</span>{@render sliced(A.d, ka, an, 'a')}<span class="eq"><RichText text="{f(A.n, A.d)} = {f(an, L)}" /></span></div>
-          <div class="row"><span class="tag b">×{kb}</span>{@render sliced(B.d, kb, bn, 'b')}<span class="eq"><RichText text="{f(B.n, B.d)} = {f(bn, L)}" /></span></div>
-          <p class="small muted">Зузаан зураас нь анхны хэсгүүд. Нэг анхны хэсэг = {ka} эсвэл {kb} жижиг хэсэг.</p>
+          <p>{A.d}-т ч, {B.d}-т ч хуваагддаг хамгийн бага тоог хайна:</p>
+          <div class="mults">
+            <div class="mrow a"><span class="who">{A.d}</span>{#each multiples(A.d) as m}<span class="m" class:hit={m === L}>{m}</span>{/each}</div>
+            <div class="mrow b"><span class="who">{B.d}</span>{#each multiples(B.d) as m}<span class="m" class:hit={m === L}>{m}</span>{/each}</div>
+          </div>
+          <p><b class="hitword">{L}</b> хоёр мөрөнд хоёуланд нь байгаа хамгийн бага тоо.{#if L === A.d * B.d}&nbsp;Энд {A.d} × {B.d} = {L}.{/if}</p>
+          <a class="topic two" href="#/c/n4"><span>Үүнийг <b>ХБЕХ</b> гэдэг →</span><span class="small muted">Сэдэв: Хуваагдах чанар, ХИЕХ, ХБЕХ</span></a>
         {/if}
       </section>
 
       <section class="stp">
-        <h3>2. {op === '+' ? 'Нийлүүлнэ' : 'Хасна'}</h3>
-        {#each Array(bars) as _, w}
-          <div class="bar fine" style:grid-template-columns="repeat({L}, 1fr)">
-            {#each Array(L) as _, j}
-              {@const i = w * L + j}
-              {#if op === '+'}
-                <span class="cell" class:a={i < an} class:b={i >= an && i < an + bn} class:on={i < an + bn}></span>
-              {:else}
-                <span class="cell a" class:on={i < an} class:gone={i >= an - bn && i < an} class:short={i >= an && i < bn}></span>
-              {/if}
-            {/each}
-          </div>
-        {/each}
+        <h3>2. {A.d === B.d ? '' : `${L} жижиг хэсэгт хуваагаад `}{op === '+' ? 'нэмнэ' : 'хасна'}</h3>
+        {#if A.d !== B.d}
+          <p class="small muted">Цэнхрийн хэсэг бүрийг {ka}, шарын хэсэг бүрийг {kb} жижиг хэсэгт хуваана. Зузаан цагаан шугам = анхны хэсэг.</p>
+        {/if}
+        <div class="stack">
+          <span class="lab a"><RichText text="{f(A.n, A.d)} = {f(an, L)}" /></span>
+          {@render sliced(A.d, ka, an, 'a')}
+          <span class="lab sym">{op}</span><span></span>
+          <span class="lab b"><RichText text="{f(B.n, B.d)} = {f(bn, L)}" /></span>
+          {@render sliced(B.d, kb, bn, 'b')}
+          <span class="rule"></span>
+          {#each Array(bars) as _, w}
+            <span class="lab res">{#if w === 0}<RichText text="= {f(rn, rd)}" />{/if}</span>
+            <div class="bar fine" style:grid-template-columns="repeat({L}, 1fr)">
+              {#each Array(L) as _, j}
+                {@const i = w * L + j}
+                {#if op === '+'}
+                  <span class="cell" class:a={i < an} class:b={i >= an && i < an + bn} class:on={i < an + bn}></span>
+                {:else}
+                  <span class="cell a" class:on={i < an} class:gone={i >= an - bn && i < an} class:short={i >= an && i < bn}></span>
+                {/if}
+              {/each}
+            </div>
+          {/each}
+        </div>
         <p class="eq big"><RichText text="{f(an, L)} {op} {f(bn, L)} = {f(rn, rd)}" /></p>
-        {#if op === '−'}<p class="small muted">{rn < 0 ? 'Хасах хэсэг нь байгаагаасаа их тул хариу сөрөг.' : 'Шар хүрээтэй хэсгүүдийг авч хаялаа.'}</p>{/if}
-        {#if op === '+' && rn > rd}<p class="small muted">1-ээс их: бүтэн {Math.floor(rn / rd)} ба {rn % rd} хэсэг.</p>{/if}
+        <p class="small muted">
+          {#if op === '+'}Жижиг хэсгүүд ижил хэмжээтэй болсон тул зүгээр л тоолно: {an} + {bn} = {an + bn}.{#if rn > rd} 1-ээс их: бүтэн {Math.floor(rn / rd)} ба {rn % rd} хэсэг.{/if}
+          {:else if rn < 0}Хасах хэсэг ({bn}) байгаагаасаа ({an}) их тул хариу сөрөг.
+          {:else}Цэнхэр {an} хэсгээс зураастай {bn}-ийг авч хаяхад {rn} үлдэнэ.{/if}
+        </p>
       </section>
     {:else}
       <section class="stp">
-        <h3>1. Эхний бутархай баганаар, хоёр дахь нь мөрөөр</h3>
+        <h3>1. Эхний бутархай: тэгш өнцөгтийг {A.d} баганад хуваагаад {A.n}-ийг нь будна</h3>
+        <div class="area" style:grid-template-columns="repeat({A.d}, 1fr)" style:grid-template-rows="1fr">
+          {#each Array(A.d) as _, c}<span class="cell solo" class:ina={c < A.n}></span>{/each}
+        </div>
+        <p class="cap"><RichText text="Цэнхэр = {f(A.n, A.d)}" /></p>
+      </section>
+      <section class="stp">
+        <h3>2. Хоёр дахь: тэр тэгш өнцөгтийг {B.d} мөрөнд хуваагаад {B.n}-ийг нь будна</h3>
+        <div class="area" style:grid-template-columns="repeat({A.d}, 1fr)" style:grid-template-rows="repeat({B.d}, 1fr)">
+          {#each Array(A.d * B.d) as _, i}<span class="cell solo" class:inb={Math.floor(i / A.d) < B.n}></span>{/each}
+        </div>
+        <p class="cap"><RichText text="Шар = {f(B.n, B.d)}" /></p>
+      </section>
+      <section class="stp">
+        <h3>3. Давхарлана: хоёулаа будагдсан нүд = хариу</h3>
         <div class="area" style:grid-template-columns="repeat({A.d}, 1fr)" style:grid-template-rows="repeat({B.d}, 1fr)">
           {#each Array(A.d * B.d) as _, i}
             {@const c = i % A.d}
@@ -121,22 +154,24 @@
             <span class="cell" class:ina={c < A.n} class:inb={r < B.n} class:both={c < A.n && r < B.n}></span>
           {/each}
         </div>
-        <p class="small muted">Цэнхэр багана: <RichText text={f(A.n, A.d)} />. Шар мөр: <RichText text={f(B.n, B.d)} />. Ногоон нь хоёулаа давхацсан хэсэг.</p>
-      </section>
-      <section class="stp">
-        <h3>2. Давхацсан хэсгийг тоолно</h3>
-        <p>Давхацсан {A.n} · {B.n} = <b>{rn}</b> нүд, нийт {A.d} · {B.d} = <b>{rd}</b> нүд.</p>
+        <p>Ногоон нүд нь цэнхэр ч, шар ч. Тэр нь <b><RichText text="{f(A.n, A.d)}-ийн {f(B.n, B.d)}" /></b> хэсэг: үржих = «-ийн».</p>
+        <div class="count">
+          <span><b class="g">{rn}</b> ногоон нүд <span class="small muted">({A.n} багана × {B.n} мөр)</span></span>
+          <span><b>{rd}</b> бүх нүд <span class="small muted">({A.d} × {B.d})</span></span>
+        </div>
         <p class="eq big"><RichText text="{f(A.n, A.d)} × {f(B.n, B.d)} = {f(rn, rd)}" /></p>
       </section>
     {/if}
 
     {#if g > 1 && rn !== 0}
       <section class="stp">
-        <h3>{op === '×' ? '3' : '3'}. Хураана</h3>
+        <h3>{op === '×' ? '4' : '3'}. Хураана</h3>
         <p class="eq big"><RichText text="{f(rn, rd)} = {f(rn / g, rd / g)}" /></p>
         <p class="small muted">Хүртвэр, хуваарь хоёуланг нь {g}-д хуваана.</p>
       </section>
     {/if}
+
+    <a class="topic" href="#/c/n5">Сэдэв: Энгийн бутархай →</a>
   </div>
   {/key}
 </div>
@@ -171,18 +206,38 @@
   .tag.b { color: var(--sun); background: var(--sun-soft); }
   /* Sliced bars: thin lines between slices, thick ones where the original parts were. */
   .bar.fine { gap: 0; height: 40px; border-radius: 8px; overflow: hidden; border: 1.5px solid var(--line); }
-  .bar.fine .cell { border-radius: 0; border: 0; border-left: 1px solid rgba(230, 240, 255, 0.18); }
+  .bar.fine .cell { border-radius: 0; border: 0; border-left: 1.5px solid rgba(230, 240, 255, 0.55); }
   .bar.fine .cell:first-child { border-left: 0; }
-  .bar.fine .cell.edge { border-left: 3px solid var(--ink); }
+  .bar.fine .cell.edge { border-left: 3.5px solid #ffffff; }
   .bar.fine .cell.a.on { background: var(--sky); box-shadow: none; }
   .bar.fine .cell.b.on { background: var(--sun); box-shadow: none; }
   .bar.fine .cell.gone { background: repeating-linear-gradient(135deg, var(--sun-soft) 0 4px, transparent 4px 8px); outline: 2px solid var(--sun); outline-offset: -2px; }
   .bar.fine .cell.short { background: repeating-linear-gradient(135deg, rgba(255, 122, 138, 0.35) 0 4px, transparent 4px 8px); }
   .eq { font-weight: 700; }
+  .mults { display: grid; gap: 6px; }
+  .mrow { display: flex; flex-wrap: wrap; align-items: center; gap: 5px; }
+  .who { width: 28px; font-weight: 800; color: var(--col); }
+  .mrow.a { --col: var(--sky); } .mrow.b { --col: var(--sun); }
+  .m { min-width: 34px; padding: 4px 6px; text-align: center; border-radius: 8px; border: 1px solid var(--line); font-variant-numeric: tabular-nums; color: var(--muted); }
+  .m.hit { background: var(--grass); border-color: var(--grass); color: #052012; font-weight: 800; box-shadow: 0 0 10px rgba(94, 234, 154, 0.5); }
+  .hitword { color: var(--grass); }
+  .topic { justify-self: start; display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); color: var(--sky-deep); font-weight: 700; text-decoration: none; }
+  /* + and −: the two fractions and the answer in one aligned stack, same width, same slices. */
+  .stack { display: grid; grid-template-columns: 96px minmax(0, 1fr); align-items: center; gap: 8px 10px; }
+  .lab { font-weight: 800; font-size: 1.05rem; }
+  .lab.a { color: var(--sky); } .lab.b { color: var(--sun); } .lab.res { color: var(--ink); }
+  .lab.sym { font-size: 1.4rem; color: var(--muted); text-align: center; }
+  .rule { grid-column: 1 / -1; height: 2px; background: var(--ink); opacity: 0.5; border-radius: 2px; }
+  .cap { font-weight: 700; text-align: center; }
+  .count { display: grid; gap: 4px; }
+  .g { color: var(--grass); }
   .eq.big { font-size: 1.35rem; text-align: center; }
-  .area { display: grid; gap: 2px; aspect-ratio: 4 / 3; width: 100%; max-width: 320px; justify-self: center; }
+  .area { display: grid; gap: 3px; aspect-ratio: 4 / 3; width: 100%; max-width: 300px; justify-self: center; }
   .area .cell { border-radius: 3px; background: var(--surface-solid); border: 1px solid var(--line); transition: background 0.25s; }
   .area .cell.ina { background: color-mix(in srgb, var(--sky) 35%, var(--surface-solid)); }
   .area .cell.inb { background: color-mix(in srgb, var(--sun) 35%, var(--surface-solid)); }
+  .area .cell.solo.ina { background: var(--sky); box-shadow: 0 0 8px rgba(34, 211, 238, 0.45); }
+  .area .cell.solo.inb { background: var(--sun); box-shadow: 0 0 8px rgba(255, 204, 102, 0.45); }
+  .topic.two { display: grid; gap: 0; padding: 8px 14px; border-radius: 16px; }
   .area .cell.both { background: var(--grass); box-shadow: 0 0 6px rgba(94, 234, 154, 0.5); }
 </style>

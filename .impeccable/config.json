@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "app/src/components/tools/FractionOps.svelte"
+        ],
+        "createdAt": "2026-10-12T08:39:04.874Z",
+        "reason": "Claude: the thick left border marks the original part boundaries inside a sliced fraction bar (the visual the owner asked for), not a card accent"
+      }
+    ]
+  }
+}
