@@ -1,0 +1,26 @@
+{
+  "num": {
+    "name": "Тоо",
+    "color": "#f48fb1"
+  },
+  "alg": {
+    "name": "Алгебр",
+    "color": "#ffcc66"
+  },
+  "geo": {
+    "name": "Геометр",
+    "color": "#8bd17c"
+  },
+  "fun": {
+    "name": "Функц",
+    "color": "#5cc8ff"
+  },
+  "dat": {
+    "name": "Статистик ба магадлал",
+    "color": "#c3a6ff"
+  },
+  "calc": {
+    "name": "Анализ",
+    "color": "#ff9270"
+  }
+}

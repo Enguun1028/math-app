@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Universe</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0a0f;
+            overflow: hidden;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        #canvas {
+            display: block;
+            cursor: grab;
+        }
+
+        #canvas:active {
+            cursor: grabbing;
+        }
+
+        .ui-overlay {
+            position: fixed;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        .title-bar {
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+        }
+
+        .title-bar h1 {
+            color: rgba(0, 255, 255, 0.8);
+            font-size: 28px;
+            font-weight: 300;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+        }
+
+        .title-bar .subtitle {
+            color: rgba(0, 255, 255, 0.4);
+            font-size: 12px;
+            letter-spacing: 4px;
+            margin-top: 8px;
+        }
+
+        .breadcrumb {
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .breadcrumb-item {
+            color: rgba(0, 255, 255, 0.6);
+            font-size: 14px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .breadcrumb-item:hover {
+            color: rgba(0, 255, 255, 0.9);
+        }
+
+        .breadcrumb-separator {
+            color: rgba(0, 255, 255, 0.3);
+        }
+
+        .info-panel {
+            bottom: 30px;
+            left: 30px;
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            max-width: 280px;
+            backdrop-filter: blur(10px);
+        }
+
+        .info-panel h3 {
+            color: rgba(0, 255, 255, 0.9);
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .info-panel p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .info-panel .hint {
+            color: rgba(0, 255, 255, 0.5);
+            font-size: 11px;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(0, 255, 255, 0.1);
+        }
+
+        .level-indicator {
+            bottom: 30px;
+            right: 30px;
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .level-indicator h4 {
+            color: rgba(0, 255, 255, 0.7);
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .level-bar {
+            width: 200px;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .level-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, rgba(0, 255, 255, 0.5), rgba(0, 255, 255, 0.8));
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+
+        .level-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 11px;
+        }
+
+        .zoom-controls {
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .zoom-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            background: rgba(0, 0, 0, 0.5);
+            color: rgba(0, 255, 255, 0.8);
+            font-size: 20px;
+            cursor: pointer;
+            pointer-events: auto;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .zoom-btn:hover {
+            background: rgba(0, 255, 255, 0.2);
+            border-color: rgba(0, 255, 255, 0.6);
+        }
+
+        .back-btn {
+            position: fixed;
+            top: 80px;
+            left: 30px;
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            background: rgba(0, 0, 0, 0.5);
+            color: rgba(0, 255, 255, 0.8);
+            font-size: 13px;
+            cursor: pointer;
+            pointer-events: auto;
+            opacity: 0;
+            transition: all 0.3s;
+        }
+
+        .back-btn.visible {
+            opacity: 1;
+        }
+
+        .back-btn:hover {
+            background: rgba(0, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+
+    <div class="ui-overlay title-bar">
+        <h1>Math Universe</h1>
+        <div class="subtitle">Explore · Learn · Master</div>
+    </div>
+
+    <div class="ui-overlay breadcrumb" id="breadcrumb"></div>
+
+    <button class="back-btn" id="backBtn">← Back</button>
+
+    <div class="ui-overlay zoom-controls">
+        <button class="zoom-btn" id="zoomIn">+</button>
+        <button class="zoom-btn" id="zoomOut">−</button>
+    </div>
+
+    <div class="ui-overlay info-panel" id="infoPanel">
+        <h3 id="infoTitle">Mathematics</h3>
+        <p id="infoText">Click on any topic to explore its contents. Each branch represents a fundamental area of mathematics.</p>
+        <div class="hint">Scroll to zoom • Drag to pan • Click to drill down</div>
+    </div>
+
+    <div class="ui-overlay level-indicator">
+        <h4>Your Level</h4>
+        <div class="level-bar">
+            <div class="level-bar-fill" id="levelFill" style="width: 0%"></div>
+        </div>
+        <div class="level-stats">
+            <span id="topicsLearned">0 topics</span>
+            <span id="totalTopics">0 total</span>
+        </div>
+    </div>
+
+    <script>
+        // Math topic hierarchy
+        const mathTopics = {
+            name: 'Mathematics',
+            color: '#00ffff',
+            description: 'The universal language of patterns, quantities, and logical reasoning.',
+            children: [
+                {
+                    name: 'Arithmetic',
+                    color: '#00d4ff',
+                    description: 'The foundation of all mathematics. Operations with numbers, fractions, decimals, and ratios.',
+                    children: [
+                        { name: 'Addition & Subtraction', color: '#4deeea' },
+                        { name: 'Multiplication & Division', color: '#5eefff' },
+                        { name: 'Fractions & Decimals', color: '#7af0ff' },
+                        { name: 'Percentages', color: '#96f1ff' },
+                        { name: 'Ratios & Proportions', color: '#b2f2ff' },
+                        { name: 'Exponents & Roots', color: '#cef3ff' }
+                    ]
+                },
+                {
+                    name: 'Algebra',
+                    color: '#00ff88',
+                    description: 'Using symbols to represent numbers and express mathematical relationships.',
+                    children: [
+                        { name: 'Variables & Expressions', color: '#4dff9e' },
+                        { name: 'Linear Equations', color: '#5effae' },
+                        { name: 'Inequalities', color: '#7affbe' },
+                        { name: 'Quadratic Equations', color: '#96ffce' },
+                        { name: 'Polynomials', color: '#b2ffde' },
+                        { name: 'Factoring', color: '#cefff0' },
+                        { name: 'Functions', color: '#4dff9e' },
+                        { name: 'Sequences & Series', color: '#5effae' }
+                    ]
+                },
+                {
+                    name: 'Geometry',
+                    color: '#88ff00',
+                    description: 'Study of shapes, sizes, and spatial relationships in the world around us.',
+                    children: [
+                        { name: 'Points & Lines', color: '#9eff4d' },
+                        { name: 'Angles', color: '#b4ff5e' },
+                        { name: 'Triangles', color: '#caff6f' },
+                        { name: 'Quadrilaterals', color: '#e0ff80' },
+                        { name: 'Circles', color: '#9eff4d' },
+                        { name: 'Area & Perimeter', color: '#b4ff5e' },
+                        { name: 'Volume & Surface Area', color: '#caff6f' },
+                        { name: 'Transformations', color: '#e0ff80' },
+                        { name: 'Coordinate Geometry', color: '#96ff33' }
+                    ]
+                },
+                {
+                    name: 'Trigonometry',
+                    color: '#ffff00',
+                    description: 'The mathematics of triangles, angles, and periodic relationships.',
+                    children: [
+                        { name: 'Trigonometric Ratios', color: '#ffff4d' },
+                        { name: 'SOH CAH TOA', color: '#ffff6e' },
+                        { name: 'Unit Circle', color: '#ffff8f' },
+                        { name: 'Identities', color: '#ffffaf' },
+                        { name: 'Inverse Trig Functions', color: '#ffffcf' },
+                        { name: 'Laws of Sines & Cosines', color: '#ffffef' }
+                    ]
+                },
+                {
+                    name: 'Calculus',
+                    color: '#ff8800',
+                    description: 'The mathematics of change, motion, and accumulation.',
+                    children: [
+                        { name: 'Limits', color: '#ffaa4d' },
+                        { name: 'Derivatives', color: '#ffcc7a' },
+                        { name: 'Applications of Derivatives', color: '#ffeda3' },
+                        { name: 'Integrals', color: '#ffaa4d' },
+                        { name: 'Fundamental Theorem', color: '#ffcc7a' },
+                        { name: 'Applications of Integrals', color: '#ffeda3' }
+                    ]
+                },
+                {
+                    name: 'Statistics & Probability',
+                    color: '#ff00ff',
+                    description: 'Making sense of data and understanding uncertainty and chance.',
+                    children: [
+                        { name: 'Descriptive Statistics', color: '#ff4dff' },
+                        { name: 'Probability Basics', color: '#ff6eff' },
+                        { name: 'Combinations & Permutations', color: '#ff8fff' },
+                        { name: 'Probability Distributions', color: '#ffb0ff' },
+                        { name: 'Hypothesis Testing', color: '#ffd1ff' },
+                        { name: 'Correlation & Regression', color: '#fff2ff' }
+                    ]
+                },
+                {
+                    name: 'Number Theory',
+                    color: '#ff0088',
+                    description: 'The study of properties and relationships of numbers themselves.',
+                    children: [
+                        { name: 'Prime Numbers', color: '#ff4da6' },
+                        { name: 'Divisibility', color: '#ff6eb8' },
+                        { name: 'Greatest Common Divisor', color: '#ff8fca' },
+                        { name: 'Modular Arithmetic', color: '#ffb0dc' },
+                        { name: 'Number Patterns', color: '#ffd1ee' }
+                    ]
+                }
+            ]
+        };
+
+        // Canvas setup
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        let width, height;
+        let scale = 1;
+        let offsetX = 0, offsetY = 0;
+        let isDragging = false;
+        let startX, startY;
+        let currentLevel = null;
+        let nodeProgress = {};
+
+        // Initialize canvas size
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            if (currentLevel) {
+                layoutNodes(currentLevel);
+            }
+        }
+
+        window.addEventListener('resize', resize);
+        resize();
+
+        // Node class
+        class Node {
+            constructor(data, parent = null, level = 0) {
+                this.data = data;
+                this.parent = parent;
+                this.level = level;
+                this.x = 0;
+                this.y = 0;
+                this.targetX = 0;
+                this.targetY = 0;
+                this.radius = 0;
+                this.targetRadius = 0;
+                this.baseY = 0;
+                this.floatOffset = Math.random() * Math.PI * 2;
+                this.children = [];
+                this.hovered = false;
+                this.expanded = false;
+                this.progress = nodeProgress[this.data.name] || 0;
+            }
+
+            update(time) {
+                // Floating animation
+                const float = Math.sin(time * 0.001 + this.floatOffset) * 8;
+                this.x = this.targetX + (this.parent ? this.parent.x : 0);
+                this.y = this.targetY + (this.parent ? this.parent.y : 0) + float;
+
+                // Smooth radius transition
+                this.radius += (this.targetRadius - this.radius) * 0.1;
+            }
+
+            draw(ctx, scale) {
+                // Skip if too small
+                if (this.radius * scale < 5) return;
+
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.scale(scale, scale);
+
+                // Glow effect
+                const gradient = ctx.createRadialGradient(0, 0, 0, 0, 0, this.radius * 1.5);
+                gradient.addColorStop(0, this.data.color + '40');
+                gradient.addColorStop(0.5, this.data.color + '20');
+                gradient.addColorStop(1, 'transparent');
+                ctx.fillStyle = gradient;
+                ctx.beginPath();
+                ctx.arc(0, 0, this.radius * 1.5, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Main circle
+                ctx.beginPath();
+                ctx.arc(0, 0, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = this.data.color + '15';
+                ctx.fill();
+                ctx.strokeStyle = this.data.color + (this.hovered ? 'cc' : '66');
+                ctx.lineWidth = this.hovered ? 3 : 2;
+                ctx.stroke();
+
+                // Progress ring
+                if (this.progress > 0) {
+                    ctx.beginPath();
+                    ctx.arc(0, 0, this.radius + 6, -Math.PI / 2, -Math.PI / 2 + (Math.PI * 2 * this.progress));
+                    ctx.strokeStyle = this.data.color + '88';
+                    ctx.lineWidth = 3;
+                    ctx.stroke();
+                }
+
+                // Text
+                if (this.radius * scale > 40) {
+                    ctx.fillStyle = this.hovered ? '#fff' : this.data.color + 'aa';
+                    ctx.font = `500 ${Math.min(16, this.radius * 0.15)}px 'Segoe UI', system-ui, sans-serif`;
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText(this.data.name, 0, 0);
+                }
+
+                ctx.restore();
+            }
+
+            contains(x, y) {
+                const dx = x - this.x;
+                const dy = y - this.y;
+                return dx * dx + dy * dy <= this.radius * this.radius;
+            }
+        }
+
+        let rootNode = null;
+
+        function buildTree(data, parent = null, level = 0) {
+            const node = new Node(data, parent, level);
+            if (data.children) {
+                data.children.forEach(child => {
+                    node.children.push(buildTree(child, node, level + 1));
+                });
+            }
+            return node;
+        }
+
+        function layoutNodes(node) {
+            if (node.level === 0) {
+                // Root node at center
+                node.targetX = 0;
+                node.targetY = 0;
+                node.targetRadius = 120;
+            } else if (node.level === 1) {
+                // Major branches in a circle
+                const parentChildren = node.parent.children;
+                const index = parentChildren.indexOf(node);
+                const total = parentChildren.length;
+                const angle = (index / total) * Math.PI * 2 - Math.PI / 2;
+                const radius = Math.min(width, height) * 0.32;
+                node.targetX = Math.cos(angle) * radius;
+                node.targetY = Math.sin(angle) * radius;
+                node.targetRadius = Math.max(70, 120 - node.level * 10);
+            } else {
+                // Sub-topics in a smaller circle around parent
+                const parentChildren = node.parent.children;
+                const index = parentChildren.indexOf(node);
+                const total = parentChildren.length;
+                const angle = (index / total) * Math.PI * 2;
+                const radius = node.parent.radius + 100;
+                node.targetX = Math.cos(angle) * radius;
+                node.targetY = Math.sin(angle) * radius;
+                node.targetRadius = Math.max(45, 70 - node.level * 5);
+            }
+
+            node.children.forEach(child => layoutNodes(child));
+        }
+
+        function getVisibleNodes(node) {
+            let nodes = [node];
+            if (node.expanded || node.level < 2) {
+                node.children.forEach(child => {
+                    nodes = nodes.concat(getVisibleNodes(child));
+                });
+            }
+            return nodes;
+        }
+
+        // Initialize
+        rootNode = buildTree(mathTopics);
+        layoutNodes(rootNode);
+
+        // Update breadcrumb
+        function updateBreadcrumb() {
+            const breadcrumb = document.getElementById('breadcrumb');
+            const path = [];
+            let node = currentLevel || rootNode;
+            while (node) {
+                path.unshift(node);
+                node = node.parent;
+            }
+            breadcrumb.innerHTML = path.map((n, i) => {
+                const isLast = i === path.length - 1;
+                const onclick = isLast ? '' : `onclick="navigateTo('${n.data.name}')"`;
+                const style = isLast ? 'color: rgba(255,255,255,0.9)' : '';
+                return `<span class="breadcrumb-item" ${onclick} style="${style}">${n.data.name}</span>${isLast ? '' : '<span class="breadcrumb-separator">›</span>'}`;
+            }).join('');
+
+            // Show/hide back button
+            const backBtn = document.getElementById('backBtn');
+            backBtn.classList.toggle('visible', currentLevel && currentLevel.level > 0);
+        }
+
+        function updateInfo(node) {
+            const infoTitle = document.getElementById('infoTitle');
+            const infoText = document.getElementById('infoText');
+
+            if (node) {
+                infoTitle.textContent = node.data.name;
+                infoText.textContent = node.data.description;
+
+                // Update level stats
+                const allNodes = getVisibleNodes(rootNode);
+                const total = allNodes.length;
+                const learned = Object.keys(nodeProgress).length;
+                document.getElementById('topicsLearned').textContent = `${learned} learned`;
+                document.getElementById('totalTopics').textContent = `${total} total`;
+
+                // Calculate overall progress
+                const progress = total > 0 ? (learned / total) * 100 : 0;
+                document.getElementById('levelFill').style.width = `${progress}%`;
+            }
+        }
+
+        function navigateTo(name) {
+            let target = null;
+            function find(node) {
+                if (node.data.name === name) {
+                    target = node;
+                    return;
+                }
+                node.children.forEach(find);
+            }
+            find(rootNode);
+            if (target) {
+                currentLevel = target;
+                target.expanded = true;
+                layoutNodes(rootNode);
+                updateBreadcrumb();
+                updateInfo(target);
+            }
+        }
+
+        // Event handlers
+        canvas.addEventListener('mousemove', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const mx = (e.clientX - rect.left - width / 2 - offsetX) / scale;
+            const my = (e.clientY - rect.top - height / 2 - offsetY) / scale;
+
+            let hoveredNode = null;
+            function check(node) {
+                if (node.contains(mx, my)) {
+                    hoveredNode = node;
+                }
+                node.children.forEach(check);
+            }
+            check(rootNode);
+
+            function setHover(node, value) {
+                node.hovered = value;
+                node.children.forEach(c => setHover(c, false));
+            }
+
+            if (hoveredNode) {
+                setHover(rootNode, false);
+                hoveredNode.hovered = true;
+                updateInfo(hoveredNode);
+            } else {
+                setHover(rootNode, false);
+                if (currentLevel) {
+                    updateInfo(currentLevel);
+                }
+            }
+        });
+
+        canvas.addEventListener('click', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const mx = (e.clientX - rect.left - width / 2 - offsetX) / scale;
+            const my = (e.clientY - rect.top - height / 2 - offsetY) / scale;
+
+            function find(node) {
+                if (node.contains(mx, my)) {
+                    return node;
+                }
+                for (const child of node.children) {
+                    const found = find(child);
+                    if (found) return found;
+                }
+                return null;
+            }
+
+            const clicked = find(rootNode);
+            if (clicked && clicked.children.length > 0) {
+                if (clicked.level === 0) {
+                    // Click root to zoom into branches
+                    currentLevel = null;
+                    scale = 0.6;
+                } else {
+                    navigateTo(clicked.data.name);
+                    scale = Math.min(scale, 1.2);
+                }
+            }
+        });
+
+        canvas.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            startX = e.clientX - offsetX;
+            startY = e.clientY - offsetY;
+        });
+
+        canvas.addEventListener('mousemove', (e) => {
+            if (isDragging) {
+                offsetX = e.clientX - startX;
+                offsetY = e.clientY - startY;
+            }
+        });
+
+        canvas.addEventListener('mouseup', () => isDragging = false);
+        canvas.addEventListener('mouseleave', () => isDragging = false);
+
+        canvas.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            const delta = e.deltaY > 0 ? 0.9 : 1.1;
+            scale = Math.max(0.2, Math.min(3, scale * delta));
+        });
+
+        document.getElementById('zoomIn').addEventListener('click', () => {
+            scale = Math.min(3, scale * 1.3);
+        });
+
+        document.getElementById('zoomOut').addEventListener('click', () => {
+            scale = Math.max(0.2, scale / 1.3);
+        });
+
+        document.getElementById('backBtn').addEventListener('click', () => {
+            if (currentLevel && currentLevel.parent) {
+                navigateTo(currentLevel.parent.data.name);
+            } else {
+                currentLevel = null;
+                scale = 1;
+                updateBreadcrumb();
+                updateInfo(rootNode);
+            }
+        });
+
+        // Animation loop
+        function animate(time) {
+            ctx.fillStyle = '#0a0a0f';
+            ctx.fillRect(0, 0, width, height);
+
+            // Subtle background gradient
+            const bgGradient = ctx.createRadialGradient(width / 2, height / 2, 0, width / 2, height / 2, Math.max(width, height) * 0.6);
+            bgGradient.addColorStop(0, 'rgba(0, 255, 255, 0.03)');
+            bgGradient.addColorStop(1, 'transparent');
+            ctx.fillStyle = bgGradient;
+            ctx.fillRect(0, 0, width, height);
+
+            ctx.save();
+            ctx.translate(width / 2 + offsetX, height / 2 + offsetY);
+            ctx.scale(scale, scale);
+
+            // Draw connections
+            function drawConnections(node) {
+                node.children.forEach(child => {
+                    ctx.beginPath();
+                    ctx.moveTo(node.x, node.y);
+                    ctx.lineTo(child.x, child.y);
+                    ctx.strokeStyle = node.data.color + '20';
+                    ctx.lineWidth = 1;
+                    ctx.stroke();
+                    drawConnections(child);
+                });
+            }
+            drawConnections(rootNode);
+
+            // Draw nodes
+            function draw(node) {
+                node.update(time);
+                node.draw(ctx, scale);
+                if (node.expanded || node.level < 2) {
+                    node.children.forEach(draw);
+                }
+            }
+            draw(rootNode);
+
+            ctx.restore();
+
+            requestAnimationFrame(animate);
+        }
+
+        updateBreadcrumb();
+        updateInfo(rootNode);
+        animate(0);
+
+        console.log('Math Universe loaded successfully');
+    </script>
+</body>
+</html>

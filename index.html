@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+    <meta name="theme-color" content="#0a0a0f">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Мат аялал">
+    <title>Математикийн аялал</title>
+    <style>
+        :root {
+            --bg: #0a0a0f;
+            --surface: #12121a;
+            --surface-2: #1a1a25;
+            --line: rgba(255, 255, 255, 0.08);
+            --text: rgba(255, 255, 255, 0.92);
+            --muted: rgba(255, 255, 255, 0.55);
+            --accent: #00e5e5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
+            overscroll-behavior: none;
+            background: var(--bg);
+            color: var(--text);
+            font-family: -apple-system, 'Segoe UI', system-ui, sans-serif;
+        }
+
+        #canvas {
+            display: block;
+            touch-action: none;
+            cursor: grab;
+        }
+
+        #canvas.pointer {
+            cursor: pointer;
+        }
+
+        .top {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10;
+            padding: calc(12px + env(safe-area-inset-top)) 16px 24px;
+            background: linear-gradient(rgba(10, 10, 15, 0.95) 60%, rgba(10, 10, 15, 0));
+            pointer-events: none;
+        }
+
+        .top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
+
+        h1 {
+            font-size: 20px;
+            font-weight: 650;
+            color: var(--accent);
+        }
+
+        .progress {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 8px;
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .bar {
+            flex: 1;
+            max-width: 220px;
+            height: 6px;
+            border-radius: 3px;
+            background: rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            background: var(--accent);
+            transform-origin: left;
+            transform: scaleX(0);
+            transition: transform 0.5s ease;
+        }
+
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px 12px;
+            margin-top: 8px;
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .legend span {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex: none;
+        }
+
+        .controls {
+            position: fixed;
+            right: 16px;
+            bottom: calc(24px + env(safe-area-inset-bottom));
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            z-index: 10;
+        }
+
+        .controls button {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1px solid rgba(0, 229, 229, 0.3);
+            background: rgba(10, 10, 15, 0.8);
+            color: var(--accent);
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .hint {
+            position: fixed;
+            left: 16px;
+            bottom: calc(28px + env(safe-area-inset-bottom));
+            max-width: 60%;
+            font-size: 12px;
+            color: var(--muted);
+            pointer-events: none;
+            transition: opacity 0.5s;
+            z-index: 10;
+        }
+
+        .hint.gone {
+            opacity: 0;
+        }
+
+        /* Detail sheet */
+        .sheet {
+            position: fixed;
+            left: 50%;
+            bottom: 0;
+            width: 100%;
+            max-width: 480px;
+            transform: translate(-50%, 100%);
+            transition: transform 0.25s ease;
+            background: var(--surface-2);
+            border: 1px solid var(--line);
+            border-bottom: none;
+            border-radius: 18px 18px 0 0;
+            padding: 16px 16px calc(20px + env(safe-area-inset-bottom));
+            z-index: 30;
+            max-height: 55vh;
+            overflow-y: auto;
+        }
+
+        .sheet.open {
+            transform: translate(-50%, 0);
+        }
+
+        .sheet-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .sheet h2 {
+            font-size: 18px;
+            font-weight: 650;
+        }
+
+        .meta {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 6px 12px;
+            font-size: 12px;
+            color: var(--muted);
+            margin-top: 4px;
+        }
+
+        .meta span {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .close {
+            border: none;
+            background: var(--surface);
+            color: var(--text);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            font-size: 18px;
+            cursor: pointer;
+            flex: none;
+        }
+
+        .sheet p {
+            margin-top: 10px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .sheet h3 {
+            margin-top: 14px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--muted);
+        }
+
+        .links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 6px;
+        }
+
+        .links button {
+            font: inherit;
+            font-size: 13px;
+            color: var(--text);
+            background: var(--surface);
+            border: none;
+            border-left: 3px solid var(--c);
+            border-radius: 8px;
+            padding: 6px 9px;
+            cursor: pointer;
+            text-align: left;
+        }
+
+        .links .done::after {
+            content: ' ✓';
+            color: var(--c);
+        }
+
+        .none {
+            font-size: 13px;
+            color: var(--muted);
+            margin-top: 4px;
+        }
+
+        .learn-btn {
+            width: 100%;
+            margin-top: 16px;
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid var(--accent);
+            background: rgba(0, 229, 229, 0.12);
+            color: var(--accent);
+            font: inherit;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .learn-btn.done {
+            border-color: var(--line);
+            background: var(--surface);
+            color: var(--muted);
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+
+    <div class="top">
+        <div class="top-row">
+            <h1>Математикийн аялал</h1>
+        </div>
+        <div class="progress">
+            <div class="bar"><div class="bar-fill" id="barFill"></div></div>
+            <span id="progressText"></span>
+        </div>
+        <div class="legend" id="legend"></div>
+    </div>
+
+    <div class="hint" id="hint">Чирж хөдөлгө · Томруулж хар · Бөмбөлөг дээр дар</div>
+
+    <div class="controls">
+        <button id="zoomIn" aria-label="Томруулах">+</button>
+        <button id="zoomOut" aria-label="Жижигрүүлэх">−</button>
+        <button id="fitAll" aria-label="Бүх газрын зураг">⤢</button>
+    </div>
+
+    <div class="sheet" id="sheet">
+        <div class="sheet-head">
+            <div>
+                <h2 id="sheetTitle"></h2>
+                <div class="meta" id="sheetMeta"></div>
+            </div>
+            <button class="close" id="sheetClose" aria-label="Хаах">×</button>
+        </div>
+        <p id="sheetText"></p>
+        <div id="sheetTogether"></div>
+        <h3>Өмнө нь мэдэх ёстой</h3>
+        <div id="sheetPrereqs"></div>
+        <h3>Үүний дараа нээгдэнэ</h3>
+        <div id="sheetUnlocks"></div>
+        <button class="learn-btn" id="learnBtn"></button>
+    </div>
+
+    <script>
+        // Topic data: strands, topics with prerequisites, and journey stages.
+
+        // Strands: the main threads of school math
+        const strands = {
+            num: { name: 'Тоо', color: '#f48fb1' },
+            alg: { name: 'Алгебр', color: '#ffcc66' },
+            geo: { name: 'Геометр', color: '#8bd17c' },
+            fun: { name: 'Функц', color: '#5cc8ff' },
+            dat: { name: 'Статистик ба магадлал', color: '#c3a6ff' },
+            calc: { name: 'Анализ', color: '#ff9270' }
+        };
+
+        // Topics with prerequisites (ids of topics that must come first)
+        const topics = {
+            n1: { name: 'Байрын утга ба тоо', strand: 'num', req: [], text: 'Нэгж, аравт, зуут — тоо хэрхэн бүтдэгийг ойлгох.' },
+            n2: { name: 'Нэмэх ба хасах', strand: 'num', req: ['n1'], text: 'Олон оронтой тоог нэмэх, хасах, шилжүүлэх.' },
+            n3: { name: 'Үржих ба хуваах', strand: 'num', req: ['n2'], text: 'Үржүүлэх хүснэгт, баганаар үржих, хуваах.' },
+            n9: { name: 'Сөрөг тоо', strand: 'num', req: ['n2'], text: 'Тооны шулуун, сөрөг тоогоор үйлдэл хийх.' },
+
+            n4: { name: 'Хуваагдах чанар, ХИЕХ, ХБЕХ', strand: 'num', req: ['n3'], text: 'Анхны тоо, хамгийн их ерөнхий хуваагч, хамгийн бага ерөнхий хуваагдагч.' },
+            n5: { name: 'Энгийн бутархай', strand: 'num', req: ['n4'], text: 'Бутархайг хураах, ерөнхий хуваарьт оруулах, үйлдэл хийх.' },
+            n8: { name: 'Харьцаа ба пропорц', strand: 'num', req: ['n5'], text: 'Бутархай бол харьцаа. Хоёр хэмжигдэхүүнийг жишиж харьцуулах.' },
+            n6: { name: 'Аравтын бутархай', strand: 'num', req: ['n1', 'n5'], text: 'Энгийн бутархайг аравтын бутархай руу хөрвүүлэх, үйлдэл хийх.' },
+            n7: { name: 'Процент', strand: 'num', req: ['n6'], text: 'Процент бол 100-д харьцуулсан аравтын бутархай. Хямдрал, хүү.' },
+            g1: { name: 'Цэг, шулуун, өнцөг', strand: 'geo', req: ['n1'], text: 'Геометрийн үндсэн ойлголт, өнцөг хэмжих.' },
+
+            g2: { name: 'Гурвалжин ба олон өнцөгт', strand: 'geo', req: ['g1'], text: 'Дүрсийн төрөл, өнцгүүдийн нийлбэр.' },
+            g3: { name: 'Периметр ба талбай', strand: 'geo', req: ['g2', 'n3'], text: 'Дүрсийн хүрээ ба талбайг тооцоолох.' },
+            d1: { name: 'Өгөгдөл ба дундаж', strand: 'dat', req: ['n6'], text: 'Хүснэгт, диаграм унших, дундаж, медиан, моод.' },
+            a1: { name: 'Хувьсагч ба илэрхийлэл', strand: 'alg', req: ['n9', 'n5'], text: 'Үсгээр тоог орлуулах, илэрхийллийг хялбарчлах.' },
+            f1: { name: 'Координатын хавтгай', strand: 'fun', req: ['n9', 'g1'], text: 'x ба y тэнхлэг, цэгийг байршлаар нь тодорхойлох.' },
+
+            a2: { name: 'Шугаман тэгшитгэл', strand: 'alg', req: ['a1'], text: 'ax + b = c хэлбэрийн тэгшитгэл бодох.' },
+            a3: { name: 'Тэнцэтгэл биш', strand: 'alg', req: ['a2'], text: 'Тэгшитгэлтэй ижил аргаар бодно, зөвхөн тэмдэг нь өөр.' },
+            a4: { name: 'Зэрэг ба язгуур', strand: 'alg', req: ['n3', 'n5'], text: 'Зэргийн чанарууд, квадрат язгуур.' },
+            g5: { name: 'Пифагорын теорем', strand: 'geo', req: ['g2', 'a4'], text: 'a² + b² = c². Язгуургүйгээр бодогдохгүй.' },
+            g4: { name: 'Эзэлхүүн', strand: 'geo', req: ['g3', 'n6'], text: 'Талбайгаас эзэлхүүн рүү: шоо, призм, цилиндр.' },
+            d2: { name: 'Магадлалын үндэс', strand: 'dat', req: ['n5', 'd1'], text: 'Үзэгдлийн магадлалыг бутархайгаар илэрхийлэх.' },
+            d3: { name: 'Комбинаторик', strand: 'dat', req: ['n3', 'd2'], text: 'Сэлгэмэл, хэсэглэл — боломжуудыг тоолох.' },
+
+            f2: { name: 'Шугаман функц', strand: 'fun', req: ['f1', 'a2', 'n8'], text: 'y = kx + b. Налуу бол харьцаа, график бол шулуун.' },
+            a6: { name: 'Тэгшитгэлийн систем', strand: 'alg', req: ['a2', 'f2'], text: 'Хоёр шулууны огтлолцох цэгийг олох.' },
+            a5: { name: 'Олон гишүүнт, үржигдэхүүнд задлах', strand: 'alg', req: ['a1', 'a4'], text: 'Товчилсон үржвэрийн томьёо, хаалт задлах, бүлэглэх.' },
+            g7: { name: 'Тойрог', strand: 'geo', req: ['g3', 'n6'], text: 'π, тойргийн урт, дугуйн талбай, хөвч, шүргэгч.' },
+
+            a7: { name: 'Квадрат тэгшитгэл', strand: 'alg', req: ['a5'], text: 'Задлах болон дискриминантаар бодох.' },
+            f3: { name: 'Квадрат функц (парабол)', strand: 'fun', req: ['f2', 'a7'], text: 'Квадрат тэгшитгэлийн шийд = параболын x тэнхлэгтэй огтлолцол.' },
+            g6: { name: 'Төсөөтэй гурвалжин', strand: 'geo', req: ['g2', 'n8'], text: 'Хэлбэр ижил, хэмжээ өөр — талуудын харьцаа тогтмол.' },
+            f5: { name: 'Тэгш өнцөгт гурвалжны тригонометр', strand: 'fun', req: ['g5', 'g6'], text: 'sin, cos, tg бол төсөөтэй гурвалжны талуудын харьцаа.' },
+            d4: { name: 'Статистик ба тархалт', strand: 'dat', req: ['d1', 'n7'], text: 'Хэлбэлзэл, стандарт хазайлт, өгөгдлөөс дүгнэлт гаргах.' },
+
+            f4: { name: 'Илтгэгч ба логарифм', strand: 'fun', req: ['a4', 'f2'], text: 'Зэргийн урвуу үйлдэл бол логарифм. Өсөлт, буурал.' },
+            f6: { name: 'Нэгж тойрог ба тригонометр функц', strand: 'fun', req: ['f5', 'g7', 'f2'], text: 'Гурвалжнаас тойрог руу: ямар ч өнцгийн sin, cos.' },
+            f7: { name: 'Функцийн найрлага ба урвуу функц', strand: 'fun', req: ['f3', 'f4'], text: 'Функцийг хооронд нь нийлүүлэх ба буцаах.' },
+
+            c1: { name: 'Дараалал ба хязгаар', strand: 'calc', req: ['f7'], text: 'Арифметик, геометр прогресс, хязгаарын ойлголт.' },
+            c2: { name: 'Уламжлал', strand: 'calc', req: ['c1'], text: 'Өөрчлөлтийн хурд — муруйн шүргэгчийн налуу.' },
+            c3: { name: 'Уламжлалын хэрэглээ', strand: 'calc', req: ['c2', 'f3'], text: 'Хамгийн их, хамгийн бага утга олох бодлого.' },
+            c4: { name: 'Интеграл', strand: 'calc', req: ['c2'], text: 'Уламжлалын урвуу — муруйн доорх талбай.' },
+            c5: { name: 'Интегралын хэрэглээ', strand: 'calc', req: ['c4', 'g4'], text: 'Талбай, эзэлхүүнийг интегралаар тооцох.' }
+        };
+
+        // Journey stages. Inner arrays = taught together, with the reason.
+        const stages = [
+            {
+                title: 'Тооны суурь',
+                why: 'Бүх зүйлийн үндэс. Сул бол энд эхэлнэ.',
+                items: ['n1', 'n2', 'n3', 'n9']
+            },
+            {
+                title: 'Бутархай ба харьцаа',
+                why: 'Бутархай, харьцаа, процент бол нэг санааны гурван хэлбэр.',
+                items: [
+                    'n4',
+                    { ids: ['n5', 'n8'], why: 'Бутархай бол харьцаа — нэг санааг хоёр талаас нь үзнэ.' },
+                    { ids: ['n6', 'n7'], why: 'Процент бол аравтын бутархай — шууд үргэлжлэл.' },
+                    'g1'
+                ]
+            },
+            {
+                title: 'Дүрс ба өгөгдөл',
+                why: 'Тоог бодит зүйлд хэрэглэж эхэлнэ.',
+                items: [
+                    { ids: ['g2', 'g3'], why: 'Дүрсийг сурахдаа талбайг нь шууд тооцвол ойлголт бэхжинэ.' },
+                    'd1', 'a1', 'f1'
+                ]
+            },
+            {
+                title: 'Алгебрийн эхлэл',
+                why: 'Үл мэдэгдэгчийг олох аргад суралцана.',
+                items: [
+                    { ids: ['a2', 'a3'], why: 'Нэг аргаар бодогддог — зөвхөн тэмдэг нь өөр.' },
+                    { ids: ['a4', 'g5'], why: 'Пифагорт язгуур хэрэгтэй, язгуурт бодит жишээ хэрэгтэй.' },
+                    'g4',
+                    { ids: ['d2', 'd3'], why: 'Магадлал тооцохын тулд боломжуудыг тоолж сурна.' }
+                ]
+            },
+            {
+                title: 'Шугаман ертөнц',
+                why: 'Тэгшитгэл ба график нэг зүйлийн хоёр дүр болохыг харна.',
+                items: [
+                    { ids: ['f2', 'a6'], why: 'Систем бол хоёр шулууны огтлолцол — графикаар шууд харагдана.' },
+                    'a5', 'g7'
+                ]
+            },
+            {
+                title: 'Квадрат ба гурвалжин',
+                why: 'Алгебр, геометр, функц энд нэгддэг.',
+                items: [
+                    { ids: ['a7', 'f3'], why: 'Тэгшитгэлийн шийд = параболын тэгийн цэг.' },
+                    { ids: ['g6', 'f5'], why: 'Тригонометр бол төсөөтэй гурвалжны харьцаа.' },
+                    'd4'
+                ]
+            },
+            {
+                title: 'Функцийн гүнзгийрэл',
+                why: 'Бүх функцийг нэг дор ойлгох — анализд бэлдэнэ.',
+                items: ['f4', 'f6', 'f7']
+            },
+            {
+                title: 'Математик анализ',
+                why: 'ЭЕШ-ийн хамгийн өндөр оноотой хэсэг.',
+                items: [
+                    'c1',
+                    { ids: ['c2', 'c3'], why: 'Уламжлалыг хэрэглээгүйгээр ойлгоход хэцүү.' },
+                    { ids: ['c4', 'c5'], why: 'Интегралыг талбайгаар нь шууд мэдэрнэ.' }
+                ]
+            }
+        ];
+
+        // Reverse links: what each topic unlocks, and which group it is taught with
+        const unlocks = {};
+        const partner = {};
+        Object.keys(topics).forEach(id => { unlocks[id] = []; });
+        Object.entries(topics).forEach(([id, t]) => t.req.forEach(r => unlocks[r].push(id)));
+        stages.forEach(s => s.items.forEach(item => {
+            if (typeof item === 'object') {
+                item.ids.forEach(id => { partner[id] = item; });
+            }
+        }));
+    </script>
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        const SPHERE_RADIUS = 46;
+        const SLOT_SPACING = 108;
+        const MIN_RING = 90;
+        const STAGE_GAP_X = 480;
+        const STAGE_GAP_Y = 500;
+        const STORAGE_KEY = 'mathJourneyProgress';
+
+        let width, height;
+        let scale = 1, targetScale = 1;
+        let offsetX = 0, offsetY = 0;
+        let targetOffsetX = 0, targetOffsetY = 0;
+        let selected = null;
+        let hovered = null;
+        let learned = loadProgress();
+
+        function loadProgress() {
+            try {
+                return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+            } catch (e) {
+                return {};
+            }
+        }
+
+        function saveProgress() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(learned));
+            } catch (e) {
+                // Storage unavailable - progress lasts for this session only
+            }
+        }
+
+        // ---- Build the map: each stage is an island, topics are spheres on it ----
+        const nodes = {};
+        const islands = [];
+        const pairs = [];
+        let columns = 0;
+
+        // Islands snake across the map: 4 per row on wide screens, 2 on phones
+        function layout() {
+            columns = window.innerWidth > window.innerHeight ? 4 : 2;
+            islands.length = 0;
+            pairs.length = 0;
+            stages.forEach((stage, si) => {
+                const row = Math.floor(si / columns);
+                const step = si % columns;
+                const col = row % 2 === 0 ? step : columns - 1 - step;
+                // Stagger alternate columns so the road winds instead of running in straight lines
+                const cx = (col - (columns - 1) / 2) * STAGE_GAP_X;
+                const cy = row * STAGE_GAP_Y + (col % 2) * 90;
+                placeStage(stage, si, cx, cy);
+            });
+        }
+
+        function placeStage(stage, si, cx, cy) {
+            // Companions take neighbouring slots so they sit side by side
+            const slots = [];
+            stage.items.forEach(item => {
+                if (typeof item === 'string') {
+                    slots.push(item);
+                } else {
+                    slots.push(...item.ids);
+                    pairs.push(item.ids);
+                }
+            });
+
+            const ring = Math.max(MIN_RING, (slots.length * SLOT_SPACING) / (Math.PI * 2));
+            slots.forEach((id, k) => {
+                const angle = (k / slots.length) * Math.PI * 2 - Math.PI / 2;
+                const node = nodes[id] || (nodes[id] = {
+                    id,
+                    topic: topics[id],
+                    stage: si,
+                    drawX: 0,
+                    drawY: 0,
+                    float: Math.random() * Math.PI * 2
+                });
+                node.x = cx + Math.cos(angle) * ring;
+                node.y = cy + Math.sin(angle) * ring;
+            });
+
+            islands.push({ x: cx, y: cy, r: ring + SPHERE_RADIUS + 34, title: stage.title, index: si });
+        }
+
+        layout();
+
+        function isLearned(id) {
+            return !!learned[id];
+        }
+
+        // learned / open (all prerequisites learned) / locked
+        function stateOf(id) {
+            if (isLearned(id)) return 'learned';
+            return topics[id].req.every(isLearned) ? 'open' : 'locked';
+        }
+
+        // ---- Canvas size ----
+        function resize() {
+            const dpr = window.devicePixelRatio || 1;
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width * dpr;
+            canvas.height = height * dpr;
+            canvas.style.width = width + 'px';
+            canvas.style.height = height + 'px';
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+            // Phone rotated: re-lay the map for the new shape
+            if (columns && columns !== (width > height ? 4 : 2)) {
+                layout();
+                if (selected) focusNode(nodes[selected]);
+                else fitAll();
+            }
+        }
+
+        window.addEventListener('resize', resize);
+        resize();
+
+        // ---- Camera ----
+        const TOP_BAR = 110;
+
+        function focusIsland(island) {
+            targetScale = Math.min(1.1, Math.min(width, height - TOP_BAR) / (island.r * 2 + 60));
+            targetOffsetX = -island.x * targetScale;
+            targetOffsetY = -island.y * targetScale + TOP_BAR / 2;
+        }
+
+        function fitAll() {
+            const minX = Math.min(...islands.map(i => i.x - i.r));
+            const maxX = Math.max(...islands.map(i => i.x + i.r));
+            const minY = Math.min(...islands.map(i => i.y - i.r - 40));
+            const maxY = Math.max(...islands.map(i => i.y + i.r));
+            targetScale = Math.min(width / (maxX - minX + 40), (height - TOP_BAR) / (maxY - minY + 40));
+            targetOffsetX = -((minX + maxX) / 2) * targetScale;
+            targetOffsetY = -((minY + maxY) / 2) * targetScale + TOP_BAR / 2;
+        }
+
+        // Center a sphere in the space left above the open sheet
+        function focusNode(node) {
+            const sheetHeight = document.getElementById('sheet').offsetHeight;
+            const visibleCenter = (TOP_BAR + (height - sheetHeight)) / 2;
+            targetScale = Math.max(targetScale, 0.8);
+            targetOffsetX = -node.x * targetScale;
+            targetOffsetY = -node.y * targetScale + (visibleCenter - height / 2);
+        }
+
+        function zoomBy(factor, clientX = width / 2, clientY = height / 2) {
+            const newScale = Math.max(0.15, Math.min(2.5, targetScale * factor));
+            const cx = clientX - width / 2;
+            const cy = clientY - height / 2;
+            targetOffsetX = cx - ((cx - targetOffsetX) / targetScale) * newScale;
+            targetOffsetY = cy - ((cy - targetOffsetY) / targetScale) * newScale;
+            targetScale = newScale;
+        }
+
+        function toWorld(clientX, clientY) {
+            return {
+                x: (clientX - width / 2 - offsetX) / scale,
+                y: (clientY - height / 2 - offsetY) / scale
+            };
+        }
+
+        function nodeAt(clientX, clientY) {
+            const p = toWorld(clientX, clientY);
+            return Object.values(nodes).find(n =>
+                (p.x - n.drawX) ** 2 + (p.y - n.drawY) ** 2 <= SPHERE_RADIUS ** 2
+            ) || null;
+        }
+
+        // ---- Input: drag, pinch, wheel, tap ----
+        const pointers = new Map();
+        let dragMoved = false;
+        let downX = 0, downY = 0;
+        let lastPinchDist = 0, lastMidX = 0, lastMidY = 0;
+
+        function hideHint() {
+            document.getElementById('hint').classList.add('gone');
+        }
+
+        canvas.addEventListener('pointerdown', (e) => {
+            canvas.setPointerCapture(e.pointerId);
+            pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+            if (pointers.size === 1) {
+                dragMoved = false;
+                downX = e.clientX;
+                downY = e.clientY;
+            } else if (pointers.size === 2) {
+                const [a, b] = [...pointers.values()];
+                lastPinchDist = Math.hypot(a.x - b.x, a.y - b.y);
+                lastMidX = (a.x + b.x) / 2;
+                lastMidY = (a.y + b.y) / 2;
+                dragMoved = true;
+            }
+        });
+
+        canvas.addEventListener('pointermove', (e) => {
+            const prev = pointers.get(e.pointerId);
+            if (!prev) {
+                // Mouse hover
+                const node = nodeAt(e.clientX, e.clientY);
+                hovered = node;
+                canvas.classList.toggle('pointer', !!node);
+                return;
+            }
+            pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+
+            if (pointers.size === 2) {
+                const [a, b] = [...pointers.values()];
+                const dist = Math.hypot(a.x - b.x, a.y - b.y);
+                const midX = (a.x + b.x) / 2;
+                const midY = (a.y + b.y) / 2;
+                targetOffsetX += midX - lastMidX;
+                targetOffsetY += midY - lastMidY;
+                if (lastPinchDist > 0) zoomBy(dist / lastPinchDist, midX, midY);
+                scale = targetScale;
+                offsetX = targetOffsetX;
+                offsetY = targetOffsetY;
+                lastPinchDist = dist;
+                lastMidX = midX;
+                lastMidY = midY;
+                hideHint();
+                return;
+            }
+
+            if (Math.hypot(e.clientX - downX, e.clientY - downY) > 6) {
+                dragMoved = true;
+            }
+            if (dragMoved) {
+                targetOffsetX += e.clientX - prev.x;
+                targetOffsetY += e.clientY - prev.y;
+                offsetX = targetOffsetX;
+                offsetY = targetOffsetY;
+                hideHint();
+            }
+        });
+
+        function releasePointer(e) {
+            const wasTap = pointers.size === 1 && !dragMoved;
+            pointers.delete(e.pointerId);
+            if (pointers.size === 1) {
+                // Pinch ended with one finger still down: continue as a drag from here
+                dragMoved = true;
+            }
+            if (wasTap && e.type === 'pointerup') {
+                const node = nodeAt(e.clientX, e.clientY);
+                select(node ? node.id : null);
+            }
+        }
+
+        canvas.addEventListener('pointerup', releasePointer);
+        canvas.addEventListener('pointercancel', releasePointer);
+        canvas.addEventListener('pointerleave', () => { hovered = null; });
+
+        canvas.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            zoomBy(e.deltaY > 0 ? 0.9 : 1.1, e.clientX, e.clientY);
+            hideHint();
+        }, { passive: false });
+
+        document.getElementById('zoomIn').addEventListener('click', () => zoomBy(1.3));
+        document.getElementById('zoomOut').addEventListener('click', () => zoomBy(1 / 1.3));
+        document.getElementById('fitAll').addEventListener('click', () => {
+            select(null);
+            fitAll();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') select(null);
+        });
+
+        // ---- UI: legend, progress, sheet ----
+        const legend = document.getElementById('legend');
+        Object.values(strands).forEach(s => {
+            const el = document.createElement('span');
+            el.innerHTML = `<i class="dot" style="background:${s.color}"></i>${s.name}`;
+            legend.append(el);
+        });
+
+        function updateProgress() {
+            const total = Object.keys(topics).length;
+            const done = Object.keys(topics).filter(isLearned).length;
+            document.getElementById('barFill').style.transform = `scaleX(${done / total})`;
+            document.getElementById('progressText').textContent = `${done}/${total} сэдэв`;
+        }
+
+        function linkList(ids) {
+            const box = document.createElement('div');
+            if (!ids.length) {
+                box.className = 'none';
+                box.textContent = '—';
+                return box;
+            }
+            box.className = 'links';
+            ids.forEach(id => {
+                const btn = document.createElement('button');
+                btn.style.setProperty('--c', strands[topics[id].strand].color);
+                btn.textContent = topics[id].name;
+                btn.classList.toggle('done', isLearned(id));
+                btn.addEventListener('click', () => select(id));
+                box.append(btn);
+            });
+            return box;
+        }
+
+        const stateLabel = {
+            learned: 'Сурсан ✓',
+            open: 'Сурахад бэлэн',
+            locked: 'Өмнөх сэдвүүдээ эхлээд'
+        };
+
+        function renderSheet(id) {
+            const t = topics[id];
+            const s = strands[t.strand];
+            const node = nodes[id];
+            document.getElementById('sheetTitle').textContent = t.name;
+            document.getElementById('sheetMeta').innerHTML =
+                `<span><i class="dot" style="background:${s.color}"></i>${s.name}</span>` +
+                `<span>${node.stage + 1}. ${stages[node.stage].title}</span>` +
+                `<span>${stateLabel[stateOf(id)]}</span>`;
+            document.getElementById('sheetText').textContent = t.text;
+
+            const together = document.getElementById('sheetTogether');
+            together.innerHTML = '';
+            const group = partner[id];
+            if (group) {
+                const h = document.createElement('h3');
+                h.textContent = 'Хамт үзэх';
+                const why = document.createElement('p');
+                why.textContent = group.why;
+                together.append(h, linkList(group.ids.filter(x => x !== id)), why);
+            }
+
+            document.getElementById('sheetPrereqs').replaceChildren(linkList(t.req));
+            document.getElementById('sheetUnlocks').replaceChildren(linkList(unlocks[id]));
+
+            const btn = document.getElementById('learnBtn');
+            btn.textContent = isLearned(id) ? 'Тэмдэглэгээ арилгах' : 'Сурсан гэж тэмдэглэх';
+            btn.classList.toggle('done', isLearned(id));
+        }
+
+        function select(id) {
+            selected = id;
+            const sheet = document.getElementById('sheet');
+            if (!id) {
+                sheet.classList.remove('open');
+                return;
+            }
+            renderSheet(id);
+            sheet.classList.add('open');
+            focusNode(nodes[id]);
+            hideHint();
+        }
+
+        document.getElementById('sheetClose').addEventListener('click', () => select(null));
+        document.getElementById('learnBtn').addEventListener('click', () => {
+            if (!selected) return;
+            if (isLearned(selected)) {
+                delete learned[selected];
+            } else {
+                learned[selected] = true;
+            }
+            saveProgress();
+            updateProgress();
+            renderSheet(selected);
+        });
+
+        // ---- Drawing ----
+        function wrapText(text, maxWidth) {
+            const words = text.split(' ');
+            const lines = [];
+            let line = '';
+            words.forEach(word => {
+                const test = line ? line + ' ' + word : word;
+                if (line && ctx.measureText(test).width > maxWidth) {
+                    lines.push(line);
+                    line = word;
+                } else {
+                    line = test;
+                }
+            });
+            if (line) lines.push(line);
+            return lines;
+        }
+
+        // Is this node part of the current selection (itself, a prerequisite, an unlock, or a companion)?
+        function related(id) {
+            if (!selected) return true;
+            return id === selected ||
+                topics[selected].req.includes(id) ||
+                unlocks[selected].includes(id) ||
+                (partner[selected] && partner[selected].ids.includes(id));
+        }
+
+        function drawRoad() {
+            ctx.beginPath();
+            ctx.moveTo(islands[0].x, islands[0].y);
+            for (let i = 1; i < islands.length; i++) {
+                const a = islands[i - 1];
+                const b = islands[i];
+                if (Math.abs(b.x - a.x) > Math.abs(b.y - a.y)) {
+                    const midX = (a.x + b.x) / 2;
+                    ctx.bezierCurveTo(midX, a.y, midX, b.y, b.x, b.y);
+                } else {
+                    const midY = (a.y + b.y) / 2;
+                    ctx.bezierCurveTo(a.x, midY, b.x, midY, b.x, b.y);
+                }
+            }
+            ctx.strokeStyle = 'rgba(0, 229, 229, 0.10)';
+            ctx.lineWidth = 14;
+            ctx.setLineDash([2, 22]);
+            ctx.lineCap = 'round';
+            ctx.stroke();
+            ctx.setLineDash([]);
+        }
+
+        function drawIsland(island) {
+            const g = ctx.createRadialGradient(island.x, island.y, island.r * 0.3, island.x, island.y, island.r);
+            g.addColorStop(0, 'rgba(0, 229, 229, 0.05)');
+            g.addColorStop(1, 'rgba(0, 229, 229, 0.015)');
+            ctx.fillStyle = g;
+            ctx.beginPath();
+            ctx.arc(island.x, island.y, island.r, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.strokeStyle = 'rgba(0, 229, 229, 0.14)';
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+
+            // Stop number in the middle
+            ctx.fillStyle = 'rgba(0, 229, 229, 0.18)';
+            ctx.font = `700 44px -apple-system, 'Segoe UI', system-ui, sans-serif`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(island.index + 1, island.x, island.y);
+
+            // Title above the island
+            ctx.fillStyle = 'rgba(0, 229, 229, 0.85)';
+            ctx.font = `600 20px -apple-system, 'Segoe UI', system-ui, sans-serif`;
+            ctx.fillText(`${island.index + 1}. ${island.title}`, island.x, island.y - island.r - 18);
+        }
+
+        function drawEdge(from, to, highlight) {
+            const dx = to.drawX - from.drawX;
+            const dy = to.drawY - from.drawY;
+            const dist = Math.hypot(dx, dy);
+            if (dist <= SPHERE_RADIUS * 2) return;
+            const ux = dx / dist, uy = dy / dist;
+            const x1 = from.drawX + ux * SPHERE_RADIUS, y1 = from.drawY + uy * SPHERE_RADIUS;
+            const x2 = to.drawX - ux * SPHERE_RADIUS, y2 = to.drawY - uy * SPHERE_RADIUS;
+            // Slight bend so long links don't cut straight through islands
+            const bend = Math.min(60, dist * 0.12);
+            const mx = (x1 + x2) / 2 - uy * bend, my = (y1 + y2) / 2 + ux * bend;
+
+            const color = strands[from.topic.strand].color;
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.quadraticCurveTo(mx, my, x2, y2);
+            ctx.strokeStyle = color + (highlight ? 'dd' : '1c');
+            ctx.lineWidth = highlight ? 3 : 1.5;
+            ctx.stroke();
+
+            if (highlight) {
+                // Arrowhead pointing at the topic that needs this one
+                const angle = Math.atan2(y2 - my, x2 - mx);
+                ctx.beginPath();
+                ctx.moveTo(x2, y2);
+                ctx.lineTo(x2 - Math.cos(angle - 0.4) * 12, y2 - Math.sin(angle - 0.4) * 12);
+                ctx.lineTo(x2 - Math.cos(angle + 0.4) * 12, y2 - Math.sin(angle + 0.4) * 12);
+                ctx.closePath();
+                ctx.fillStyle = color + 'dd';
+                ctx.fill();
+            }
+        }
+
+        // Companions share a soft capsule
+        function drawPair(ids) {
+            const a = nodes[ids[0]], b = nodes[ids[1]];
+            const dim = selected && !(related(a.id) || related(b.id));
+            ctx.beginPath();
+            ctx.moveTo(a.drawX, a.drawY);
+            ctx.lineTo(b.drawX, b.drawY);
+            ctx.strokeStyle = dim ? 'rgba(255, 255, 255, 0.02)' : 'rgba(255, 255, 255, 0.06)';
+            ctx.lineWidth = SPHERE_RADIUS * 2 + 16;
+            ctx.lineCap = 'round';
+            ctx.stroke();
+        }
+
+        function drawSphere(node) {
+            const id = node.id;
+            const color = strands[node.topic.strand].color;
+            const state = stateOf(id);
+            const isSel = id === selected;
+            const r = SPHERE_RADIUS * (isSel ? 1.08 : 1);
+
+            ctx.save();
+            ctx.globalAlpha = !related(id) ? 0.15 : state === 'locked' ? 0.5 : 1;
+            ctx.translate(node.drawX, node.drawY);
+
+            // Glow
+            if (state !== 'locked' || isSel) {
+                const g = ctx.createRadialGradient(0, 0, 0, 0, 0, r * 1.5);
+                g.addColorStop(0, color + '40');
+                g.addColorStop(0.6, color + '14');
+                g.addColorStop(1, color + '00');
+                ctx.fillStyle = g;
+                ctx.beginPath();
+                ctx.arc(0, 0, r * 1.5, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            // Body
+            ctx.beginPath();
+            ctx.arc(0, 0, r, 0, Math.PI * 2);
+            ctx.fillStyle = color + (state === 'learned' ? '55' : '18');
+            ctx.fill();
+            ctx.strokeStyle = isSel ? '#ffffff' : color + (state === 'locked' ? '55' : 'bb');
+            ctx.lineWidth = isSel || node === hovered ? 3 : 2;
+            if (state === 'locked') ctx.setLineDash([5, 5]);
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            // Learned badge
+            if (state === 'learned') {
+                ctx.beginPath();
+                ctx.arc(r * 0.72, -r * 0.72, 11, 0, Math.PI * 2);
+                ctx.fillStyle = color;
+                ctx.fill();
+                ctx.fillStyle = '#0a0a0f';
+                ctx.font = `700 13px -apple-system, 'Segoe UI', system-ui, sans-serif`;
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText('✓', r * 0.72, -r * 0.72 + 1);
+            }
+
+            // Label
+            let size = 12;
+            ctx.font = `600 ${size}px -apple-system, 'Segoe UI', system-ui, sans-serif`;
+            let lines = wrapText(node.topic.name, r * 1.7);
+            if (lines.length > 3) {
+                size = 10.5;
+                ctx.font = `600 ${size}px -apple-system, 'Segoe UI', system-ui, sans-serif`;
+                lines = wrapText(node.topic.name, r * 1.75);
+            }
+            ctx.fillStyle = state === 'learned' || isSel ? '#ffffff' : color;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            const lh = size * 1.2;
+            lines.forEach((line, i) => ctx.fillText(line, 0, (i - (lines.length - 1) / 2) * lh));
+
+            ctx.restore();
+        }
+
+        function animate(time) {
+            scale += (targetScale - scale) * 0.15;
+            offsetX += (targetOffsetX - offsetX) * 0.15;
+            offsetY += (targetOffsetY - offsetY) * 0.15;
+
+            ctx.fillStyle = '#0a0a0f';
+            ctx.fillRect(0, 0, width, height);
+
+            ctx.save();
+            ctx.translate(width / 2 + offsetX, height / 2 + offsetY);
+            ctx.scale(scale, scale);
+
+            Object.values(nodes).forEach(n => {
+                n.drawX = n.x;
+                n.drawY = n.y + Math.sin(time * 0.001 + n.float) * 3;
+            });
+
+            drawRoad();
+            islands.forEach(drawIsland);
+            pairs.forEach(drawPair);
+
+            // Prerequisite links: all faint, the selection's links bright on top
+            const highlighted = [];
+            Object.values(nodes).forEach(n => {
+                n.topic.req.forEach(r => {
+                    const hi = selected && (n.id === selected || r === selected);
+                    if (hi) highlighted.push([nodes[r], n]);
+                    else if (!selected) drawEdge(nodes[r], n, false);
+                });
+            });
+
+            Object.values(nodes).forEach(drawSphere);
+            highlighted.forEach(([from, to]) => drawEdge(from, to, true));
+
+            ctx.restore();
+            requestAnimationFrame(animate);
+        }
+
+        updateProgress();
+        // Wide screens start with the whole map; phones start at the first stop
+        if (columns === 4) fitAll();
+        else focusIsland(islands[0]);
+        scale = targetScale;
+        offsetX = targetOffsetX;
+        offsetY = targetOffsetY;
+        requestAnimationFrame(animate);
+    </script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="mn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+    <meta name="theme-color" content="#05070d" />
+    <title>Математикийн аялал</title>
+    <!-- Home-screen app: opens full screen with its own icon. -->
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Мат аялал" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Loaded without blocking the first paint, so the loading screen shows at once even on a slow connection. -->
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" /></noscript>
+    <style>
+      /* Loading screen: the app icon come alive. Three dots orbit a tilted neon ring around π. */
+      #splash { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; background: #05070d; transition: opacity 0.45s ease-out; }
+      #splash.out { opacity: 0; pointer-events: none; }
+      #splash .box { display: grid; justify-items: center; gap: 22px; }
+      #splash .stage { position: relative; width: 150px; height: 150px; perspective: 500px; }
+      #splash .ring { position: absolute; inset: 0; border-radius: 50%; border: 3px solid #8beeff; box-shadow: 0 0 22px #22d3ee, inset 0 0 18px rgba(34, 211, 238, 0.35); transform: rotateX(62deg); }
+      #splash .orbit { position: absolute; inset: 0; transform: rotateX(62deg); transform-style: preserve-3d; animation: spin 2.4s linear infinite; }
+      #splash .orbit i { position: absolute; left: 50%; top: -7px; width: 14px; height: 14px; margin-left: -7px; border-radius: 50%; background: #ffcc66; box-shadow: 0 0 14px #ffcc66; }
+      #splash .orbit i:nth-child(2) { transform: rotate(120deg); transform-origin: 7px 82px; background: #22d3ee; box-shadow: 0 0 12px #22d3ee; }
+      #splash .orbit i:nth-child(3) { transform: rotate(240deg); transform-origin: 7px 82px; background: #e6f0ff; box-shadow: 0 0 10px #e6f0ff; width: 10px; height: 10px; }
+      #splash .pi { position: absolute; inset: 0; display: grid; place-items: center; font: 700 58px 'Cambria Math', 'Times New Roman', serif; color: #e6f0ff; text-shadow: 0 0 16px rgba(139, 238, 255, 0.7); animation: breathe 2.4s ease-in-out infinite; }
+      #splash .name { font: 800 12px system-ui, sans-serif; letter-spacing: 0.32em; text-transform: uppercase; color: #22d3ee; text-shadow: 0 0 12px rgba(34, 211, 238, 0.6); }
+      @keyframes spin { to { transform: rotateX(62deg) rotateZ(360deg); } }
+      @keyframes breathe { 50% { opacity: 0.75; } }
+      @media (prefers-reduced-motion: reduce) { #splash .orbit, #splash .pi { animation: none; } }
+    </style>
+  </head>
+  <body>
+    <!-- Static copy of the feedback form so Netlify Forms detects it at deploy time. -->
+    <form name="feedback" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input name="bot-field" /><input name="entry" /><input name="kind" /><textarea name="message"></textarea>
+    </form>
+    <div id="splash" aria-hidden="true">
+      <div class="box">
+        <div class="stage"><div class="ring"></div><div class="orbit"><i></i><i></i><i></i></div><div class="pi">π</div></div>
+        <div class="name">Математикийн аялал</div>
+      </div>
+    </div>
+    <script>window.__splashAt = performance.now();</script>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

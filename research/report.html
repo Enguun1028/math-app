@@ -1,0 +1,685 @@
+<title>Left Behind in Math</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Unbounded:wght@500;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+  :root {
+    --bg: #f5f7fa;
+    --surface: #ffffff;
+    --surface-2: #eaf0f7;
+    --ink: #13233a;
+    --ink-2: #44546b;
+    --ink-3: #56657a;
+    --line: #d6dfea;
+    --blue: #1f5fa8;
+    --blue-soft: #dce8f6;
+    --red: #c4272f;
+    --red-soft: #f8e1e2;
+    --gold: #7f5406;
+    --gold-soft: #f6ead0;
+    --green: #236640;
+    --green-soft: #dcefe3;
+    --bench: #9aa8b8;
+    --sky: linear-gradient(180deg, #1f5fa8 0%, #2c78c9 100%);
+    --radius: 14px;
+    --display: 'Unbounded', 'Golos Text', system-ui, sans-serif;
+    --body: 'Golos Text', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, Consolas, monospace;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0c1320; --surface: #131d2e; --surface-2: #1a2740;
+      --ink: #e8eef7; --ink-2: #b3c0d2; --ink-3: #8595ab; --line: #26354d;
+      --blue: #5f93d8; --blue-soft: #1c3150; --red: #e25a5a; --red-soft: #3a1d24;
+      --gold: #e0b252; --gold-soft: #3a2f16; --green: #5cc08a; --green-soft: #173427;
+      --bench: #5d6d84; --sky: linear-gradient(180deg, #14335c 0%, #1b4579 100%);
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0c1320; --surface: #131d2e; --surface-2: #1a2740;
+    --ink: #e8eef7; --ink-2: #b3c0d2; --ink-3: #8595ab; --line: #26354d;
+    --blue: #5f93d8; --blue-soft: #1c3150; --red: #e25a5a; --red-soft: #3a1d24;
+    --gold: #e0b252; --gold-soft: #3a2f16; --green: #5cc08a; --green-soft: #173427;
+    --bench: #5d6d84; --sky: linear-gradient(180deg, #14335c 0%, #1b4579 100%);
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 16px;
+    line-height: 1.55;
+    padding-inline: 16px;
+    padding-block: 0 64px;
+  }
+  .wrap { max-width: 1040px; margin: 0 auto; }
+  h1, h2, h3 { text-wrap: balance; margin: 0; }
+  h2 { font-family: var(--display); font-weight: 700; font-size: clamp(22px, 3.4vw, 30px); line-height: 1.2; letter-spacing: -0.01em; }
+  h3 { font-size: 17px; font-weight: 700; line-height: 1.3; }
+  p { margin: 0; }
+  a { color: var(--blue); }
+  a:focus-visible, button:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; border-radius: 6px; }
+  .num { font-variant-numeric: tabular-nums; }
+
+  /* Hero */
+  .hero {
+    background: var(--sky);
+    color: #fff;
+    margin-inline: -16px;
+    padding: 40px 16px 44px;
+  }
+  .hero .wrap { display: grid; grid-template-columns: 1.1fr 1fr; gap: 36px; align-items: end; }
+  .kicker { font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.85; font-weight: 600; }
+  .hero h1 { font-family: var(--display); font-weight: 700; font-size: clamp(30px, 5.4vw, 52px); line-height: 1.08; letter-spacing: -0.02em; margin-top: 10px; }
+  .hero .lede { margin-top: 16px; font-size: 18px; max-width: 34em; color: rgba(255,255,255,0.92); }
+  .big-stat { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.22); border-radius: var(--radius); padding: 20px; }
+  .big-stat .figure { font-family: var(--display); font-size: clamp(56px, 9vw, 84px); font-weight: 700; line-height: 1; }
+  .big-stat .figure small { font-size: 0.36em; opacity: 0.75; font-weight: 500; }
+  .big-stat .cap { margin-top: 8px; font-size: 15px; color: rgba(255,255,255,0.9); }
+  .big-stat svg { width: 100%; height: auto; margin-top: 14px; display: block; }
+  .big-stat svg text { fill: rgba(255,255,255,0.85); font-family: var(--body); font-size: 12px; }
+  .chart-scroll { overflow-x: auto; }
+  .chart-scroll svg { min-width: 560px; }
+  .big-stat .src { font-size: 12px; margin-top: 6px; color: rgba(255,255,255,0.75); }
+  .big-stat .src a { color: #fff; }
+
+  /* Nav */
+  nav.toc {
+    position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10;
+    background: color-mix(in srgb, var(--bg) 92%, transparent);
+    backdrop-filter: blur(8px);
+    margin-inline: -16px; padding: 10px 16px;
+    border-bottom: 1px solid var(--line);
+  }
+  nav.toc .wrap { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; }
+  nav.toc a {
+    flex: none; text-decoration: none; color: var(--ink-2); font-size: 14px; font-weight: 600;
+    padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface);
+  }
+  nav.toc a:hover { color: var(--blue); border-color: var(--blue); }
+
+  section { padding-top: 56px; scroll-margin-top: 60px; }
+  .sec-head { display: grid; gap: 8px; margin-bottom: 24px; max-width: 46em; }
+  .sec-head .kicker { color: var(--blue); opacity: 1; }
+  .sec-head p { color: var(--ink-2); font-size: 17px; }
+
+  /* Confidence chips */
+  .conf { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
+  .conf::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+  .conf.high { color: var(--green); background: var(--green-soft); }
+  .conf.med { color: var(--gold); background: var(--gold-soft); }
+  .conf.low { color: var(--red); background: var(--red-soft); }
+
+  /* Key findings */
+  .findings { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 14px; }
+  .finding { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; display: grid; gap: 10px; align-content: start; }
+  .finding .n { font-family: var(--display); font-size: 30px; font-weight: 700; color: var(--blue); line-height: 1; }
+  .finding.alarm .n { color: var(--red); }
+  .finding p { color: var(--ink-2); font-size: 15px; }
+
+  /* Stats + charts */
+  .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
+  .panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; display: grid; gap: 12px; align-content: start; }
+  .panel .title { font-weight: 700; font-size: 15px; }
+  .panel .note { font-size: 13px; color: var(--ink-3); }
+  .panel svg { width: 100%; height: auto; display: block; overflow: visible; }
+  svg .axis { fill: var(--ink-3); font-size: 12px; font-family: var(--body); }
+  svg .lbl { fill: var(--ink); font-size: 12px; font-weight: 600; font-family: var(--body); }
+  svg .lbl-2 { fill: var(--ink-2); font-size: 12px; font-family: var(--body); }
+  svg .grid { stroke: var(--line); stroke-width: 1; }
+  svg .hit { fill: transparent; cursor: default; }
+
+  .drivers { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; margin-top: 14px; }
+  .driver { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; display: grid; gap: 6px; align-content: start; }
+  .driver .tag { font-size: 12px; font-weight: 700; color: var(--blue); letter-spacing: 0.05em; text-transform: uppercase; }
+  .driver p { color: var(--ink-2); font-size: 15px; }
+  .driver strong { color: var(--ink); }
+
+  /* Breakpoint ladder */
+  .ladder { display: grid; gap: 10px; counter-reset: rung; }
+  .rung { display: grid; grid-template-columns: 44px 1fr auto; gap: 14px; align-items: center; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px; }
+  .rung .rank { font-family: var(--display); font-weight: 700; font-size: 22px; color: var(--blue); text-align: center; }
+  .rung h3 { font-size: 16px; }
+  .rung p { font-size: 14px; color: var(--ink-2); margin-top: 2px; }
+  .topic-chip { font-size: 13px; font-weight: 600; padding: 5px 10px; border-radius: 8px; background: var(--blue-soft); color: var(--blue); white-space: nowrap; }
+  .topic-chip.missing { background: var(--red-soft); color: var(--red); }
+  .ladder-foot { font-size: 14px; color: var(--ink-3); margin-top: 6px; }
+
+  /* Misconception cards */
+  .mistakes { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-top: 28px; }
+  .mistake { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; display: grid; gap: 8px; align-content: start; }
+  .mistake .topic { font-size: 12px; font-weight: 700; color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.06em; }
+  .mistake .work { font-family: var(--mono); font-size: 19px; font-weight: 600; color: var(--red); text-decoration: line-through; text-decoration-thickness: 2px; text-decoration-color: color-mix(in srgb, var(--red) 55%, transparent); }
+  .mistake p { font-size: 14px; color: var(--ink-2); }
+
+  .callout { margin-top: 20px; background: var(--gold-soft); border-radius: var(--radius); padding: 20px; display: grid; gap: 8px; }
+  .callout h3 { color: var(--gold); }
+  .callout p { color: var(--ink); font-size: 15px; }
+  .terms { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+  .term { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 5px 10px; font-size: 14px; }
+  .term b { font-weight: 700; }
+  .term span { color: var(--ink-3); }
+
+  /* Teen cards */
+  .insights { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
+  .insight { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; display: grid; gap: 8px; align-content: start; }
+  .insight .head { display: flex; justify-content: space-between; gap: 10px; align-items: start; }
+  .insight p { font-size: 15px; color: var(--ink-2); }
+  .insight .lesson { font-size: 14px; font-weight: 600; color: var(--blue); }
+
+  /* Warnings */
+  .warnings { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-top: 14px; }
+  .warning { border-radius: var(--radius); padding: 18px; background: var(--red-soft); display: grid; gap: 6px; align-content: start; }
+  .warning h3 { color: var(--red); }
+  .warning p { font-size: 15px; color: var(--ink); }
+  .warning .conf { justify-self: start; background: var(--surface); }
+
+  /* App fit */
+  .fit { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
+  .fit-col { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; }
+  .fit-col h3 { margin-bottom: 12px; }
+  .fit-col ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+  .fit-col li { display: grid; grid-template-columns: 22px 1fr; gap: 8px; font-size: 15px; color: var(--ink-2); }
+  .fit-col li b { color: var(--ink); }
+  .mark { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font-size: 13px; font-weight: 700; }
+  .mark.ok { background: var(--green-soft); color: var(--green); }
+  .mark.gap { background: var(--red-soft); color: var(--red); }
+
+  /* Ideas */
+  .tier { margin-top: 28px; }
+  .tier-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
+  .tier-head .label { font-family: var(--display); font-weight: 700; font-size: 18px; }
+  .tier-head .sub { color: var(--ink-3); font-size: 14px; }
+  .ideas { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 12px; }
+  .idea { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; display: grid; gap: 8px; align-content: start; }
+  .idea .mn { font-size: 13px; font-weight: 700; color: var(--blue); }
+  .idea p { font-size: 15px; color: var(--ink-2); }
+  .idea .ev { font-size: 13px; color: var(--ink-3); }
+  .tier-head .label::before { content: ''; display: inline-block; width: 12px; height: 12px; border-radius: 50%; margin-right: 8px; vertical-align: 1px; }
+  .tier.t1 .tier-head .label::before { background: var(--blue); }
+  .tier.t2 .tier-head .label::before { background: var(--gold); }
+  .tier.t3 .tier-head .label::before { background: var(--bench); }
+  .avoid { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .avoid span { font-size: 14px; padding: 6px 12px; border-radius: 999px; background: var(--red-soft); color: var(--red); font-weight: 600; }
+
+  /* Questions + sources */
+  .questions { display: grid; gap: 10px; counter-reset: q; }
+  .q { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 18px; display: grid; grid-template-columns: 30px 1fr; gap: 10px; font-size: 16px; }
+  .q::before { counter-increment: q; content: counter(q); font-family: var(--display); font-weight: 700; color: var(--gold); font-size: 18px; }
+  .sources { columns: 2 300px; column-gap: 28px; margin-top: 16px; font-size: 14px; }
+  .sources p { break-inside: avoid; margin-bottom: 8px; color: var(--ink-2); }
+  footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--ink-3); font-size: 13px; }
+
+  /* Tooltip */
+  #tip { position: fixed; pointer-events: none; z-index: 50; background: var(--ink); color: var(--bg); font-size: 13px; padding: 6px 10px; border-radius: 8px; max-width: 260px; opacity: 0; transition: opacity 0.12s; }
+  #tip.on { opacity: 1; }
+
+  @media (max-width: 760px) {
+    .hero .wrap { grid-template-columns: 1fr; }
+    .rung { grid-template-columns: 34px 1fr; }
+    .rung .topic-chip { grid-column: 2; justify-self: start; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div id="tip" role="tooltip"></div>
+
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <div class="kicker">Research brief · Математикийн аялал · 28 Sep 2026</div>
+      <h1>Why Mongolian teens fall behind in math, and what a map can do about it</h1>
+      <p class="lede">Four research tracks: how math gaps form, the Mongolian context, the teenager's side, and how existing apps find and fill gaps. Every figure links to its source.</p>
+    </div>
+    <div class="big-stat">
+      <div class="figure num">19<small> / 100</small></div>
+      <div class="cap">Average raw math score on Mongolia's 2025 entrance exam (ЭШ). Median 18. Only 1% of 28,637 students scored above 60.</div>
+      <svg viewBox="0 0 360 150" role="img" aria-label="Average raw math entrance exam score by year: 2020 27, 2021 26, 2022 26, 2023 27, 2024 24, 2025 19, out of 100">
+        <g id="examBars"></g>
+      </svg>
+      <div class="src">Mean raw score by year, out of 100. The scaled score is always set to 500, which hides the decline. Source: <a href="https://ikon.mn/n/3fq9">ikon.mn (EEC data)</a></div>
+    </div>
+  </div>
+</header>
+
+<nav class="toc" aria-label="Sections">
+  <div class="wrap">
+    <a href="#summary">Summary</a>
+    <a href="#mongolia">Mongolia</a>
+    <a href="#mechanics">How gaps form</a>
+    <a href="#teens">The teenager</a>
+    <a href="#works">What works</a>
+    <a href="#app">Our app</a>
+    <a href="#ideas">Ideas</a>
+    <a href="#questions">Open questions</a>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <section id="summary">
+    <div class="sec-head">
+      <div class="kicker">The short version</div>
+      <h2>Five things to know before the brainstorm</h2>
+    </div>
+    <div class="findings">
+      <div class="finding alarm">
+        <div class="n num">49%</div>
+        <h3>About half of 15-year-olds are below basic math level</h3>
+        <p>PISA 2022, Mongolia's first international test of 15-year-olds: 49% reached Level 2 (basic level) against 69% on average across the OECD, a group of 38 mostly high-income countries. Mean score 425 against 472.</p>
+        <span class="conf high">High confidence</span>
+      </div>
+      <div class="finding alarm">
+        <div class="n num">38%</div>
+        <h3>COVID cut primary numeracy from 53.5% to 38.2%</h3>
+        <p>Schools were closed from January 2020 to September 2021, one of the world's longest closures. Those children are today's teenagers, our exact users.</p>
+        <span class="conf high">High confidence</span>
+      </div>
+      <div class="finding">
+        <div class="n">Fixable</div>
+        <h3>Gaps persist, but closing one restores normal speed</h3>
+        <p>Students keep their rank year to year. Once the missing prerequisite is filled, a student who is behind learns at a normal rate. This is the case for a prerequisite map.</p>
+        <span class="conf high">High confidence</span>
+      </div>
+      <div class="finding">
+        <div class="n">Fractions</div>
+        <h3>The topic that predicts later failure most</h3>
+        <p>Fraction knowledge at age 10 was the strongest predictor of algebra at 16, ahead of IQ and family income. Division came second.</p>
+        <span class="conf high">High confidence</span>
+      </div>
+      <div class="finding">
+        <div class="n">0 found</div>
+        <h3>No Mongolian product shows which earlier topic is blocking you</h3>
+        <p>Existing resources are organized by grade (Medle, Eduten) or by exam (iMath, test banks). None is a free, phone-first prerequisite map.</p>
+        <span class="conf med">Medium confidence</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="mongolia">
+    <div class="sec-head">
+      <div class="kicker">Монгол · the context</div>
+      <h2>How big the gap is in Mongolia</h2>
+      <p>The gap starts in primary school, COVID widened it, and the entrance exam has kept falling since.</p>
+    </div>
+
+    <div class="grid-2">
+      <div class="panel">
+        <div class="title">Students at or above basic math level (PISA 2022)</div>
+        <div class="note">PISA is the OECD's international test of 15-year-olds. "OECD average" means the average of its 38 member countries, mostly high-income systems such as Japan, Korea, Germany and the US.</div>
+        <svg viewBox="0 0 360 110" role="img" aria-label="Share at PISA Level 2 or above: Mongolia 49 percent, OECD average 69 percent">
+          <g id="pisaBars"></g>
+        </svg>
+        <div class="note">Mean score: Mongolia 425, OECD 472, Asia 451. 2% top performers (OECD 9%). The top wealth quarter scored 94 points above the bottom quarter. <a href="https://gpseducation.oecd.org/CountryProfile?primaryCountry=MNG&treshold=10&topic=PI">OECD</a></div>
+      </div>
+      <div class="panel">
+        <div class="title">Primary-school numeracy proficiency, before and after COVID</div>
+        <svg viewBox="0 0 360 150" role="img" aria-label="Primary numeracy proficiency fell from 53.5 percent in 2019 to 38.2 percent in 2021">
+          <g id="numeracy"></g>
+        </svg>
+        <div class="note">Ministry diagnostic test. Before COVID, only 41.2% of grade 5 students were proficient in math (2018). <a href="https://www.unicef.org/mongolia/education">UNICEF</a> · <a href="https://documents1.worldbank.org/curated/en/949791604487617663/pdf/Towards-Mongolia-s-Long-Term-Development-Policy-Vision-2050-Advancing-Education-Equity-Efficiency-and-Outcomes.pdf">World Bank</a></div>
+      </div>
+    </div>
+
+    <div class="drivers">
+      <div class="driver">
+        <div class="tag">No one to ask</div>
+        <p>During remote learning, <strong>40% had nobody to help them</strong> with schoolwork (OECD 24%), and 47% had trouble understanding assignments every week. These are PISA 2022 student-survey answers about the school closures. <a href="https://www.oecd.org/content/dam/oecd/en/publications/reports/2023/11/pisa-2022-results-volume-i-and-ii-country-notes_2fca04b9/mongolia_a2a3f956/a93e1396-en.pdf">OECD</a></p>
+        <span class="conf high">High</span>
+      </div>
+      <div class="driver">
+        <div class="tag">Overloaded curriculum</div>
+        <p>Frequent syllabus and textbook changes. <strong>844 more instruction hours than the OECD</strong> in primary and lower secondary. Teachers say "too much content", and teaching leans on memorization. <a href="https://documents1.worldbank.org/curated/en/949791604487617663/pdf/Towards-Mongolia-s-Long-Term-Development-Policy-Vision-2050-Advancing-Education-Equity-Efficiency-and-Outcomes.pdf">World Bank</a> · <a href="https://www.adb.org/sites/default/files/linked-documents/57176-001-ssa.pdf">ADB</a></p>
+        <span class="conf high">High</span>
+      </div>
+      <div class="driver">
+        <div class="tag">Weak at applying</div>
+        <p>The ministry's own reading of PISA: students are weakest at <strong>applying math and reasoning</strong>. PISA-style problems felt completely new next to familiar exam formats. <a href="https://moe.gov.mn/post/134474">Ministry of Education</a></p>
+        <span class="conf high">High</span>
+      </div>
+      <div class="driver">
+        <div class="tag">Crowded schools</div>
+        <p>Ulaanbaatar gained about 100,000 students since 2018. The class cap is now 45. <strong>53,000+ new teachers</strong> are needed by 2030. Only 59% say their math teacher gives extra help (OECD 70%). <a href="https://www.adb.org/sites/default/files/linked-documents/57176-001-ssa.pdf">ADB</a> · <a href="https://www.oecd.org/content/dam/oecd/en/publications/reports/2023/11/pisa-2022-results-volume-i-and-ii-country-notes_2fca04b9/mongolia_a2a3f956/a93e1396-en.pdf">OECD</a></p>
+        <span class="conf high">High</span>
+      </div>
+      <div class="driver">
+        <div class="tag">Rural and minority</div>
+        <p>34,700 children live in 522 dormitories (дотуур байр). Soum schools lag aimag centers, which lag the capital. Kazakh-minority pupils scored 10% lower in early math. <a href="https://documents1.worldbank.org/curated/en/949791604487617663/pdf/Towards-Mongolia-s-Long-Term-Development-Policy-Vision-2050-Advancing-Education-Equity-Efficiency-and-Outcomes.pdf">World Bank</a></p>
+        <span class="conf high">High</span>
+      </div>
+      <div class="driver">
+        <div class="tag">Tutoring economy</div>
+        <p>In the last rigorous survey (2005-06), <strong>54% were tutored in math</strong>, often by their own teacher. A year of online exam prep costs about 1,000,000₮ today. <a href="https://www.opensocietyfoundations.org/uploads/394bb3b8-ef04-4f5f-8521-5e0b4dff389c/hidden_20070216.pdf">Open Society survey</a> · <a href="https://imath.mn/mts26">iMath</a></p>
+        <span class="conf med">Dated data</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="mechanics">
+    <div class="sec-head">
+      <div class="kicker">How gaps form</div>
+      <h2>The breakpoints where students drop off</h2>
+      <p>Ranked by how strongly each one predicts later failure. Each is mapped to our map's spheres. Red means our map has no sphere for it yet.</p>
+    </div>
+
+    <div class="ladder">
+      <div class="rung"><div class="rank">1</div><div><h3>Fractions</h3><p>Strongest predictor of algebra and high-school math, in the UK and the US.</p></div><span class="topic-chip">Энгийн бутархай</span></div>
+      <div class="rung"><div class="rank">2</div><div><h3>Division</h3><p>Second-strongest predictor. Needed for simplifying fractions and common denominators.</p></div><span class="topic-chip">Үржих ба хуваах</span></div>
+      <div class="rung"><div class="rank">3</div><div><h3>The equals sign</h3><p>Read as "write the answer" instead of "same value". Only about 30% of grade 5 get it.</p></div><span class="topic-chip missing">No sphere yet</span></div>
+      <div class="rung"><div class="rank">4</div><div><h3>Negative numbers</h3><p>Algebra teachers name it a top weakness. Sign errors spread into everything after it.</p></div><span class="topic-chip">Сөрөг тоо</span></div>
+      <div class="rung"><div class="rank">5</div><div><h3>Ratio and proportion</h3><p>Adding where multiplying is needed, and the reverse.</p></div><span class="topic-chip">Харьцаа ба пропорц</span></div>
+      <div class="rung"><div class="rank">6</div><div><h3>Variables</h3><p>"a = apples" instead of "a = a number", in up to 80% of 11-16 year olds.</p></div><span class="topic-chip">Хувьсагч ба илэрхийлэл</span></div>
+      <div class="rung"><div class="rank">7</div><div><h3>Graphs and slope</h3><p>A graph read as a picture; "the higher line is steeper".</p></div><span class="topic-chip">Шугаман функц</span></div>
+    </div>
+    <p class="ladder-foot">Later topics (logarithms, the unit circle, limits, derivatives) mostly fail because of these seven. A student stuck on a derivative should be routed down the map, not given more at the top.</p>
+
+    <div class="mistakes">
+      <div class="mistake"><div class="topic">Fractions</div><div class="work">1/3 + 1/4 = 2/7</div><p>Adding tops and bottoms. Asked to estimate 12/13 + 7/8, only 27% of US 8th graders chose 2.</p></div>
+      <div class="mistake"><div class="topic">Fractions</div><div class="work">1/8 &gt; 1/6</div><p>"Because 8 is bigger than 6." Whole-number rules applied to fractions.</p></div>
+      <div class="mistake"><div class="topic">Decimals</div><div class="work">0.125 &gt; 0.3</div><p>"Longer is bigger." About 40% of grade 5 students do this.</p></div>
+      <div class="mistake"><div class="topic">Negatives</div><div class="work">−3 − 5 = 8</div><p>"Two negatives make a positive", applied everywhere.</p></div>
+      <div class="mistake"><div class="topic">Equals sign</div><div class="work">8 + 4 = 12 + 5</div><p>Filling in the answer to the left side, not balancing both sides.</p></div>
+      <div class="mistake"><div class="topic">Variables</div><div class="work">2x + 3 = 5x</div><p>Joining unlike terms because they sit next to each other.</p></div>
+    </div>
+    <p class="ladder-foot">Each classic mistake is a ready-made diagnostic question: the wrong answer a student picks tells us which earlier sphere to send them to.</p>
+
+    <div class="callout">
+      <h3>The hidden gap: math words</h3>
+      <p>Math vocabulary correlates with math performance at r ≈ 0.49, and the link is stronger at secondary level. This matches your primary user: teens who lack specific terms.</p>
+      <div class="terms">
+        <span class="term"><b>хүртвэр</b> <span>numerator</span></span>
+        <span class="term"><b>хуваарь</b> <span>denominator</span></span>
+        <span class="term"><b>илэрхийлэл</b> <span>expression</span></span>
+        <span class="term"><b>тэгшитгэл</b> <span>equation</span></span>
+        <span class="term"><b>коэффициент</b> <span>coefficient</span></span>
+        <span class="term"><b>хуваагч / хуваагдагч</b> <span>factor / multiple</span></span>
+      </div>
+    </div>
+  </section>
+
+  <section id="teens">
+    <div class="sec-head">
+      <div class="kicker">The teenager</div>
+      <h2>What keeps a student stuck</h2>
+      <p>The gap is only half of it. The other half is how it feels to be behind at 15.</p>
+    </div>
+    <div class="insights">
+      <div class="insight"><div class="head"><h3>Anxiety and avoidance feed each other</h3><span class="conf high">High</span></div><p>65% of 15-year-olds worry about poor math marks. Anxious students pick easy, low-reward problems to avoid effort.</p><div class="lesson">Make the first step tiny.</div></div>
+      <div class="insight"><div class="head"><h3>Shame blocks asking</h3><span class="conf med">Med-high</span></div><p>Low achievers avoid asking for help most, because needing help feels like proof they can't do it.</p><div class="lesson">A private phone app removes the audience.</div></div>
+      <div class="insight"><div class="head"><h3>Competence is the anxiety cure</h3><span class="conf med">Medium</span></div><p>Across 50 studies, building skill cut anxiety and raised scores together, most of all for students over 12.</p><div class="lesson">Show real progress, not pep talks.</div></div>
+      <div class="insight"><div class="head"><h3>Slogans barely work</h3><span class="conf med">Medium</span></div><p>Growth-mindset messaging alone has a tiny effect on achievement (d = 0.08).</p><div class="lesson">Skip the motivational quotes.</div></div>
+      <div class="insight"><div class="head"><h3>Relevance helps the least confident</h3><span class="conf med">Med-high</span></div><p>Connecting a topic to one's own life raised interest and grades, mainly for students who expected to fail.</p><div class="lesson">One real-life line per topic.</div></div>
+      <div class="insight"><div class="head"><h3>Grade labels sting</h3><span class="conf med">Medium</span></div><p>"You are at grade 4 level" stigmatizes. Framing review as unlocking a current goal does not.</p><div class="lesson">No grade labels on foundations.</div></div>
+    </div>
+  </section>
+
+  <section id="works">
+    <div class="sec-head">
+      <div class="kicker">What works</div>
+      <h2>Catch-up methods with evidence</h2>
+      <p>Effect sizes in standard deviations from randomized trials and meta-analyses. Studies measure differently, so read the bars as rough strength, not an exact ranking.</p>
+    </div>
+    <div class="panel">
+      <div class="title">Effect on math achievement</div>
+      <div class="chart-scroll"><svg viewBox="0 0 640 330" role="img" aria-label="Effect sizes: worked examples 0.48, Saga tutoring 0.40, Mindspark 0.37, Eedi 0.30, ASSISTments 0.18, Botswana SMS plus call 0.12, growth mindset 0.08, SMS only 0">
+        <g id="effects"></g>
+      </svg></div>
+      <div class="note">The blue bar is Mindspark, the closest analogue to our app: adaptive software for grades 6-9 in India, most students several grades behind. Separately, interleaved review scored 61% vs 38% on a delayed test (d = 0.83), measured on a different kind of test so not shown on this scale.</div>
+    </div>
+
+    <div class="warnings">
+      <div class="warning"><h3>The 5% problem</h3><p>Khan Academy, IXL and similar apps work at the recommended dose, but only about 5-9% of students reach it, mostly the ones who would succeed anyway. <a href="https://www.educationnext.org/5-percent-problem-online-mathematics-programs-may-benefit-most-kids-who-need-it-least/">Education Next</a> · <a href="https://blog.khanacademy.org/khan-academy-efficacy-results-november-2024/">Khan Academy</a></p><span class="conf med">Medium-high</span></div>
+      <div class="warning"><h3>Content alone didn't work</h3><p>In Botswana, text-message problems alone had no effect. Adding a weekly 15-minute call from a person did. Plan for teachers and tutors. <a href="https://www.nber.org/papers/w28205">NBER study</a></p><span class="conf high">High, primary-age children</span></div>
+      <div class="warning"><h3>Maps have failed before</h3><p>Khan Academy removed its knowledge map around 2013. Duolingo replaced its skill tree with a path in 2022, because learners didn't know where to go next. A map needs one clear next step. <a href="https://blog.duolingo.com/new-duolingo-home-screen-design">Duolingo</a> · <a href="https://support.khanacademy.org/hc/en-us/community/posts/360027982751">Khan Academy help forum</a></p><span class="conf med">Duolingo high · Khan medium</span></div>
+    </div>
+  </section>
+
+  <section id="app">
+    <div class="sec-head">
+      <div class="kicker">Our app</div>
+      <h2>Where Математикийн аялал stands against the evidence</h2>
+    </div>
+    <div class="fit">
+      <div class="fit-col">
+        <h3>Already right</h3>
+        <ul>
+          <li><span class="mark ok">✓</span><span><b>Prerequisite structure.</b> Exactly the mechanism the research backs.</span></li>
+          <li><span class="mark ok">✓</span><span><b>Soft locks.</b> Dim but markable, which the research prefers over hard locks.</span></li>
+          <li><span class="mark ok">✓</span><span><b>Companion pairs.</b> The same idea Math Academy uses.</span></li>
+          <li><span class="mark ok">✓</span><span><b>Free, Mongolian, phone-first.</b> The gap no one fills.</span></li>
+        </ul>
+      </div>
+      <div class="fit-col">
+        <h3>Falls short</h3>
+        <ul>
+          <li><span class="mark gap">!</span><span><b>Self-marked "learned".</b> The weakest signal. Mastery needs a few correct answers.</span></li>
+          <li><span class="mark gap">!</span><span><b>No starting point.</b> The student has to judge 39 topics alone.</span></li>
+          <li><span class="mark gap">!</span><span><b>No single next step.</b> Every sphere carries the same weight.</span></li>
+          <li><span class="mark gap">!</span><span><b>Missing spheres.</b> The equals sign and the number line.</span></li>
+          <li><span class="mark gap">!</span><span><b>"0/39 сэдэв" reads as debt.</b> ALEKS students called this kind of meter guilt-tripping.</span></li>
+          <li><span class="mark gap">!</span><span><b>Nothing for teachers</b>, though human contact is what keeps self-learners going.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="ideas">
+    <div class="sec-head">
+      <div class="kicker">For the brainstorm</div>
+      <h2>Ideas, ranked</h2>
+      <p>Ranked by strength of evidence, fit with the product, and cost to build. These are starting points for the session, not decisions.</p>
+    </div>
+
+    <div class="tier t1">
+      <div class="tier-head"><span class="label">Tier 1</span><span class="sub">Strong evidence, fits now, no server needed</span></div>
+      <div class="ideas">
+        <div class="idea"><div class="mn">Хаанаас эхлэх вэ?</div><h3>A "where do I start" check</h3><p>8-12 questions stepping down from the student's grade. Each wrong option is a known mistake pointing to one sphere. Always an "I haven't learned this" option. The result is a starting point, never a score.</p><div class="ev">TaRL · Eedi · IXL · ALEKS</div></div>
+        <div class="idea"><div class="mn">Эндээс эхэл</div><h3>The "ready now" frontier</h3><p>Highlight only the 3-5 spheres whose prerequisites are done, with one marked "start here". The rest stays visible but quiet.</p><div class="ev">ALEKS · Duolingo path · skill-tree research</div></div>
+        <div class="idea"><div class="mn">Зорилго</div><h3>Goal-first route</h3><p>The student picks what they need now, a school topic or the exam. The map lights up only the path to it.</p><div class="ev">TNTP/Zearn · Saga · Khan "Get ready"</div></div>
+        <div class="idea"><div class="mn">Шалгах</div><h3>Quick check before "learned"</h3><p>2-3 questions instead of a button. On a miss, point to the one earlier sphere most likely responsible, not a red "wrong".</p><div class="ev">Mastery learning · Math Academy · Zearn</div></div>
+        <div class="idea"><div class="mn">Нэр томьёо</div><h3>Key-terms card per topic</h3><p>3-6 terms with the Mongolian word, a plain meaning and a tiny example.</p><div class="ev">Vocabulary meta-analysis</div></div>
+        <div class="idea"><div class="mn">Алдаатай бодлого</div><h3>Spot the mistake</h3><p>"Бат 1/3 + 1/4 = 2/7 гэж бодсон. Юу нь буруу вэ?" Finding someone else's error beats feeling ashamed of your own.</p><div class="ev">Worked examples g = 0.48 · EEF</div></div>
+        <div class="idea"><div class="mn">Нээлт</div><h3>Progress as unlocks</h3><p>"3 new topics opened this week" instead of "0/39". No leaderboard, no streak punishment.</p><div class="ev">ALEKS lessons · feedback research</div></div>
+      </div>
+    </div>
+
+    <div class="tier t2">
+      <div class="tier-head"><span class="label">Tier 2</span><span class="sub">Strong fit, more content work</span></div>
+      <div class="ideas">
+        <div class="idea"><h3>Add the missing spheres</h3><p>"Тэнцүүгийн тэмдэг (=)" before linear equations, and a number-line thread through negatives, fractions and decimals.</p></div>
+        <div class="idea"><h3>Fading and review</h3><p>A sphere learned weeks ago slowly dims. One question brings it back. Review mixes topics.</p></div>
+        <div class="idea"><h3>Real-life line per topic</h3><p>Market prices for percent, herd counts for ratio, bus fare for linear functions, apartment floor area for area.</p></div>
+        <div class="idea"><h3>Tutor snapshot</h3><p>A link or QR code holding the student's map. A teacher sees one screen: done, stuck, and the one sphere to work on next.</p></div>
+      </div>
+    </div>
+
+    <div class="tier t3">
+      <div class="tier-head"><span class="label">Tier 3</span><span class="sub">Bigger bets, later</span></div>
+      <div class="ideas">
+        <div class="idea"><h3>Lesson links</h3><p>Link each sphere to existing free Mongolian videos (econtent.edu.mn, teacher YouTube) instead of making our own.</p></div>
+        <div class="idea"><h3>ЭШ 2026 mode</h3><p>A route for the aptitude test's core math and Математик I, aimed at getting past the threshold.</p></div>
+        <div class="idea"><h3>Classroom view</h3><p>Group a class by shared gap, the Teaching at the Right Level idea. Needs a server or shared codes.</p></div>
+        <div class="idea"><h3>Kazakh and offline</h3><p>A Kazakh version for Bayan-Ölgii, and low-data use for dormitory and herder students.</p></div>
+      </div>
+    </div>
+
+    <div class="avoid" aria-label="Not recommended">
+      <span>Grade labels on foundations</span>
+      <span>Motivational quote screens</span>
+      <span>Timed or public quizzes</span>
+      <span>Leaderboards</span>
+      <span>45-minute diagnostics</span>
+      <span>An answer solver</span>
+    </div>
+  </section>
+
+  <section id="questions">
+    <div class="sec-head">
+      <div class="kicker">Before building</div>
+      <h2>Open questions for you</h2>
+    </div>
+    <div class="questions">
+      <div class="q">Who writes the check questions in Mongolian? About 3-5 per topic. This is the biggest content job, and a math teacher would be ideal.</div>
+      <div class="q">Should we add the equals-sign and number-line spheres? That changes the 39-topic structure.</div>
+      <div class="q">Which grade does a typical user start from? That sets where the placement check begins.</div>
+      <div class="q">Is the 2026 exam in scope now, or only after catching up?</div>
+      <div class="q">Is there a teacher or tutor who would try the tutor snapshot with real students?</div>
+    </div>
+
+    <div class="sec-head" style="margin-top:40px">
+      <div class="kicker">Evidence gaps</div>
+      <p>No official report says which math topics Mongolian students fail most, so the breakpoint ranking relies on international research. There is also no current survey of how common tutoring is.</p>
+    </div>
+
+    <h3>Key sources</h3>
+    <div class="sources">
+      <p><a href="https://gpseducation.oecd.org/CountryProfile?primaryCountry=MNG&treshold=10&topic=PI">OECD PISA 2022, Mongolia</a></p>
+      <p><a href="https://ikon.mn/n/3fq9">ikon.mn: 2025 entrance exam math scores</a></p>
+      <p><a href="https://ikon.mn/n/32ud">ikon.mn: 2026 exam changes</a></p>
+      <p><a href="https://www.unicef.org/mongolia/education">UNICEF Mongolia: education</a></p>
+      <p><a href="https://documents1.worldbank.org/curated/en/949791604487617663/pdf/Towards-Mongolia-s-Long-Term-Development-Policy-Vision-2050-Advancing-Education-Equity-Efficiency-and-Outcomes.pdf">World Bank: Mongolia Vision 2050 education paper</a></p>
+      <p><a href="https://www.adb.org/sites/default/files/linked-documents/57176-001-ssa.pdf">ADB: school sector assessment</a></p>
+      <p><a href="https://moe.gov.mn/post/134474">Ministry of Education: PISA findings</a></p>
+      <p><a href="https://journals.sagepub.com/doi/abs/10.1177/0956797612440101">Siegler et al. 2012: fractions predict algebra</a></p>
+      <p><a href="https://eric.ed.gov/?id=EJ1326466">Simonsmeier et al. 2022: prior knowledge and learning</a></p>
+      <p><a href="https://www.aeaweb.org/articles?id=10.1257%2Faer.20171112">Muralidharan et al.: Mindspark</a></p>
+      <p><a href="https://www.nber.org/papers/w28531">Guryan et al.: Saga tutoring, "Not Too Late"</a></p>
+      <p><a href="https://www.nber.org/papers/w28205">Angrist et al.: Botswana phone tutoring</a></p>
+      <p><a href="https://www.povertyactionlab.org/case-study/teaching-right-level-improve-learning">J-PAL: Teaching at the Right Level</a></p>
+      <p><a href="https://www.educationnext.org/5-percent-problem-online-mathematics-programs-may-benefit-most-kids-who-need-it-least/">Education Next: the 5% problem</a></p>
+      <p><a href="https://www.eedi.com/news/two-year-rct-earns-eedi-a-gold-efficacy-certificate-from-eduevidence">Eedi: two-year trial</a></p>
+      <p><a href="https://blog.duolingo.com/new-duolingo-home-screen-design">Duolingo: from tree to path</a></p>
+    </div>
+
+    <footer>Confidence: <span class="conf high">High</span> replicated or read in the source · <span class="conf med">Medium</span> single source or abstract · <span class="conf low">Low</span> thin or indirect. Three key figures (PISA, 2025 exam, numeracy) were re-checked by hand against their original pages.</footer>
+  </section>
+</main>
+
+<script>
+  const NS = 'http://www.w3.org/2000/svg';
+  const tip = document.getElementById('tip');
+
+  function el(tag, attrs, parent, text) {
+    const e = document.createElementNS(NS, tag);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    if (text !== undefined) e.textContent = text;
+    parent.appendChild(e);
+    return e;
+  }
+
+  // Tooltip for any mark with data-tip
+  function bindTip(node, text) {
+    node.setAttribute('data-tip', text);
+    node.addEventListener('pointerenter', () => { tip.textContent = text; tip.classList.add('on'); });
+    node.addEventListener('pointermove', (e) => {
+      const x = Math.min(e.clientX + 14, window.innerWidth - tip.offsetWidth - 8);
+      tip.style.left = x + 'px';
+      tip.style.top = (e.clientY + 14) + 'px';
+    });
+    node.addEventListener('pointerleave', () => tip.classList.remove('on'));
+  }
+
+  // Rounded-top bar path anchored to a baseline
+  function barUp(x, y, w, h, r) {
+    r = Math.min(r, h, w / 2);
+    return `M${x},${y + h} V${y + r} Q${x},${y} ${x + r},${y} H${x + w - r} Q${x + w},${y} ${x + w},${y + r} V${y + h} Z`;
+  }
+  function barRight(x, y, w, h, r) {
+    r = Math.min(r, w, h / 2);
+    return `M${x},${y} H${x + w - r} Q${x + w},${y} ${x + w},${y + r} V${y + h - r} Q${x + w},${y + h} ${x + w - r},${y + h} H${x} Z`;
+  }
+
+  // Hero: exam raw mean by year (0-30 scale, out of 100)
+  (function () {
+    const g = document.getElementById('examBars');
+    const data = [[2020, 27], [2021, 26], [2022, 26], [2023, 27], [2024, 24], [2025, 19]];
+    const x0 = 30, x1 = 355, yBase = 122, yTop = 18, max = 30;
+    const scale = v => (v / max) * (yBase - yTop);
+    [0, 10, 20, 30].forEach(t => {
+      const y = yBase - scale(t);
+      el('line', { x1: x0, x2: x1, y1: y, y2: y, stroke: 'rgba(255,255,255,0.18)', 'stroke-width': 1 }, g);
+      el('text', { x: x0 - 6, y: y + 4, 'text-anchor': 'end' }, g, t);
+    });
+    const band = (x1 - x0) / data.length;
+    data.forEach(([year, v], i) => {
+      const h = scale(v), w = band * 0.56, x = x0 + band * i + (band - w) / 2;
+      const last = i === data.length - 1;
+      const p = el('path', { d: barUp(x, yBase - h, w, h, 4), fill: last ? '#ffb3b0' : 'rgba(255,255,255,0.78)' }, g);
+      el('text', { x: x + w / 2, y: yBase - h - 6, 'text-anchor': 'middle', 'font-weight': last ? 700 : 400 }, g, v);
+      el('text', { x: x + w / 2, y: yBase + 16, 'text-anchor': 'middle' }, g, year);
+      const hit = el('rect', { x: x0 + band * i, y: yTop, width: band, height: yBase - yTop, class: 'hit' }, g);
+      bindTip(hit, `${year}: mean raw score ${v} / 100`);
+    });
+  })();
+
+  // PISA Level 2+ share
+  (function () {
+    const g = document.getElementById('pisaBars');
+    const rows = [['Mongolia', 49, 'var(--blue)'], ['OECD average', 69, 'var(--bench)']];
+    const x0 = 100, x1 = 340;
+    rows.forEach(([name, v, color], i) => {
+      const y = 12 + i * 44, h = 26, w = (v / 100) * (x1 - x0);
+      el('text', { x: x0 - 10, y: y + 18, 'text-anchor': 'end', class: 'lbl' }, g, name);
+      el('rect', { x: x0, y, width: x1 - x0, height: h, rx: 4, fill: 'var(--surface-2)' }, g);
+      el('path', { d: barRight(x0, y, w, h, 4), fill: color }, g);
+      el('text', { x: x0 + w + 8, y: y + 18, class: 'lbl num' }, g, v + '%');
+      const hit = el('rect', { x: 0, y, width: 360, height: h, class: 'hit' }, g);
+      bindTip(hit, `${name}: ${v}% at PISA Level 2 or above`);
+    });
+  })();
+
+  // Numeracy slope: 2019 53.5 -> 2021 38.2 (0-60 scale)
+  (function () {
+    const g = document.getElementById('numeracy');
+    const x0 = 40, x1 = 330, yBase = 125, yTop = 15, max = 60;
+    const y = v => yBase - (v / max) * (yBase - yTop);
+    [0, 20, 40, 60].forEach(t => {
+      el('line', { x1: x0, x2: x1, y1: y(t), y2: y(t), class: 'grid' }, g);
+      el('text', { x: x0 - 8, y: y(t) + 4, 'text-anchor': 'end', class: 'axis' }, g, t + '%');
+    });
+    const ax = 90, bx = 280;
+    el('line', { x1: ax, y1: y(53.5), x2: bx, y2: y(38.2), stroke: 'var(--red)', 'stroke-width': 2 }, g);
+    el('circle', { cx: ax, cy: y(53.5), r: 5, fill: 'var(--blue)', stroke: 'var(--surface)', 'stroke-width': 2 }, g);
+    el('circle', { cx: bx, cy: y(38.2), r: 5, fill: 'var(--red)', stroke: 'var(--surface)', 'stroke-width': 2 }, g);
+    el('text', { x: ax, y: y(53.5) - 12, 'text-anchor': 'middle', class: 'lbl num' }, g, '53.5%');
+    el('text', { x: bx, y: y(38.2) - 12, 'text-anchor': 'middle', class: 'lbl num' }, g, '38.2%');
+    el('text', { x: ax, y: yBase + 18, 'text-anchor': 'middle', class: 'axis' }, g, '2019');
+    el('text', { x: bx, y: yBase + 18, 'text-anchor': 'middle', class: 'axis' }, g, '2021');
+    bindTip(el('circle', { cx: ax, cy: y(53.5), r: 16, class: 'hit' }, g), '2019: 53.5% of primary pupils proficient in numeracy');
+    bindTip(el('circle', { cx: bx, cy: y(38.2), r: 16, class: 'hit' }, g), '2021, after school closures: 38.2%');
+  })();
+
+  // Effect sizes
+  (function () {
+    const g = document.getElementById('effects');
+    const data = [
+      ['Worked examples with self-explanation', 0.48, 'Meta-analysis, 55 studies (g)'],
+      ['Saga tutoring, grades 9-10', 0.40, 'Chicago RCT, students who took part'],
+      ['Mindspark adaptive software', 0.37, 'India RCT, 4.5 months, grades 6-9', true],
+      ['Eedi misconception questions', 0.30, 'Two-year RCT'],
+      ['ASSISTments feedback + teacher reports', 0.18, 'Maine RCT, 2,850 7th graders'],
+      ['Botswana texts + weekly phone call', 0.12, 'RCT, 4,500 families, primary age'],
+      ['Growth-mindset messaging', 0.08, 'Meta-analysis (d)'],
+      ['Botswana texts alone', 0.00, 'No effect']
+    ];
+    const x0 = 250, x1 = 590, max = 0.5, rowH = 36, top = 10;
+    const sx = v => (v / max) * (x1 - x0);
+    [0, 0.1, 0.2, 0.3, 0.4, 0.5].forEach(t => {
+      const x = x0 + sx(t);
+      el('line', { x1: x, x2: x, y1: top - 4, y2: top + rowH * data.length, class: 'grid' }, g);
+      el('text', { x, y: top + rowH * data.length + 16, 'text-anchor': 'middle', class: 'axis' }, g, t.toFixed(1));
+    });
+    data.forEach(([name, v, note, hi], i) => {
+      const y = top + i * rowH + 7, h = 20;
+      el('text', { x: x0 - 10, y: y + 15, 'text-anchor': 'end', class: hi ? 'lbl' : 'lbl-2' }, g, name);
+      if (v > 0) el('path', { d: barRight(x0, y, sx(v), h, 4), fill: hi ? 'var(--blue)' : 'var(--bench)' }, g);
+      el('text', { x: x0 + sx(v) + 8, y: y + 15, class: 'lbl num' }, g, v.toFixed(2));
+      bindTip(el('rect', { x: 0, y: y - 7, width: 640, height: rowH, class: 'hit' }, g), `${name}: ${v.toFixed(2)} SD. ${note}`);
+    });
+    el('text', { x: (x0 + x1) / 2, y: top + rowH * data.length + 34, 'text-anchor': 'middle', class: 'axis' }, g, 'Effect size (standard deviations)');
+  })();
+</script>
