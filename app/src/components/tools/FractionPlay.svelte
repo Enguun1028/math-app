@@ -1,15 +1,19 @@
 <script>
   // Animated walkthrough of adding (or subtracting) two fractions, mostly pictures, few words:
   //   0 the two bars as they are
-  //   1 their white lines do not meet (red ✗): the parts are different sizes, so no adding yet
-  //   2 the first number both denominators divide into (ХБЕХ) lights up
-  //   3 every part is cut into equal slices (thin lines appear one by one)
-  //   4 now every line meets (green): the slices are all the same size
-  //   5 the slices slide into one answer bar: cyan first, yellow after (for −, yellow cancels cyan)
-  //   6 the answer
+  //   1 their white lines do not meet (red ✗): the parts are different sizes
+  //   2 try anyway: the pieces fit end to end, but the end (?) falls on no line of either bar,
+  //     so the answer cannot be written as a fraction: finer lines are needed (owner's explanation)
+  //   3 the first number both denominators divide into (ХБЕХ) lights up
+  //   4 every part is cut into equal slices (thin lines appear one by one)
+  //   5 now every line meets (green): the slices are all the same size
+  //   6 the slices slide into one answer bar: cyan first, yellow after (for −, yellow cancels cyan)
+  //   7 the answer
   import { onDestroy } from 'svelte';
   import RichText from '../RichText.svelte';
+  import SvgMath from '../SvgMath.svelte';
   import { reduced } from '../../lib/motion.js';
+  import { cue, unlock, startMusic, stopMusic, soundOn, setSound } from '../../lib/sound.js';
 
   let { A, B, op = '+' } = $props();
 
@@ -30,9 +34,23 @@
   // Picture geometry (SVG units).
   const X0 = 8, W = 304, BH = 34;
   const yA = 34, yB = 112, yR = 214;
-  const H = yR + rows * (BH + 22) + 8;
+  const H = yR + rows * (BH + 22) + 14;
   const w = W / L;
   const xAt = (i) => X0 + i * w;
+
+  // Stage 2, "try anyway": the pieces end to end in the answer row, measured in whole bars.
+  const vA = a.n / a.d, vB = b.n / b.d;
+  const tEnd = plus ? vA + vB : Math.max(0, vA - vB);
+  const endRow = Math.min(rows - 1, Math.max(0, Math.ceil(tEnd - 1e-9) - 1));
+  const rowY = (r) => yR + r * (BH + 22);
+  const segs = (from, to) => Array.from({ length: rows }, (_, r) => ({ r, s: Math.max(from, r), e: Math.min(to, r + 1) })).filter((x) => x.e > x.s + 1e-9);
+  const trialA = plus ? segs(0, vA) : segs(0, vA);
+  const trialB = plus ? segs(vA, vA + vB) : segs(Math.max(0, vA - vB), vA);
+  const xEnd = X0 + (tEnd - endRow) * W;
+  // Does the end happen to land on a line of either bar?
+  const onLine = Math.abs(rn) % ka === 0 || Math.abs(rn) % kb === 0;
+  const ticksA = Array.from({ length: a.d + 1 }, (_, k) => ({ x: X0 + (k * W) / a.d, t: k === 0 ? '0' : k === a.d ? '1' : `${k}/${a.d}` }));
+  const ticksB = Array.from({ length: b.d - 1 }, (_, k) => ({ x: X0 + ((k + 1) * W) / b.d, t: `${k + 1}/${b.d}` }));
 
   const multiples = (d) => Array.from({ length: L / d }, (_, i) => (i + 1) * d);
   // A white line of the first bar lands on a line of the second only when k·b.d is a multiple of a.d.
@@ -40,7 +58,10 @@
 
   const CAPTIONS = [
     `Хоёр бутархай: ${f(a.n, a.d)} ${op} ${f(b.n, b.d)}`,
-    same ? 'Хэсгүүд ижил хэмжээтэй. Шууд нэмж болно.' : 'Цагаан зураасууд таарахгүй байна: хэсгүүд өөр хэмжээтэй. Тиймээс шууд нэмж болохгүй.',
+    same ? 'Хэсгүүд ижил хэмжээтэй. Шууд нэмж болно.' : 'Цагаан зураасууд таарахгүй байна: хэсгүүд өөр хэмжээтэй.',
+    onLine
+      ? `${plus ? 'Нийлүүлж' : 'Хасаж'} болно. Энэ удаад төгсгөл нь нэг зураас дээр буусан ч хоёр бутархайн зураас өөр хэвээр. Ижил зураастай болгоё.`
+      : `${plus ? 'Нийлүүлж' : 'Хасаж'} болно л доо. Гэхдээ төгсгөл (?) аль ч зураас дээр буухгүй тул хариуг бичиж чадахгүй. Илүү нарийн зураас хэрэгтэй.`,
     `${a.d}-т ч, ${b.d}-т ч хуваагддаг хамгийн бага тоо: ${L}`,
     `Хэсэг бүрийг жижиглэнэ: ${f(a.n, a.d)} → ${ka} хувааж, ${f(b.n, b.d)} → ${kb} хувааж`,
     `Одоо бүх зураас таарч байна: ${L} ижил хэсэг`,
@@ -48,10 +69,10 @@
     `Хариу: ${f(an, L)} ${op} ${f(bn, L)} = ${f(rn, L)}`,
   ];
   // Seconds each stage stays on screen before the next one starts.
-  const HOLD = [1.6, 2.6, 2.6, 2.4, 2.2, 2.8, 0];
-  const steps = same ? [0, 4, 5, 6] : [0, 1, 2, 3, 4, 5, 6];
+  const HOLD = [1.6, 2.4, 5, 2.6, 2.4, 2.2, 2.8, 0];
+  const steps = same ? [0, 5, 6, 7] : [0, 1, 2, 3, 4, 5, 6, 7];
 
-  let phase = $state(reduced ? 6 : 0);
+  let phase = $state(reduced ? 7 : 0);
   let playing = $state(!reduced);
   let timer;
   function run(from) {
@@ -64,7 +85,32 @@
     timer = setTimeout(() => run(next), HOLD[from] * 1000);
   }
   if (!reduced) setTimeout(() => run(0), 50);
-  onDestroy(() => clearTimeout(timer));
+  onDestroy(() => { clearTimeout(timer); stopMusic(); });
+
+  // Sound: one cue per stage, timed with what moves on screen; a quiet pad plays while it runs.
+  let sound = $state(soundOn());
+  function toggleSound() {
+    unlock();
+    sound = !sound;
+    setSound(sound);
+    if (sound && playing) startMusic();
+  }
+  $effect(() => { if (playing) startMusic(); else stopMusic(); });
+  $effect(() => {
+    const p = phase;
+    if (!playing) return;
+    if (p === 0) cue.start();
+    else if (p === 1) cue.nope();
+    else if (p === 2) cue.hmm();
+    else if (p === 3) {
+      multiples(a.d).forEach((_, i) => cue.pop(i, i * 0.12));
+      multiples(b.d).forEach((_, i) => cue.pop(i + 2, i * 0.12 + 0.04));
+      cue.chime(Math.max(L / a.d, L / b.d) * 0.12 + 0.1);
+    } else if (p === 4) for (let i = 0; i < Math.min(L - 1, 40); i++) cue.tick(i, i * 0.04);
+    else if (p === 5) cue.ok();
+    else if (p === 6) cue.whoosh();
+    else if (p === 7) cue.success();
+  });
   const jump = (p) => { clearTimeout(timer); playing = false; phase = p; };
   // Pause holds the current stage; play carries on from it (from the start once it has finished).
   let done = $derived(!playing && phase === steps.at(-1));
@@ -76,8 +122,8 @@
   // Where each slice ends up in the answer bar.
   const target = (t) => ({ x: xAt(t % L), y: yR + Math.floor(t / L) * (BH + 22) });
   const bTarget = (j) => target(plus ? an + j : Math.max(0, an - bn) + j);
-  let moved = $derived(phase >= 5);
-  let cut = $derived(phase >= 3 || same);
+  let moved = $derived(phase >= 6);
+  let cut = $derived(phase >= 4 || same);
 </script>
 
 <div class="play">
@@ -85,23 +131,42 @@
 
 
   <div class="stage">
-    <svg viewBox="0 0 320 {H}" role="img" aria-label={CAPTIONS[6]}>
+    <svg viewBox="0 0 320 {H}" role="img" aria-label={CAPTIONS[7]}>
       <!-- frames -->
       <rect x={X0} y={yA} width={W} height={BH} rx="6" class="frame" />
       <rect x={X0} y={yB} width={W} height={BH} rx="6" class="frame" />
       {#each Array(rows) as _, r}
-        <rect x={X0} y={yR + r * (BH + 22)} width={W} height={BH} rx="6" class="frame res" class:show={phase >= 5} />
+        <rect x={X0} y={yR + r * (BH + 22)} width={W} height={BH} rx="6" class="frame res" class:show={phase >= 6 || phase === 2} />
       {/each}
+
+      <!-- stage 2: try anyway, end to end, with the line values of both bars -->
+      {#if phase === 2}
+        <g class="trial">
+          {#each trialA as sg}<rect class="tp a" x={X0 + (sg.s - sg.r) * W} y={rowY(sg.r)} width={(sg.e - sg.s) * W} height={BH} />{/each}
+          {#each trialB as sg}<rect class="tp b" class:minus={!plus} x={X0 + (sg.s - sg.r) * W} y={rowY(sg.r)} width={(sg.e - sg.s) * W} height={BH} />{/each}
+          {#each ticksA as tk}
+            <line class="tick a" x1={tk.x} x2={tk.x} y1={rowY(endRow) - 4} y2={rowY(endRow) + BH / 2} />
+            <SvgMath x={tk.x} y={rowY(endRow) - 14} size={11} text={tk.t} cls="tl a" />
+          {/each}
+          {#each ticksB as tk}
+            <line class="tick b" x1={tk.x} x2={tk.x} y1={rowY(endRow) + BH / 2} y2={rowY(endRow) + BH + 4} />
+            <SvgMath x={tk.x} y={rowY(endRow) + BH + 15} size={11} text={tk.t} cls="tl b" />
+          {/each}
+          <line class="end" x1={xEnd} x2={xEnd} y1={rowY(endRow) - 22} y2={rowY(endRow) + BH + 6} />
+          <circle class="endq" cx={xEnd} cy={rowY(endRow) - 30} r="9" />
+          <text class="endt" x={xEnd} y={rowY(endRow) - 26}>?</text>
+        </g>
+      {/if}
 
       <!-- cyan slices (first fraction) -->
       {#each Array(an) as _, i}
-        <rect class="piece a" class:gone={!plus && phase >= 6 && i >= an - bn} x={xAt(i)} y={yA} width={w + 0.4} height={BH}
+        <rect class="piece a" class:gone={!plus && phase >= 7 && i >= an - bn} x={xAt(i)} y={yA} width={w + 0.4} height={BH}
           style:transform="translate(0px, {moved ? yR - yA : 0}px)" style:transition-delay="{moved ? i * 0.03 : 0}s" />
       {/each}
       <!-- yellow slices (second fraction) -->
       {#each Array(bn) as _, j}
         {@const t = bTarget(j)}
-        <rect class="piece b" class:gone={!plus && phase >= 6} x={xAt(j)} y={yB} width={w + 0.4} height={BH}
+        <rect class="piece b" class:gone={!plus && phase >= 7} x={xAt(j)} y={yB} width={w + 0.4} height={BH}
           style:transform="translate({moved ? t.x - xAt(j) : 0}px, {moved ? t.y - yB : 0}px)" style:transition-delay="{moved ? 0.6 + j * 0.03 : 0}s" />
       {/each}
 
@@ -119,7 +184,7 @@
       {#each Array(b.d - 1) as _, k}<line class="thick" x1={X0 + ((k + 1) * W) / b.d} x2={X0 + ((k + 1) * W) / b.d} y1={yB} y2={yB + BH} />{/each}
       <!-- answer bar slice lines -->
       {#each Array(rows) as _, r}
-        {#each Array(L - 1) as _, i}<line class="thin res" class:on={phase >= 5} x1={xAt(i + 1)} x2={xAt(i + 1)} y1={yR + r * (BH + 22) + 2} y2={yR + r * (BH + 22) + BH - 2} />{/each}
+        {#each Array(L - 1) as _, i}<line class="thin res" class:on={phase >= 6} x1={xAt(i + 1)} x2={xAt(i + 1)} y1={yR + r * (BH + 22) + 2} y2={yR + r * (BH + 22) + BH - 2} />{/each}
       {/each}
 
       <!-- stage 1: the first bar's lines dropped onto the second -->
@@ -129,12 +194,12 @@
       {/each}
       <!-- stage 4: every slice line goes straight through both bars -->
       {#each Array(L - 1) as _, i}
-        <line class="match" class:show={phase === 4} x1={xAt(i + 1)} x2={xAt(i + 1)} y1={yA - 4} y2={yB + BH + 4} style:transition-delay="{phase === 4 ? i * 0.02 : 0}s" />
+        <line class="match" class:show={phase === 5} x1={xAt(i + 1)} x2={xAt(i + 1)} y1={yA - 4} y2={yB + BH + 4} style:transition-delay="{phase === 5 ? i * 0.02 : 0}s" />
       {/each}
-      {#if phase === 4}<text class="ok" x={X0 + W - 4} y={yB + BH + 22}>✓</text>{/if}
+      {#if phase === 5}<text class="ok" x={X0 + W - 4} y={yB + BH + 22}>✓</text>{/if}
     </svg>
 
-  {#if phase === 2}
+  {#if phase === 3}
       <div class="mults" style:top="{(yR / H) * 100}%">
         <div class="mrow a"><span class="who">{a.d}</span>{#each multiples(a.d) as m, i}<span class="m" class:hit={m === L} style:animation-delay="{i * 0.12}s">{m}</span>{/each}</div>
         <div class="mrow b"><span class="who">{b.d}</span>{#each multiples(b.d) as m, i}<span class="m" class:hit={m === L} style:animation-delay="{i * 0.12}s">{m}</span>{/each}</div>
@@ -144,31 +209,32 @@
     <!-- labels over the picture (HTML, so fractions can be stacked) -->
     <span class="lab a" style:top="{((yA - 22) / H) * 100}%"><RichText text={cut ? `${f(a.n, a.d)} = ${f(an, L)}` : f(a.n, a.d)} /></span>
     <span class="lab b" style:top="{((yB - 22) / H) * 100}%"><RichText text={cut ? `${f(b.n, b.d)} = ${f(bn, L)}` : f(b.n, b.d)} /></span>
-    {#if phase >= 5}
+    {#if phase >= 6}
       <span class="lab r" style:top="{((yR - 22) / H) * 100}%">
-        <RichText text={phase >= 6 ? `= ${f(rn, L)}${g > 1 && rn ? ` = ${f(rn / g, L / g)}` : ''}` : `${an} ${op} ${bn}`} />
+        <RichText text={phase >= 7 ? `= ${f(rn, L)}${g > 1 && rn ? ` = ${f(rn / g, L / g)}` : ''}` : `${an} ${op} ${bn}`} />
       </span>
     {/if}
   </div>
 
   <div class="ctl">
     <div class="dots" role="group" aria-label="Алхам">
-      {#each steps as s}<button class="dot" class:on={phase === s} aria-label="{s + 1}-р алхам" onclick={() => jump(s)}></button>{/each}
+      {#each steps as s}<button class="dot" class:on={phase === s} aria-label="{s + 1}-р алхам" onclick={() => { unlock(); jump(s); }}></button>{/each}
     </div>
     <div class="btns">
-      <button class="btn icon" aria-label="Эхнээс нь" onclick={() => run(steps[0])}>↻</button>
-      <button class="btn primary" aria-label={playing ? 'Түр зогсоох' : 'Тоглуулах'} onclick={toggle}>
+      <button class="btn icon" aria-label={sound ? 'Дуу хаах' : 'Дуу нээх'} aria-pressed={sound} onclick={toggleSound}>{sound ? '🔊' : '🔇'}</button>
+      <button class="btn icon" aria-label="Эхнээс нь" onclick={() => { unlock(); run(steps[0]); }}>↻</button>
+      <button class="btn primary" aria-label={playing ? 'Түр зогсоох' : 'Тоглуулах'} onclick={() => { unlock(); toggle(); }}>
         {#if playing}<span class="pz" aria-hidden="true"></span> Зогсоох{:else if done}↻ Дахин{:else}▶ Үргэлжлүүлэх{/if}
       </button>
     </div>
   </div>
-  {#if phase >= 6 && rn > L && plus}<p class="small muted">1-ээс их: бүтэн {Math.floor(rn / L)} ба {rn % L} хэсэг.</p>{/if}
-  {#if phase >= 6 && rn < 0}<p class="small muted">Хасах хэсэг ({bn}) байгаагаасаа ({an}) их тул хариу сөрөг.</p>{/if}
+  {#if phase >= 7 && rn > L && plus}<p class="small muted">1-ээс их: бүтэн {Math.floor(rn / L)} ба {rn % L} хэсэг.</p>{/if}
+  {#if phase >= 7 && rn < 0}<p class="small muted">Хасах хэсэг ({bn}) байгаагаасаа ({an}) их тул хариу сөрөг.</p>{/if}
 </div>
 
 <style>
   .play { display: grid; gap: 10px; padding: 14px; border-radius: 20px; background: var(--surface-solid); border: 1px solid var(--line); }
-  .cap { min-height: 3em; font-weight: 700; font-size: 1.02rem; line-height: 1.4; text-wrap: pretty; }
+  .cap { min-height: 4.3em; font-weight: 700; font-size: 1.02rem; line-height: 1.4; text-wrap: pretty; }
   .stage { position: relative; }
   svg { display: block; width: 100%; height: auto; overflow: visible; }
   .frame { fill: rgba(10, 14, 24, 0.6); stroke: var(--line); stroke-width: 1.2; }
@@ -189,6 +255,20 @@
   .x.show { opacity: 1; }
   .match { stroke: var(--grass); stroke-width: 1.6; opacity: 0; transition: opacity 0.3s; }
   .match.show { opacity: 0.95; }
+  .trial { animation: tin 0.6s ease-out both; }
+  @keyframes tin { from { opacity: 0; transform: translateY(8px); } }
+  .tp.a { fill: var(--sky); }
+  .tp.b { fill: var(--sun); }
+  .tp.b.minus { fill: rgba(255, 204, 102, 0.35); stroke: var(--sun); stroke-width: 1.5; }
+  .tick { stroke-width: 1.6; }
+  .tick.a { stroke: var(--sky-deep); }
+  .tick.b { stroke: var(--sun); }
+  :global(.tl) { font-family: var(--font); font-weight: 700; }
+  :global(.tl.a) { fill: var(--sky-deep); color: var(--sky-deep); }
+  :global(.tl.b) { fill: var(--sun); color: var(--sun); }
+  .end { stroke: var(--warn); stroke-width: 2.4; }
+  .endq { fill: var(--warn); }
+  .endt { fill: #2b0a10; font: 800 12px var(--font); text-anchor: middle; }
   .ok { fill: var(--grass); font: 800 18px var(--font); text-anchor: end; }
   .lab { position: absolute; left: 4px; transform: translateY(-50%); font-weight: 800; font-size: 0.95rem; white-space: nowrap; }
   .lab.a { color: var(--sky); } .lab.b { color: var(--sun); } .lab.r { color: var(--grass); font-size: 1.15rem; }

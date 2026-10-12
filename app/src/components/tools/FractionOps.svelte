@@ -6,6 +6,7 @@
   import { fly } from 'svelte/transition';
   import RichText from '../RichText.svelte';
   import FractionPlay from './FractionPlay.svelte';
+  import { unlock } from '../../lib/sound.js';
   import { ms, ease } from '../../lib/motion.js';
 
   const MAXD = 12;
@@ -19,7 +20,8 @@
     A.n; A.d; B.n; B.d; op;
     started = false;
   });
-  const start = () => { started = true; playKey++; };
+  // The tap on "Эхлэх" is what lets the phone play sound.
+  const start = () => { unlock(); started = true; playKey++; };
 
   const gcd = (a, b) => (b ? gcd(b, a % b) : Math.abs(a));
   const lcm = (a, b) => (a / gcd(a, b)) * b;
