@@ -63,6 +63,20 @@
       {/each}
     </div>
     {#if v.fill != null}<figcaption class="small muted">{v.fill} / {n}</figcaption>{:else}<figcaption class="small muted">{v.rows} × {v.cols} = {n}</figcaption>{/if}
+  {:else if v.kind === 'blocks'}
+    <!-- Addition with cubes: a cubes and b cubes put together. -->
+    <div class="blocks" role="img" aria-label="{v.a} шоо ба {v.b} шоо нийлээд {v.a + v.b} шоо">
+      <div class="sum">
+        <div class="grp"><div class="cubes">{#each Array(v.a) as _}<span class="cube"></span>{/each}</div><span class="num">{v.a}</span></div>
+        <span class="sign">+</span>
+        <div class="grp"><div class="cubes">{#each Array(v.b) as _}<span class="cube b"></span>{/each}</div><span class="num b">{v.b}</span></div>
+      </div>
+      <span class="sign down">=</span>
+      <div class="grp">
+        <div class="cubes">{#each Array(v.a + v.b) as _, k}<span class="cube" class:b={k >= v.a} style:animation-delay="{0.25 + k * 0.06}s"></span>{/each}</div>
+        <span class="num all">{v.a + v.b}</span>
+      </div>
+    </div>
   {:else if v.kind === 'fraction'}
     <div class="bar" style:grid-template-columns="repeat({v.den}, 1fr)">
       {#each Array(v.den) as _, k}<span class:on={k < v.num}></span>{/each}
@@ -103,6 +117,23 @@
   .bar span.on { background: var(--sky); }
   .frac { display: inline-grid; justify-items: center; font-weight: 800; font-size: 1.3rem; color: var(--sky-deep); }
   .frac span:first-child { border-bottom: 2px solid currentColor; padding: 0 6px; }
+
+  .blocks { display: grid; justify-items: center; gap: 10px; padding: 4px 0; }
+  .sum { display: flex; align-items: flex-start; gap: 14px; flex-wrap: wrap; justify-content: center; }
+  .grp { display: grid; justify-items: center; gap: 6px; }
+  .cubes { display: flex; flex-wrap: wrap; gap: 5px; justify-content: center; max-width: 230px; }
+  .cube {
+    width: 24px; height: 24px; border-radius: 6px; background: var(--sky);
+    box-shadow: inset 0 3px 0 rgba(255, 255, 255, 0.35), inset 0 -3px 0 rgba(0, 0, 0, 0.25), 0 0 8px rgba(34, 211, 238, 0.45);
+  }
+  .cube.b { background: var(--sun); box-shadow: inset 0 3px 0 rgba(255, 255, 255, 0.4), inset 0 -3px 0 rgba(0, 0, 0, 0.2), 0 0 8px rgba(255, 204, 102, 0.45); }
+  .grp:last-child .cube { animation: pop 0.4s cubic-bezier(0.32, 0.72, 0, 1) both; }
+  @keyframes pop { from { opacity: 0; transform: translateY(8px); } }
+  .num { font: 800 1.4rem var(--font); color: var(--sky-deep); }
+  .num.b { color: var(--sun); }
+  .num.all { font-size: 1.8rem; color: var(--ink); }
+  .sign { font: 800 1.6rem var(--font); color: var(--muted); line-height: 24px; }
+  .sign.down { line-height: 1; }
 
   .symbol { font-size: 2.4rem; font-weight: 800; color: var(--sky-deep); text-align: center; padding: 12px 0; font-family: 'Cambria Math', Georgia, serif; }
 </style>

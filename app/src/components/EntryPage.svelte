@@ -10,7 +10,10 @@
   import RichText from './RichText.svelte';
   import Visual from './Visual.svelte';
   import Quiz from './Quiz.svelte';
+  import ColumnCalc from './ColumnCalc.svelte';
   import Feedback from './Feedback.svelte';
+
+  const SHOW_MISTAKES = false;
 
   let { id } = $props();
   let e = $derived(entries[id]);
@@ -88,6 +91,9 @@
     <ol class="rail">
       <li class="step">
         <h2>Жишээ бодолт</h2>
+        {#if e.example.column}
+          <div class="worked"><ColumnCalc {...e.example.column} /></div>
+        {:else}
         <div class="worked">
           {#if worked.problem}<p class="problem"><RichText text={worked.problem} /></p>{/if}
           {#if worked.parts.length > 1}
@@ -99,6 +105,7 @@
           {/if}
           {#if worked.answer}<p class="answer"><RichText text={worked.answer} /></p>{/if}
         </div>
+        {/if}
       </li>
 
       <li class="step">
@@ -106,7 +113,8 @@
         <p class="life"><RichText text={e.example.life} /></p>
       </li>
 
-      {#if e.mistakes?.length}
+      <!-- "Анхаар" (common mistakes) is hidden for now: owner, 2026-10-12, until the content is checked. -->
+      {#if SHOW_MISTAKES && e.mistakes?.length}
         <li class="step warn">
           <h2>Анхаар</h2>
           {#each e.mistakes as m}
@@ -134,14 +142,14 @@
         <div class="quizcard">
           {#if result === null}
             {#key quizKey}
-              <Quiz questions={e.test} onmistake={(q) => showMistake(q.mistake)} ondone={done} />
+              <Quiz questions={e.test} onmistake={SHOW_MISTAKES ? (q) => showMistake(q.mistake) : null} ondone={done} />
             {/key}
           {:else}
             <p class="result">
               {#if result >= ENTRY_PASS}
                 <strong>Мэднэ боллоо.</strong> {Math.round(result * e.test.length)} / {e.test.length} зөв. Сайн ажилласан.
               {:else}
-                {Math.round(result * e.test.length)} / {e.test.length} зөв. Дээрх жишээ ба «Анхаар» хэсгийг дахин харчихаад дахиад оролдоорой.
+                {Math.round(result * e.test.length)} / {e.test.length} зөв. Дээрх жишээг дахин харчихаад дахиад оролдоорой.
               {/if}
             </p>
             <div class="row">

@@ -88,15 +88,6 @@
     delay: -((i * 4.7) % 9),
   }));
 
-  // Drift pauses while the finger scrolls, so scrolling stays smooth on slow phones and in Low Power Mode.
-  let scrolling = $state(false);
-  let scrollTimer;
-  function onScroll() {
-    scrolling = true;
-    clearTimeout(scrollTimer);
-    scrollTimer = setTimeout(() => (scrolling = false), 160);
-  }
-
   // Screen position of a world point right now.
   function toScreen(wx, wy) {
     const r = svg.getBoundingClientRect();
@@ -204,7 +195,7 @@
 </script>
 
 <div class="map" bind:this={mapEl}>
-  <div class="scroller" class:scrolling bind:this={scroller} onscroll={onScroll}>
+  <div class="scroller" bind:this={scroller}>
     <svg bind:this={svg} width={W} height={contentH} role="group" aria-label="Математикийн газрын зураг">
       <defs>
         {#each spheres as s}
@@ -332,7 +323,8 @@
   /* Drift: linear back-and-forth on each axis with different periods = a slow DVD-logo bounce. */
   .dx { animation: dx 9s linear infinite alternate; }
   .dy { animation: dy 11s linear infinite alternate; }
-  .scrolling .dx, .scrolling .dy { animation-play-state: paused; }
+  /* Drift never pauses, also while scrolling (owner, 2026-10-12): a pause felt like the map froze. */
+  .dx, .dy { will-change: transform; }
   @keyframes dx { from { transform: translateX(calc(-1 * var(--a))); } to { transform: translateX(var(--a)); } }
   @keyframes dy { from { transform: translateY(calc(-1 * var(--a))); } to { transform: translateY(var(--a)); } }
 
