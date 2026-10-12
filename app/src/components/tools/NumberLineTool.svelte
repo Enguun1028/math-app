@@ -1,5 +1,8 @@
 <script>
   // Number line: drag the start and end dots along the line, or use the sliders. The jump shows the sum.
+  // A second sub-tab, "Үйлдэл үзүүлэх", animates adding and subtracting signed numbers step by step.
+  import NumberOps from './NumberOps.svelte';
+  let mode = $state('free');
   let a = $state(2);
   let b = $state(3);
   let end = $derived(a + b);
@@ -30,6 +33,14 @@
   }
 </script>
 
+<div class="seg" role="tablist">
+  <button role="tab" class:on={mode === 'free'} aria-selected={mode === 'free'} onclick={() => (mode = 'free')}>Чөлөөтэй</button>
+  <button role="tab" class:on={mode === 'ops'} aria-selected={mode === 'ops'} onclick={() => (mode = 'ops')}>Үйлдэл үзүүлэх</button>
+</div>
+
+{#if mode === 'ops'}
+  <NumberOps />
+{:else}
 <figure class="vis">
   <svg bind:this={svg} viewBox="0 0 {W} 100" role="img" aria-label="Тооны шулуун: {a} {b < 0 ? '−' : '+'} {Math.abs(b)} = {end}">
     <line x1="10" y1="56" x2={W - 10} y2="56" class="axis" />
@@ -62,8 +73,12 @@
   <label>Алхам: <b>{b > 0 ? '+' : ''}{b}</b><input type="range" min={FROM - a} max={TO - a} bind:value={b} /></label>
   <p class="res">{a} {b < 0 ? '−' : '+'} {Math.abs(b)} = <b>{end}</b></p>
 </div>
+{/if}
 
 <style>
+  .seg { display: grid; grid-template-columns: 1fr 1fr; padding: 4px; border-radius: 14px; background: var(--surface-solid); border: 1px solid var(--line); margin-bottom: 4px; }
+  .seg button { min-height: 40px; border: 0; border-radius: 10px; background: none; color: var(--muted); font-weight: 700; }
+  .seg button.on { background: var(--sky-soft); color: var(--sky-deep); }
   .vis { margin: 0; padding: 12px; border-radius: var(--radius); background: var(--sky-soft); display: grid; justify-items: center; gap: 4px; }
   svg { width: 100%; max-width: 440px; height: auto; overflow: visible; touch-action: none; }
   .axis { stroke: var(--sky-deep); stroke-width: 2; fill: none; stroke-linecap: round; }
