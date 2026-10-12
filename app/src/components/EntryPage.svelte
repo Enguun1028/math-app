@@ -243,7 +243,7 @@
     justify-self: start; padding: 6px 14px; border-radius: 999px; font-weight: 800;
     background: var(--grass-soft); color: var(--grass);
   }
-  .life { padding-left: 14px; border-left: 3px solid var(--grass); }
+  .life { padding: 14px 16px; border-radius: 16px; background: var(--grass-soft); }
 
   .mistake { display: grid; gap: 4px; padding: 14px 16px; border-radius: 16px; background: var(--warn-soft); scroll-margin: 80px; }
   .mistake strong { color: var(--warn); }
