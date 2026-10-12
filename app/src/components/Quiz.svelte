@@ -33,7 +33,7 @@
 {#if !finished && cur}
     <div class="quiz">
       <p class="small muted">{i + 1} / {questions.length}</p>
-      <p class="q">{cur.q}</p>
+      <p class="q"><RichText text={cur.q} /></p>
       <div class="choices">
         {#each cur.choices as c, k}
           <button
@@ -41,7 +41,7 @@
             class:right={picked !== null && k === cur.answer}
             class:wrong={picked === k && k !== cur.answer}
             disabled={picked !== null}
-            onclick={() => pick(k)}>{c}</button>
+            onclick={() => pick(k)}><RichText text={c} /></button>
         {/each}
       </div>
 
