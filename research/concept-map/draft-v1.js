@@ -474,3 +474,29 @@ export const EDGES = [
   ['exp-fn', 'diff-eq', A, 'Өсөлт, задрал'],
   ['log', 'deriv', A, '(ln x)′ = 1/x'],
 ];
+
+// Curriculum map layout (owner, 2026-10-13): grade levels are horizontal layers (5 at the top, 12 at the bottom),
+// topic threads run down in parallel. Each lane is one topic family; every grade 5–12 concept sits in exactly one lane.
+// Grade 1–4 basics are not on this map; they live on the math map and are reached through prerequisite links.
+// Lane row: [lane id, name (mn), strand, concept ids in teaching order]
+export const CURRICULUM_LANES = [
+  ['n-signed', 'Бүхэл ба бодит тоо', 'num', ['int', 'int-ops', 'abs', 'rational', 'real']],
+  ['n-frac', 'Бутархай', 'num', ['frac', 'frac-add', 'dec', 'frac-mul', 'frac-dec']],
+  ['n-ratio', 'Харьцаа ба процент', 'num', ['ratio', 'pct', 'prop', 'inv-prop', 'pct-app']],
+  ['n-theory', 'Хуваагдах чанар', 'num', ['divis', 'gcd', 'prime', 'sets']],
+  ['n-pow', 'Зэрэг ба язгуур', 'num', ['round', 'pow', 'root', 'neg-pow', 'sci']],
+  ['a-expr', 'Илэрхийлэл', 'alg', ['expr', 'poly', 'special-prod', 'factor', 'alg-frac', 'formula', 'poly-div', 'complex']],
+  ['a-eq', 'Тэгшитгэл', 'alg', ['lin-eq', 'system', 'ineq', 'rat-eq', 'quad-eq', 'exp-eq', 'quad-ineq']],
+  ['a-seq', 'Дараалал', 'alg', ['seq', 'ap', 'gp', 'binomial-th', 'induction']],
+  ['a-fn', 'Функц ба график', 'alg', ['coord', 'func', 'direct', 'linear', 'slope', 'quad-fn', 'power-fn', 'exp-fn', 'fn-props', 'log', 'rat-fn']],
+  ['a-mat', 'Матриц', 'alg', ['matrix', 'det', 'lin-sys-mat']],
+  ['g-tri', 'Өнцөг ба гурвалжин', 'geo', ['tri', 'angle', 'polygon', 'parallel', 'proof', 'construct', 'congruent', 'tri-lines', 'locus']],
+  ['g-sim', 'Төсөө ба тригонометр', 'geo', ['similar', 'pyth', 'trig-right', 'trig-tri', 'radian', 'trig-fn']],
+  ['g-circle', 'Тойрог', 'geo', ['circle', 'circle-angles', 'chord-tangent']],
+  ['g-move', 'Хувиргалт, координат, вектор', 'geo', ['transform', 'coord-geo', 'bearing', 'vector', 'dot', 'mat-transform', 'space-coord', 'space-vec']],
+  ['m-units', 'Нэгж ба хурд', 'meas', ['units', 'time', 'speed']],
+  ['m-size', 'Талбай ба эзэлхүүн', 'meas', ['perim-area', 'solids', 'vol-surf', 'circle-meas', 'sim-ratio', 'sector', 'cross-sec']],
+  ['s-data', 'Өгөгдөл', 'stat', ['charts', 'average', 'data', 'grouped', 'scatter', 'spread']],
+  ['s-prob', 'Магадлал', 'stat', ['counting', 'prob', 'rel-freq', 'prob-rules', 'tree', 'perm-comb', 'cond-prob', 'rand-var', 'binom-dist', 'normal', 'geo-prob']],
+  ['c-calc', 'Анализ', 'calc', ['tangent-slope', 'deriv', 'deriv-app', 'integral', 'def-int', 'series', 'diff-eq']],
+];

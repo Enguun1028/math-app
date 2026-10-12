@@ -45,3 +45,15 @@ console.log(`curriculum codes covered: ${used.size}/${codes.size}`);
 if (missing.length) console.log('not covered:', missing.join(' '));
 if (lonely.length) console.log('no links:', lonely.join(' '));
 console.log(problems.length ? 'PROBLEMS:\n' + problems.join('\n') : 'no problems');
+
+// every grade 5–12 concept in exactly one curriculum lane
+import { CURRICULUM_LANES } from './draft-v1.js';
+const laneOf = new Map();
+for (const [lid, , , list] of CURRICULUM_LANES) for (const id of list) {
+  if (!ids.has(id)) console.log('lane: unknown', id);
+  if (laneOf.has(id)) console.log('lane: twice', id);
+  laneOf.set(id, lid);
+}
+const core = CONCEPTS.filter((c) => c[7] === 'core').map((c) => c[0]);
+const noLane = core.filter((id) => !laneOf.has(id));
+console.log(`lanes: ${CURRICULUM_LANES.length}, placed ${laneOf.size}/${core.length}${noLane.length ? ', missing ' + noLane.join(' ') : ''}`);
