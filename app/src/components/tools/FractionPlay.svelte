@@ -139,17 +139,23 @@
         <rect x={X0} y={yR + r * (BH + 22)} width={W} height={BH} rx="6" class="frame res" class:show={phase >= 6 || phase === 2} />
       {/each}
 
+      <!-- the sum written as a column: first bar, the sign, second bar, =, the answer -->
+      <text class="op" x={X0 + W / 2} y={(yA + BH + yB) / 2 + 9}>{plus ? '+' : '−'}</text>
+      <text class="op eq" class:show={phase === 2 || phase >= 6} x={X0 + W / 2} y={yB + BH + 30}>=</text>
+
       <!-- stage 2: try anyway, end to end, with the line values of both bars -->
       {#if phase === 2}
         <g class="trial">
           {#each trialA as sg}<rect class="tp a" x={X0 + (sg.s - sg.r) * W} y={rowY(sg.r)} width={(sg.e - sg.s) * W} height={BH} />{/each}
           {#each trialB as sg}<rect class="tp b" class:minus={!plus} x={X0 + (sg.s - sg.r) * W} y={rowY(sg.r)} width={(sg.e - sg.s) * W} height={BH} />{/each}
           {#each ticksA as tk}
-            <line class="tick a" x1={tk.x} x2={tk.x} y1={rowY(endRow) - 4} y2={rowY(endRow) + BH / 2} />
+            <line class="tick a" x1={tk.x} x2={tk.x} y1={rowY(endRow) - 6} y2={rowY(endRow)} />
+            <line class="tick in" x1={tk.x} x2={tk.x} y1={rowY(endRow)} y2={rowY(endRow) + BH / 2} />
             <SvgMath x={tk.x} y={rowY(endRow) - 14} size={11} text={tk.t} cls="tl a" />
           {/each}
           {#each ticksB as tk}
-            <line class="tick b" x1={tk.x} x2={tk.x} y1={rowY(endRow) + BH / 2} y2={rowY(endRow) + BH + 4} />
+            <line class="tick in" x1={tk.x} x2={tk.x} y1={rowY(endRow) + BH / 2} y2={rowY(endRow) + BH} />
+            <line class="tick b" x1={tk.x} x2={tk.x} y1={rowY(endRow) + BH} y2={rowY(endRow) + BH + 6} />
             <SvgMath x={tk.x} y={rowY(endRow) + BH + 15} size={11} text={tk.t} cls="tl b" />
           {/each}
           <line class="end" x1={xEnd} x2={xEnd} y1={rowY(endRow) - 22} y2={rowY(endRow) + BH + 6} />
@@ -175,16 +181,16 @@
         {#each Array(L - 1) as _, i}
           {@const k = row === 0 ? ka : kb}
           {#if (i + 1) % k !== 0}
-            <line class="thin" class:on={cut} class:dark={!moved && i + 1 < (row === 0 ? an : bn)} x1={xAt(i + 1)} x2={xAt(i + 1)} y1={y + 2} y2={y + BH - 2} style:transition-delay="{cut && !same ? i * 0.04 : 0}s" />
+            <line class="thin" class:on={cut} x1={xAt(i + 1)} x2={xAt(i + 1)} y1={y + 2} y2={y + BH - 2} style:transition-delay="{cut && !same ? i * 0.04 : 0}s" />
           {/if}
         {/each}
       {/each}
       <!-- thick white lines: the original parts -->
-      {#each Array(a.d - 1) as _, k}<line class="halo" x1={X0 + ((k + 1) * W) / a.d} x2={X0 + ((k + 1) * W) / a.d} y1={yA} y2={yA + BH} /><line class="thick" x1={X0 + ((k + 1) * W) / a.d} x2={X0 + ((k + 1) * W) / a.d} y1={yA} y2={yA + BH} />{/each}
-      {#each Array(b.d - 1) as _, k}<line class="halo" x1={X0 + ((k + 1) * W) / b.d} x2={X0 + ((k + 1) * W) / b.d} y1={yB} y2={yB + BH} /><line class="thick" x1={X0 + ((k + 1) * W) / b.d} x2={X0 + ((k + 1) * W) / b.d} y1={yB} y2={yB + BH} />{/each}
+      {#each Array(a.d - 1) as _, k}<line class="thick" x1={X0 + ((k + 1) * W) / a.d} x2={X0 + ((k + 1) * W) / a.d} y1={yA} y2={yA + BH} />{/each}
+      {#each Array(b.d - 1) as _, k}<line class="thick" x1={X0 + ((k + 1) * W) / b.d} x2={X0 + ((k + 1) * W) / b.d} y1={yB} y2={yB + BH} />{/each}
       <!-- answer bar slice lines -->
       {#each Array(rows) as _, r}
-        {#each Array(L - 1) as _, i}<line class="thin res" class:on={phase >= 6} class:dark={r * L + i + 1 < (plus ? an + bn : Math.max(0, an - bn))} x1={xAt(i + 1)} x2={xAt(i + 1)} y1={yR + r * (BH + 22) + 2} y2={yR + r * (BH + 22) + BH - 2} />{/each}
+        {#each Array(L - 1) as _, i}<line class="thin res" class:on={phase >= 6} x1={xAt(i + 1)} x2={xAt(i + 1)} y1={yR + r * (BH + 22) + 2} y2={yR + r * (BH + 22) + BH - 2} />{/each}
       {/each}
 
       <!-- stage 1: the first bar's lines dropped onto the second -->
@@ -246,11 +252,6 @@
   .piece.gone { opacity: 0; }
   .thin { stroke: #ffffff; stroke-width: 1.2; opacity: 0; transition: opacity 0.25s; }
   .thin.on { opacity: 0.75; }
-  /* On a filled part the divider is a gap in the background colour; on an empty part it is light. */
-  .thin.dark { stroke: #05070d; stroke-width: 1.8; }
-  .thin.dark.on { opacity: 1; }
-  .halo { stroke: #05070d; stroke-width: 6.5; }
-  .thin.res.dark { stroke: #05070d; }
   .thin.res { stroke: rgba(255, 255, 255, 0.8); }
   .thick { stroke: #ffffff; stroke-width: 3.2; }
   .guide { stroke: var(--warn); stroke-width: 2; stroke-dasharray: 4 4; opacity: 0; transition: opacity 0.4s; }
@@ -268,6 +269,10 @@
   .tick { stroke-width: 1.6; }
   .tick.a { stroke: var(--sky-deep); }
   .tick.b { stroke: var(--sun); }
+  .op { fill: var(--ink); font: 800 26px var(--font); text-anchor: middle; }
+  .op.eq { opacity: 0; transition: opacity 0.4s; }
+  .op.eq.show { opacity: 1; }
+  .tick.in { stroke: #ffffff; stroke-width: 2; }
   :global(.tl) { font-family: var(--font); font-weight: 700; }
   :global(.tl.a) { fill: var(--sky-deep); color: var(--sky-deep); }
   :global(.tl.b) { fill: var(--sun); color: var(--sun); }
