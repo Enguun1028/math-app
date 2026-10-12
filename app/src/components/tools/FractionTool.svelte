@@ -1,5 +1,8 @@
 <script>
   // Fraction: choose how many equal parts, then tap parts to fill or empty them one by one.
+  // A second sub-tab, "Бутархайн үйлдлүүд", adds, subtracts and multiplies two fractions with pictures.
+  import FractionOps from './FractionOps.svelte';
+  let mode = $state('one');
   let den = $state(4);
   let filled = $state([true, true, true, false]);
   let num = $derived(filled.filter(Boolean).length);
@@ -14,6 +17,14 @@
   const toggle = (i) => (filled[i] = !filled[i]);
 </script>
 
+<div class="seg" role="tablist">
+  <button role="tab" class:on={mode === 'one'} aria-selected={mode === 'one'} onclick={() => (mode = 'one')}>Нэг бутархай</button>
+  <button role="tab" class:on={mode === 'ops'} aria-selected={mode === 'ops'} onclick={() => (mode = 'ops')}>Бутархайн үйлдлүүд</button>
+</div>
+
+{#if mode === 'ops'}
+  <FractionOps />
+{:else}
 <div class="parts">
   <span class="small muted">Хэдэн хэсэгт хуваах вэ?</span>
   <div class="stepper">
@@ -36,8 +47,12 @@
   <span class="frac"><span>{num}</span><span>{den}</span></span>
   {#if num && num !== den}<span class="small muted">{den} хэсгийн {num} нь</span>{:else if num === den}<span class="small muted">= 1, бүтэн</span>{/if}
 </p>
+{/if}
 
 <style>
+  .seg { display: grid; grid-template-columns: 1fr 1fr; padding: 4px; border-radius: 14px; background: var(--surface-solid); border: 1px solid var(--line); margin-bottom: 4px; }
+  .seg button { min-height: 40px; border: 0; border-radius: 10px; background: none; color: var(--muted); font-weight: 700; }
+  .seg button.on { background: var(--sky-soft); color: var(--sky-deep); }
   .parts { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
   .stepper { display: flex; align-items: center; gap: 8px; }
   .v { min-width: 32px; text-align: center; font-size: 1.3rem; font-weight: 800; font-variant-numeric: tabular-nums; }
