@@ -71,7 +71,7 @@
 </script>
 
 <div class="calc">
-  <div class="sheet" style:grid-template-columns="28px repeat({plan.len}, 44px)" role="img" aria-label="{a} {op === '+' ? 'нэмэх' : 'хасах'} {b} = {plan.result}">
+  <div class="paper" style:grid-template-columns="28px repeat({plan.len}, 44px)" role="img" aria-label="{a} {op === '+' ? 'нэмэх' : 'хасах'} {b} = {plan.result}">
     <span></span>
     {#each cols as i}<span class="name" class:on={i === active}>{NAMES[i]}</span>{/each}
 
@@ -106,7 +106,7 @@
 
 <style>
   .calc { display: grid; gap: 16px; justify-items: start; }
-  .sheet {
+  .paper {
     display: grid; justify-self: center; align-items: center; justify-items: center; row-gap: 2px;
     padding: 12px 16px 14px; border-radius: 18px; background: var(--bg);
     font-family: var(--math); font-variant-numeric: tabular-nums;
