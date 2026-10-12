@@ -14,9 +14,20 @@
     return `M ${nx(a)} 56 Q ${(nx(a) + nx(b)) / 2} ${56 - h * 1.6} ${nx(b)} 56`;
   });
 
-  // Balance scale tilt: level when both sides are equal.
-  const val = (s) => { try { return Function(`return (${String(s).replace(/[^\d+\-*/(). ]/g, '')})`)(); } catch { return 0; } };
-  let tilt = $derived(v.kind === 'scale' ? Math.max(-12, Math.min(12, (val(v.right) - val(v.left)) * 3)) : 0);
+  // Balance scale: the heavier side goes down, level when both sides are equal.
+  // Sums like "3 + 4" or "−2 + 5" are added up by hand (the app's security rules forbid eval).
+  const val = (s) => {
+    const t = String(s).replace(/\u2212/g, '-').replace(/\s+/g, '');
+    let sum = 0;
+    for (const m of t.matchAll(/([+-]?)(\d+(?:[.,]\d+)?)(?:\*(\d+))?/g)) {
+      const n = parseFloat(m[2].replace(',', '.')) * (m[3] ? +m[3] : 1);
+      sum += m[1] === '-' ? -n : n;
+    }
+    return sum;
+  };
+  let tilt = $derived(v.kind === 'scale' ? Math.max(-14, Math.min(14, (val(v.right) - val(v.left)) * 3)) : 0);
+  // The pans hang from the beam ends, so they move up and down with it but stay level.
+  let drop = $derived(110 * Math.sin((tilt * Math.PI) / 180));
 </script>
 
 <figure class="vis">
@@ -47,10 +58,13 @@
   {:else if v.kind === 'scale'}
     <svg viewBox="0 0 {W} 150" role="img" aria-label="Жин: {v.left} ба {v.right}">
       <path d="M 145 140 L 175 140 L 160 40 Z" class="stand" />
-      <g transform="rotate({tilt} 160 40)">
-        <line x1="50" y1="40" x2="270" y2="40" class="beam" />
-        <line x1="50" y1="40" x2="50" y2="78" class="axis" /><line x1="270" y1="40" x2="270" y2="78" class="axis" />
+      <line x1="50" y1="40" x2="270" y2="40" class="beam swing" style:transform="rotate({tilt}deg)" />
+      <g class="swing" style:transform="translateY({-drop}px)">
+        <line x1="50" y1="40" x2="50" y2="78" class="axis" />
         <rect x="10" y="78" width="80" height="34" rx="8" class="pan" /><text x="50" y="101" class="pt">{v.left}</text>
+      </g>
+      <g class="swing" style:transform="translateY({drop}px)">
+        <line x1="270" y1="40" x2="270" y2="78" class="axis" />
         <rect x="230" y="78" width="80" height="34" rx="8" class="pan" /><text x="270" y="101" class="pt">{v.right}</text>
       </g>
       <circle cx="160" cy="40" r="6" class="dot" />
@@ -99,7 +113,8 @@
   .beam { stroke: var(--sky-deep); stroke-width: 6; stroke-linecap: round; }
   .pan { fill: var(--surface); stroke: var(--sky-deep); stroke-width: 2; }
   .pt { font-size: 15px; }
-  g { transition: transform 300ms ease; }
+  /* A soft, slightly springy settle, like a real scale. */
+  .swing { transform-box: view-box; transform-origin: 160px 40px; transition: transform 0.7s cubic-bezier(0.34, 1.36, 0.64, 1); }
 
   .place { display: flex; gap: 8px; }
   .col { display: grid; justify-items: center; padding: 10px 14px; border-radius: 12px; background: var(--surface); min-width: 72px; }
