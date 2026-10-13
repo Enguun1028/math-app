@@ -119,6 +119,7 @@
   // The map is moved and scaled with one CSS transform, so it stays smooth: drag to move (with momentum),
   // pinch or +/− to zoom around the fingers, ctrl+wheel or trackpad pinch on a computer. It cannot fly away.
   const Z_MAX = 2.6;
+  const STRAND_PX = 14; // on-screen size of the slice names
   let cam = $state({ x: 0, y: 0, z: 1 });
   let box = $state({ w: 360, h: 500 });
   let zMin = $derived(Math.min(0.6, box.w / (S * 2), box.h / (S * 2)));
@@ -256,7 +257,7 @@
         {#each rad.sectors as sc}
           {@const L = strandLabel(sc)}
           <line x1={S + 44 * Math.cos(sc.a0)} y1={S + 44 * Math.sin(sc.a0)} x2={S + (rad.rMax + 34) * Math.cos(sc.a0)} y2={S + (rad.rMax + 34) * Math.sin(sc.a0)} class="border" />
-          <text x={L.x} y={L.y} text-anchor={L.anchor} class="strand" style:fill={strands[sc.strand].color}>{strands[sc.strand].name}</text>
+          <text x={L.x} y={L.y} text-anchor={L.anchor} class="strand" style:fill={strands[sc.strand].color} style:font-size="{STRAND_PX / cam.z}px" style:stroke-width="{4 / cam.z}px">{strands[sc.strand].name}</text>
         {/each}
         {#each sprouts as e}<path d={e.d} class="e" class:root={e.root} class:on={e.on} style:stroke={strands[topics[e.t].strand].color} />{/each}
         <circle cx={S} cy={S} r="40" class="core" />
@@ -365,7 +366,8 @@
   .mini { position: absolute; left: 0; top: 0; transform-origin: 0 0; will-change: transform; display: block; overflow: visible; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; }
   .ring { fill: none; stroke: var(--c); stroke-opacity: 0.1; }
   .border { stroke: #24304f; stroke-dasharray: 2 6; }
-  .strand { font-size: 12px; font-weight: 800; }
+  /* Slice names keep one readable size on screen at every zoom; they stay in place on the map. */
+  .strand { font-weight: 800; paint-order: stroke; stroke: var(--bg); }
   .e { fill: none; stroke-opacity: 0.6; stroke-width: 1.7; }
   .e.root { stroke-opacity: 0.22; stroke-width: 1.4; }
   .e.on { stroke-opacity: 1; stroke-width: 2.4; }
