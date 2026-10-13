@@ -68,6 +68,10 @@
       <div class="body">
         <p class="q"><RichText text={cur.q} /></p>
         <div class="choices">
+          <!-- "Мэдэхгүй байна" first, above the answers (owner, 2026-10-13): at the bottom, students rarely press it and guess instead. -->
+          {#if !done}
+            <button class="choice idk" onclick={dontKnow}>Мэдэхгүй байна</button>
+          {/if}
           {#each cur.choices as c, k}
             <button
               class="choice"
@@ -76,9 +80,6 @@
               disabled={done || tried.includes(k)}
               onclick={() => pick(k)}><RichText text={c} /></button>
           {/each}
-          {#if !done}
-            <button class="choice idk" onclick={dontKnow}>Мэдэхгүй байна</button>
-          {/if}
         </div>
 
         {#if state === 'hint'}
