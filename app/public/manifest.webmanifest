@@ -1,6 +1,6 @@
 {
-  "name": "Математикийн аялал",
-  "short_name": "Мат аялал",
+  "name": "матемап: Математикийн газрын зураг",
+  "short_name": "матемап",
   "lang": "mn",
   "start_url": "./",
   "scope": "./",
@@ -9,8 +9,22 @@
   "background_color": "#05070d",
   "theme_color": "#05070d",
   "icons": [
-    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
-    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" },
-    { "src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
-  ]
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "description": "Хай. Ойлго. Өөрийн замаар сур."
 }
