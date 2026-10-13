@@ -12,4 +12,6 @@ addEventListener('hashchange', () => {
 });
 
 export const go = (path) => (location.hash = path);
+// Open a page in place of the current one, so Back skips it (e.g. a finished test).
+export const replace = (path) => location.replace('#' + path);
 export const back = () => (history.length > 1 ? history.back() : go('/'));

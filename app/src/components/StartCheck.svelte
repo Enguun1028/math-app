@@ -7,7 +7,7 @@
   import { topics } from '../lib/content.js';
   import { progress } from '../lib/progress.svelte.js';
   import { ui } from '../lib/ui.svelte.js';
-  import { go } from '../lib/router.svelte.js';
+  import { go, replace } from '../lib/router.svelte.js';
   import { ms, ease } from '../lib/motion.js';
   import Quiz from './Quiz.svelte';
   import { SvelteSet } from 'svelte/reactivity';
@@ -51,7 +51,7 @@
   let knownCount = $derived(level == null ? 0 : Object.keys(topics).filter((id) => progress.topics?.[id]).length);
   function open() {
     ui.reveal = true;
-    go('/s/' + target);
+    replace('/s/' + target);
   }
 </script>
 
@@ -92,7 +92,7 @@
       </p>
       <div class="row">
         <button class="btn sun" onclick={open}>{target.slice(1)}-р ангийн зураг руу</button>
-        <button class="btn" onclick={() => { ui.reveal = true; go('/'); }}>Газрын зураг</button>
+        <button class="btn" onclick={() => { ui.reveal = true; replace('/'); }}>Газрын зураг</button>
       </div>
     </div>
   {/if}
