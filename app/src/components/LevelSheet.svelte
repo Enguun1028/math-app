@@ -3,7 +3,7 @@
   // (and, for a coming test, their grade and the test's topic), then starts or resumes the check.
   import { fly, fade } from 'svelte/transition';
   import { topics, sphereById } from '../lib/content.js';
-  import { GOALS, checkSpheres, checkLeft } from '../lib/logic.js';
+  import { GOALS } from '../lib/logic.js';
   import { progress, save } from '../lib/progress.svelte.js';
   import { ui } from '../lib/ui.svelte.js';
   import { go } from '../lib/router.svelte.js';
@@ -13,9 +13,7 @@
   const GRADES = [5, 6, 7, 8, 9, 10, 11, 12];
   let q = $state('');
   let matches = $derived(q.trim() ? search(q).filter((r) => r.kind === 'topic').slice(0, 4) : []);
-  let plan = $derived(ui.level ? checkSpheres() : []);
-  let left = $derived(ui.level ? checkLeft() : []);
-  let started = $derived(plan.length > left.length);
+  let started = $derived(progress.level != null);
 
   const close = () => (ui.level = false);
   function setGoal(id) {
@@ -34,11 +32,6 @@
   }
   function start() {
     if (!progress.goalPicked) setGoal(progress.goal ?? 'ahih');
-    if (!left.length) {
-      // Everything in this plan is done: run it again from the start.
-      for (const s of plan) delete progress.checkDone[s.id];
-      save();
-    }
     close();
     go('/start');
   }
@@ -93,21 +86,17 @@
         <li><span class="n">1</span>Хамгийн энгийнээс эхэлнэ: тоо, тэмдэг, үйлдэл.</li>
         <li><span class="n">2</span>Хэсэг бүр 2–5 асуулттай. Мэдэхгүй бол таамаглах хэрэггүй.</li>
         <li><span class="n">3</span>Дууссаны дараа эхлэх сэдэв тань газрын зураг дээр гэрэлтэнэ.</li>
-        <li><span class="n">4</span>Хүссэн үедээ зогсоож болно. Дууссан хэсэг хадгалагдаж, дараа нь үргэлжилнэ.</li>
+        <li><span class="n">4</span>Хүссэн үедээ зогсоож болно.</li>
       </ol>
       <p class="small muted">Энэ бол дүн биш. Зөвхөн эхлэх газраа олох арга.</p>
     </details>
 
     <div class="foot">
       <p class="small muted">
-        {#if plan.length}
-          {plan.length} хэсэг{#if started}, {left.length} нь үлдсэн{/if} · {plan.map((s) => sphereById[s.id].title).join(', ')}
-        {:else}
-          Энэ сэдвийн асуултууд удахгүй нэмэгдэнэ.
-        {/if}
+        Анги бүрээс 4 асуулт · {progress.grade ? progress.grade + '-р ангиас' : '7-р ангиас'} эхэлж, түвшинг тань олтол дээш, доош явна.
       </p>
-      <button class="btn sun" disabled={!plan.length} onclick={start}>
-        {started && left.length ? 'Үргэлжлүүлэх' : started ? 'Дахин шалгах' : 'Эхлэх'}
+      <button class="btn sun" onclick={start}>
+        {started ? 'Дахин шалгах' : 'Эхлэх'}
       </button>
     </div>
   </div>

@@ -1,6 +1,7 @@
 // Learning logic (Section 3). Thresholds are first guesses, to be set in the spec.
 import { entries, spheres, sphereById, topics, topicEntries } from './content.js';
 import { progress, save } from './progress.svelte.js';
+import levelTest from '../../content/level-test.json';
 
 export const PASS = 0.65; // "Мэднэ" at roughly 60-70%
 export const ENTRY_PASS = 2 / 3; // mini test: 2 of 3 correct
@@ -46,8 +47,38 @@ export function checkSpheres() {
   }
   return list.filter((s) => s.entries.length);
 }
-// Sections of the check not finished yet: the check picks up where the student stopped.
-export const checkLeft = () => checkSpheres().filter((s) => !progress.checkDone?.[s.id]);
+// The level test is short and runs in one go, so there is nothing left to resume.
+export const checkLeft = () => [];
+
+// ---- level test across grades (owner, 2026-10-13: "locates the student's level up to 12 classes") ----
+// 4 questions per grade (grade 4 = the grade 1–4 basics). It starts at the student's grade and moves one grade
+// up after a pass (3 of 4) or one grade down after a miss, until it finds the edge: the highest grade passed
+// with the next one missed. Questions are drafts (content/level-test.json).
+export const LEVEL_MIN = 4;
+export const LEVEL_MAX = 12;
+export const LEVEL_PASS = 3;
+export const levelQuestions = (g) => levelTest.grades[g].map((q) => ({ ...q }));
+export const startGrade = () => Math.min(LEVEL_MAX, Math.max(5, progress.grade || 7));
+
+// Next grade to test, or null when the level is found. passed/missed: Sets of grades.
+export function nextLevelGrade(g, ok, passed, missed) {
+  if (ok) return g >= LEVEL_MAX || missed.has(g + 1) ? null : g + 1;
+  return g <= LEVEL_MIN || passed.has(g - 1) ? null : g - 1;
+}
+
+// Save the level: every concept first taught up to that grade is marked known (grade 1–4 basics from level 4),
+// except concepts whose question was missed. Known topics light up; the rest stay dark as likely gaps.
+export function applyLevel(level, missedConcepts) {
+  progress.level = level;
+  progress.levelChecked = true;
+  progress.topics ??= {};
+  for (const t of Object.values(topics)) {
+    if (missedConcepts.has(t.id)) continue;
+    const first = t.base ? 4 : t.grades[0];
+    if (first <= level) progress.topics[t.id] = true;
+  }
+  save();
+}
 
 // The level is known once any check or test has been done, or the student has marked something as known.
 export const levelChecked = () =>

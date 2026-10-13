@@ -1,84 +1,91 @@
 <script>
-  // "Дутагдлаа олъё": short sections, simplest first. The plan comes from the goal (see LevelSheet).
-  // Stop any time: finished sections are kept, and the check picks up at the first unfinished one.
+  // "Дутагдлаа олъё": the level test across grades. 4 questions per grade, one try each, no reveal.
+  // It starts at the student's grade and steps up after a pass, down after a miss, until it finds the edge.
+  // At the end, known topics light up and the grade the student picked opens (owner, 2026-10-13).
   import { fly } from 'svelte/transition';
-  import { checkLeft, checkSpheres, sphereQuestions, applySphereTest, PASS, topicKnown, nextTopic } from '../lib/logic.js';
+  import { levelQuestions, startGrade, nextLevelGrade, applyLevel, LEVEL_PASS, LEVEL_MIN } from '../lib/logic.js';
   import { topics } from '../lib/content.js';
+  import { progress } from '../lib/progress.svelte.js';
   import { ui } from '../lib/ui.svelte.js';
   import { go } from '../lib/router.svelte.js';
   import { ms, ease } from '../lib/motion.js';
   import Quiz from './Quiz.svelte';
+  import { SvelteSet } from 'svelte/reactivity';
 
-  // Taken once: finishing a section must not shift the list under the student.
-  const sections = checkLeft();
-  const total = checkSpheres().length;
-  const doneBefore = total - sections.length;
-  let at = $state(0);
-  let score = $state(null);
-  let s = $derived(sections[at]);
-  // At most 5 questions per section, spread from the simplest entry to the hardest, so a section stays short.
-  const spread = (qs, n = 5) => (qs.length <= n ? qs : Array.from({ length: n }, (_, i) => qs[Math.round((i * (qs.length - 1)) / (n - 1))]));
-  let questions = $derived(s ? spread(sphereQuestions(s, 1)) : []);
-  let last = $derived(at >= sections.length - 1);
+  let grade = $state(startGrade());
+  let round = $state(0); // how many grades tested so far
+  const passed = new SvelteSet();
+  const missed = new SvelteSet();
+  const missedConcepts = new Set();
+  let level = $state(null); // set when the test is over
+  let questions = $derived(levelQuestions(grade));
 
   function done(_, results) {
-    score = applySphereTest(s, questions, results);
+    results.forEach((ok, k) => !ok && missedConcepts.add(questions[k].concept));
+    const ok = results.filter(Boolean).length >= LEVEL_PASS;
+    (ok ? passed : missed).add(grade);
+    const next = nextLevelGrade(grade, ok, passed, missed);
+    round += 1;
+    if (next == null) {
+      level = passed.size ? Math.max(...passed) : LEVEL_MIN - 1;
+      applyLevel(level, missedConcepts);
+    } else grade = next;
   }
-  // Results say what the student has, then one next step. No score totals or grade levels.
-  let knownCount = $derived(score === null ? 0 : Object.keys(topics).filter(topicKnown).length);
-  let nextName = $derived(score === null ? null : topics[nextTopic()]?.name);
-  function toMap() {
+
+  const label = (g) => (g <= 4 ? '1–4-р ангийн суурь' : g + '-р анги');
+  // Where to go after: the grade the student picked, else the first grade above their level.
+  let target = $derived(level == null ? null : 'g' + Math.min(12, Math.max(5, progress.grade || level + 1)));
+  let knownCount = $derived(level == null ? 0 : Object.keys(topics).filter((id) => progress.topics?.[id]).length);
+  function open() {
     ui.reveal = true;
-    go('/');
-  }
-  function cont() {
-    at += 1;
-    score = null;
+    go('/s/' + target);
   }
 </script>
 
-{#if !s}
-  <section class="card stack">
-    <h2>Шалгах зүйл үлдсэнгүй.</h2>
-    <p class="muted">Газрын зураг дээр эхлэх сэдэв тань гэрэлтэж байгаа.</p>
-    <button class="btn primary" onclick={() => go('/')}>Газрын зургаа харах</button>
-  </section>
-{:else}
-  <header class="head">
-    <div class="top">
-      <p class="small muted">Дутагдлаа олъё · {doneBefore + at + 1}-р хэсэг / {total}</p>
-      <button class="btn ghost stop" onclick={() => go('/')}>Зогсоох</button>
-    </div>
-    <div class="bar" aria-hidden="true"><span style:transform="scaleX({(doneBefore + at + (score === null ? 0 : 1)) / total})"></span></div>
-    <h1>{s.title}</h1>
-    <p class="muted">Мэдэхгүй бол таамаглах хэрэггүй. Хүссэн үедээ зогсоож болно, дууссан хэсэг хадгалагдана.</p>
-  </header>
+<header class="head">
+  <div class="top">
+    <p class="small muted">Дутагдлаа олъё{level == null ? ` · ${label(grade)}` : ''}</p>
+    {#if level == null}<button class="btn ghost stop" onclick={() => go('/')}>Зогсоох</button>{/if}
+  </div>
+  <!-- Grades tested so far: green = known, amber = not yet. -->
+  <div class="steps" aria-label="Шалгасан ангиуд">
+    {#each [4, 5, 6, 7, 8, 9, 10, 11, 12] as g}
+      <span class="st" class:ok={passed.has(g)} class:miss={missed.has(g)} class:now={level == null && g === grade}>{g <= 4 ? '1–4' : g}</span>
+    {/each}
+  </div>
+  {#if level == null}
+    <p class="muted">Мэдэхгүй бол таамаглах хэрэггүй: «Мэдэхгүй байна» гэж дар. Энэ бол дүн биш, эхлэх газраа олох арга.</p>
+  {/if}
+</header>
 
-  <section class="quizcard">
-    {#if score === null}
-      {#key at}<div in:fly={{ x: 24, duration: ms(280), easing: ease }}><Quiz {questions} mode="check" bar={false} ondone={done} /></div>{/key}
-    {:else}
-      <div class="stack" in:fly={{ y: 12, duration: ms(280), easing: ease }}>
-        <h2>{score >= PASS ? 'Энэ хэсгийг мэддэг байна.' : 'Эхлэх газраа оллоо.'}</h2>
-        <p>
-          {#if knownCount}Чи одоо {knownCount} сэдвийг мэдэж байна.{/if}
-          {#if nextName}Дараагийн алхам: <strong>{nextName}</strong>.{/if}
-        </p>
-        <div class="row">
-          {#if !last}
-            <button class="btn" class:sun={score >= PASS} onclick={cont}>Дараагийн хэсэг →</button>
-          {/if}
-          <button class="btn" class:primary={score < PASS || last} onclick={toMap}>Газрын зургаа харах</button>
-        </div>
+<section class="quizcard">
+  {#if level == null}
+    {#key round}<div in:fly={{ x: 24, duration: ms(280), easing: ease }}><Quiz {questions} mode="check" ondone={done} /></div>{/key}
+  {:else}
+    <div class="stack" in:fly={{ y: 12, duration: ms(280), easing: ease }}>
+      <h2>{level >= LEVEL_MIN ? `Чи ${label(level)} хүртэлх ихэнх зүйлийг мэдэж байна.` : 'Суурь сэдвүүдээс эхэлье.'}</h2>
+      <p>
+        Мэддэг {knownCount} сэдэв тань газрын зураг дээр гэрэлтэнэ. Харанхуй үлдсэн нь дараагийн алхмууд.
+        {#if missedConcepts.size}Алдсан асуултын сэдвүүдийг дахин үзэхээр үлдээлээ.{/if}
+      </p>
+      <div class="row">
+        <button class="btn sun" onclick={open}>{target.slice(1)}-р ангийн зураг руу</button>
+        <button class="btn" onclick={() => { ui.reveal = true; go('/'); }}>Газрын зураг</button>
       </div>
-    {/if}
-  </section>
-{/if}
+    </div>
+  {/if}
+</section>
 
 <style>
-  .head { padding: 16px 0; display: grid; gap: 8px; }
+  .head { padding: 16px 0; display: grid; gap: 10px; }
   .top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-  .bar { height: 4px; border-radius: 4px; background: var(--line); overflow: hidden; }
-  .bar span { display: block; height: 100%; background: var(--sun); transform-origin: left; transition: transform 0.4s ease-out; }
+  .steps { display: flex; gap: 4px; }
+  .st {
+    flex: 1; min-width: 0; height: 26px; display: grid; place-items: center; border-radius: 8px; font-size: 0.72rem; font-weight: 800;
+    border: 1px solid var(--line); color: var(--muted); font-variant-numeric: tabular-nums;
+  }
+  .st.ok { background: var(--grass-soft); border-color: var(--grass); color: var(--grass); }
+  .st.miss { background: var(--sun-soft); border-color: var(--sun); color: var(--sun); }
+  .st.now { border-color: var(--sky); color: var(--ink); box-shadow: 0 0 10px rgba(34, 211, 238, 0.4); }
   .row { display: flex; gap: 8px; flex-wrap: wrap; }
 </style>
