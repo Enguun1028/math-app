@@ -1,7 +1,8 @@
 <script>
-  // Lesson page. Reads top to bottom like one short lesson:
-  // big idea and picture first, then numbered steps (example, real life, watch out, check yourself),
-  // then where this topic sits on the journey.
+  // Lesson page, in three pages (owner, 2026-10-13): one page at a time, not one long scroll.
+  //   1 Тайлбар: definition, quick picture and video: works on its own as a search answer.
+  //   2 Жишээ: optional elaboration (worked example step by step, practice, real life).
+  //   3 Шалгах: the mini test, for students working toward a goal.
   import { tick } from 'svelte';
   import { entries, unlocks, sphereById, termsIn } from '../lib/content.js';
   import { entryState, ENTRY_PASS } from '../lib/logic.js';
@@ -21,6 +22,10 @@
   let st = $derived(e && entryState(e.id));
 
   let quizKey = $state(0);
+  const PAGES = ['Тайлбар', 'Жишээ', 'Шалгах'];
+  let pg = $state(0);
+  $effect(() => { e?.id; pg = route.query.get('p') ? +route.query.get('p') : 0; });
+  const toPage = (k) => { pg = k; scrollTo({ top: 0, behavior: 'smooth' }); };
   let result = $state(null);
   let flash = $state(route.query.get('m'));
 
@@ -76,15 +81,21 @@
   <article class="lesson">
     <header class="hero">
       <a class="crumb" href="#/s/{e.sphere}">{sphereById[e.sphere]?.title}</a>
+      <nav class="pager" aria-label="Хичээлийн хуудас">
+        {#each PAGES as name, k}<button class:on={pg === k} aria-current={pg === k ? 'page' : undefined} onclick={() => toPage(k)}><span>{k + 1}</span>{name}</button>{/each}
+      </nav>
       <h1>
         {#if e.symbol}<span class="sym">{e.symbol}</span>{/if}
         <span>{e.title}</span>
       </h1>
       {#if st === 'known'}<span class="badge known">✓ Мэднэ</span>{/if}
+      {#if pg === 0}
       <p class="idea"><RichText text={idea[0]} /></p>
       {#if idea[1]}<p class="detail"><RichText text={idea[1]} /></p>{/if}
+      {/if}
     </header>
 
+    {#if pg === 0}
     {#if missing.length}
       <aside class="first">
         <span>Эхлээд үзвэл амар:</span>
@@ -94,7 +105,18 @@
 
     {#if e.visual}<div class="picture"><Visual v={e.visual} /></div>{/if}
 
+    {#if e.video}
+      <div class="video">
+        <div class="play" aria-hidden="true">▶</div>
+        <div><strong>{e.video.title}</strong><p class="muted">Видео удахгүй нэмэгдэнэ.</p></div>
+      </div>
+    {/if}
+    <button class="btn sun nextpg" onclick={() => toPage(1)}>Жишээ үзэх →</button>
+    <button class="skip" onclick={() => toPage(2)}>Шууд шалгах</button>
+    {/if}
+
     <ol class="rail">
+      {#if pg === 1}
       <li class="step">
         <h2>Жишээ бодолт</h2>
         {#if e.example.column}
@@ -116,7 +138,7 @@
 
       {#if e.example.column?.practice}
         <li class="step">
-          <h2>Одоо чи бод</h2>
+          <h2>Одоо та бодоод үзээрэй</h2>
           <div class="worked"><ColumnPractice {...e.example.column.practice} op={e.example.column.op} /></div>
         </li>
       {/if}
@@ -139,16 +161,10 @@
         </li>
       {/if}
 
-      {#if e.video}
-        <li class="step">
-          <h2>Видео</h2>
-          <div class="video">
-            <div class="play" aria-hidden="true">▶</div>
-            <div><strong>{e.video.title}</strong><p class="muted">Видео удахгүй нэмэгдэнэ.</p></div>
-          </div>
-        </li>
+      <li class="pgnav"><button class="btn sun nextpg" onclick={() => toPage(2)}>Өөрийгөө шалгах →</button></li>
       {/if}
 
+      {#if pg === 2}
       <li class="step check">
         <h2>Шалгаад үзье</h2>
         <p class="muted sub">{e.test.length} асуулт · {need} зөв бол «Мэднэ» болно</p>
@@ -180,6 +196,7 @@
           {/if}
         </div>
       </li>
+      {/if}
     </ol>
 
     {#if e.prereq.length || unlocks[e.id].length}
@@ -219,6 +236,17 @@
 {/if}
 
 <style>
+  .pager { display: flex; gap: 6px; margin: 4px 0 2px; }
+  .pager button {
+    flex: 1; min-height: 40px; border-radius: 12px; border: 1px solid var(--line); background: transparent; color: var(--muted);
+    font-weight: 700; font-size: 0.85rem; display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  }
+  .pager button span { width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center; font-size: 0.72rem; background: var(--line); color: var(--ink); }
+  .pager button.on { border-color: var(--sky); color: var(--ink); background: var(--sky-soft); }
+  .pager button.on span { background: var(--sky); color: #03161c; }
+  .nextpg { width: 100%; min-height: 50px; margin-top: 8px; }
+  .skip { display: block; margin: 4px auto 0; min-height: 44px; border: 0; background: none; color: var(--sky); font-weight: 700; }
+  .pgnav { list-style: none; }
   .lesson { font-size: 17px; line-height: 1.6; display: grid; gap: 32px; padding-top: 8px; }
   .lesson > * { animation: rise 0.5s cubic-bezier(0.32, 0.72, 0, 1) both; }
   .lesson > :nth-child(2) { animation-delay: 0.05s; }
