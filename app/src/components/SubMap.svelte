@@ -2,7 +2,8 @@
   // A grade sphere opened up: a map that sprouts from the centre (owner, 2026-10-13).
   // The grade number sits in the middle and each strand owns a slice. Concepts coming back from earlier grades
   // (↑, dashed) sit on the inner ring; new concepts grow outward from the ones they need.
-  // The map is wider than a phone, so it pans with the phone's own scrolling. No zoom (owner rule).
+  // The map is wider than a phone, so it pans with the phone's own scrolling. It is the one place that zooms
+  // (owner, 2026-10-13: "made as a circle ... so zoom is appropriate here and only here"): pinch, +/−, or ctrl+wheel.
   import { sphereById, topics, strands, isFresh } from '../lib/content.js';
   import { sphereLayout, gradeRadial, RAD, twoLines } from '../lib/layout.js';
   import { topicState, sphereState, readiness, sphereKnown } from '../lib/logic.js';
@@ -118,6 +119,50 @@
     };
   }
 
+  // ---- zoom: the svg is drawn z times its size and the pan box scrolls over it ----
+  const Z_MAX = 2.6;
+  let z = $state(1);
+  // Zoomed all the way out, the whole circle fits the box.
+  let zMin = $derived(pan ? Math.min(0.6, pan.clientWidth / (S * 2), pan.clientHeight / (S * 2)) : 0.45);
+  const clampZ = (v) => Math.min(Z_MAX, Math.max(zMin, v));
+  // Zoom to nz keeping the map point under (px, py) (screen position inside the pan box) where it is.
+  function zoomAt(nz, px, py) {
+    nz = clampZ(nz);
+    if (!pan || nz === z) return;
+    const cx = (pan.scrollLeft + px) / z, cy = (pan.scrollTop + py) / z;
+    z = nz;
+    requestAnimationFrame(() => {
+      pan.scrollLeft = cx * nz - px;
+      pan.scrollTop = cy * nz - py;
+    });
+  }
+  const zoomBtn = (f) => zoomAt(z * f, pan.clientWidth / 2, pan.clientHeight / 2);
+  // Pinch with two fingers; one finger still pans with normal scrolling.
+  function pinch(node) {
+    let d0 = 0, z0 = 1;
+    const dist = (t) => Math.hypot(t[0].clientX - t[1].clientX, t[0].clientY - t[1].clientY);
+    const mid = (t) => { const r = node.getBoundingClientRect(); return [(t[0].clientX + t[1].clientX) / 2 - r.left, (t[0].clientY + t[1].clientY) / 2 - r.top]; };
+    const start = (e) => { if (e.touches.length === 2) { d0 = dist(e.touches); z0 = z; } };
+    const move = (e) => {
+      if (e.touches.length !== 2 || !d0) return;
+      e.preventDefault();
+      const [px, py] = mid(e.touches);
+      zoomAt(z0 * (dist(e.touches) / d0), px, py);
+    };
+    const end = (e) => { if (e.touches.length < 2) d0 = 0; };
+    const wheel = (e) => {
+      if (!e.ctrlKey) return;
+      e.preventDefault();
+      const r = node.getBoundingClientRect();
+      zoomAt(z * Math.exp(-e.deltaY / 300), e.clientX - r.left, e.clientY - r.top);
+    };
+    node.addEventListener('touchstart', start, { passive: true });
+    node.addEventListener('touchmove', move, { passive: false });
+    node.addEventListener('touchend', end, { passive: true });
+    node.addEventListener('wheel', wheel, { passive: false });
+    return { destroy() { node.removeEventListener('touchstart', start); node.removeEventListener('touchmove', move); node.removeEventListener('touchend', end); node.removeEventListener('wheel', wheel); } };
+  }
+
   const strandLabel = (sc) => {
     const mid = (sc.a0 + sc.a1) / 2, lr = rad.rMax + 40;
     return { x: S + lr * Math.cos(mid), y: S + lr * Math.sin(mid) + 4, anchor: Math.cos(mid) > 0.3 ? 'start' : Math.cos(mid) < -0.3 ? 'end' : 'middle' };
@@ -137,8 +182,9 @@
       {#if st === 'known' || st === 'faded'}<span class="badge known">Мэднэ</span>{:else if st === 'next'}<span class="badge next">Дараагийн алхам энд байна</span>{/if}
     </header>
 
-    <div class="pan" bind:this={pan}>
-      <svg bind:this={mini} width={S * 2} height={S * 2} viewBox="0 0 {S * 2} {S * 2}" class="mini" out:home|global role="group" aria-label="{s.title}: сэдвүүд">
+    <div class="panwrap">
+    <div class="pan" bind:this={pan} use:pinch>
+      <svg bind:this={mini} width={S * 2 * z} height={S * 2 * z} viewBox="0 0 {S * 2} {S * 2}" class="mini" out:home|global role="group" aria-label="{s.title}: сэдвүүд">
         <defs>
           <radialGradient id="ig-{s.id}" cx="50%" cy="50%" r="50%">
             <stop offset="0%" stop-color={s.color} stop-opacity="0.16" />
@@ -171,6 +217,7 @@
             onclick={() => (ui.topic = t)}
             onkeydown={(ev) => (ev.key === 'Enter' || ev.key === ' ') && (ui.topic = t)}
           >
+            <g class="bob" style:animation-delay="{-((n.x * 7 + n.y * 3) % 900) / 100}s" style:animation-duration="{7 + ((n.x + n.y) % 400) / 100}s">
             <circle cx={n.x} cy={n.y} r={RAD.NODE + 10} class="hit" />
             {#if ts === 'next'}<circle cx={n.x} cy={n.y} r={RAD.NODE + 6} class="halo" />{/if}
             {#if ui.topic === t}<circle cx={n.x} cy={n.y} r={RAD.NODE + 6} class="sel" />{/if}
@@ -185,9 +232,15 @@
               <text x={n.x} y={n.y + RAD.NODE + 13 + j * 12} class="n">{line}</text>
             {/each}
             {#if ts === 'known' || ts === 'faded'}<text x={n.x + RAD.NODE * 0.8} y={n.y - RAD.NODE * 0.7} class="ok">✓</text>{/if}
+            </g>
           </g>
         {/each}
       </svg>
+    </div>
+    <div class="zoom" role="group" aria-label="Томруулах">
+      <button onclick={() => zoomBtn(1.35)} aria-label="Томруулах" disabled={z >= Z_MAX}>+</button>
+      <button onclick={() => zoomBtn(1 / 1.35)} aria-label="Жижигрүүлэх" disabled={z <= zMin + 0.001}>−</button>
+    </div>
     </div>
 
     {#if from.length}
@@ -240,7 +293,19 @@
     border-block: 1px solid var(--line); scrollbar-width: none;
   }
   .pan::-webkit-scrollbar { display: none; }
-  .mini { display: block; overflow: visible; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; }
+  .panwrap { position: relative; }
+  .zoom { position: absolute; right: 0; bottom: 10px; display: grid; gap: 6px; }
+  .zoom button {
+    width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background: rgba(10, 14, 24, 0.9);
+    color: var(--ink); font-size: 1.4rem; font-weight: 700; display: grid; place-items: center; backdrop-filter: blur(8px);
+  }
+  .zoom button:disabled { opacity: 0.35; }
+  /* Life: each circle drifts a few pixels, slowly, like the spheres on the main map. */
+  .bob { animation: bob 8s ease-in-out infinite alternate; }
+  @keyframes bob { 0% { transform: translate(-2.5px, 1.5px); } 50% { transform: translate(2px, -2px); } 100% { transform: translate(-1px, 2.5px); } }
+  /* Zoomed out smaller than the box: auto margins centre the map without cutting off any side when it is bigger. */
+  .pan { display: grid; }
+  .mini { display: block; margin: auto; overflow: visible; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; }
   .ring { fill: none; stroke: var(--c); stroke-opacity: 0.1; }
   .border { stroke: #24304f; stroke-dasharray: 2 6; }
   .strand { font-size: 12px; font-weight: 800; }
@@ -273,5 +338,5 @@
   .note { padding: 10px 12px; border-radius: 12px; background: var(--sun-soft); color: var(--sun); margin: 6px 0; }
   .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 28px; }
   .actions a { text-decoration: none; }
-  @media (prefers-reduced-motion: reduce) { .halo { animation: none; } }
+  @media (prefers-reduced-motion: reduce) { .halo, .bob { animation: none; } }
 </style>
