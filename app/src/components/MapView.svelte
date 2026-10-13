@@ -337,7 +337,7 @@
 
   .hud-bottom {
     position: fixed; left: 0; right: 0; bottom: 0; z-index: 5; display: grid; gap: 10px;
-    padding: 0 16px calc(var(--tabbar-h) + env(safe-area-inset-bottom) + 12px); max-width: 560px; margin: 0 auto; pointer-events: none;
+    padding: 0 16px calc(var(--tabbar-h) + env(safe-area-inset-bottom) + 34px); max-width: 560px; margin: 0 auto; pointer-events: none;
   }
   .hud-bottom > * { pointer-events: auto; grid-area: 1 / 1; }
   .find {

@@ -22,7 +22,8 @@
       {:else if t.id === 'practice'}
         <svg viewBox="0 0 24 24"><path d="M12 3c1 3 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3.5 2-4.5 0 2 1 3 2 3 0-3 0-6 1-8.5Z" /></svg>
       {:else if t.id === 'search'}
-        <svg viewBox="0 0 24 24" class="lens"><circle cx="11" cy="11" r="7.5" /><path d="m21 21-4.5-4.5" /></svg>
+        <!-- Search is the core feature (owner, 2026-10-13): a big glowing half circle rising out of the bar. -->
+        <span class="fab"><svg viewBox="0 0 24 24" class="lens"><circle cx="11" cy="11" r="7" /><path d="m20.5 20.5-4.6-4.6" /></svg></span>
       {:else if t.id === 'tools'}
         <svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="3" /><path class="cut" d="M3 12h18" /><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2" /></svg>
       {:else}
@@ -47,6 +48,18 @@
   .tab.on svg { fill: currentColor; filter: drop-shadow(0 0 5px rgba(34, 211, 238, 0.55)); }
   .tab.on svg .cut { fill: none; stroke: #05070d; }
   .tab.on svg.lens { fill: none; stroke-width: 3; }
+  .tab:has(.fab) { overflow: visible; position: relative; }
+  .fab {
+    position: absolute; left: 50%; top: -24px; width: 64px; height: 64px; margin-left: -32px; border-radius: 50%;
+    display: grid; place-items: center; background: radial-gradient(circle at 35% 30%, #7ff3ff, var(--sky) 45%, #0e7fa0);
+    box-shadow: 0 0 0 5px #05070d, 0 0 22px rgba(34, 211, 238, 0.65); animation: fabglow 2.8s ease-in-out infinite;
+  }
+  /* The rim of the bar bends around the button, so it reads as rising out of the bar. */
+  .fab::before { content: ''; position: absolute; inset: -6px; border-radius: 50%; border-top: 0.5px solid rgba(120, 160, 220, 0.25); clip-path: inset(0 0 55% 0); }
+  .fab svg.lens, .tab.on .fab svg.lens { width: 30px; height: 30px; fill: none; stroke: #03161c; stroke-width: 2.8; filter: none; }
+  .tab.on .fab { box-shadow: 0 0 0 5px #05070d, 0 0 30px rgba(34, 211, 238, 0.95); }
+  @keyframes fabglow { 50% { box-shadow: 0 0 0 5px #05070d, 0 0 34px rgba(34, 211, 238, 0.95); } }
+  @media (prefers-reduced-motion: reduce) { .fab { animation: none; } }
   .me { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: linear-gradient(140deg, var(--sky), var(--dusk)); box-shadow: 0 0 0 2px #05070d, 0 0 0 3.5px var(--sun); }
   .me svg { width: 20px; height: 20px; stroke: #03161c; stroke-width: 2.4; }
   .tab.on .me { box-shadow: 0 0 0 2px #05070d, 0 0 0 4px var(--sky); }
