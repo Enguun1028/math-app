@@ -15,6 +15,12 @@
   let matches = $derived(q.trim() ? search(q).filter((r) => r.kind === 'topic').slice(0, 4) : []);
   let started = $derived(progress.level != null);
   let step = $state(0);
+  // Steps in order. The exam-topic question only makes sense for "Шалгалтаа давах": for ЭЕШ the exam is known
+  // (owner, 2026-10-13), and "Ахих" has no exam.
+  let order = $derived(progress.goal === 'test' ? [0, 1, 2, 3, 4] : [0, 1, 3, 4]);
+  let at = $derived(Math.max(0, order.indexOf(step)));
+  const next = () => (step = order[Math.min(order.length - 1, at + 1)]);
+  const prev = () => (step = order[Math.max(0, at - 1)]);
   // Each time the sheet opens, start from the first step.
   $effect(() => { if (ui.level) step = 0; });
 
@@ -48,8 +54,8 @@
     <div class="grab"></div>
     <button class="sheet-close" aria-label="Хаах" onclick={close}>×</button>
     <!-- One question per step (owner, 2026-10-13: "much cleaner and easy to follow"), with a progress row on top. -->
-    <div class="steps" aria-label="Алхам {step + 1} / 5">
-      {#each [0, 1, 2, 3, 4] as k}<span class="dot" class:done={k < step} class:now={k === step}></span>{/each}
+    <div class="steps" aria-label="Алхам {at + 1} / {order.length}">
+      {#each order as k, i}<span class="dot" class:done={i < at} class:now={i === at}></span>{/each}
     </div>
     {#key step}
       <div class="step" in:fly={{ x: 20, duration: 220 }}>
@@ -57,7 +63,7 @@
           <h2>Зорилгоо сонго</h2>
           <div class="goals">
             {#each GOALS as g}
-              <button class="goal" class:on={progress.goalPicked && progress.goal === g.id} onclick={() => { setGoal(g.id); step = 1; }}>
+              <button class="goal" class:on={progress.goalPicked && progress.goal === g.id} onclick={() => { setGoal(g.id); next(); }}>
                 <strong>{g.name}</strong><span>{g.hint}</span>
               </button>
             {/each}
@@ -65,7 +71,7 @@
         {:else if step === 1}
           <h2>Хэддүгээр ангид сурдаг вэ?</h2>
           <div class="grades">
-            {#each GRADES as g}<button class="chip grade" class:on={progress.grade === g} onclick={() => { setGrade(g, true); step = 2; }}>{g}</button>{/each}
+            {#each GRADES as g}<button class="chip grade" class:on={progress.grade === g} onclick={() => { setGrade(g, true); next(); }}>{g}</button>{/each}
           </div>
         {:else if step === 2}
           <h2>Барагцаагаар ямар сэдвүүдээр шалгалттай вэ?</h2>
@@ -78,7 +84,7 @@
               <div class="chips">{#each matches as r}<button class="chip" onclick={() => setTopic(r.id)}>{r.item.name}</button>{/each}</div>
             {/if}
           {/if}
-          <button class="btn sun wide" onclick={() => (step = 3)}>{progress.examTopic ? 'Үргэлжлүүлэх' : 'Алгасах'}</button>
+          <button class="btn sun wide" onclick={next}>{progress.examTopic ? 'Үргэлжлүүлэх' : 'Алгасах'}</button>
         {:else if step === 3}
           <h2>Энэ шалгалт юунд хэрэгтэй вэ?</h2>
           <ol class="how">
@@ -86,7 +92,7 @@
             <li><span class="n">2</span>Анги бүрээс 4 асуулт байна. {progress.grade ?? 7}-р ангиас эхэлж, таны түвшинг олтол дээш, доош шилжинэ.</li>
             <li><span class="n">3</span>Энэ нь дүн биш, зөвхөн танд зориулсан зураглал юм.</li>
           </ol>
-          <button class="btn sun wide" onclick={() => (step = 4)}>Ойлголоо</button>
+          <button class="btn sun wide" onclick={next}>Ойлголоо</button>
         {:else}
           <!-- A separate, friendly tip as the last step, right before the test starts (owner, 2026-10-13). -->
           <div class="tip">
@@ -99,7 +105,7 @@
         {/if}
       </div>
     {/key}
-    {#if step > 0}<button class="back" onclick={() => (step -= 1)}>‹ Буцах</button>{/if}
+    {#if at > 0}<button class="back" onclick={prev}>‹ Буцах</button>{/if}
   </div>
 {/if}
 

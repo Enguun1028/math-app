@@ -26,10 +26,23 @@
     (ok ? passed : missed).add(grade);
     const next = nextLevelGrade(grade, ok, passed, missed);
     round += 1;
-    if (next == null) {
-      level = passed.size ? Math.max(...passed) : LEVEL_MIN - 1;
-      applyLevel(level, missedConcepts);
-    } else grade = next;
+    if (next == null) finish();
+    // Not ЭЕШ: once the student has passed one grade above their own, that is usually enough for their goal.
+    // Pause and ask instead of testing all the way to grade 12 (owner, 2026-10-13).
+    else if (ok && !keepGoing && progress.goal !== 'eesh' && progress.grade && grade >= progress.grade + 1) asking = next;
+    else grade = next;
+  }
+  let asking = $state(null); // the next grade, while the student decides
+  let keepGoing = false;
+  function finish() {
+    asking = null;
+    level = passed.size ? Math.max(...passed) : LEVEL_MIN - 1;
+    applyLevel(level, missedConcepts);
+  }
+  function goOn() {
+    keepGoing = true;
+    grade = asking;
+    asking = null;
   }
 
   const label = (g) => (g <= 4 ? '1–4-р ангийн суурь' : g + '-р анги');
@@ -59,7 +72,16 @@
 </header>
 
 <section class="quizcard">
-  {#if level == null}
+  {#if asking != null}
+    <div class="stack" in:fly={{ y: 12, duration: ms(280), easing: ease }}>
+      <h2>Та {grade}-р ангийн түвшинг давлаа.</h2>
+      <p>Таны зорилгод энэ мэдлэг хангалттай байх магадлалтай. Цааш үргэлжлүүлж, дараагийн ангиудыг шалгах уу?</p>
+      <div class="row">
+        <button class="btn sun" onclick={finish}>Энд дуусгая</button>
+        <button class="btn" onclick={goOn}>Үргэлжлүүлэх</button>
+      </div>
+    </div>
+  {:else if level == null}
     {#key round}<div in:fly={{ x: 24, duration: ms(280), easing: ease }}><Quiz {questions} mode="check" ondone={done} /></div>{/key}
   {:else}
     <div class="stack" in:fly={{ y: 12, duration: ms(280), easing: ease }}>
