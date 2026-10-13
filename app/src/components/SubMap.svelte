@@ -222,6 +222,30 @@
     };
   }
 
+  const EDGE = 6;
+  let slabels = $derived(rad ? rad.sectors.map((sc) => {
+    const L = strandLabel(sc), name = strands[sc.strand].name;
+    const w = name.length * STRAND_PX * 0.56 + 6, sx = cam.x + L.x * cam.z, sy = cam.y + L.y * cam.z;
+    const left0 = L.anchor === 'start' ? sx : L.anchor === 'end' ? sx - w : sx - w / 2;
+    const top = Math.min(box.h - STRAND_PX - 8 - EDGE, Math.max(EDGE, sy - STRAND_PX));
+    // Keep clear of the +/− buttons in the bottom-right corner.
+    const right = top > box.h - 120 ? 64 : EDGE;
+    return { strand: sc.strand, w, top, left: Math.min(box.w - w - right, Math.max(EDGE, left0)) };
+  }) : []);
+  // Two names pushed to the same edge must not cover each other: move the later one down (or up at the bottom).
+  let slabelsPlaced = $derived.by(() => {
+    const out = [];
+    for (const l of [...slabels].sort((a, b) => a.top - b.top)) {
+      let top = l.top;
+      for (let i = 0; i < 8; i++) {
+        const hit = out.find((o) => Math.abs(o.top - top) < 22 && o.left < l.left + l.w && l.left < o.left + o.w);
+        if (!hit) break;
+        top = hit.top + 24 > box.h - 28 ? hit.top - 24 : hit.top + 24;
+      }
+      out.push({ ...l, top });
+    }
+    return out;
+  });
   const strandLabel = (sc) => {
     const mid = (sc.a0 + sc.a1) / 2, lr = rad.rMax + 40;
     return { x: S + lr * Math.cos(mid), y: S + lr * Math.sin(mid) + 4, anchor: Math.cos(mid) > 0.3 ? 'start' : Math.cos(mid) < -0.3 ? 'end' : 'middle' };
@@ -257,7 +281,6 @@
         {#each rad.sectors as sc}
           {@const L = strandLabel(sc)}
           <line x1={S + 44 * Math.cos(sc.a0)} y1={S + 44 * Math.sin(sc.a0)} x2={S + (rad.rMax + 34) * Math.cos(sc.a0)} y2={S + (rad.rMax + 34) * Math.sin(sc.a0)} class="border" />
-          <text x={L.x} y={L.y} text-anchor={L.anchor} class="strand" style:fill={strands[sc.strand].color} style:font-size="{STRAND_PX / cam.z}px" style:stroke-width="{4 / cam.z}px">{strands[sc.strand].name}</text>
         {/each}
         {#each sprouts as e}<path d={e.d} class="e" class:root={e.root} class:on={e.on} style:stroke={strands[topics[e.t].strand].color} />{/each}
         <circle cx={S} cy={S} r="40" class="core" />
@@ -295,6 +318,11 @@
           </g>
         {/each}
       </svg>
+      <!-- Slice names: one readable size, anchored to their spot on the map, but never off screen
+           (owner, 2026-10-13): near an edge they stop at the edge of the map box. -->
+      {#each slabelsPlaced as l (l.strand)}
+        <span class="strand" style:left="{l.left}px" style:top="{l.top}px" style:color={strands[l.strand].color}>{strands[l.strand].name}</span>
+      {/each}
     </div>
     <div class="zoom" role="group" aria-label="Томруулах">
       <button onclick={() => zoomBtn(1.35)} aria-label="Томруулах" disabled={cam.z >= Z_MAX - 0.001}>+</button>
@@ -367,7 +395,10 @@
   .ring { fill: none; stroke: var(--c); stroke-opacity: 0.1; }
   .border { stroke: #24304f; stroke-dasharray: 2 6; }
   /* Slice names keep one readable size on screen at every zoom; they stay in place on the map. */
-  .strand { font-weight: 800; paint-order: stroke; stroke: var(--bg); }
+  .strand {
+    position: absolute; z-index: 1; pointer-events: none; white-space: nowrap; font-size: 14px; font-weight: 800; line-height: 1.2;
+    padding: 0 3px; border-radius: 6px; background: color-mix(in srgb, var(--bg) 70%, transparent);
+  }
   .e { fill: none; stroke-opacity: 0.6; stroke-width: 1.7; }
   .e.root { stroke-opacity: 0.22; stroke-width: 1.4; }
   .e.on { stroke-opacity: 1; stroke-width: 2.4; }
