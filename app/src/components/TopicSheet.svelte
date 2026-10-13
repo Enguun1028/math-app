@@ -1,10 +1,15 @@
 <script>
   // A topic opened up (owner, 2026-10-13): it expands to fill the screen the way a grade sphere opens.
-  // What it needs sits small in the top-left corner, what it opens in the top-right; the topic itself is in
-  // the middle, and its study materials are already there underneath: no extra "Сурах цаг!" step.
+  // Top: "Мэдвэл зохих" (with an info button) and "Дараагийн түвшин", lists that open only when pressed.
+  // Then the topic with "Мэднэ" at the far right, examples/formulas/methods, the study materials,
+  // and, set apart as an appendix, related topics and the link to the math map.
   // Grade 1–4 basics are read-only: no lesson, no step; the student reads them when they feel a gap.
   import RichText from './RichText.svelte';
   import Visual from './Visual.svelte';
+  import ColumnCalc from './ColumnCalc.svelte';
+  import FractionOps from './tools/FractionOps.svelte';
+  import NumberOps from './tools/NumberOps.svelte';
+  import CoordTool from './tools/CoordTool.svelte';
   import { topics, topicUnlocks, topicEntries, entries, strands, links, stripLinks } from '../lib/content.js';
   import { ideas } from '../lib/ideas.js';
   import { topicState, entryState, markTopic } from '../lib/logic.js';
@@ -32,15 +37,28 @@
     analogy: ['төстэй', 'төстэй'],
   };
   let related = $derived(t ? links.filter((e) => e.type !== 'prerequisite' && (e.from === t.id || e.to === t.id)) : []);
-  let onSphere = $derived(route.parts[0] === 's' ? route.parts[1] : null);
-  // Corners stay small: 3 names each, the rest behind "+N".
-  let more = $state(false);
-  $effect(() => { t?.id; more = false; });
-  const cap = (list) => (more ? list : list.slice(0, 3));
+  // "Мэдвэл зохих" / "Дараагийн түвшин" lists open only when pressed.
+  let panel = $state(null);
+  let showInfo = $state(false);
+  $effect(() => { t?.id; panel = null; showInfo = false; });
+  const toggle = (k) => (panel = panel === k ? null : k);
+  // Formulas: the topic's own plus the ones its answer page lists (written a^2 in search, shown a²).
+  const SUP = { 0: '⁰', 1: '¹', 2: '²', 3: '³', 4: '⁴', n: 'ⁿ', x: 'ˣ' };
+  const pretty = (f) => f.replace(/\^(\w)/g, (_, c) => SUP[c] ?? '^' + c).replace(/\*/g, '·').replace(/=/g, ' = ').replace(/\+/g, ' + ');
+  let formulas = $derived(t ? [...new Set([t.formula, ...(ideas[t.id]?.formulas ?? []).slice(1).map(pretty)].filter(Boolean))] : []);
+  // An interactive tool for the topics that have one.
+  const TOOLS = { frac: 'fraction', 'frac-add': 'fraction', 'frac-mul': 'fraction', 'frac-dec': 'fraction', int: 'number', 'int-ops': 'number', 'b-numline': 'number', 'b-neg': 'number', coord: 'coord', 'coord-geo': 'coord', 'b-grid': 'coord' };
+  let tool = $derived(t ? TOOLS[t.id] : null);
+  // Standard methods: each lesson's worked example as steps (or its column calculation when it has one).
+  let methods = $derived(es.map((id) => {
+    const e = entries[id], w = e.example?.worked || '';
+    const body = w.replace(/^[^:]{1,24}:\s+/, '');
+    const col = e.example?.column;
+    return { title: e.title, column: col ? { a: col.a, b: col.b, op: col.op } : null, steps: col ? [] : body.split(/(?<=[.!?])\s+(?=\S)/).filter(Boolean) };
+  }));
   const close = () => (ui.topic = null);
   const open = (path) => { close(); go(path); };
   const toTopic = (id) => (ui.topic = id);
-  const gradeOf = (x) => (x.base ? '1–4' : x.grades[0]);
   const short = (s, n = 130) => { const p = stripLinks(s || ''); return p.length > n ? p.slice(0, n - 1) + '…' : p; };
   // Opening: the panel grows out of the middle and fades in, like a sphere opening on the map.
   const grow = (node) => ({ duration: ms(320), easing: cubicOut, css: (k) => `opacity:${k}; transform: scale(${0.94 + 0.06 * k}); border-radius:${(1 - k) * 40 + 0}px` });
@@ -53,81 +71,99 @@
   <div class="topic" role="dialog" aria-label={t.name} style:--c={strands[t.strand].color} in:grow out:fade={{ duration: ms(160) }}>
     {#key t.id}
     <div class="inner" in:fade={{ duration: ms(200) }}>
-      <!-- corners: what this needs (left) and what it opens (right) -->
-      <div class="corners">
-        <div class="corner">
-          {#if t.req.length}
-            <span class="clabel">← Өмнө нь</span>
-            {#each cap(t.req) as r}<button class="cl {topicState(r)}" class:base={topics[r].base} onclick={() => toTopic(r)}><i></i>{topics[r].name}</button>{/each}
-            {#if !more && t.req.length > 3}<button class="cl more" onclick={() => (more = true)}>+{t.req.length - 3}</button>{/if}
-          {/if}
-        </div>
-        <div class="corner right">
-          {#if topicUnlocks[t.id].length}
-            <span class="clabel">Дараа нь →</span>
-            {#each cap(topicUnlocks[t.id]) as u}<button class="cl {topicState(u)}" onclick={() => toTopic(u)}>{topics[u].name}<i></i></button>{/each}
-            {#if !more && topicUnlocks[t.id].length > 3}<button class="cl more" onclick={() => (more = true)}>+{topicUnlocks[t.id].length - 3}</button>{/if}
-          {/if}
-        </div>
+      <!-- Top row (owner, 2026-10-13): two buttons that open a short list only when pressed. -->
+      <div class="toprow">
+        {#if t.req.length}
+          <div class="pill">
+            <button class="pbtn" class:on={panel === 'need'} aria-expanded={panel === 'need'} onclick={() => toggle('need')}>Мэдвэл зохих <span class="n">{t.req.length}</span></button>
+            <button class="info" class:on={showInfo} aria-label="Энэ юу вэ?" onclick={() => (showInfo = !showInfo)}>i</button>
+          </div>
+        {:else}<span></span>{/if}
+        {#if topicUnlocks[t.id].length}
+          <button class="pbtn" class:on={panel === 'next'} aria-expanded={panel === 'next'} onclick={() => toggle('next')}>Дараагийн түвшин <span class="n">{topicUnlocks[t.id].length}</span></button>
+        {:else}<span></span>{/if}
+        <button class="x" aria-label="Хаах" onclick={close}>×</button>
       </div>
-
-      <button class="x" aria-label="Хаах" onclick={close}>×</button>
+      {#if showInfo}<p class="infotext small" transition:fade={{ duration: ms(150) }}>«Мэдвэл зохих»: энэ сэдвийг ойлгоход шаардлагатай өмнөх сэдвүүд. «Дараагийн түвшин»: энэ сэдвийг мэдсэний дараа үзэх боломжтой сэдвүүд.</p>{/if}
+      {#if panel}
+        <div class="plist" class:right={panel === 'next'} transition:fade={{ duration: ms(150) }}>
+          {#each panel === 'need' ? t.req : topicUnlocks[t.id] as r}
+            <button class="cl {topicState(r)}" class:base={topics[r].base} onclick={() => toTopic(r)}><i></i>{topics[r].name}</button>
+          {/each}
+        </div>
+      {/if}
 
       <div class="hero">
         <span class="orb" class:base={t.base}>{#if t.formula}<RichText text={t.formula} />{:else}<i class="sd"></i>{/if}</span>
-        <h2>{t.name}</h2>
-        <p class="small muted">{t.base ? '1–4-р ангийн суурь · зөвхөн унших' : t.grades.map((g) => g + '-р анги').join(' · ')} · {strands[t.strand].name}</p>
-        <div class="hrow">
-          {#if t.grades.length}
-            {#each t.grades as g, i}<a class="gchip" class:on={onSphere === 'g' + g} href="#/s/g{g}" onclick={close}>{g}{i ? ' ↑' : ''}</a>{/each}
-          {/if}
+        <div class="titlerow">
+          <span></span>
+          <h2>{t.name}</h2>
           <button class="know" class:on={known} aria-pressed={known} onclick={() => markTopic(t.id, !known)}><span class="box">{#if known}✓{/if}</span>Мэднэ</button>
         </div>
         {#if t.text}<p class="lead">{t.text}</p>{/if}
       </div>
 
-      <!-- study materials, already open -->
+      <!-- Examples you can play with, key formulas and the standard method (owner, 2026-10-13). -->
+      <section class="core">
+        <h3>Жишээ, томьёо, арга</h3>
+        {#if formulas.length}
+          <div class="formulas">{#each formulas as f}<span class="fx"><RichText text={f} /></span>{/each}</div>
+        {/if}
+        {#if tool === 'fraction'}<div class="play"><FractionOps /></div>
+        {:else if tool === 'number'}<div class="play"><NumberOps /></div>
+        {:else if tool === 'coord'}<div class="play"><CoordTool /></div>{/if}
+        {#each methods as m}
+          <div class="method">
+            <span class="mlabel">Арга · {m.title}</span>
+            {#if m.column}<ColumnCalc {...m.column} />{/if}
+            {#if m.steps.length}<ol>{#each m.steps as st}<li><RichText text={st} /></li>{/each}</ol>{/if}
+          </div>
+        {/each}
+        {#if !formulas.length && !tool && !methods.length}
+          <p class="empty small muted">Энэ сэдвийн жишээ, томьёо удахгүй нэмэгдэнэ.</p>
+        {/if}
+      </section>
+
+      <!-- study materials -->
       <section class="mats">
         {#each es as id}
           {@const e = entries[id]}
           <button class="mat {entryState(id)}" onclick={() => open('/e/' + id)}>
             {#if e.visual}<span class="pic"><Visual v={e.visual} /></span>{/if}
             <span class="mt"><strong>{e.title}</strong>{#if entryState(id) === 'known'}<span class="ok">✓</span>{/if}</span>
-            <span class="md">{short(e.definition)}</span>
+            <span class="md"><RichText text={short(e.definition)} /></span>
             <span class="go">Хичээл унших →</span>
           </button>
         {/each}
         {#if idea}
           <a class="mat" href="#/c/{idea.id}" onclick={close}>
             <span class="mt"><strong>Тайлбар</strong></span>
-            <span class="md">{short(idea.def, 160)}</span>
-            {#if idea.example}<span class="md ex">Жишээ: {short(idea.example, 110)}</span>{/if}
+            <span class="md"><RichText text={short(idea.def, 160)} /></span>
+            {#if idea.example}<span class="md ex">Жишээ: <RichText text={short(idea.example, 110)} /></span>{/if}
             <span class="go">Бүтнээр унших{idea.proof ? ' · батлгаа' : ''} →</span>
           </a>
         {/if}
         {#each extras as x}
           <a class="mat small-mat" href="#/c/{x.id}" onclick={close}>
             <span class="mt"><strong>{x.name}</strong></span>
-            <span class="md">{short(x.def, 100)}</span>
+            <span class="md"><RichText text={short(x.def, 100)} /></span>
           </a>
         {/each}
-        {#if !es.length && !idea && !extras.length}
-          <p class="empty small muted">{t.base ? 'Энгийн тайлбар, богино анимейшн удахгүй нэмэгдэнэ.' : 'Энэ сэдвийн хичээл, тайлбар удахгүй нэмэгдэнэ.'}</p>
-        {/if}
       </section>
 
+      <!-- Appendix: kept well apart from the main body. -->
       {#if related.length}
         <section class="rel">
           <h3>Холбоотой</h3>
           <div class="rchips">
             {#each related as e}
               {@const other = e.from === t.id ? e.to : e.from}
-              <button class="rc" onclick={() => toTopic(other)}><em>{REL[e.type][e.from === t.id ? 0 : 1]}:</em> {topics[other].name}<span class="g">{gradeOf(topics[other])}</span></button>
+              <button class="rc" onclick={() => toTopic(other)}><em>{REL[e.type][e.from === t.id ? 0 : 1]}:</em> {topics[other].name}</button>
             {/each}
           </div>
         </section>
       {/if}
-      {#if route.parts[0] !== 'm'}<button class="maplink" onclick={() => open('/m')}>Математикийн зураг дээр харах →</button>{/if}
+      {#if route.parts[0] !== 'm'}<button class="maplink" onclick={() => open('/m')}>Математикийн газрын зураг дээрээс харах →</button>{/if}
     </div>
     {/key}
   </div>
@@ -141,16 +177,31 @@
     padding: calc(env(safe-area-inset-top, 0px) + 12px) 16px calc(env(safe-area-inset-bottom, 0px) + 32px);
   }
   .inner { max-width: 560px; margin: 0 auto; display: grid; gap: 18px; position: relative; }
-  .x { position: absolute; top: -4px; right: -6px; width: 44px; height: 44px; border: 0; border-radius: 50%; background: none; color: var(--muted); font-size: 1.6rem; }
-  .corners { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding-right: 34px; min-height: 20px; }
-  .corner { display: grid; gap: 3px; align-content: start; justify-items: start; min-width: 0; }
-  .corner.right { justify-items: end; text-align: right; }
-  .clabel { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
-  .cl { display: inline-flex; align-items: center; gap: 6px; max-width: 100%; border: 0; background: none; padding: 3px 0; font-size: 0.82rem; font-weight: 600; color: var(--ink); opacity: 0.8; text-align: inherit; }
-  .cl i { flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--line); }
+  .toprow { display: grid; grid-template-columns: auto 1fr auto; gap: 4px; align-items: center; margin-right: -8px; }
+  .toprow > :nth-child(2) { justify-self: end; }
+  .pill { display: inline-flex; align-items: center; gap: 4px; }
+  .pbtn { white-space: nowrap; min-height: 38px; padding: 0 10px; border-radius: 999px; border: 1px solid var(--line); background: rgba(13, 19, 32, 0.85); color: var(--ink); font-weight: 700; font-size: 0.8rem; display: inline-flex; align-items: center; gap: 5px; }
+  .pbtn .n { min-width: 20px; height: 20px; padding: 0 5px; border-radius: 999px; background: var(--line); font-size: 0.72rem; display: grid; place-items: center; }
+  .pbtn.on { border-color: var(--c); color: var(--c); }
+  .info { width: 28px; height: 28px; flex: none; border-radius: 50%; border: 1px solid var(--line); background: transparent; color: var(--muted); font-family: var(--math); font-style: italic; font-weight: 700; }
+  .info.on { border-color: var(--sky); color: var(--sky); }
+  .infotext { padding: 10px 12px; border-radius: 12px; background: var(--sky-soft); }
+  .plist { display: grid; gap: 2px; justify-items: start; padding: 8px 12px; border-radius: 14px; border: 1px solid var(--line); background: rgba(13, 19, 32, 0.9); }
+  .plist.right { justify-items: end; }
+  .cl { display: inline-flex; align-items: center; gap: 8px; min-height: 36px; border: 0; background: none; padding: 0; font-size: 0.9rem; font-weight: 600; color: var(--ink); text-align: left; }
+  .cl i { flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--line); }
   .cl.known i { background: var(--grass); } .cl.next i { background: var(--sun); }
   .cl.base { font-style: italic; }
-  .cl.more { color: var(--c); font-weight: 800; opacity: 1; }
+  .x { width: 40px; height: 44px; border: 0; border-radius: 50%; background: none; color: var(--muted); font-size: 1.6rem; }
+  .titlerow { width: 100%; display: grid; grid-template-columns: 1fr auto 1fr; gap: 8px; align-items: center; }
+  .titlerow .know { justify-self: end; }
+  .core { display: grid; gap: 12px; padding: 14px; border-radius: 18px; border: 1px solid color-mix(in srgb, var(--c) 40%, var(--line)); background: rgba(13, 19, 32, 0.7); }
+  .core h3 { font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--c); margin: 0; }
+  .formulas { display: flex; flex-wrap: wrap; gap: 8px; }
+  .fx { padding: 8px 14px; border-radius: 12px; background: color-mix(in srgb, var(--c) 14%, transparent); font-family: var(--math); font-size: 1.15rem; }
+  .method { display: grid; gap: 8px; }
+  .mlabel { font-size: 0.8rem; font-weight: 700; color: var(--muted); }
+  .method ol { margin: 0; padding-left: 20px; display: grid; gap: 4px; }
   .hero { display: grid; justify-items: center; text-align: center; gap: 8px; }
   .orb {
     min-width: 112px; height: 112px; padding: 0 16px; display: grid; place-items: center; border-radius: 56px;
@@ -161,9 +212,6 @@
   .orb.base { border-style: dashed; box-shadow: none; background: transparent; }
   .sd { width: 22px; height: 22px; border-radius: 50%; background: var(--c); box-shadow: 0 0 16px var(--c); }
   h2 { font-size: 1.5rem; text-wrap: balance; }
-  .hrow { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
-  .gchip { min-height: 36px; min-width: 40px; padding: 0 10px; display: grid; place-items: center; border-radius: 999px; border: 1px solid var(--line); color: var(--ink); text-decoration: none; font-weight: 700; font-size: 0.85rem; }
-  .gchip.on { border-color: var(--c); color: var(--c); }
   .know { display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 0 12px 0 8px; border-radius: 999px; border: 1px solid var(--line); background: transparent; color: var(--muted); font-weight: 700; }
   .know .box { width: 20px; height: 20px; border-radius: 6px; border: 2px solid currentColor; display: grid; place-items: center; font-size: 0.8rem; font-weight: 900; }
   .know.on { color: var(--grass); border-color: color-mix(in srgb, var(--grass) 55%, transparent); background: var(--grass-soft); }
@@ -183,6 +231,8 @@
   .ok { color: var(--grass); }
   .small-mat .mt { font-size: 0.95rem; }
   .empty { text-align: center; padding: 10px; border: 1px dashed var(--line); border-radius: 14px; }
+  /* Appendix: clearly apart from the main body. */
+  .rel { margin-top: 36px; padding-top: 20px; border-top: 1px dashed var(--line); }
   .rel h3 { font-size: 0.85rem; color: var(--muted); margin-bottom: 8px; }
   .rchips { display: flex; flex-wrap: wrap; gap: 6px; }
   .rc { border: 1px solid var(--line); background: transparent; color: var(--ink); border-radius: 999px; padding: 6px 12px; font-size: 0.85rem; font-weight: 600; }
