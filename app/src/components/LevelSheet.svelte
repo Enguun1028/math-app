@@ -80,21 +80,21 @@
           {/if}
           <button class="btn sun wide" onclick={() => (step = 3)}>{progress.examTopic ? 'Үргэлжлүүлэх' : 'Алгасах'}</button>
         {:else if step === 3}
-          <!-- A separate, friendly tip right after the questions about the student (owner, 2026-10-13). -->
-          <div class="tip">
-            <svg class="bulb" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.6 10.8c.7.5 1.1 1.3 1.1 2.2h5c0-.9.4-1.7 1.1-2.2A6 6 0 0 0 12 3Z" /></svg>
-            <h2>Нэг зөвлөгөө</h2>
-            <p>Хариултыг нь мэдэхгүй асуулт таарвал <strong>«Мэдэхгүй байна»</strong> товчийг дарахад болно. Энэ нь огт буруу зүйл биш.</p>
-            <p class="muted">Таамаглаж хариулбал таны давтах хэрэгтэй сэдэв нуугдаж магадгүй. Үнэнээр нь хариулбал танд хамгийн тохирох газраас эхлэхэд тусална.</p>
-          </div>
-          <button class="btn sun wide" onclick={() => (step = 4)}>Ойлголоо</button>
-        {:else}
           <h2>Энэ шалгалт юунд хэрэгтэй вэ?</h2>
           <ol class="how">
             <li><span class="n">1</span>Таны сайн мэддэг сэдвүүд болон давтах хэрэгтэй сэдвүүдийг олж, газрын зураг дээр тэмдэглэнэ.</li>
             <li><span class="n">2</span>Анги бүрээс 4 асуулт байна. {progress.grade ?? 7}-р ангиас эхэлж, таны түвшинг олтол дээш, доош шилжинэ.</li>
             <li><span class="n">3</span>Энэ нь дүн биш, зөвхөн танд зориулсан зураглал юм.</li>
           </ol>
+          <button class="btn sun wide" onclick={() => (step = 4)}>Ойлголоо</button>
+        {:else}
+          <!-- A separate, friendly tip as the last step, right before the test starts (owner, 2026-10-13). -->
+          <div class="tip">
+            <svg class="bulb" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.6 10.8c.7.5 1.1 1.3 1.1 2.2h5c0-.9.4-1.7 1.1-2.2A6 6 0 0 0 12 3Z" /></svg>
+            <h2>Нэг зөвлөгөө</h2>
+            <p>Хариултыг нь мэдэхгүй асуулт таарвал <strong>«Мэдэхгүй байна»</strong> товчийг дарахад болно. Энэ нь огт буруу зүйл биш.</p>
+            <p class="muted">Таамаглаж хариулбал таны давтах хэрэгтэй сэдэв нуугдаж магадгүй. Үнэнээр нь хариулбал танд хамгийн тохирох газраас эхлэхэд тусална.</p>
+          </div>
           <button class="btn sun wide" onclick={start}>{started ? 'Дахин шалгах' : 'Эхлэх'}</button>
         {/if}
       </div>
