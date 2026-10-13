@@ -56,8 +56,24 @@
     const col = e.example?.column;
     return { title: e.title, column: col ? { a: col.a, b: col.b, op: col.op } : null, steps: col ? [] : body.split(/(?<=[.!?])\s+(?=\S)/).filter(Boolean) };
   }));
-  const close = () => (ui.topic = null);
-  const open = (path) => { close(); go(path); };
+  // Easy to leave (owner, 2026-10-13): a big × that stays on screen, the phone's Back button, and a swipe down
+  // from the top all close the topic. Opening pushes one history entry, so Back closes instead of leaving the page.
+  let pushed = false;
+  $effect(() => {
+    if (isOpen && !pushed) { history.pushState({ topicView: true }, ''); pushed = true; }
+  });
+  $effect(() => {
+    const pop = () => { if (pushed) { pushed = false; ui.topic = null; } };
+    addEventListener('popstate', pop);
+    return () => removeEventListener('popstate', pop);
+  });
+  const close = () => { if (pushed) history.back(); else ui.topic = null; };
+  // Going to another page from the topic: that page takes the topic's history entry, so Back returns here.
+  const open = (path) => { pushed = false; ui.topic = null; location.replace('#' + path); };
+  // Swipe down while at the top of the topic.
+  let y0 = null;
+  const tstart = (e) => { y0 = e.currentTarget.scrollTop <= 0 ? e.touches[0].clientY : null; };
+  const tmove = (e) => { if (y0 != null && e.touches[0].clientY - y0 > 110) { y0 = null; close(); } };
   const toTopic = (id) => (ui.topic = id);
   const short = (s, n = 130) => { const p = stripLinks(s || ''); return p.length > n ? p.slice(0, n - 1) + '…' : p; };
   // Opening: the panel grows out of the middle and fades in, like a sphere opening on the map.
@@ -68,7 +84,7 @@
 
 {#if isOpen}
   <div class="scrim" onclick={close} role="presentation" transition:fade={{ duration: ms(200) }}></div>
-  <div class="topic" role="dialog" aria-label={t.name} style:--c={strands[t.strand].color} in:grow out:fade={{ duration: ms(160) }}>
+  <div class="topic" ontouchstart={tstart} ontouchmove={tmove} role="dialog" aria-label={t.name} style:--c={strands[t.strand].color} in:grow out:fade={{ duration: ms(160) }}>
     {#key t.id}
     <div class="inner" in:fade={{ duration: ms(200) }}>
       <!-- Top row (owner, 2026-10-13): two buttons that open a short list only when pressed. -->
@@ -82,7 +98,7 @@
         {#if topicUnlocks[t.id].length}
           <button class="pbtn" class:on={panel === 'next'} aria-expanded={panel === 'next'} onclick={() => toggle('next')}>Дараагийн түвшин <span class="n">{topicUnlocks[t.id].length}</span></button>
         {:else}<span></span>{/if}
-        <button class="x" aria-label="Хаах" onclick={close}>×</button>
+        <button class="x" aria-label="Хаах" onclick={close}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" /></svg></button>
       </div>
       {#if showInfo}<p class="infotext small" transition:fade={{ duration: ms(150) }}>«Мэдвэл зохих»: энэ сэдвийг ойлгоход шаардлагатай өмнөх сэдвүүд. «Дараагийн түвшин»: энэ сэдвийг мэдсэний дараа үзэх боломжтой сэдвүүд.</p>{/if}
       {#if panel}
@@ -177,7 +193,11 @@
     padding: calc(env(safe-area-inset-top, 0px) + 12px) 16px calc(env(safe-area-inset-bottom, 0px) + 32px);
   }
   .inner { max-width: 560px; margin: 0 auto; display: grid; gap: 18px; position: relative; }
-  .toprow { display: grid; grid-template-columns: auto 1fr auto; gap: 4px; align-items: center; margin-right: -8px; }
+  /* The top row stays on screen while scrolling, so × is always one tap away. */
+  .toprow {
+    position: sticky; top: calc(-1 * (env(safe-area-inset-top, 0px) + 12px)); z-index: 3; display: grid; grid-template-columns: auto 1fr auto; gap: 4px; align-items: center;
+    margin: 0 -16px; padding: calc(env(safe-area-inset-top, 0px) + 10px) 18px 10px 16px; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(10px);
+  }
   .toprow > :nth-child(2) { justify-self: end; }
   .pill { display: inline-flex; align-items: center; gap: 4px; }
   .pbtn { white-space: nowrap; min-height: 38px; padding: 0 10px; border-radius: 999px; border: 1px solid var(--line); background: rgba(13, 19, 32, 0.85); color: var(--ink); font-weight: 700; font-size: 0.8rem; display: inline-flex; align-items: center; gap: 5px; }
@@ -192,7 +212,8 @@
   .cl i { flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--line); }
   .cl.known i { background: var(--grass); } .cl.next i { background: var(--sun); }
   .cl.base { font-style: italic; }
-  .x { width: 40px; height: 44px; border: 0; border-radius: 50%; background: none; color: var(--muted); font-size: 1.6rem; }
+  .x { width: 46px; height: 46px; flex: none; border: 1px solid var(--line); border-radius: 50%; background: rgba(13, 19, 32, 0.95); color: var(--ink); display: grid; place-items: center; }
+  .x svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2.6; stroke-linecap: round; }
   .titlerow { width: 100%; display: grid; grid-template-columns: 1fr auto 1fr; gap: 8px; align-items: center; }
   .titlerow .know { justify-self: end; }
   .core { display: grid; gap: 12px; padding: 14px; border-radius: 18px; border: 1px solid color-mix(in srgb, var(--c) 40%, var(--line)); background: rgba(13, 19, 32, 0.7); }
