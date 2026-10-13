@@ -3,7 +3,6 @@
   // One column per branch of mathematics; each concept sits below everything it needs.
   // Grade 1–4 basics live here as dashed boxes. Tapping a concept lights up all its links, coloured by kind.
   // Wider than a phone: it pans both ways with the phone's own scrolling. No zoom (owner rule).
-  import MapToggle from './MapToggle.svelte';
   import { topics, links, branches, strands } from '../lib/content.js';
   import { mathLayout, MATH } from '../lib/layout.js';
   import { topicState } from '../lib/logic.js';
@@ -52,9 +51,8 @@
 </script>
 
 <div class="page">
-  <header class="top">
-    <MapToggle />
-  </header>
+  <!-- Room for the shared map toggle (App.svelte), which sits in the same spot on both maps. -->
+  <div class="top" aria-hidden="true"></div>
   <p class="small muted intro">10 салбар. Сэдэв бүр өөрт хэрэгтэй сэдвүүдийнхээ доор. Товшвол холбоос нь тодорно.</p>
 
   <div class="pan" bind:this={pan}>
@@ -102,8 +100,8 @@
 </div>
 
 <style>
-  .top { padding: 14px 0 8px; display: flex; justify-content: center; }
-  .intro { margin: 0 0 10px; text-align: center; }
+  .top { height: 58px; }
+  .intro { margin: 0 0 10px; }
   .pan {
     margin: 0 -16px; height: min(66vh, 640px); overflow: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain;
     border-block: 1px solid var(--line); scrollbar-width: none;

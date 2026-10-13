@@ -6,6 +6,7 @@
   import MapView from './components/MapView.svelte';
   import SubMap from './components/SubMap.svelte';
   import MathMap from './components/MathMap.svelte';
+  import MapToggle from './components/MapToggle.svelte';
   import EntryPage from './components/EntryPage.svelte';
   import TestPage from './components/TestPage.svelte';
   import StartCheck from './components/StartCheck.svelte';
@@ -88,6 +89,7 @@
   </div>
 {/if}
 
+{#if !page || page === 'm'}<MapToggle />{/if}
 <TabBar />
 <TopicSheet />
 <TermSheet />

@@ -1,6 +1,5 @@
 <script>
   import RichText from './RichText.svelte';
-  import MapToggle from './MapToggle.svelte';
   // The explorable neon map. It scrolls like a feed, using the phone's own scrolling (momentum and
   // rubber band come from the system, exactly as in Instagram). No zoom: tapping a sphere opens it.
   // Spheres drift slightly, like a slow DVD-logo bounce.
@@ -241,7 +240,7 @@
 
   <header class="hud-top">
     <div class="toprow">
-      <MapToggle />
+      <span class="toggle-room" aria-hidden="true"></span>
       <button class="icon" aria-label="Дутагдлаа олъё" onclick={() => (ui.level = true)}>
         <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5M11 8v6M8 11h6" /></svg>
       </button>
