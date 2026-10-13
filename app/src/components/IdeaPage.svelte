@@ -1,6 +1,7 @@
 <script>
   // Answer page for one idea (Wolfram-style): how your input was read, what it is, where it comes from,
   // how to prove it, where it is used, what comes next, and other readings of the same formula.
+  import VideoSlot from './VideoSlot.svelte';
   import { ideas, rootPath } from '../lib/ideas.js';
   import { entries, sphereById } from '../lib/content.js';
   import { sphereLayout } from '../lib/layout.js';
@@ -38,6 +39,7 @@
       <p class="def"><RichText text={i.def ?? ''} /></p>
       {#if st === 'known' || st === 'faded'}<span class="badge known">✓ Мэднэ</span>{/if}
     </header>
+    <VideoSlot key={'idea:' + i.id} title={i.name} />
 
     {#if i.example}
       <section class="blk ex"><h2>Жишээ</h2><p><RichText text={i.example} /></p></section>

@@ -1,0 +1,3 @@
+{
+  "_note": "Video explanations. Key = where it shows: 'topic:<concept id>' (topic view), 'entry:<lesson id>' (lesson page 1), 'idea:<answer id>' (answer page). Value = { type: youtube | facebook | instagram | file, src, title?, vertical? }. youtube src = video id; facebook src = full video URL; instagram src = reel id; file src = path under app/public, e.g. videos/nemeh.mp4. Empty keys show 'Видео тайлбар удахгүй нэмэгдэнэ'."
+}

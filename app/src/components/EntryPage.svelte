@@ -10,6 +10,7 @@
   import { route, go } from '../lib/router.svelte.js';
   import RichText from './RichText.svelte';
   import Visual from './Visual.svelte';
+  import VideoSlot from './VideoSlot.svelte';
   import Quiz from './Quiz.svelte';
   import ColumnCalc from './ColumnCalc.svelte';
   import ColumnPractice from './ColumnPractice.svelte';
@@ -105,12 +106,7 @@
 
     {#if e.visual}<div class="picture"><Visual v={e.visual} /></div>{/if}
 
-    {#if e.video}
-      <div class="video">
-        <div class="play" aria-hidden="true">▶</div>
-        <div><strong>{e.video.title}</strong><p class="muted">Видео удахгүй нэмэгдэнэ.</p></div>
-      </div>
-    {/if}
+    <VideoSlot key={'entry:' + e.id} title={e.video?.title ?? e.title} />
     <button class="btn sun nextpg" onclick={() => toPage(1)}>Жишээ үзэх →</button>
     <button class="skip" onclick={() => toPage(2)}>Шууд шалгах</button>
     {/if}

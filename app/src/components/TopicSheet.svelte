@@ -6,6 +6,7 @@
   // Grade 1–4 basics are read-only: no lesson, no step; the student reads them when they feel a gap.
   import RichText from './RichText.svelte';
   import Visual from './Visual.svelte';
+  import VideoSlot from './VideoSlot.svelte';
   import ColumnCalc from './ColumnCalc.svelte';
   import FractionOps from './tools/FractionOps.svelte';
   import NumberOps from './tools/NumberOps.svelte';
@@ -112,12 +113,13 @@
       <div class="hero">
         <span class="orb" class:base={t.base}>{#if t.formula}<RichText text={t.formula} />{:else}<i class="sd"></i>{/if}</span>
         <div class="titlerow">
-          <span></span>
           <h2>{t.name}</h2>
           <button class="know" class:on={known} aria-pressed={known} onclick={() => markTopic(t.id, !known)}><span class="box">{#if known}✓{/if}</span>Мэднэ</button>
         </div>
         {#if t.text}<p class="lead">{t.text}</p>{/if}
       </div>
+
+      <VideoSlot key={'topic:' + t.id} title={t.name} />
 
       <!-- Examples you can play with, key formulas and the standard method (owner, 2026-10-13). -->
       <section class="core">
@@ -192,7 +194,15 @@
     background: radial-gradient(90% 55% at 50% 22%, color-mix(in srgb, var(--c) 16%, var(--bg)), var(--bg) 70%);
     padding: calc(env(safe-area-inset-top, 0px) + 12px) 16px calc(env(safe-area-inset-bottom, 0px) + 32px);
   }
-  .inner { max-width: 560px; margin: 0 auto; display: grid; gap: 18px; position: relative; }
+  .inner { max-width: 560px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr); gap: 18px; position: relative; }
+  /* Narrow phones: drop the count badges so both buttons and × fit on one line. */
+  /* Narrow phones: × gets the top-right spot, the two buttons share the row below, left and right. */
+  @media (max-width: 460px) {
+    .toprow { grid-template-columns: auto 1fr; grid-template-areas: '. x' 'need next'; row-gap: 6px; }
+    .toprow > :nth-child(1) { grid-area: need; }
+    .toprow > :nth-child(2) { grid-area: next; }
+    .toprow > .x { grid-area: x; justify-self: end; }
+  }
   /* The top row stays on screen while scrolling, so × is always one tap away. */
   .toprow {
     position: sticky; top: calc(-1 * (env(safe-area-inset-top, 0px) + 12px)); z-index: 3; display: grid; grid-template-columns: auto 1fr auto; gap: 4px; align-items: center;
@@ -214,7 +224,8 @@
   .cl.base { font-style: italic; }
   .x { width: 46px; height: 46px; flex: none; border: 1px solid var(--line); border-radius: 50%; background: rgba(13, 19, 32, 0.95); color: var(--ink); display: grid; place-items: center; }
   .x svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2.6; stroke-linecap: round; }
-  .titlerow { width: 100%; display: grid; grid-template-columns: 1fr auto 1fr; gap: 8px; align-items: center; }
+  .titlerow { width: 100%; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; align-items: center; }
+  .titlerow h2 { min-width: 0; overflow-wrap: anywhere; }
   .titlerow .know { justify-self: end; }
   .core { display: grid; gap: 12px; padding: 14px; border-radius: 18px; border: 1px solid color-mix(in srgb, var(--c) 40%, var(--line)); background: rgba(13, 19, 32, 0.7); }
   .core h3 { font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--c); margin: 0; }
