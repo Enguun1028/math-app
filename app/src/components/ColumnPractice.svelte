@@ -151,5 +151,5 @@
     min-height: 52px; border-radius: 14px; border: 1px solid var(--line); background: var(--surface-solid);
     font: 700 1.4rem var(--math); color: var(--ink);
   }
-  .key:hover { border-color: var(--sky); }
+  @media (hover: hover) { .key:hover { border-color: var(--sky); } }
 </style>

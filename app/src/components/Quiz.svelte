@@ -121,7 +121,8 @@
     min-height: 52px; padding: 8px 16px; text-align: left; border-radius: 14px;
     border: 1.5px solid var(--line); background: var(--surface); font-weight: 600; font-size: 1.05rem;
   }
-  .choice:not(:disabled):hover { border-color: var(--sky); }
+  /* Hover only with a real mouse: on a phone the tapped spot stays "hovered", which lit up the same spot on the next question. */
+  @media (hover: hover) { .choice:not(:disabled):hover { border-color: var(--sky); } }
   .choice.right { border-color: var(--grass); background: var(--grass-soft); }
   /* Wrong is calm amber and simply set aside, not a red alarm. */
   .choice.wrong { border-color: color-mix(in srgb, var(--sun) 55%, transparent); background: transparent; color: var(--muted); text-decoration: line-through; text-decoration-color: color-mix(in srgb, var(--sun) 60%, transparent); }
