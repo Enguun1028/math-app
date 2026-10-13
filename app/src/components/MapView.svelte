@@ -24,7 +24,7 @@
   // ---- geometry ----
   // One fixed scale: the map fits the phone's width. On a wide screen (phone turned sideways, computer)
   // it stays a phone-width column in the middle instead of blowing up.
-  const TOP_PAD = 196; // room under the toggle and the story row // room under the top row
+  const TOP_PAD = 40; // room above the first sphere title (the story row sits above the map)
   const BOTTOM_PAD = 230; // room above the next-step card and the tab bar
   const MAX_COL = 560;
   const worldW = world.maxX - world.minX;
@@ -84,7 +84,7 @@
     return { x: r.left + ox + wx * k, y: r.top + oy + wy * k };
   }
   const scrollToWorldY = (wy, at = 0.45, smooth = true) =>
-    scroller.scrollTo({ top: oy + wy * k - H * at, behavior: smooth && !reduced ? 'smooth' : 'auto' });
+    scroller.scrollTo({ top: svg.offsetTop + oy + wy * k - H * at, behavior: smooth && !reduced ? 'smooth' : 'auto' });
 
   // ---- opening a sphere: one continuous motion ----
   // The map swells around the sphere and fades while the sphere's topic circles fly straight out of it
@@ -176,6 +176,8 @@
 
 <div class="map" bind:this={mapEl}>
   <div class="scroller" bind:this={scroller}>
+    <!-- Stories sit at the top of the map and scroll away with it, like Instagram (owner: not persistent). -->
+    <div class="stories"><HotTopics /></div>
     <svg bind:this={svg} width={W} height={contentH} role="group" aria-label="Математикийн газрын зураг">
       <defs>
         {#each spheres as s}
@@ -246,7 +248,6 @@
         <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5M11 8v6M8 11h6" /></svg>
       </button>
     </div>
-    <HotTopics />
     {#if ui.welcome}
       <div class="welcome" transition:fly={{ y: -8, duration: ms(260), easing: ease }}>
         <div>
@@ -282,12 +283,13 @@
   .map { position: fixed; inset: 0; overflow: hidden; transition: opacity 0.45s ease-out; }
   /* Soft fades behind the top and bottom controls, so map labels slide under them instead of clashing. */
   .map::before, .map::after { content: ''; position: fixed; left: 0; right: 0; z-index: 4; pointer-events: none; }
-  .map::before { top: 0; height: 175px; background: linear-gradient(var(--bg) 35%, transparent); }
+  .map::before { top: 0; height: 90px; background: linear-gradient(var(--bg) 35%, transparent); }
   .map::after { bottom: 0; height: calc(var(--tabbar-h) + 150px); background: linear-gradient(transparent, var(--bg) 75%); }
   .map:global(.leaving) { opacity: 0; pointer-events: none; }
   .map:global(.returning) { opacity: 0; transition: none; }
   /* The phone's own scrolling: momentum and rubber band come from the system. */
   .scroller { position: absolute; inset: 0; overflow-x: hidden; overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior-y: contain; }
+  .stories { max-width: 560px; margin: 0 auto; padding: calc(env(safe-area-inset-top, 0px) + 62px) 16px 0; position: relative; z-index: 5; }
   .scroller svg { display: block; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; }
   .star { fill: #cfe8ff; }
   .journey { fill: none; stroke: var(--sky); stroke-opacity: 0.35; stroke-linecap: round; }
