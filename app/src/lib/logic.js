@@ -25,7 +25,7 @@ export const topicReady = (id) => topics[id].req.every((r) => topics[r].base || 
 // What the student wants. Picked first; then a short check finds their level.
 export const GOALS = [
   { id: 'test', name: 'Шалгалтаа давах', hint: 'Удахгүй болох шалгалтдаа бэлдэнэ' },
-  { id: 'ahih', name: 'Ахих', hint: 'Хоцорсноо нөхөж, сууриа бэхжүүлнэ' },
+  { id: 'ahih', name: 'Түвшин ахих', hint: 'Хоцорсноо нөхөж, сууриа бэхжүүлнэ' },
   { id: 'eesh', name: 'ЭЕШ-д бэлдэх', hint: 'Бүх сэдвийг ЭЕШ-ийн түвшинд давтана' },
 ];
 

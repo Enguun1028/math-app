@@ -16,7 +16,7 @@
   let started = $derived(progress.level != null);
   let step = $state(0);
   // Steps in order. The exam-topic question only makes sense for "Шалгалтаа давах": for ЭЕШ the exam is known
-  // (owner, 2026-10-13), and "Ахих" has no exam.
+  // (owner, 2026-10-13), and "Түвшин ахих" has no exam.
   let order = $derived(progress.goal === 'test' ? [0, 1, 2, 3, 4] : [0, 1, 3, 4]);
   let at = $derived(Math.max(0, order.indexOf(step)));
   const next = () => (step = order[Math.min(order.length - 1, at + 1)]);
