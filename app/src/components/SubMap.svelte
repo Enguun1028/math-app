@@ -223,14 +223,16 @@
   }
 
   const EDGE = 6;
-  let slabels = $derived(rad ? rad.sectors.map((sc) => {
+  // A name shows only while its own spot is on screen; then it is nudged in so the text is not cut off.
+  let slabels = $derived(rad ? rad.sectors.flatMap((sc) => {
     const L = strandLabel(sc), name = strands[sc.strand].name;
     const w = name.length * STRAND_PX * 0.56 + 6, sx = cam.x + L.x * cam.z, sy = cam.y + L.y * cam.z;
     const left0 = L.anchor === 'start' ? sx : L.anchor === 'end' ? sx - w : sx - w / 2;
+    if (sx < 0 || sx > box.w || sy < 0 || sy > box.h) return [];
     const top = Math.min(box.h - STRAND_PX - 8 - EDGE, Math.max(EDGE, sy - STRAND_PX));
     // Keep clear of the +/− buttons in the bottom-right corner.
     const right = top > box.h - 120 ? 64 : EDGE;
-    return { strand: sc.strand, w, top, left: Math.min(box.w - w - right, Math.max(EDGE, left0)) };
+    return [{ strand: sc.strand, w, top, left: Math.min(box.w - w - right, Math.max(EDGE, left0)) }];
   }) : []);
   // Two names pushed to the same edge must not cover each other: move the later one down (or up at the bottom).
   let slabelsPlaced = $derived.by(() => {
@@ -318,8 +320,8 @@
           </g>
         {/each}
       </svg>
-      <!-- Slice names: one readable size, anchored to their spot on the map, but never off screen
-           (owner, 2026-10-13): near an edge they stop at the edge of the map box. -->
+      <!-- Slice names: one readable size at every zoom. A name shows while its own spot is on screen and is nudged
+           inward when its fixed-size text would stick out past the edge (owner, 2026-10-13). -->
       {#each slabelsPlaced as l (l.strand)}
         <span class="strand" style:left="{l.left}px" style:top="{l.top}px" style:color={strands[l.strand].color}>{strands[l.strand].name}</span>
       {/each}
