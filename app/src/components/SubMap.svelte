@@ -62,10 +62,6 @@
   let mini = $state();
   let morphing = $state(false);
   onMount(() => {
-    if (pan) {
-      pan.scrollLeft = (pan.scrollWidth - pan.clientWidth) / 2;
-      pan.scrollTop = (pan.scrollHeight - pan.clientHeight) / 2;
-    }
     // Opening animation: each dot starts exactly where it was inside the sphere on the map and glides to its place here.
     const m = ui.morph;
     setTimeout(() => (ui.morph = null), 700);
@@ -119,48 +115,110 @@
     };
   }
 
-  // ---- zoom: the svg is drawn z times its size and the pan box scrolls over it ----
+  // ---- camera, like a game map (owner: "normal like clash of clans") ----
+  // The map is moved and scaled with one CSS transform, so it stays smooth: drag to move (with momentum),
+  // pinch or +/− to zoom around the fingers, ctrl+wheel or trackpad pinch on a computer. It cannot fly away.
   const Z_MAX = 2.6;
-  let z = $state(1);
-  // Zoomed all the way out, the whole circle fits the box.
-  let zMin = $derived(pan ? Math.min(0.6, pan.clientWidth / (S * 2), pan.clientHeight / (S * 2)) : 0.45);
+  let cam = $state({ x: 0, y: 0, z: 1 });
+  let box = $state({ w: 360, h: 500 });
+  let zMin = $derived(Math.min(0.6, box.w / (S * 2), box.h / (S * 2)));
   const clampZ = (v) => Math.min(Z_MAX, Math.max(zMin, v));
-  // Zoom to nz keeping the map point under (px, py) (screen position inside the pan box) where it is.
-  function zoomAt(nz, px, py) {
-    nz = clampZ(nz);
-    if (!pan || nz === z) return;
-    const cx = (pan.scrollLeft + px) / z, cy = (pan.scrollTop + py) / z;
-    z = nz;
-    requestAnimationFrame(() => {
-      pan.scrollLeft = cx * nz - px;
-      pan.scrollTop = cy * nz - py;
-    });
+  // Keep the map on screen: a smaller map is centred, a bigger one cannot leave a gap at any edge.
+  function fit(c) {
+    const C = S * 2 * c.z;
+    const ax = (len, pos) => (C <= len ? (len - C) / 2 : Math.min(0, Math.max(len - C, pos)));
+    return { x: ax(box.w, c.x), y: ax(box.h, c.y), z: c.z };
   }
-  const zoomBtn = (f) => zoomAt(z * f, pan.clientWidth / 2, pan.clientHeight / 2);
-  // Pinch with two fingers; one finger still pans with normal scrolling.
-  function pinch(node) {
-    let d0 = 0, z0 = 1;
-    const dist = (t) => Math.hypot(t[0].clientX - t[1].clientX, t[0].clientY - t[1].clientY);
-    const mid = (t) => { const r = node.getBoundingClientRect(); return [(t[0].clientX + t[1].clientX) / 2 - r.left, (t[0].clientY + t[1].clientY) / 2 - r.top]; };
-    const start = (e) => { if (e.touches.length === 2) { d0 = dist(e.touches); z0 = z; } };
-    const move = (e) => {
-      if (e.touches.length !== 2 || !d0) return;
-      e.preventDefault();
-      const [px, py] = mid(e.touches);
-      zoomAt(z0 * (dist(e.touches) / d0), px, py);
+  // Zoom to nz keeping the map point under (px, py) in place.
+  function zoomTo(nz, px, py, base = cam) {
+    nz = clampZ(nz);
+    const k = nz / base.z;
+    cam = fit({ x: px - (px - base.x) * k, y: py - (py - base.y) * k, z: nz });
+  }
+  // Buttons glide to the new zoom instead of jumping.
+  let anim = 0;
+  function zoomBtn(f) {
+    cancelAnimationFrame(anim);
+    const from = cam.z, to = clampZ(cam.z * f), t0 = performance.now();
+    const step = (now) => {
+      const p = Math.min(1, (now - t0) / 220), e = 1 - (1 - p) ** 3;
+      zoomTo(from + (to - from) * e, box.w / 2, box.h / 2);
+      if (p < 1) anim = requestAnimationFrame(step);
     };
-    const end = (e) => { if (e.touches.length < 2) d0 = 0; };
+    anim = requestAnimationFrame(step);
+  }
+  function camera(node) {
+    const pts = new Map();
+    let last = null, moved = 0, vx = 0, vy = 0, lt = 0, glide = 0;
+    const measure = () => { box = { w: node.clientWidth, h: node.clientHeight }; cam = fit(cam); };
+    const local = (e) => { const r = node.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; };
+    const pair = () => { const [a, b] = [...pts.values()]; return { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2, d: Math.hypot(a.x - b.x, a.y - b.y) }; };
+    const down = (e) => {
+      cancelAnimationFrame(glide); cancelAnimationFrame(anim);
+      pts.set(e.pointerId, local(e));
+      if (pts.size === 1) moved = 0;
+      last = pts.size === 2 ? pair() : { ...local(e) };
+      vx = vy = 0; lt = performance.now();
+    };
+    const move = (e) => {
+      if (!pts.has(e.pointerId)) return;
+      pts.set(e.pointerId, local(e));
+      const now = performance.now(), dt = Math.max(1, now - lt);
+      if (pts.size === 1) {
+        const p = local(e), dx = p.x - last.x, dy = p.y - last.y;
+        moved += Math.abs(dx) + Math.abs(dy);
+        cam = fit({ ...cam, x: cam.x + dx, y: cam.y + dy });
+        vx = dx / dt; vy = dy / dt; last = p;
+      } else if (pts.size === 2) {
+        const p = pair();
+        moved += 10;
+        const shifted = { ...cam, x: cam.x + p.x - last.x, y: cam.y + p.y - last.y };
+        zoomTo(cam.z * (p.d / (last.d || p.d)), p.x, p.y, shifted);
+        last = p;
+      }
+      lt = now;
+    };
+    const up = (e) => {
+      if (!pts.delete(e.pointerId)) return;
+      if (pts.size === 1) { last = { ...[...pts.values()][0] }; return; }
+      if (pts.size) return;
+      // Momentum: the map keeps sliding and slows down, like flicking a game map.
+      let t = performance.now();
+      const slide = (now) => {
+        const dt = now - t; t = now;
+        vx *= 0.92; vy *= 0.92;
+        if (Math.hypot(vx, vy) < 0.02) return;
+        cam = fit({ ...cam, x: cam.x + vx * dt, y: cam.y + vy * dt });
+        glide = requestAnimationFrame(slide);
+      };
+      if (performance.now() - lt < 80) glide = requestAnimationFrame(slide);
+    };
+    // A drag is not a tap: swallow the click that ends a drag so a topic does not open by accident.
+    const click = (e) => { if (moved > 8) { e.stopPropagation(); e.preventDefault(); } };
     const wheel = (e) => {
       if (!e.ctrlKey) return;
       e.preventDefault();
-      const r = node.getBoundingClientRect();
-      zoomAt(z * Math.exp(-e.deltaY / 300), e.clientX - r.left, e.clientY - r.top);
+      const p = local(e);
+      zoomTo(cam.z * Math.exp(-e.deltaY / 200), p.x, p.y);
     };
-    node.addEventListener('touchstart', start, { passive: true });
-    node.addEventListener('touchmove', move, { passive: false });
-    node.addEventListener('touchend', end, { passive: true });
+    measure();
+    cam = fit({ x: (box.w - S * 2) / 2, y: (box.h - S * 2) / 2, z: 1 });
+    const ro = new ResizeObserver(measure);
+    ro.observe(node);
+    node.addEventListener('pointerdown', down);
+    addEventListener('pointermove', move);
+    addEventListener('pointerup', up);
+    addEventListener('pointercancel', up);
+    node.addEventListener('click', click, true);
     node.addEventListener('wheel', wheel, { passive: false });
-    return { destroy() { node.removeEventListener('touchstart', start); node.removeEventListener('touchmove', move); node.removeEventListener('touchend', end); node.removeEventListener('wheel', wheel); } };
+    return {
+      destroy() {
+        ro.disconnect(); cancelAnimationFrame(glide); cancelAnimationFrame(anim);
+        node.removeEventListener('pointerdown', down);
+        removeEventListener('pointermove', move); removeEventListener('pointerup', up); removeEventListener('pointercancel', up);
+        node.removeEventListener('click', click, true); node.removeEventListener('wheel', wheel);
+      },
+    };
   }
 
   const strandLabel = (sc) => {
@@ -183,8 +241,8 @@
     </header>
 
     <div class="panwrap">
-    <div class="pan" bind:this={pan} use:pinch>
-      <svg bind:this={mini} width={S * 2 * z} height={S * 2 * z} viewBox="0 0 {S * 2} {S * 2}" class="mini" out:home|global role="group" aria-label="{s.title}: сэдвүүд">
+    <div class="pan" bind:this={pan} use:camera>
+      <svg bind:this={mini} width={S * 2} height={S * 2} style:transform="translate({cam.x}px, {cam.y}px) scale({cam.z})" viewBox="0 0 {S * 2} {S * 2}" class="mini" out:home|global role="group" aria-label="{s.title}: сэдвүүд">
         <defs>
           <radialGradient id="ig-{s.id}" cx="50%" cy="50%" r="50%">
             <stop offset="0%" stop-color={s.color} stop-opacity="0.16" />
@@ -238,8 +296,8 @@
       </svg>
     </div>
     <div class="zoom" role="group" aria-label="Томруулах">
-      <button onclick={() => zoomBtn(1.35)} aria-label="Томруулах" disabled={z >= Z_MAX}>+</button>
-      <button onclick={() => zoomBtn(1 / 1.35)} aria-label="Жижигрүүлэх" disabled={z <= zMin + 0.001}>−</button>
+      <button onclick={() => zoomBtn(1.35)} aria-label="Томруулах" disabled={cam.z >= Z_MAX - 0.001}>+</button>
+      <button onclick={() => zoomBtn(1 / 1.35)} aria-label="Жижигрүүлэх" disabled={cam.z <= zMin + 0.001}>−</button>
     </div>
     </div>
 
@@ -289,7 +347,7 @@
   .k.old { border: 1.5px dashed var(--muted); color: var(--muted); }
   /* Pans both ways with the phone's own scrolling; bleeds to the screen edges. */
   .pan {
-    margin: 0 -16px; height: min(68vh, 620px); overflow: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain;
+    margin: 0 -16px; height: min(68vh, 620px); overflow: hidden; position: relative; touch-action: none; cursor: grab;
     border-block: 1px solid var(--line); scrollbar-width: none;
   }
   .pan::-webkit-scrollbar { display: none; }
@@ -303,9 +361,8 @@
   /* Life: each circle drifts a few pixels, slowly, like the spheres on the main map. */
   .bob { animation: bob 8s ease-in-out infinite alternate; }
   @keyframes bob { 0% { transform: translate(-2.5px, 1.5px); } 50% { transform: translate(2px, -2px); } 100% { transform: translate(-1px, 2.5px); } }
-  /* Zoomed out smaller than the box: auto margins centre the map without cutting off any side when it is bigger. */
-  .pan { display: grid; }
-  .mini { display: block; margin: auto; overflow: visible; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; }
+  .pan:active { cursor: grabbing; }
+  .mini { position: absolute; left: 0; top: 0; transform-origin: 0 0; will-change: transform; display: block; overflow: visible; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; }
   .ring { fill: none; stroke: var(--c); stroke-opacity: 0.1; }
   .border { stroke: #24304f; stroke-dasharray: 2 6; }
   .strand { font-size: 12px; font-weight: 800; }
