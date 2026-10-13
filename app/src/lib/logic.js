@@ -77,7 +77,7 @@ export function sphereKnown(s) {
 
 export function sphereState(s) {
   if (sphereKnown(s)) return faded(s.id) ? 'faded' : 'known';
-  if (s.topics.includes(nextTopic())) return 'next';
+  if (s.fresh.includes(nextTopic())) return 'next';
   return s.needs.every((n) => sphereKnown(sphereById[n])) ? 'ready' : 'later';
 }
 
