@@ -11,8 +11,7 @@
     "huvaah",
     "division"
   ],
-  "sphere": "suuri",
-  "topic": "n3",
+  "topic": "b-mul",
   "definition": "Тоог тэнцүү хэсгүүдэд хуваах үйлдэл. [[urjih|Үржих]]-ийн эсрэг: 12 ÷ 3 = 4, учир нь 3 × 4 = 12.",
   "visual": {
     "kind": "grid",

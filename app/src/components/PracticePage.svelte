@@ -22,7 +22,7 @@
 
   {#if next}
     <a class="next" href={nextLesson ? '#/e/' + nextLesson : '#/c/' + next}>
-      <span class="nf"><RichText text={topics[next].formula} /></span>
+      <span class="nf"><RichText text={topics[next].formula || '→'} /></span>
       <span class="nn"><span class="small">Дараагийн алхам</span><strong>{topics[next].name}</strong></span>
       <span class="btn sun">Сурах цаг!</span>
     </a>

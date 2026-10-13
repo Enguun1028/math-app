@@ -5,6 +5,7 @@
   import { ms, ease } from './lib/motion.js';
   import MapView from './components/MapView.svelte';
   import SubMap from './components/SubMap.svelte';
+  import MathMap from './components/MathMap.svelte';
   import EntryPage from './components/EntryPage.svelte';
   import TestPage from './components/TestPage.svelte';
   import StartCheck from './components/StartCheck.svelte';
@@ -23,9 +24,19 @@
   import MePage from './components/MePage.svelte';
   import LevelSheet from './components/LevelSheet.svelte';
 
+  // Owner, 2026-10-12: dragging on a short sheet moved the map behind it. While a sheet is open, a drag on the
+  // dimmed background or on a sheet too short to scroll does nothing; a tall sheet scrolls itself and stops at its ends.
+  addEventListener('touchmove', (ev) => {
+    const t = ev.target instanceof Element ? ev.target : null;
+    if (!t) return;
+    if (t.closest('.scrim')) return ev.preventDefault();
+    const sheet = t.closest('.sheet');
+    if (sheet && sheet.scrollHeight <= sheet.clientHeight + 1) ev.preventDefault();
+  }, { passive: false });
+
   let [page, id] = $derived(route.parts);
   // Tab pages stand on their own; the other pages get a top bar with "‹ Буцах".
-  const TAB_PAGES = ['practice', 'search', 'tools', 'me'];
+  const TAB_PAGES = ['m', 'practice', 'search', 'tools', 'me'];
   let tabPage = $derived(TAB_PAGES.includes(page));
   // A sphere opened from the map animates its own circles, so the page itself only fades.
   let pageIn = $derived({ y: ui.morph ? 0 : 14, duration: ms(ui.morph ? 200 : 280), easing: ease });
@@ -50,6 +61,8 @@
         <div in:fly={pageIn}>
           {#if page === 's'}
             <SubMap {id} />
+          {:else if page === 'm'}
+            <MathMap />
           {:else if page === 'e'}
             <EntryPage {id} />
           {:else if page === 'test'}

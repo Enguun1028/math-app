@@ -19,10 +19,10 @@
 </script>
 
 {#if !s}
-  <p class="card">Ийм бөмбөлөг олдсонгүй.</p>
+  <p class="card">Ийм анги олдсонгүй.</p>
 {:else}
   <header class="head">
-    <p class="small muted">Бүх бөмбөлгийн шалгалт</p>
+    <p class="small muted">Ангийн шалгалт</p>
     <h1>{s.title}</h1>
   </header>
   <section class="quizcard">
@@ -32,10 +32,10 @@
       <div class="stack">
         {#if score >= PASS}
           <h2>Мэднэ боллоо.</h2>
-          <p>{Math.round(score * questions.length)} / {questions.length} зөв. Энэ бөмбөлгийг давлаа.</p>
+          <p>{Math.round(score * questions.length)} / {questions.length} зөв. Энэ ангийг давлаа.</p>
         {:else}
           <h2>Үзэх сэдвүүдээ оллоо.</h2>
-          <p>Доорх сэдвүүдийг нэг нэгээр нь үзчихвэл энэ бөмбөлөг бүрэн таных болно. Эхнийхээс нь эхэл.</p>
+          <p>Доорх сэдвүүдийг нэг нэгээр нь үзчихвэл энэ анги бүрэн таных болно. Эхнийхээс нь эхэл.</p>
         {/if}
         {#if missed.length}
           <div class="chips">{#each missed as m}<a class="chip" href="#/e/{m}">{entries[m].title}</a>{/each}</div>

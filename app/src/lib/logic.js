@@ -6,7 +6,8 @@ export const PASS = 0.65; // "Мэднэ" at roughly 60-70%
 export const ENTRY_PASS = 2 / 3; // mini test: 2 of 3 correct
 const FADE_DAYS = 30;
 
-const order = spheres.flatMap((s) => s.topics);
+// Journey order: grade by grade, the concepts new that year (grade 1–4 basics are read-only, never a step).
+const order = spheres.flatMap((s) => s.fresh).filter((id) => !topics[id].base);
 
 export const isKnown = (id) => !!progress.known[id];
 
@@ -17,7 +18,8 @@ export function topicKnown(id) {
   return es.length > 0 && es.every(isKnown);
 }
 
-export const topicReady = (id) => topics[id].req.every(topicKnown);
+// Grade 1–4 basics never block a step: they are read-only entries the student opens when they feel a gap.
+export const topicReady = (id) => topics[id].req.every((r) => topics[r].base || topicKnown(r));
 
 // What the student wants. Picked first; then a short check finds their level.
 export const GOALS = [
@@ -39,8 +41,8 @@ export function leadsTo(ids) {
 export function checkSpheres() {
   let list = spheres;
   if (progress.goal === 'test') {
-    if (progress.examTopic && topics[progress.examTopic]) list = leadsTo([topics[progress.examTopic].sphere]);
-    else if (progress.grade) list = leadsTo(spheres.filter((s) => s.grades[0] <= progress.grade).map((s) => s.id));
+    if (progress.examTopic && topics[progress.examTopic]?.sphere) list = leadsTo([topics[progress.examTopic].sphere]);
+    else if (progress.grade) list = leadsTo(spheres.filter((s) => s.grade <= Math.max(5, progress.grade)).map((s) => s.id));
   }
   return list.filter((s) => s.entries.length);
 }
@@ -87,7 +89,7 @@ export function entryState(id) {
 // Share of prerequisite topics from other spheres the student already knows.
 export function readiness(s) {
   const outside = new Set();
-  for (const id of s.topics) for (const r of topics[id].req) if (topics[r].sphere !== s.id) outside.add(r);
+  for (const id of s.fresh) for (const r of topics[id].req) if (!topics[r].base && !s.topics.includes(r)) outside.add(r);
   if (!outside.size) return 1;
   return [...outside].filter(topicKnown).length / outside.size;
 }

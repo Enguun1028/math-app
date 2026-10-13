@@ -8,8 +8,7 @@
     "hasah",
     "subtraction"
   ],
-  "sphere": "suuri",
-  "topic": "n2",
+  "topic": "b-add",
   "definition": "Нэг тооноос нөгөөг авч үлдэгдлийг (ялгаврыг) олох үйлдэл. [[nemeh|Нэмэх]]-ийн эсрэг үйлдэл.",
   "visual": {
     "kind": "numberline",

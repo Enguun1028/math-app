@@ -1,6 +1,6 @@
 {
-  "_note": "Answer pages for search. Keys that match a topic id (g5, a4…) add to that map topic; other keys are new, smaller ideas and need name, sphere and from. All text is a draft (written 2026-10-12 by Claude) until the owner or a teacher checks it.",
-  "g5": {
+  "_note": "Answer pages for search. Keys that match a concept id (pyth, pow…) add to that map concept; other keys are new, smaller ideas and need name, sphere and from. All text is a draft (written 2026-10-12 by Claude) until the owner or a teacher checks it.",
+  "pyth": {
     "aliases": ["пифагор", "pythagoras", "pythagorean theorem", "пифагорын", "гипотенуз", "катет"],
     "formulas": ["a^2+b^2=c^2"],
     "def": "Тэгш өнцөгт гурвалжны хоёр катетын квадратын нийлбэр гипотенузын квадраттай тэнцүү: a² + b² = c².",
@@ -19,44 +19,44 @@
       "ЭЕШ-ийн геометрийн бодлого"
     ]
   },
-  "a4": {
+  "pow": {
     "aliases": ["зэрэг", "язгуур", "квадрат язгуур", "power", "square root", "sqrt"],
     "formulas": ["a^2", "a^n", "sqrt(a)"],
     "def": "Зэрэг нь ижил тоог өөрөөр нь олон удаа үржүүлэхийн товч бичлэг: a³ = a · a · a. Квадрат язгуур нь эсрэг үйлдэл: √9 = 3, учир нь 3² = 9.",
     "example": "2⁵ = 2 · 2 · 2 · 2 · 2 = 32. √49 = 7.",
     "uses": ["Талбай (м²), эзэлхүүн (м³)", "Пифагорын теоремд талын уртыг олох", "Их, бага тоог товч бичих"]
   },
-  "f1": {
+  "coord": {
     "aliases": ["координат", "координатын хавтгай", "coordinate plane", "x тэнхлэг", "y тэнхлэг"],
     "formulas": ["(x;y)"],
     "def": "x ба y хоёр тэнхлэгтэй хавтгай. Цэг бүрийн байрлалыг (x; y) хос тоогоор заана.",
     "uses": ["Газрын зураг, GPS", "Функцийн график", "Хоёр цэгийн зай олох"]
   },
-  "g2": {
+  "tri": {
     "aliases": ["гурвалжин", "triangle", "олон өнцөгт"],
     "formulas": ["a+b+c=180"],
     "def": "Гурван тал, гурван өнцөгтэй дүрс. Дотоод өнцгүүдийн нийлбэр нь үргэлж 180°."
   },
-  "f5": {
+  "trig-right": {
     "aliases": ["тригонометр", "синус", "косинус", "тангенс", "sin", "cos", "tan", "trigonometry"],
     "formulas": ["sin(a)=a/c", "cos(a)=b/c", "tan(a)=a/b"],
     "def": "Тэгш өнцөгт гурвалжны хурц өнцөг ба талуудын харьцаа: sin α = эсрэг катет / гипотенуз, cos α = хажуугийн катет / гипотенуз, tan α = эсрэг катет / хажуугийн катет.",
     "uses": ["Өндөр, зайг шууд хэмжилгүйгээр олох", "Налуу, өнцөг тооцоолох", "ЭЕШ"]
   },
-  "f6": {
+  "trig-fn": {
     "aliases": ["нэгж тойрог", "unit circle"],
     "formulas": ["sin^2(a)+cos^2(a)=1"],
     "def": "Радиус нь 1 тойрог дээрх цэг (cos α; sin α). Пифагорын теоремоос sin²α + cos²α = 1 гарна."
   },
-  "g7": {
+  "circle": {
     "aliases": ["тойрог", "дугуй", "circle", "пи", "pi"],
     "formulas": ["pi*r^2", "2*pi*r"],
     "def": "Төвөөс ижил зайд орших цэгүүд. Урт нь 2πr, дотор талбай нь πr²."
   },
   "zai": {
     "name": "Хоёр цэгийн хоорондох зай",
-    "sphere": "shugaman",
-    "from": ["g5", "f1"],
+    "sphere": "g8",
+    "from": ["pyth", "coord"],
     "aliases": ["зай", "distance", "хоёр цэгийн зай"],
     "formula": "d = √((x₂ − x₁)² + (y₂ − y₁)²)",
     "formulas": ["d=sqrt((x-x)^2+(y-y)^2)", "d^2=(x-x)^2+(y-y)^2"],
@@ -66,8 +66,8 @@
   },
   "zai3": {
     "name": "Огторгуй дахь зай (3 хэмжээст Пифагор)",
-    "sphere": "kvadrat",
-    "from": ["g5", "g4"],
+    "sphere": "g11",
+    "from": ["pyth", "space-coord"],
     "aliases": ["3 хэмжээст", "огторгуй", "хайрцагны диагональ", "3d distance"],
     "formula": "d² = a² + b² + c²",
     "formulas": ["d^2=a^2+b^2+c^2"],
@@ -76,8 +76,8 @@
   },
   "toirog-teg": {
     "name": "Тойргийн тэгшитгэл",
-    "sphere": "kvadrat",
-    "from": ["g7", "zai"],
+    "sphere": "g10",
+    "from": ["circle", "zai"],
     "aliases": ["тойргийн тэгшитгэл", "circle equation"],
     "formula": "(x − a)² + (y − b)² = r²",
     "formulas": ["(x-a)^2+(y-b)^2=r^2", "x^2+y^2=r^2"],

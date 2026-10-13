@@ -1,13 +1,15 @@
 <script>
   import RichText from './RichText.svelte';
-  import SvgMath from './SvgMath.svelte';
+  import MapToggle from './MapToggle.svelte';
   // The explorable neon map. It scrolls like a feed, using the phone's own scrolling (momentum and
   // rubber band come from the system, exactly as in Instagram). No zoom: tapping a sphere opens it.
   // Spheres drift slightly, like a slow DVD-logo bounce.
+  // Since the 2026-10-13 rebuild each sphere is one school grade (5–12). Its dots are every concept taught that
+  // year: a filled dot is new that year, a ring is a concept coming back to be studied deeper.
   import { onMount, tick } from 'svelte';
   import { fly } from 'svelte/transition';
-  import { spheres, topics, sphereById, topicEntries } from '../lib/content.js';
-  import { sphereLayout, topicLayout, world } from '../lib/layout.js';
+  import { spheres, topics, sphereById, topicEntries, strands, isFresh } from '../lib/content.js';
+  import { sphereLayout, dotLayout, world } from '../lib/layout.js';
   import { sphereState, nextTopic, levelChecked, checkLeft, entryState } from '../lib/logic.js';
   import { progress, save } from '../lib/progress.svelte.js';
   import { ui } from '../lib/ui.svelte.js';
@@ -22,7 +24,7 @@
   // ---- geometry ----
   // One fixed scale: the map fits the phone's width. On a wide screen (phone turned sideways, computer)
   // it stays a phone-width column in the middle instead of blowing up.
-  const TOP_PAD = 84; // room under the top row
+  const TOP_PAD = 110; // room under the top row
   const BOTTOM_PAD = 230; // room above the next-step card and the tab bar
   const MAX_COL = 560;
   const worldW = world.maxX - world.minX;
@@ -60,6 +62,22 @@
     delay: -((i * 4.7) % 9),
   }));
 
+  // Dot size inside a sphere, in world units (about 3.5 px on a phone).
+  let DOT_R = $derived(3.6 / k);
+
+  // The open topic card's thread: one line through every grade that teaches the concept (the curriculum's spiral).
+  let thread = $derived.by(() => {
+    const t = ui.topic && topics[ui.topic];
+    if (!t || t.grades.length < 2) return null;
+    const p = t.grades.map((g) => dotLayout['g' + g + ':' + t.id]);
+    let d = `M ${p[0].x} ${p[0].y}`;
+    for (let i = 1; i < p.length; i++) {
+      const my = (p[i - 1].y + p[i].y) / 2;
+      d += ` C ${p[i - 1].x} ${my}, ${p[i].x} ${my}, ${p[i].x} ${p[i].y}`;
+    }
+    return d;
+  });
+
   // Screen position of a world point right now.
   function toScreen(wx, wy) {
     const r = svg.getBoundingClientRect();
@@ -78,9 +96,9 @@
     const s = sphereLayout[id];
     const rects = {};
     for (const t of sphereById[id].topics) {
-      const L = topicLayout[t];
+      const L = dotLayout[id + ':' + t];
       const p = toScreen(L.x, L.y);
-      rects[t] = { ...p, r: L.r * k };
+      rects[t] = { ...p, r: DOT_R * k };
     }
     const c = toScreen(s.x, s.y);
     ui.morph = { sphere: id, rects };
@@ -113,7 +131,7 @@
   function restore() {
     if (ui.fly) {
       // Asked to show a sphere or topic on the map: scroll there.
-      const s = sphereLayout[ui.fly.sphere ?? topics[ui.fly.topic].sphere];
+      const s = sphereLayout[ui.fly.sphere ?? topics[ui.fly.topic]?.sphere] ?? sphereLayout[spheres[0].id];
       scroller.scrollTop = ui.scrollY ?? 0;
       requestAnimationFrame(() => scrollToWorldY(s.y));
       ui.fly = null;
@@ -132,7 +150,7 @@
       setTimeout(() => (ui.back = null), 600);
     } else {
       // First look: scrolled to the sphere with the next step (or the first one).
-      const s = sphereLayout[spheres[next ? sphereById[topics[next].sphere].index : 0].id];
+      const s = sphereLayout[next ? topics[next].sphere : spheres[0].id];
       scrollToWorldY(s.y, 0.45, false);
     }
   }
@@ -177,7 +195,7 @@
         {#each spheres as s, i (s.id)}
           {@const L = sphereLayout[s.id]}
           {@const st = sphereState(s)}
-          {@const label = `${s.index + 1}. ${s.title}`}
+          {@const label = s.title}
           <g class="dx" style:animation-duration="{drift[i].dx}s" style:animation-delay="{drift[i].delay}s">
             <g class="dy" style:animation-duration="{drift[i].dy}s" style:animation-delay="{drift[i].delay * 1.3}s">
               <g
@@ -187,7 +205,7 @@
                 style:--c={L.color}
                 role="button"
                 tabindex="0"
-                aria-label={s.title}
+                aria-label="{s.title}, {s.topics.length} сэдэв"
                 onclick={() => openSphere(s.id)}
                 onkeydown={(e) => (e.key === 'Enter' || e.key === ' ') && openSphere(s.id)}
               >
@@ -197,20 +215,33 @@
                   <circle cx={L.x} cy={L.y} r={L.R + 10 / k} class="halo" />
                   <circle cx={L.x} cy={L.y} r={L.R + 14 / k} class="pulse" style:stroke-width={4 / k} />
                 {/if}
-                <SvgMath x={L.x} y={L.y + L.R * 0.08} size={L.R * 0.34} text={s.formula} cls="sformula" color={L.color} />
-                <text x={L.x} y={L.y + L.R * 0.5} class="scount" font-size={13 / k}>{s.topics.length} сэдэв</text>
+                <text x={L.x} y={L.y + L.R * 0.1} class="sgrade" font-size={L.R * 0.3}>{s.grade}</text>
+                {#each s.topics as t (t)}
+                  {@const D = dotLayout[s.id + ':' + t]}
+                  {#if ui.topic === t}
+                    <circle cx={D.x} cy={D.y} r={DOT_R * 1.8} class="dot on" />
+                  {:else if isFresh(t, s.id)}
+                    <circle cx={D.x} cy={D.y} r={DOT_R} class="dot" style:fill={D.color} />
+                  {:else}
+                    <circle cx={D.x} cy={D.y} r={DOT_R * 0.85} class="dot ring" style:stroke={D.color} style:stroke-width={1.3 / k} />
+                  {/if}
+                {/each}
               </g>
             </g>
           </g>
-          <text x={titleX(L.x, label)} y={L.y - L.R - 18 / k} class="stitle" class:next={st === 'next'} font-size={17 / k} style:stroke-width={6 / k}>{label}</text>
+          {@const count = `${s.fresh.length} шинэ · ${s.topics.length - s.fresh.length} гүнзгийрүүлэх`}
+          <text x={titleX(L.x, label)} y={L.y - L.R - 34 / k} class="stitle" class:next={st === 'next'} font-size={17 / k} style:stroke-width={6 / k}>{label}</text>
+          <text x={titleX(L.x, count) } y={L.y - L.R - 14 / k} class="scount" font-size={12 / k} style:stroke-width={5 / k}>{count}</text>
         {/each}
+
+        {#if thread}<path d={thread} class="thread" style:stroke-width={2.2 / k} style:stroke-dasharray="{6 / k} {5 / k}" />{/if}
       </g>
     </svg>
   </div>
 
   <header class="hud-top">
     <div class="toprow">
-      <div class="brand">Математикийн аялал</div>
+      <MapToggle />
       <button class="icon" aria-label="Дутагдлаа олъё" onclick={() => (ui.level = true)}>
         <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5M11 8v6M8 11h6" /></svg>
       </button>
@@ -236,7 +267,7 @@
     {:else if next}
       <div class="nextcard" transition:fly={{ y: 40, duration: ms(320), easing: ease }}>
         <button class="nt" onclick={() => { scrollToWorldY(sphereLayout[topics[next].sphere].y); ui.topic = next; }}>
-          <span class="nf"><RichText text={topics[next].formula} /></span>
+          <span class="nf" style:--sc={strands[topics[next].strand].color}>{#if topics[next].formula}<RichText text={topics[next].formula} />{:else}<i class="sdot"></i>{/if}</span>
           <span class="nn"><span class="small">Дараагийн алхам</span><strong>{topics[next].name}</strong></span>
         </button>
         <button class="btn sun" onclick={learn}>Сурах цаг!</button>
@@ -283,8 +314,13 @@
   @keyframes pulse { 50% { stroke-opacity: 0.2; } }
   .stitle { fill: var(--ink); font-weight: 800; text-anchor: middle; letter-spacing: 0.01em; paint-order: stroke; stroke: var(--bg); pointer-events: none; }
   .stitle.next { fill: var(--sun); }
-  :global(.sformula) { fill: var(--c); text-anchor: middle; dominant-baseline: middle; font-family: var(--math); pointer-events: none; }
-  .scount { fill: var(--muted); text-anchor: middle; font-weight: 600; pointer-events: none; }
+  .sgrade { fill: var(--c); fill-opacity: 0.9; text-anchor: middle; dominant-baseline: middle; font-weight: 800; pointer-events: none; }
+  .scount { fill: var(--muted); text-anchor: middle; font-weight: 600; pointer-events: none; paint-order: stroke; stroke: var(--bg); }
+  .dot { pointer-events: none; }
+  .dot.ring { fill: none; }
+  .dot.on { fill: var(--sun); }
+  .thread { fill: none; stroke: var(--sun); stroke-opacity: 0.9; pointer-events: none; }
+  .sdot { width: 14px; height: 14px; border-radius: 50%; background: var(--sc); box-shadow: 0 0 10px var(--sc); }
 
   .hud-top { position: fixed; top: 0; left: 0; right: 0; padding: 14px 16px 0; max-width: 560px; margin: 0 auto; z-index: 5; pointer-events: none; }
   .hud-top > * { pointer-events: auto; }
@@ -292,7 +328,6 @@
   .toprow > button { pointer-events: auto; }
   .icon { width: 44px; height: 44px; margin-right: -8px; border: 0; background: none; display: grid; place-items: center; color: #fff; }
   .icon svg { width: 27px; height: 27px; fill: none; stroke: currentColor; stroke-width: 2.1; stroke-linecap: round; }
-  .brand { font-size: 1.1rem; font-weight: 800; letter-spacing: -0.01em; color: var(--sky); text-shadow: 0 0 12px rgba(34, 211, 238, 0.45); }
   .welcome {
     position: relative; margin-top: 10px; padding: 14px 52px 14px 16px; display: grid; gap: 10px; justify-items: start;
     border-radius: 18px; background: rgba(10, 14, 24, 0.94); border: 1px solid color-mix(in srgb, var(--grass) 45%, var(--line));

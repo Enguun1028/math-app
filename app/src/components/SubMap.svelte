@@ -1,11 +1,12 @@
 <script>
-  // A sphere opened up: a small map of its topics, laid out by what depends on what.
-  import { sphereById, topics, topicUnlocks, strands } from '../lib/content.js';
-  import SvgMath from './SvgMath.svelte';
-  import { sphereLayout } from '../lib/layout.js';
+  // A grade sphere opened up: a map that sprouts from the centre (owner, 2026-10-13).
+  // The grade number sits in the middle and each strand owns a slice. Concepts coming back from earlier grades
+  // (↑, dashed) sit on the inner ring; new concepts grow outward from the ones they need.
+  // The map is wider than a phone, so it pans with the phone's own scrolling. No zoom (owner rule).
+  import { sphereById, topics, strands, isFresh } from '../lib/content.js';
+  import { sphereLayout, gradeRadial, RAD, twoLines } from '../lib/layout.js';
   import { topicState, sphereState, readiness, sphereKnown } from '../lib/logic.js';
   import { ui } from '../lib/ui.svelte.js';
-  import { twoLines } from '../lib/layout.js';
   import { onMount, onDestroy } from 'svelte';
   import { reduced } from '../lib/motion.js';
   import { route } from '../lib/router.svelte.js';
@@ -14,39 +15,58 @@
   let { id } = $props();
   let s = $derived(sphereById[id]);
   let st = $derived(s && sphereState(s));
+  let rad = $derived(s && gradeRadial(s.id));
 
-  const W = 360, ROW = 160, R = 44;
-  // Depth inside this sphere: how many in-sphere prerequisites come before a topic.
-  let layout = $derived.by(() => {
-    if (!s) return { nodes: {}, rows: 0 };
-    const inS = new Set(s.topics);
-    const depth = {};
-    const d = (t) => depth[t] ??= Math.max(0, ...topics[t].req.filter((r) => inS.has(r)).map((r) => d(r) + 1));
-    s.topics.forEach(d);
-    const rows = [];
-    for (const t of s.topics) (rows[depth[t]] ??= []).push(t);
-    const nodes = {};
-    rows.forEach((row, ri) => row.forEach((t, i) => {
-      const x = row.length === 1 ? W / 2 + (ri % 2 ? 40 : -40) : 56 + (i * (W - 112)) / (row.length - 1);
-      nodes[t] = { x, y: 70 + ri * ROW };
-    }));
-    return { nodes, rows: rows.length };
+  const PAD = 120;
+  let S = $derived(rad ? Math.ceil(rad.rMax + PAD) : 0);
+  let nodes = $derived(rad ? Object.fromEntries(Object.entries(rad.nodes).map(([t, n]) => [t, { ...n, x: n.x + S, y: n.y + S }])) : {});
+
+  // Sprouts: from the centre to the first concepts of a slice, then parent to child.
+  let sprouts = $derived.by(() => {
+    if (!s) return [];
+    const out = [];
+    for (const t of s.topics) {
+      const n = nodes[t];
+      const parents = rad.req(t);
+      if (!parents.length) {
+        const a = n.ang;
+        out.push({ t, d: `M ${S + 42 * Math.cos(a)} ${S + 42 * Math.sin(a)} L ${n.x - RAD.NODE * Math.cos(a)} ${n.y - RAD.NODE * Math.sin(a)}`, root: true });
+      }
+      for (const r of parents) {
+        const p = nodes[r];
+        const cx = S + ((p.x + n.x) / 2 - S) * 1.08, cy = S + ((p.y + n.y) / 2 - S) * 1.08;
+        out.push({ t, d: `M ${p.x} ${p.y} Q ${cx} ${cy} ${n.x} ${n.y}`, on: topicState(r) === 'known' });
+      }
+    }
+    return out;
   });
-  let edges = $derived(
-    s ? s.topics.flatMap((t) => topics[t].req.filter((r) => layout.nodes[r]).map((r) => ({ a: layout.nodes[r], b: layout.nodes[t], on: topicState(r) === 'known' }))) : [],
-  );
-  let from = $derived(s ? [...new Set(s.topics.flatMap((t) => topics[t].req.filter((r) => !s.topics.includes(r))))] : []);
-  let onward = $derived(s ? [...new Set(s.topics.flatMap((t) => topicUnlocks[t].filter((u) => !s.topics.includes(u))))] : []);
-  const edge = (a, b) => `M ${a.x} ${a.y + R} C ${a.x} ${(a.y + b.y) / 2}, ${b.x} ${(a.y + b.y) / 2}, ${b.x} ${b.y - R}`;
-  const fs = (f) => Math.min(24, 88 / Math.max(3, [...f].length));
 
-  // Opening animation: each topic circle starts exactly where it was inside the sphere on the map
-  // and glides to its place here. Lines and text fade in once the circles have landed.
+  // What the year's new concepts need from earlier grades (grade 1–4 basics included), and what this year opens later.
+  let from = $derived.by(() => {
+    if (!s) return [];
+    const m = new Set();
+    for (const t of s.fresh) for (const r of topics[t].req) if (!s.topics.includes(r)) m.add(r);
+    return [...m].sort((a, b) => (topics[a].base ? 0 : topics[a].grade) - (topics[b].base ? 0 : topics[b].grade));
+  });
+  let onward = $derived.by(() => {
+    if (!s) return [];
+    const m = new Set();
+    for (const t of s.topics) for (const u of Object.values(topics)) if (u.req.includes(t) && !s.topics.includes(u.id) && u.grades[0] > s.grade) m.add(u.id);
+    return [...m].sort((a, b) => topics[a].grades[0] - topics[b].grades[0]);
+  });
+  let fresh = $derived(s ? s.fresh.length : 0);
+
+  // Open the map centred on the grade number.
+  let pan = $state();
   let mini = $state();
   let morphing = $state(false);
   onMount(() => {
+    if (pan) {
+      pan.scrollLeft = (pan.scrollWidth - pan.clientWidth) / 2;
+      pan.scrollTop = (pan.scrollHeight - pan.clientHeight) / 2;
+    }
+    // Opening animation: each dot starts exactly where it was inside the sphere on the map and glides to its place here.
     const m = ui.morph;
-    // Cleared after the page's own entrance has started, so that entrance knows to stay still.
     setTimeout(() => (ui.morph = null), 700);
     if (!m || m.sphere !== id || reduced || !mini) return;
     const ctm = mini.getScreenCTM();
@@ -54,11 +74,11 @@
     morphing = true;
     const els = [...mini.querySelectorAll('[data-t]')];
     for (const el of els) {
-      const r0 = m.rects[el.dataset.t], n = layout.nodes[el.dataset.t];
+      const r0 = m.rects[el.dataset.t], n = nodes[el.dataset.t];
       if (!r0 || !n) continue;
       const sx = ctm.a * n.x + ctm.e, sy = ctm.d * n.y + ctm.f;
       el.style.transformOrigin = `${n.x}px ${n.y}px`;
-      el.style.transform = `translate(${(r0.x - sx) / ctm.a}px, ${(r0.y - sy) / ctm.d}px) scale(${r0.r / (R * ctm.a)})`;
+      el.style.transform = `translate(${(r0.x - sx) / ctm.a}px, ${(r0.y - sy) / ctm.d}px) scale(${r0.r / (RAD.NODE * ctm.a)})`;
     }
     mini.getBoundingClientRect(); // apply the start positions before the glide begins
     requestAnimationFrame(() => {
@@ -73,7 +93,7 @@
   // Left for another page (not the map): nothing will fly home, so forget the open sphere.
   onDestroy(() => route.parts.length && (ui.back = null));
 
-  // Going back to the map: the same glide in reverse, each circle flying home into the sphere.
+  // Going back to the map: the same glide in reverse, each dot flying home into the sphere.
   function home(node) {
     const b = ui.back;
     if (!b || b.sphere !== id || reduced || route.parts.length) return { duration: 0 };
@@ -81,12 +101,12 @@
     if (!ctm) return { duration: 0 };
     const moves = [];
     for (const el of node.querySelectorAll('[data-t]')) {
-      const r0 = b.rects[el.dataset.t], n = layout.nodes[el.dataset.t];
+      const r0 = b.rects[el.dataset.t], n = nodes[el.dataset.t];
       if (!r0 || !n) continue;
       const sx = ctm.a * n.x + ctm.e, sy = ctm.d * n.y + ctm.f;
       el.style.transformOrigin = `${n.x}px ${n.y}px`;
       el.style.transition = 'none';
-      moves.push({ el, dx: (r0.x - sx) / ctm.a, dy: (r0.y - sy) / ctm.d, sc: r0.r / (R * ctm.a) });
+      moves.push({ el, dx: (r0.x - sx) / ctm.a, dy: (r0.y - sy) / ctm.d, sc: r0.r / (RAD.NODE * ctm.a) });
     }
     return {
       duration: 460,
@@ -97,72 +117,106 @@
       },
     };
   }
+
+  const strandLabel = (sc) => {
+    const mid = (sc.a0 + sc.a1) / 2, lr = rad.rMax + 40;
+    return { x: S + lr * Math.cos(mid), y: S + lr * Math.sin(mid) + 4, anchor: Math.cos(mid) > 0.3 ? 'start' : Math.cos(mid) < -0.3 ? 'end' : 'middle' };
+  };
 </script>
 
 {#if !s}
-  <p class="card">Ийм бөмбөлөг олдсонгүй.</p>
+  <p class="card">Ийм анги олдсонгүй.</p>
 {:else}
   <div class="page" class:morphing style:--c={sphereLayout[s.id].color}>
     <header class="head">
-      <p class="small muted">{s.index + 1}-р бөмбөлөг</p>
       <h1>{s.title}</h1>
-      <p class="muted">{s.why}</p>
+      <p class="key small">
+        <span class="k new"></span> шинэ · <span class="k old">↑</span> өмнө үзсэнээ гүнзгийрүүлэх
+        <span class="muted">· {fresh} шинэ, {s.topics.length - fresh} гүнзгийрүүлэх</span>
+      </p>
       {#if st === 'known' || st === 'faded'}<span class="badge known">Мэднэ</span>{:else if st === 'next'}<span class="badge next">Дараагийн алхам энд байна</span>{/if}
     </header>
 
-     <svg bind:this={mini} viewBox="0 0 {W} {layout.rows * ROW}" class="mini" out:home|global role="group" aria-label="{s.title}: сэдвүүд">
-      {#each edges as e}<path d={edge(e.a, e.b)} class="e" class:on={e.on} />{/each}
-      {#each s.topics as t (t)}
-        {@const n = layout.nodes[t]}
-        {@const ts = topicState(t)}
-        <g
-          data-t={t}
-          class="node {ts}"
-          style:--tc={strands[topics[t].strand].color}
-          role="button"
-          tabindex="0"
-          aria-label={topics[t].name}
-          onclick={() => (ui.topic = t)}
-          onkeydown={(ev) => (ev.key === 'Enter' || ev.key === ' ') && (ui.topic = t)}
-        >
-          {#if ts === 'next'}<circle cx={n.x} cy={n.y} r={R + 8} class="halo" />{/if}
-          <circle cx={n.x} cy={n.y} r={R} class="c" />
-          <SvgMath x={n.x} y={n.y + 1} size={fs(topics[t].formula)} text={topics[t].formula} cls="tf" color="#fff" />
-          {#each twoLines(topics[t].name, 12) as line, j}
-            <text x={n.x} y={n.y + R + 21 + j * 17} class="n">{line}</text>
-          {/each}
-          {#if ts === 'known' || ts === 'faded'}<text x={n.x + R * 0.75} y={n.y - R * 0.7} class="ok">✓</text>{/if}
-        </g>
-      {/each}
-    </svg>
+    <div class="pan" bind:this={pan}>
+      <svg bind:this={mini} width={S * 2} height={S * 2} viewBox="0 0 {S * 2} {S * 2}" class="mini" out:home|global role="group" aria-label="{s.title}: сэдвүүд">
+        <defs>
+          <radialGradient id="ig-{s.id}" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color={s.color} stop-opacity="0.16" />
+            <stop offset="100%" stop-color={s.color} stop-opacity="0" />
+          </radialGradient>
+        </defs>
+        <circle cx={S} cy={S} r={rad.rMax + 40} fill="url(#ig-{s.id})" />
+        {#each { length: Math.floor((rad.rMax + 1 - RAD.R0) / RAD.STEP) + 1 } as _, k}
+          <circle cx={S} cy={S} r={RAD.R0 + k * RAD.STEP} class="ring" />
+        {/each}
+        {#each rad.sectors as sc}
+          {@const L = strandLabel(sc)}
+          <line x1={S + 44 * Math.cos(sc.a0)} y1={S + 44 * Math.sin(sc.a0)} x2={S + (rad.rMax + 34) * Math.cos(sc.a0)} y2={S + (rad.rMax + 34) * Math.sin(sc.a0)} class="border" />
+          <text x={L.x} y={L.y} text-anchor={L.anchor} class="strand" style:fill={strands[sc.strand].color}>{strands[sc.strand].name}</text>
+        {/each}
+        {#each sprouts as e}<path d={e.d} class="e" class:root={e.root} class:on={e.on} style:stroke={strands[topics[e.t].strand].color} />{/each}
+        <circle cx={S} cy={S} r="40" class="core" />
+        <text x={S} y={S + 15} class="grade">{s.grade}</text>
+        {#each s.topics as t (t)}
+          {@const n = nodes[t]}
+          {@const ts = topicState(t)}
+          {@const nw = isFresh(t, s.id)}
+          <g
+            data-t={t}
+            class="node {ts}"
+            style:--tc={strands[topics[t].strand].color}
+            role="button"
+            tabindex="0"
+            aria-label="{topics[t].name}, {nw ? 'шинэ' : 'гүнзгийрүүлэх'}"
+            onclick={() => (ui.topic = t)}
+            onkeydown={(ev) => (ev.key === 'Enter' || ev.key === ' ') && (ui.topic = t)}
+          >
+            <circle cx={n.x} cy={n.y} r={RAD.NODE + 10} class="hit" />
+            {#if ts === 'next'}<circle cx={n.x} cy={n.y} r={RAD.NODE + 6} class="halo" />{/if}
+            {#if ui.topic === t}<circle cx={n.x} cy={n.y} r={RAD.NODE + 6} class="sel" />{/if}
+            {#if nw}
+              <circle cx={n.x} cy={n.y} r={RAD.NODE} class="c new" />
+              <circle cx={n.x} cy={n.y} r="5" class="pip" />
+            {:else}
+              <circle cx={n.x} cy={n.y} r={RAD.NODE} class="c old" />
+              <text x={n.x} y={n.y + 5} class="up">↑</text>
+            {/if}
+            {#each twoLines(topics[t].name, 16) as line, j}
+              <text x={n.x} y={n.y + RAD.NODE + 13 + j * 12} class="n">{line}</text>
+            {/each}
+            {#if ts === 'known' || ts === 'faded'}<text x={n.x + RAD.NODE * 0.8} y={n.y - RAD.NODE * 0.7} class="ok">✓</text>{/if}
+          </g>
+        {/each}
+      </svg>
+    </div>
 
-    {#if from.length || onward.length}
+    {#if from.length}
       <section class="journey">
-        <h2>Аялал дээр</h2>
-        {#if from.length}
-          <p class="label">Өмнө нь</p>
-          <div class="chips">
-            {#each from as f}<button class="chip {topicState(f)}" onclick={() => (ui.topic = f)}><span class="dot"></span>{topics[f].name}</button>{/each}
-          </div>
-          {#if readiness(s) < 1 && !sphereKnown(s)}
-            <p class="note small">
-              {#if readiness(s) > 0}Суурь сэдвүүдийн {Math.round(readiness(s) * 100)}% нь танд бий.{/if}
-              Эхлээд эдгээр суурийг үзвэл илүү амархан. Гэхдээ хүссэнээ үзэж болно.
-            </p>
-          {/if}
+        <h2>Өмнөх ангиудаас хэрэгтэй</h2>
+        <p class="small muted">Энэ жилийн шинэ сэдвүүдэд эдгээр хэрэгтэй. Тасархай = 1–4-р ангийн суурь, нэг товшоод уншина.</p>
+        <div class="chips">
+          {#each from as f}<button class="chip {topicState(f)}" class:base={topics[f].base} onclick={() => (ui.topic = f)}><span class="dot"></span>{topics[f].name}<span class="g">{topics[f].base ? '1–4' : topics[f].grades[0]}</span></button>{/each}
+        </div>
+        {#if readiness(s) < 1 && !sphereKnown(s)}
+          <p class="note small">
+            {#if readiness(s) > 0}Өмнөх ангийн хэрэгтэй сэдвүүдийн {Math.round(readiness(s) * 100)}% нь танд бий.{/if}
+            Эхлээд эдгээрийг үзвэл илүү амархан. Гэхдээ хүссэнээ үзэж болно.
+          </p>
         {/if}
-        {#if onward.length}
-          <p class="label">Дараа нь нээгдэнэ</p>
-          <div class="chips">
-            {#each onward as o}<button class="chip {topicState(o)}" onclick={() => (ui.topic = o)}><span class="dot"></span>{topics[o].name}</button>{/each}
-          </div>
-        {/if}
+      </section>
+    {/if}
+    {#if onward.length}
+      <section class="journey">
+        <h2>Дараагийн ангиудад нээгдэнэ</h2>
+        <div class="chips">
+          {#each onward as o}<button class="chip {topicState(o)}" onclick={() => (ui.topic = o)}><span class="dot"></span>{topics[o].name}<span class="g">{topics[o].grades[0]}</span></button>{/each}
+        </div>
       </section>
     {/if}
 
     <div class="actions">
       {#if s.entries.length}
-        <a class="btn primary" href="#/test/{s.id}">Бүх бөмбөлгийн шалгалт</a>
+        <a class="btn primary" href="#/test/{s.id}">Энэ ангийн шалгалт</a>
       {/if}
       <button class="link" onclick={() => { ui.fly = { sphere: s.id }; location.hash = '/'; }}>Газрын зураг дээр харах</button>
     </div>
@@ -170,32 +224,53 @@
 {/if}
 
 <style>
-  /* While circles glide in, everything else waits, then fades in. */
-  .page > :not(.mini), .e, .n, .ok, .halo { transition: opacity 0.35s ease-out, transform 0.35s ease-out; }
-  .page.morphing > :not(.mini) { opacity: 0; transform: translateY(8px); }
-  .page.morphing .e, .page.morphing .n, .page.morphing .ok, .page.morphing .halo { opacity: 0; }
-  .head { padding: 12px 0 16px; display: grid; gap: 6px; justify-items: start; }
+  /* While dots glide in, everything else waits, then fades in. */
+  .page > :not(.pan), .e, .n, .ok, .halo, .strand, .border, .ring { transition: opacity 0.35s ease-out, transform 0.35s ease-out; }
+  .page.morphing > :not(.pan) { opacity: 0; transform: translateY(8px); }
+  .page.morphing :is(.e, .n, .ok, .halo, .strand, .border, .ring) { opacity: 0; }
+  .head { padding: 12px 0 8px; display: grid; gap: 6px; justify-items: start; }
   h1 { color: var(--c); text-shadow: 0 0 18px color-mix(in srgb, var(--c) 50%, transparent); }
-  .journey { display: grid; gap: 4px; margin-top: 24px; }
-  .journey h2 { margin-bottom: 8px; }
-  .journey .label { margin: 8px 0 4px; }
+  .key { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+  .k { display: inline-grid; place-items: center; width: 16px; height: 16px; border-radius: 50%; font-size: 10px; font-weight: 800; }
+  .k.new { background: color-mix(in srgb, var(--c) 30%, transparent); border: 2px solid var(--c); }
+  .k.old { border: 1.5px dashed var(--muted); color: var(--muted); }
+  /* Pans both ways with the phone's own scrolling; bleeds to the screen edges. */
+  .pan {
+    margin: 0 -16px; height: min(68vh, 620px); overflow: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain;
+    border-block: 1px solid var(--line); scrollbar-width: none;
+  }
+  .pan::-webkit-scrollbar { display: none; }
+  .mini { display: block; overflow: visible; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; }
+  .ring { fill: none; stroke: var(--c); stroke-opacity: 0.1; }
+  .border { stroke: #24304f; stroke-dasharray: 2 6; }
+  .strand { font-size: 12px; font-weight: 800; }
+  .e { fill: none; stroke-opacity: 0.6; stroke-width: 1.7; }
+  .e.root { stroke-opacity: 0.22; stroke-width: 1.4; }
+  .e.on { stroke-opacity: 1; stroke-width: 2.4; }
+  .core { fill: #0b1226; stroke: var(--c); stroke-width: 2; }
+  .grade { fill: var(--c); font-size: 42px; font-weight: 800; text-anchor: middle; }
+  .node { cursor: pointer; outline: none; }
+  .hit { fill: transparent; }
+  .c.new { fill: color-mix(in srgb, var(--tc) 25%, var(--bg)); stroke: var(--tc); stroke-width: 2; }
+  .c.old { fill: #0b1226; stroke: var(--tc); stroke-width: 1.8; stroke-dasharray: 4 3; }
+  .pip { fill: var(--tc); }
+  .up { fill: var(--tc); font-size: 13px; font-weight: 800; text-anchor: middle; pointer-events: none; }
+  .node:focus-visible .c { stroke-width: 3.5; }
+  .node.known .c { fill: color-mix(in srgb, var(--tc) 40%, var(--bg)); stroke-width: 3; filter: drop-shadow(0 0 6px var(--tc)); }
+  .node.faded .c { stroke: var(--dusk); }
+  .node.later { opacity: 0.6; }
+  .halo { fill: none; stroke: var(--sun); stroke-width: 3; animation: pulse 2.2s ease-in-out infinite; }
+  .sel { fill: none; stroke: var(--sun); stroke-width: 3; }
+  @keyframes pulse { 50% { stroke-opacity: 0.25; } }
+  .n { fill: var(--ink); font-size: 10px; font-weight: 600; text-anchor: middle; pointer-events: none; paint-order: stroke; stroke: var(--bg); stroke-width: 3px; }
+  .ok { fill: var(--grass); font-size: 13px; font-weight: 800; pointer-events: none; }
+  .journey { display: grid; gap: 6px; margin-top: 22px; }
+  .journey h2 { margin-bottom: 2px; }
   .journey .chip { background: transparent; color: var(--ink); }
+  .journey .chip.base { border-style: dashed; }
+  .chip .g { margin-left: 6px; font-size: 0.75rem; color: var(--muted); font-family: var(--math); }
   .link { min-height: 44px; border: 0; background: none; padding: 0 8px; color: var(--sky); font-weight: 700; }
   .note { padding: 10px 12px; border-radius: 12px; background: var(--sun-soft); color: var(--sun); margin: 6px 0; }
-  .mini { width: 100%; height: auto; margin: 8px 0; overflow: visible; }
-  .e { fill: none; stroke: var(--line); stroke-width: 2; }
-  .e.on { stroke: var(--sky); stroke-opacity: 0.8; filter: drop-shadow(0 0 4px var(--sky)); }
-  .node { cursor: pointer; outline: none; }
-  .c { fill: color-mix(in srgb, var(--tc) 22%, var(--bg)); stroke: var(--tc); stroke-width: 1.5; stroke-opacity: 0.75; filter: drop-shadow(0 0 6px color-mix(in srgb, var(--tc) 40%, transparent)); }
-  .node:hover .c, .node:focus-visible .c { stroke-width: 3; stroke-opacity: 1; }
-  .node.known .c { fill: color-mix(in srgb, var(--tc) 35%, var(--bg)); stroke-opacity: 1; stroke-width: 3; filter: drop-shadow(0 0 8px var(--tc)); }
-  .node.faded .c { stroke: var(--dusk); }
-  .node.later { opacity: 0.55; }
-  .halo { fill: none; stroke: var(--sun); stroke-width: 3; animation: pulse 2.2s ease-in-out infinite; }
-  @keyframes pulse { 50% { stroke-opacity: 0.25; } }
-  :global(.tf) { fill: #fff; text-anchor: middle; dominant-baseline: middle; font-family: var(--math); filter: drop-shadow(0 0 5px var(--tc)); pointer-events: none; }
-  .n { fill: var(--ink); font-size: 14px; font-weight: 600; text-anchor: middle; pointer-events: none; }
-  .ok { fill: var(--grass); font-size: 16px; font-weight: 800; pointer-events: none; }
   .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 28px; }
   .actions a { text-decoration: none; }
   @media (prefers-reduced-motion: reduce) { .halo { animation: none; } }

@@ -1,4 +1,5 @@
 // Progress lives only on this device (Phase 1: no accounts).
+import { oldTopics } from '../../content/map.json';
 const KEY = 'ayalal.progress.v1';
 
 function load() {
@@ -11,6 +12,17 @@ function load() {
 
 // known: entryId -> true, sphereTests: sphereId -> best score 0..1, seen: id -> timestamp
 export const progress = $state({ known: {}, topics: {}, sphereTests: {}, seen: {}, goal: null, goalPicked: false, ...load() });
+
+// Map v2 (2026-10-13): topics became concepts of the new map and spheres became grades.
+// "Мэднэ" marks move to the matching concept; sphere test scores belonged to the old spheres, so they go.
+if ((progress.map ?? 1) < 2) {
+  progress.topics = Object.fromEntries(Object.keys(progress.topics ?? {}).filter((id) => oldTopics[id]).map((id) => [oldTopics[id], true]));
+  progress.sphereTests = {};
+  progress.checkDone = {};
+  if (progress.examTopic) progress.examTopic = oldTopics[progress.examTopic] ?? null;
+  progress.map = 2;
+  save();
+}
 
 export function save() {
   try {

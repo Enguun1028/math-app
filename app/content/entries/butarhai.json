@@ -9,8 +9,7 @@
     "butarhai",
     "fraction"
   ],
-  "sphere": "butarhai",
-  "topic": "n5",
+  "topic": "frac",
   "definition": "Бүхэл зүйлийн тэнцүү хэсгүүдийг илэрхийлнэ. 3/4 = бүхлийг 4 тэнцүү хувааж, 3-ыг нь авсан. Бутархай нь [[huvaah|хуваах]]-тай ижил.",
   "visual": {
     "kind": "fraction",

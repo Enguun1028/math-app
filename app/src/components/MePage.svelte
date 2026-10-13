@@ -5,7 +5,6 @@
   import { topicKnown, sphereKnown, GOALS } from '../lib/logic.js';
   import { progress, daysThisWeek, resetProgress } from '../lib/progress.svelte.js';
   import { ui } from '../lib/ui.svelte.js';
-  import SvgMath from './SvgMath.svelte';
 
   let knownTopics = $derived(Object.keys(topics).filter(topicKnown).length);
   let knownSpheres = $derived(spheres.filter(sphereKnown).length);
@@ -26,7 +25,7 @@
   <div class="stats">
     <div><strong>{knownTopics}</strong><span>мэдэх сэдэв</span></div>
     <div><strong>{week}</strong><span>өдөр энэ долоо хоногт</span></div>
-    <div><strong>{knownSpheres}</strong><span>бөмбөлөг</span></div>
+    <div><strong>{knownSpheres}</strong><span>анги</span></div>
   </div>
 
   <section>
@@ -35,7 +34,7 @@
       {#each spheres as s}
         {@const on = sphereKnown(s)}
         <a class="sph" class:on href="#/s/{s.id}" style:--c={sphereLayout[s.id].color} aria-label={s.title}>
-          <svg viewBox="0 0 64 64"><SvgMath x={32} y={33} size={14} text={s.formula} cls="sf" color={sphereLayout[s.id].color} /></svg>
+          <svg viewBox="0 0 64 64"><text x="32" y="34" class="sf" font-size="22" font-weight="800" text-anchor="middle" dominant-baseline="middle">{s.grade}</text></svg>
         </a>
       {/each}
     </div>

@@ -8,8 +8,7 @@
     "sorog",
     "negative"
   ],
-  "sphere": "suuri",
-  "topic": "n9",
+  "topic": "int",
   "definition": "[[toony-shuluun|Тооны шулуун]] дээр 0-ээс зүүн талд байрлах тоо. −3 нь 0-ээс 3 алхам зүүн.",
   "visual": {
     "kind": "numberline",

@@ -10,8 +10,7 @@
     "nemeh",
     "addition"
   ],
-  "sphere": "suuri",
-  "topic": "n2",
+  "topic": "b-add",
   "definition": "Хоёр ба түүнээс олон тоог нийлүүлж нэг тоо (нийлбэр) олох үйлдэл.",
   "visual": {
     "kind": "blocks",

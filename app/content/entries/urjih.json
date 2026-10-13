@@ -11,8 +11,7 @@
     "urjih",
     "multiplication"
   ],
-  "sphere": "suuri",
-  "topic": "n3",
+  "topic": "b-mul",
   "definition": "Ижил тоог олон удаа [[nemeh|нэмэх]]-ийн товч бичлэг. 4 × 3 = 4 + 4 + 4.",
   "visual": {
     "kind": "grid",

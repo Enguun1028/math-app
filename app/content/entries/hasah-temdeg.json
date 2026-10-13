@@ -10,8 +10,7 @@
     "сөрөг тэмдэг",
     "minus"
   ],
-  "sphere": "suuri",
-  "topic": "n9",
+  "topic": "int",
   "definition": "\"−\" хоёр утгатай: хоёр тооны дунд бол [[hasah|хасах]] үйлдэл, тооны өмнө ганцаараа бол [[sorog-too|сөрөг тоо]].",
   "visual": {
     "kind": "symbol",

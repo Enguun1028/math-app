@@ -9,8 +9,7 @@
     "зуут",
     "place value"
   ],
-  "sphere": "suuri",
-  "topic": "n1",
+  "topic": "b-place",
   "definition": "Цифрийн утга нь тоон дотор хаана байрлаж байгаагаас хамаарна: нэгж, аравт, зуут гэх мэт.",
   "visual": {
     "kind": "place",

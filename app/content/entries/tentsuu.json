@@ -9,8 +9,7 @@
     "tentsuu",
     "equals"
   ],
-  "sphere": "suuri",
-  "topic": "n2",
+  "topic": "b-equal",
   "definition": "\"=\" нь хоёр талын утга яг ижил гэсэн үг. \"Хариу нь дараа нь\" гэсэн үг биш.",
   "visual": {
     "kind": "scale",

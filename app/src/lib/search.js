@@ -68,7 +68,7 @@ function wordScore(q, list, weight, minPrefix = 2) {
 }
 
 // Signs in a typed expression also point to the map topics that teach them.
-const OP_TOPIC = { '^': 'a4', sqrt: 'a4', var: 'a1', eq: 'a2', '÷': 'n5', '%': 'n7', sorog: 'n9' };
+const OP_TOPIC = { '^': 'pow', sqrt: 'root', var: 'expr', eq: 'lin-eq', '÷': 'frac', '%': 'pct', sorog: 'int' };
 const OP_ENTRY = { '+': 'nemeh', '−': 'hasah', sorog: 'sorog-too', '×': 'urjih', '÷': 'huvaah', '=': 'tentsuu', '%': 'protsent', order: 'uildliin-daraalal' };
 
 export function search(raw) {

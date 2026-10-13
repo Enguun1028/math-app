@@ -8,8 +8,7 @@
     "hariltsaa",
     "ratio"
   ],
-  "sphere": "butarhai",
-  "topic": "n8",
+  "topic": "ratio",
   "definition": "Хоёр хэмжигдэхүүнийг хуваалтаар жишнэ. 2:3 гэдэг нь нэгний 2 тутамд нөгөөгийн 3. [[butarhai|Бутархай]] бол харьцаа.",
   "visual": {
     "kind": "fraction",
