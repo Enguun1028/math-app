@@ -13,6 +13,7 @@
   import CoordTool from './tools/CoordTool.svelte';
   import { topics, topicUnlocks, topicEntries, entries, strands, links, stripLinks } from '../lib/content.js';
   import { ideas } from '../lib/ideas.js';
+  import topicContent from '../../content/topic-content.json';
   import { topicState, entryState, markTopic } from '../lib/logic.js';
   import { ui } from '../lib/ui.svelte.js';
   import { go, route } from '../lib/router.svelte.js';
@@ -46,7 +47,11 @@
   // Formulas: the topic's own plus the ones its answer page lists (written a^2 in search, shown a²).
   const SUP = { 0: '⁰', 1: '¹', 2: '²', 3: '³', 4: '⁴', n: 'ⁿ', x: 'ˣ' };
   const pretty = (f) => f.replace(/\^(\w)/g, (_, c) => SUP[c] ?? '^' + c).replace(/\*/g, '·').replace(/=/g, ' = ').replace(/\+/g, ' + ');
-  let formulas = $derived(t ? [...new Set([t.formula, ...(ideas[t.id]?.formulas ?? []).slice(1).map(pretty)].filter(Boolean))] : []);
+  // Written content from the official textbooks: definition, formulas, rules, method, worked examples.
+  let tc = $derived(t ? topicContent[t.id] ?? null : null);
+  let shown = $state({});
+  $effect(() => { t?.id; shown = {}; });
+  let formulas = $derived(t ? [...new Set([...(tc?.formulas ?? []), ...(tc ? [] : [t.formula]), ...(ideas[t.id]?.formulas ?? []).slice(1).map(pretty)].filter(Boolean))] : []);
   // An interactive tool for the topics that have one.
   const TOOLS = { frac: 'fraction', 'frac-add': 'fraction', 'frac-mul': 'fraction', 'frac-dec': 'fraction', int: 'number', 'int-ops': 'number', 'b-numline': 'number', 'b-neg': 'number', coord: 'coord', 'coord-geo': 'coord', 'b-grid': 'coord' };
   let tool = $derived(t ? TOOLS[t.id] : null);
@@ -116,7 +121,7 @@
           <h2>{t.name}</h2>
           <button class="know" class:on={known} aria-pressed={known} onclick={() => markTopic(t.id, !known)}><span class="box">{#if known}✓{/if}</span>Мэднэ</button>
         </div>
-        {#if t.text}<p class="lead">{t.text}</p>{/if}
+        {#if tc?.def}<p class="lead def"><RichText text={tc.def} /></p>{:else if t.text}<p class="lead">{t.text}</p>{/if}
       </div>
 
       <VideoSlot key={'topic:' + t.id} title={t.name} />
@@ -127,6 +132,25 @@
         {#if formulas.length}
           <div class="formulas">{#each formulas as f}<span class="fx"><RichText text={f} /></span>{/each}</div>
         {/if}
+        {#if tc?.rules?.length}
+          <ul class="rules">{#each tc.rules as r}<li><RichText text={r} /></li>{/each}</ul>
+        {/if}
+        {#if tc?.method?.length}
+          <div class="method"><span class="mlabel">Арга</span><ol>{#each tc.method as st}<li><RichText text={st} /></li>{/each}</ol></div>
+        {/if}
+        {#each tc?.examples ?? [] as ex, k}
+          <div class="ex">
+            <span class="mlabel">Жишээ {k + 1}</span>
+            <p class="exq"><RichText text={ex.q} /></p>
+            {#each ex.steps.slice(0, shown[k] ?? 0) as st, j}<p class="exs"><span>{j + 1}</span><RichText text={st} /></p>{/each}
+            {#if (shown[k] ?? 0) < ex.steps.length}
+              <button class="exbtn" onclick={() => (shown = { ...shown, [k]: (shown[k] ?? 0) + 1 })}>{(shown[k] ?? 0) ? 'Дараагийн алхам →' : 'Бодож үзэх →'}</button>
+            {:else}
+              <p class="exa">Хариу: <strong><RichText text={ex.a} /></strong></p>
+            {/if}
+          </div>
+        {/each}
+        {#if tc?.src}<p class="srcnote small muted">Эх сурвалж: {tc.src} (БСШУЯ, econtent.edu.mn)</p>{/if}
         {#if tool === 'fraction'}<div class="play"><FractionOps /></div>
         {:else if tool === 'number'}<div class="play"><NumberOps /></div>
         {:else if tool === 'coord'}<div class="play"><CoordTool /></div>{/if}
@@ -137,7 +161,7 @@
             {#if m.steps.length}<ol>{#each m.steps as st}<li><RichText text={st} /></li>{/each}</ol>{/if}
           </div>
         {/each}
-        {#if !formulas.length && !tool && !methods.length}
+        {#if !formulas.length && !tool && !methods.length && !tc}
           <p class="empty small muted">Энэ сэдвийн жишээ, томьёо удахгүй нэмэгдэнэ.</p>
         {/if}
       </section>
@@ -232,6 +256,15 @@
   .formulas { display: flex; flex-wrap: wrap; gap: 8px; }
   .fx { padding: 8px 14px; border-radius: 12px; background: color-mix(in srgb, var(--c) 14%, transparent); font-family: var(--math); font-size: 1.15rem; }
   .method { display: grid; gap: 8px; }
+  .def { color: var(--ink); text-align: left; max-width: none; }
+  .rules { margin: 0; padding-left: 18px; display: grid; gap: 6px; }
+  .ex { display: grid; gap: 6px; padding: 12px; border-radius: 14px; background: rgba(5, 7, 13, 0.6); border: 1px solid var(--line); }
+  .exq { font-weight: 700; margin: 0; }
+  .exs { display: flex; gap: 8px; margin: 0; }
+  .exs span { flex: none; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font-size: 0.75rem; font-weight: 800; background: color-mix(in srgb, var(--c) 25%, transparent); }
+  .exbtn { justify-self: start; min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--c); background: transparent; color: var(--c); font-weight: 800; }
+  .exa { margin: 0; color: var(--grass); }
+  .srcnote { margin: 0; }
   .mlabel { font-size: 0.8rem; font-weight: 700; color: var(--muted); }
   .method ol { margin: 0; padding-left: 20px; display: grid; gap: 4px; }
   .hero { display: grid; justify-items: center; text-align: center; gap: 8px; }
