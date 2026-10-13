@@ -102,8 +102,14 @@
 <style>
   .top { height: 58px; }
   .intro { margin: 0 0 10px; }
+  /* Phone turned sideways: little height, so the map takes all of it. */
+  @media (orientation: landscape) and (max-height: 540px) {
+    .intro { display: none; }
+    .pan { height: max(200px, calc(100dvh - 58px - var(--tabbar-h) - env(safe-area-inset-bottom) - 8px)); }
+  }
+  /* The map fills the screen between the toggle and the tab bar, edge to edge, in both orientations. */
   .pan {
-    margin: 0 -16px; height: min(66vh, 640px); overflow: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain;
+    margin: 0 calc(50% - 50vw); height: max(220px, calc(100dvh - 58px - 52px - var(--tabbar-h) - env(safe-area-inset-bottom) - 12px)); overflow: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain;
     border-block: 1px solid var(--line); scrollbar-width: none;
   }
   .pan::-webkit-scrollbar { display: none; }
