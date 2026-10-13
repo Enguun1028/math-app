@@ -1,5 +1,6 @@
 <script>
   import RichText from './RichText.svelte';
+  import HotTopics from './HotTopics.svelte';
   // The explorable neon map. It scrolls like a feed, using the phone's own scrolling (momentum and
   // rubber band come from the system, exactly as in Instagram). No zoom: tapping a sphere opens it.
   // Spheres drift slightly, like a slow DVD-logo bounce.
@@ -23,7 +24,7 @@
   // ---- geometry ----
   // One fixed scale: the map fits the phone's width. On a wide screen (phone turned sideways, computer)
   // it stays a phone-width column in the middle instead of blowing up.
-  const TOP_PAD = 110; // room under the top row
+  const TOP_PAD = 196; // room under the toggle and the story row // room under the top row
   const BOTTOM_PAD = 230; // room above the next-step card and the tab bar
   const MAX_COL = 560;
   const worldW = world.maxX - world.minX;
@@ -245,6 +246,7 @@
         <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5M11 8v6M8 11h6" /></svg>
       </button>
     </div>
+    <HotTopics />
     {#if ui.welcome}
       <div class="welcome" transition:fly={{ y: -8, duration: ms(260), easing: ease }}>
         <div>
@@ -280,7 +282,7 @@
   .map { position: fixed; inset: 0; overflow: hidden; transition: opacity 0.45s ease-out; }
   /* Soft fades behind the top and bottom controls, so map labels slide under them instead of clashing. */
   .map::before, .map::after { content: ''; position: fixed; left: 0; right: 0; z-index: 4; pointer-events: none; }
-  .map::before { top: 0; height: 90px; background: linear-gradient(var(--bg) 35%, transparent); }
+  .map::before { top: 0; height: 175px; background: linear-gradient(var(--bg) 35%, transparent); }
   .map::after { bottom: 0; height: calc(var(--tabbar-h) + 150px); background: linear-gradient(transparent, var(--bg) 75%); }
   .map:global(.leaving) { opacity: 0; pointer-events: none; }
   .map:global(.returning) { opacity: 0; transition: none; }
