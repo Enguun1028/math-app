@@ -48,8 +48,8 @@
     <div class="grab"></div>
     <button class="sheet-close" aria-label="Хаах" onclick={close}>×</button>
     <!-- One question per step (owner, 2026-10-13: "much cleaner and easy to follow"), with a progress row on top. -->
-    <div class="steps" aria-label="Алхам {step + 1} / 4">
-      {#each [0, 1, 2, 3] as k}<span class="dot" class:done={k < step} class:now={k === step}></span>{/each}
+    <div class="steps" aria-label="Алхам {step + 1} / 5">
+      {#each [0, 1, 2, 3, 4] as k}<span class="dot" class:done={k < step} class:now={k === step}></span>{/each}
     </div>
     {#key step}
       <div class="step" in:fly={{ x: 20, duration: 220 }}>
@@ -79,14 +79,22 @@
             {/if}
           {/if}
           <button class="btn sun wide" onclick={() => (step = 3)}>{progress.examTopic ? 'Үргэлжлүүлэх' : 'Алгасах'}</button>
+        {:else if step === 3}
+          <!-- A separate, friendly tip right after the questions about the student (owner, 2026-10-13). -->
+          <div class="tip">
+            <svg class="bulb" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.6 10.8c.7.5 1.1 1.3 1.1 2.2h5c0-.9.4-1.7 1.1-2.2A6 6 0 0 0 12 3Z" /></svg>
+            <h2>Нэг зөвлөгөө</h2>
+            <p>Хариултыг нь мэдэхгүй асуулт таарвал <strong>«Мэдэхгүй байна»</strong> товчийг дарахад болно. Энэ нь огт буруу зүйл биш.</p>
+            <p class="muted">Таамаглаж хариулбал таны давтах хэрэгтэй сэдэв нуугдаж магадгүй. Үнэнээр нь хариулбал танд хамгийн тохирох газраас эхлэхэд тусална.</p>
+          </div>
+          <button class="btn sun wide" onclick={() => (step = 4)}>Ойлголоо</button>
         {:else}
           <h2>Энэ шалгалт юунд хэрэгтэй вэ?</h2>
           <ol class="how">
-            <li><span class="n">1</span>Чиний мэддэг, мэдэхгүй зүйлийг олж, газрын зураг дээр гэрэлтүүлнэ.</li>
-            <li><span class="n">2</span>Анги бүрээс 4 асуулт. {progress.grade ?? 7}-р ангиас эхэлж, түвшинг чинь олтол дээш, доош явна.</li>
-            <li><span class="n">3</span>Энэ бол дүн биш. Хэн ч харахгүй.</li>
+            <li><span class="n">1</span>Таны сайн мэддэг сэдвүүд болон давтах хэрэгтэй сэдвүүдийг олж, газрын зураг дээр тэмдэглэнэ.</li>
+            <li><span class="n">2</span>Анги бүрээс 4 асуулт байна. {progress.grade ?? 7}-р ангиас эхэлж, таны түвшинг олтол дээш, доош шилжинэ.</li>
+            <li><span class="n">3</span>Энэ нь дүн биш, зөвхөн танд зориулсан зураглал юм.</li>
           </ol>
-          <p class="honest"><strong>Мэдэхгүй бол «Мэдэхгүй байна» гэж үнэнээр нь дар.</strong> Таамагласан зөв хариулт чиний жинхэнэ дутагдлыг нууж, буруу газраас эхлүүлнэ.</p>
           <button class="btn sun wide" onclick={start}>{started ? 'Дахин шалгах' : 'Эхлэх'}</button>
         {/if}
       </div>
@@ -118,7 +126,9 @@
   .how { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
   .how li { display: flex; gap: 10px; align-items: flex-start; }
   .n { flex: none; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; font-size: 0.8rem; font-weight: 800; background: var(--sun-soft); color: var(--sun); }
-  .honest { padding: 12px 14px; border-radius: 14px; background: var(--sky-soft); }
+  .tip { display: grid; gap: 10px; justify-items: start; padding: 16px; border-radius: 18px; background: var(--sun-soft); border: 1px solid color-mix(in srgb, var(--sun) 35%, transparent); }
+  .tip p { margin: 0; }
+  .bulb { width: 40px; height: 40px; fill: none; stroke: var(--sun); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 8px rgba(255, 204, 102, 0.55)); }
   .wide { width: 100%; min-height: 50px; font-size: 1.05rem; }
   .back { justify-self: start; min-height: 44px; border: 0; background: none; color: var(--sky); font-weight: 700; padding: 0 4px; }
 </style>

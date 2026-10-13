@@ -54,7 +54,7 @@
     {/each}
   </div>
   {#if level == null}
-    <p class="muted">Мэдэхгүй бол таамаглах хэрэггүй: «Мэдэхгүй байна» гэж дар. Энэ бол дүн биш, эхлэх газраа олох арга.</p>
+    <p class="muted">Хариултыг нь мэдэхгүй бол «Мэдэхгүй байна»-г дарахад болно. Энэ нь дүн биш, эхлэх газраа олох арга юм.</p>
   {/if}
 </header>
 
@@ -63,10 +63,10 @@
     {#key round}<div in:fly={{ x: 24, duration: ms(280), easing: ease }}><Quiz {questions} mode="check" ondone={done} /></div>{/key}
   {:else}
     <div class="stack" in:fly={{ y: 12, duration: ms(280), easing: ease }}>
-      <h2>{level >= LEVEL_MIN ? `Чи ${label(level)} хүртэлх ихэнх зүйлийг мэдэж байна.` : 'Суурь сэдвүүдээс эхэлье.'}</h2>
+      <h2>{level >= LEVEL_MIN ? `Та ${label(level)} хүртэлх ихэнх зүйлийг мэдэж байна.` : 'Суурь сэдвүүдээс эхэлье.'}</h2>
       <p>
-        Мэддэг {knownCount} сэдэв тань газрын зураг дээр гэрэлтэнэ. Харанхуй үлдсэн нь дараагийн алхмууд.
-        {#if missedConcepts.size}Алдсан асуултын сэдвүүдийг дахин үзэхээр үлдээлээ.{/if}
+        Таны мэддэг {knownCount} сэдэв газрын зураг дээр гэрэлтэнэ. Харанхуй үлдсэн нь таны дараагийн алхмууд.
+        {#if missedConcepts.size}Алдсан асуултын сэдвүүдийг дахин үзэхэд тань зориулж үлдээлээ.{/if}
       </p>
       <div class="row">
         <button class="btn sun" onclick={open}>{target.slice(1)}-р ангийн зураг руу</button>
