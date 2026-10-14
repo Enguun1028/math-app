@@ -1,0 +1,2472 @@
+{
+ "_note": "Open interactives and tasks per concept id (ids from research/fanout/concepts.txt). Built 2026-10-14/15. URLs, titles, Mongolian availability and licences are verified (see each item's 'verified'). The 'fit' sentences are my own mapping judgement (draft: true) and should be checked against the textbook before use. PhET 'url' is the Mongolian build; 'mn': true means PhET lists a Mongolian translation and the _mn.html file loads, not that every string is translated. Concepts with no entry: see 'missing'.",
+ "fit_is_draft": true,
+ "licenses": {
+  "phet": {
+   "summary": "Embed (iframe) and link allowed for non-commercial use with attribution. Translation exists in Mongolian for every math sim checked. Logo must stay visible.",
+   "license_now": "CC BY-NC 4.0 for PhET simulations published after 2026-03-29",
+   "quotes": [
+    "The Regular HTML Simulation Files (“PhET simulations”) are published under the Creative Commons Attribution–NonCommercial license (CC BY-NC 4.0), which permits free use and redistribution for non-commercial purposes in accordance with the license terms.",
+    "Historical PhET Simulations were published under the Creative Commons Attribution 4.0 License (CC BY 4.0).",
+    "Commercial use may include, but is not limited to: ... Government or institutional distribution programs",
+    "Simulation by PhET Interactive Simulations, University of Colorado Boulder, licensed under CC BY-NC 4.0 (https://phet.colorado.edu).",
+    "The PhET logo must remain visible, unobstructed, and unaltered."
+   ],
+   "sources": [
+    "https://phet.colorado.edu/en/licensing",
+    "https://phet.colorado.edu/en/licensing/html",
+    "https://phet.colorado.edu/services/metadata/1.3/simulations?format=json&type=html&summary"
+   ],
+   "note": "The current licensing text was read from the site's JavaScript bundle (the page renders client-side). A free, ad-free student app counts as non-commercial; selling it, adding ads, or a paid/government distribution deal would need a PhET commercial license.",
+   "embed": "<iframe src=\"https://phet.colorado.edu/sims/html/<sim>/latest/<sim>_mn.html\" width=\"800\" height=\"600\" allowfullscreen></iframe>; attribution text next to it."
+  },
+  "geogebra": {
+   "summary": "Free for non-commercial use with attribution; the app may link or embed GeoGebra materials. Commercial use needs a special license. Activity texts are in English; GeoGebra materials themselves cannot be edited without the author's copy.",
+   "quotes": [
+    "you are free to use, copy, distribute, modify and transmit the Materials ... provided that you only do so for non-commercial purposes (without charging a fee to any third party)",
+    "provided that you attribute the Materials to us by (at least) mentioning our name",
+    "Any use of GeoGebra for a commercial purpose is subject to and requires a special license.",
+    "Whether a particular use of the GeoGebra Materials is \"non-commercial\" depends on the use, not the user."
+   ],
+   "sources": [
+    "https://www.geogebra.org/license",
+    "https://wiki.geogebra.org/en/Reference:GeoGebra_Apps_Embedding",
+    "https://wiki.geogebra.org/en/Reference:Material_Embedding_(Iframe)"
+   ],
+   "embed": "Official: load https://www.geogebra.org/apps/deployggb.js and call new GGBApplet({material_id: '<id>', appName: 'classic', ...}).inject('div-id'). The old /material/iframe/id/<id> URL returned HTTP 410 on 2026-10-14; https://www.geogebra.org/m/<id>?embed returned 200 with frame-ancestors *, so an iframe of that URL also works.",
+   "unverified": "Whether user-made materials carry an extra licence from their authors is not stated on the licence page; credit the author and GeoGebra. Mongolian GeoGebra activities were not found (the material search API was rate-limited)."
+  },
+  "illustrative_mathematics": {
+   "summary": "IM 6-8 Math and IM 9-12 Math are CC BY 4.0: the app may translate, adapt and republish tasks in Mongolian, even commercially, with attribution. The IM name and logo are excluded. The older task site tasks.illustrativemathematics.org is CC BY-NC-SA 4.0.",
+   "quotes": [
+    "It is licensed under the Creative Commons Attribution 4.0 International License (CC BY 4.0).",
+    "The Illustrative Mathematics name and logo are not subject to the Creative Commons license and may not be used without the prior and express written consent of Illustrative Mathematics.",
+    "Licensed by Illustrative Mathematics under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License. (tasks.illustrativemathematics.org)"
+   ],
+   "sources": [
+    "https://im.kendallhunt.com/MS/students/1/index.html",
+    "https://im.kendallhunt.com/HS/students/1/index.html",
+    "https://tasks.illustrativemathematics.org/"
+   ],
+   "note": "Images inside IM lessons may carry their own licenses (IM's image attribution section)."
+  },
+  "open_middle": {
+   "summary": "Unclear. Link only; ask before translating or copying.",
+   "quotes": [
+    "© 2016-2026 Glenrock Consulting, LLC. All rights reserved. (English home page footer)",
+    "Open Middle® problems are licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License. (French page)"
+   ],
+   "sources": [
+    "https://www.openmiddle.com/",
+    "https://www.openmiddle.com/fr/accueil/"
+   ],
+   "note": "The two pages disagree. Contact listed on the site: robert@openmiddle.com."
+  },
+  "nrich": {
+   "summary": "Link only. No copying, embedding, mirroring or translating without written permission.",
+   "quotes": [
+    "may not be posted or in any way mirrored on the WWW or any other part of the Internet",
+    "extraction into any other website, database, compilation, or computer programme"
+   ],
+   "sources": [
+    "https://nrich.maths.org/terms"
+   ]
+  },
+  "youcubed": {
+   "summary": "Site materials are CC BY 4.0: may translate and adapt with attribution. Logo and name are trademarks.",
+   "quotes": [
+    "Use of materials on this website is governed by a Creative Commons Attribution 4.0 International License."
+   ],
+   "sources": [
+    "https://www.youcubed.org/terms-of-use/"
+   ],
+   "note": "Externally hosted YouCubed items follow their host's license. No per-topic YouCubed tasks were mapped in this pass."
+  },
+  "polypad": {
+   "summary": "Free iframes and JS API on free (non-paywalled) sites, up to 10k requests per year; attribution 'Materials created using Polypad by Amplify.' Useful for fraction bars and algebra tiles.",
+   "quotes": [
+    "You can use images, videos, iFrames and the JavaScript API on your own website or blog, including commercial use, as long as these are freely available to end-users, and not behind a paywall.",
+    "For iFrames and the JS API, this is limited up to 10k requests per year."
+   ],
+   "sources": [
+    "https://polypad.amplify.com/cn/partners",
+    "https://polypad.amplify.com/api/documentation",
+    "https://amplify.com/ac-usage-guidelines/"
+   ],
+   "note": "Mathigon became Polypad by Amplify (moved Feb 2024). Mongolian UI not verified. 10k requests a year is small if the app grows."
+  },
+  "desmos": {
+   "summary": "Do not embed in production without a key. The free API tier is for personal, non-commercial use; the Desmos site terms forbid framing the tools. Images of Desmos graphs are CC BY-SA 4.0 and may be used as static pictures.",
+   "quotes": [
+    "Your use must be solely for (a) personal, non-commercial use or (b) a 90 day trial for internal testing",
+    "You may not frame or mirror the Desmos Tools without our prior consent.",
+    "Images of our tools are governed by the Creative Commons “Attribution-ShareAlike” license (CC-BY-SA-4.0)."
+   ],
+   "sources": [
+    "https://www.desmos.com/api-terms",
+    "https://www.desmos.com/terms",
+    "https://www.desmos.com/my-api",
+    "https://github.com/desmosinc/policies/blob/main/faqs.md"
+   ],
+   "note": "Desmos API pricing page lists a free 'Personal: For school or personal projects' plan; whether a public student app qualifies is unclear, so ask partnerships@desmos.com. Desmos Classroom activities belong to Amplify (Acceptable Use Policy forbids framing, translating or copying)."
+  },
+  "khan_academy_mn": {
+   "summary": "mn.khanacademy.org exists (Mongolian Khan Academy). Link to it and embed its YouTube videos; do not copy exercises. Content is CC BY-NC-SA 4.0 where marked, non-commercial only.",
+   "quotes": [
+    "any reference to the “Creative Commons”, “CC” or similarly-phrased license shall be deemed to be a reference to the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 License",
+    "the Licensed Educational Content may not be used, distributed or otherwise exploited for any commercial purpose"
+   ],
+   "sources": [
+    "https://mn.khanacademy.org/",
+    "https://www.khanacademy.org/about/docs/khan-academy-terms-of-service",
+    "https://support.khanacademy.org/hc/en-us/articles/226457308-What-languages-is-Khan-Academy-available-in"
+   ],
+   "note": "Per-topic Mongolian Khan videos are already listed in research/raw/07-mongolian-video-catalog.md. Which Khan courses are fully translated into Mongolian was not checked."
+  }
+ },
+ "b-equal": [
+  {
+   "name": "Equality Explorer: Basics",
+   "name_mn": "Тэнцэтгэл Судлах: Үндсэн",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/equality-explorer-basics/latest/equality-explorer-basics_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/equality-explorer-basics",
+   "translations": "https://phet.colorado.edu/en/simulations/equality-explorer-basics/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Balance scale: both sides must stay equal (read-only basics)",
+   "verified": "PhET metadata API lists an mn title; equality-explorer-basics_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  }
+ ],
+ "b-place": [
+  {
+   "name": "Number Play",
+   "name_mn": "Тоогоор Тогло",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/number-play/latest/number-play_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/number-play",
+   "translations": "https://phet.colorado.edu/en/simulations/number-play/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Counting and place value with ones and tens",
+   "verified": "PhET metadata API lists an mn title; number-play_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  },
+  {
+   "name": "Number Compare",
+   "name_mn": "Тоог харьцуул",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/number-compare/latest/number-compare_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/number-compare",
+   "translations": "https://phet.colorado.edu/en/simulations/number-compare/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Comparing numbers",
+   "verified": "PhET metadata API lists an mn title; number-compare_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  }
+ ],
+ "b-numline": [
+  {
+   "name": "Number Line: Integers",
+   "name_mn": "Тоон шулуун: Бүхэл",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/number-line-integers/latest/number-line-integers_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/number-line-integers",
+   "translations": "https://phet.colorado.edu/en/simulations/number-line-integers/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Placing numbers on a number line",
+   "verified": "PhET metadata API lists an mn title; number-line-integers_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  }
+ ],
+ "b-add": [
+  {
+   "name": "Make a Ten",
+   "name_mn": "Арвыг Үүсгэх",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/make-a-ten/latest/make-a-ten_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/make-a-ten",
+   "translations": "https://phet.colorado.edu/en/simulations/make-a-ten/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Adding by making ten",
+   "verified": "PhET metadata API lists an mn title; make-a-ten_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  },
+  {
+   "name": "Number Pairs",
+   "name_mn": "Хос тоо",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/number-pairs/latest/number-pairs_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/number-pairs",
+   "translations": "https://phet.colorado.edu/en/simulations/number-pairs/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Number pairs that add to a given total",
+   "verified": "PhET metadata API lists an mn title; number-pairs_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  }
+ ],
+ "b-props": [
+  {
+   "name": "Area Model Multiplication",
+   "name_mn": "Талбайн Загварын Үржвэр",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/area-model-multiplication/latest/area-model-multiplication_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/area-model-multiplication",
+   "translations": "https://phet.colorado.edu/en/simulations/area-model-multiplication/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Distributive property seen as splitting a rectangle",
+   "verified": "PhET metadata API lists an mn title; area-model-multiplication_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  }
+ ],
+ "b-mul": [
+  {
+   "name": "Area Model Multiplication",
+   "name_mn": "Талбайн Загварын Үржвэр",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/area-model-multiplication/latest/area-model-multiplication_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/area-model-multiplication",
+   "translations": "https://phet.colorado.edu/en/simulations/area-model-multiplication/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Multiplication as area; partial products",
+   "verified": "PhET metadata API lists an mn title; area-model-multiplication_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  },
+  {
+   "name": "Arithmetic",
+   "name_mn": "Арифметик",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/arithmetic/latest/arithmetic_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/arithmetic",
+   "translations": "https://phet.colorado.edu/en/simulations/arithmetic/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Multiplication and division facts game",
+   "verified": "PhET metadata API lists an mn title; arithmetic_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  }
+ ],
+ "b-frac": [
+  {
+   "name": "Fractions: Intro",
+   "name_mn": "Бутархай: Тайлбар",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/fractions-intro/latest/fractions-intro_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/fractions-intro",
+   "translations": "https://phet.colorado.edu/en/simulations/fractions-intro/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Build fractions from pieces and see parts of a whole (read-only basics)",
+   "verified": "PhET metadata API lists an mn title; fractions-intro_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  }
+ ],
+ "b-area": [
+  {
+   "name": "Area Builder",
+   "name_mn": "Талбай байгуулагч",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/area-builder/latest/area-builder_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/area-builder",
+   "translations": "https://phet.colorado.edu/en/simulations/area-builder/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Build shapes on a grid and count square units",
+   "verified": "PhET metadata API lists an mn title; area-builder_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header",
+   "mn_note": "Translation may be partial (few Mongolian strings found in the file); check in the browser"
+  },
+  {
+   "name": "Area Model Introduction",
+   "name_mn": "Талбайн Загварын Танилцуулга",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/area-model-introduction/latest/area-model-introduction_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/area-model-introduction",
+   "translations": "https://phet.colorado.edu/en/simulations/area-model-introduction/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Area as rows times columns",
+   "verified": "PhET metadata API lists an mn title; area-model-introduction_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  }
+ ],
+ "b-neg": [
+  {
+   "name": "Number Line: Integers",
+   "name_mn": "Тоон шулуун: Бүхэл",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/number-line-integers/latest/number-line-integers_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/number-line-integers",
+   "translations": "https://phet.colorado.edu/en/simulations/number-line-integers/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Numbers below zero on a thermometer and number line",
+   "verified": "PhET metadata API lists an mn title; number-line-integers_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  }
+ ],
+ "b-dec": [
+  {
+   "name": "Area Model Decimals",
+   "name_mn": "Талбайн Загвар Бутархайгаар",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/area-model-decimals/latest/area-model-decimals_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/area-model-decimals",
+   "translations": "https://phet.colorado.edu/en/simulations/area-model-decimals/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Tenths and hundredths as parts of an area model",
+   "verified": "PhET metadata API lists an mn title; area-model-decimals_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  }
+ ],
+ "coord": [
+  {
+   "name": "Graphing Lines",
+   "name_mn": "Шулууны График",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/graphing-lines/latest/graphing-lines_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/graphing-lines",
+   "translations": "https://phet.colorado.edu/en/simulations/graphing-lines/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Plotting points and reading coordinates (point tool in the line game)",
+   "verified": "PhET metadata API lists an mn title; graphing-lines_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  },
+  {
+   "name": "Illustrative Mathematics Grade 6 Unit 7: Rational Numbers",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/MS/students/1/7/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "The coordinate plane, all four quadrants",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "tri": [
+  {
+   "name": "Sum of the Angles in a Triangle",
+   "kind": "geogebra",
+   "url": "https://www.geogebra.org/m/Gqpzh9Sc",
+   "material_id": "Gqpzh9Sc",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Line through a vertex parallel to the base shows the angle sum is 180 degrees",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  },
+  {
+   "name": "Sum of angles in a triangle is 180 degrees",
+   "kind": "geogebra",
+   "url": "https://www.geogebra.org/m/h7knGRyf",
+   "material_id": "h7knGRyf",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Drag the vertices; the three angles always add to 180 degrees",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  },
+  {
+   "name": "Illustrative Mathematics Grade 8 Unit 1: Rigid Transformations and Congruence",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/MS/students/3/1/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Angles in a triangle",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "transform": [
+  {
+   "name": "Explore Transformations - Translate, Reflect, and Rotate.  Extension - Enlargement",
+   "kind": "geogebra",
+   "url": "https://www.geogebra.org/m/nMHuhtQk",
+   "material_id": "nMHuhtQk",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Translate, reflect, rotate, enlarge one shape and compare",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  },
+  {
+   "name": "Transformations (Translation, Reflection & Rotation)",
+   "kind": "geogebra",
+   "url": "https://www.geogebra.org/m/jxahxpjk",
+   "material_id": "jxahxpjk",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Transformations on coordinates (x, y) -> (-x, y) etc.",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  },
+  {
+   "name": "Illustrative Mathematics Grade 8 Unit 1: Rigid Transformations and Congruence",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/MS/students/3/1/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Rigid transformations",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "solids": [
+  {
+   "name": "Exploring Nets of Solids",
+   "kind": "geogebra",
+   "url": "https://www.geogebra.org/m/w6pNWJaV",
+   "material_id": "w6pNWJaV",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Cube, square pyramid and triangular prism unfold into nets",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  },
+  {
+   "name": "Three dimensional figures unfolded",
+   "kind": "geogebra-book",
+   "url": "https://www.geogebra.org/m/feegBBfb",
+   "material_id": "feegBBfb",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Book: nets of pyramid, cone, cylinder, cube, prisms",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  }
+ ],
+ "units": [
+  {
+   "name": "Illustrative Mathematics Grade 6 Unit 3: Unit Rates and Percentages",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/MS/students/1/3/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Units of measurement and unit conversion",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "perim-area": [
+  {
+   "name": "Area Builder",
+   "name_mn": "Талбай байгуулагч",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/area-builder/latest/area-builder_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/area-builder",
+   "translations": "https://phet.colorado.edu/en/simulations/area-builder/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Area and perimeter of shapes built on a grid; same area, different perimeter",
+   "verified": "PhET metadata API lists an mn title; area-builder_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header",
+   "mn_note": "Translation may be partial (few Mongolian strings found in the file); check in the browser"
+  },
+  {
+   "name": "Illustrative Mathematics Grade 6 Unit 1: Area and Surface Area",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/MS/students/1/1/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Area of parallelograms, triangles, polygons by cutting and rearranging",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "vol-surf": [
+  {
+   "name": "Three dimensional figures unfolded",
+   "kind": "geogebra-book",
+   "url": "https://www.geogebra.org/m/feegBBfb",
+   "material_id": "feegBBfb",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Nets used to find surface area",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  },
+  {
+   "name": "Illustrative Mathematics Grade 6 Unit 1: Area and Surface Area",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/MS/students/1/1/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Surface area from nets; squares and cubes",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "gcd": [
+  {
+   "name": "Illustrative Mathematics Grade 6 Unit 7: Rational Numbers",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/MS/students/1/7/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Common factors and common multiples",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "frac": [
+  {
+   "name": "Fractions: Intro",
+   "name_mn": "Бутархай: Тайлбар",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/fractions-intro/latest/fractions-intro_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/fractions-intro",
+   "translations": "https://phet.colorado.edu/en/simulations/fractions-intro/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Fraction as parts of a whole; numerator and denominator with circles, bars and a number line",
+   "verified": "PhET metadata API lists an mn title; fractions-intro_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  },
+  {
+   "name": "Build a Fraction",
+   "name_mn": "Бутархайг Бүтээх",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/build-a-fraction/latest/build-a-fraction_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/build-a-fraction",
+   "translations": "https://phet.colorado.edu/en/simulations/build-a-fraction/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Build a given fraction from shapes or numbers (game levels)",
+   "verified": "PhET metadata API lists an mn title; build-a-fraction_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  },
+  {
+   "name": "Fractions: Equality",
+   "name_mn": "Бутархай: Тэнцэтгэл",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/fractions-equality/latest/fractions-equality_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/fractions-equality",
+   "translations": "https://phet.colorado.edu/en/simulations/fractions-equality/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Equivalent fractions: same amount, different pieces",
+   "verified": "PhET metadata API lists an mn title; fractions-equality_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  },
+  {
+   "name": "Fraction Matcher",
+   "name_mn": "Бутархайн Харьцуулалт",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/fraction-matcher/latest/fraction-matcher_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/fraction-matcher",
+   "translations": "https://phet.colorado.edu/en/simulations/fraction-matcher/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Match pictures and fraction numbers that show the same amount; compare fractions",
+   "verified": "PhET metadata API lists an mn title; fraction-matcher_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  },
+  {
+   "name": "Fractions: Mixed Numbers",
+   "name_mn": "Бутархай: Холимог Тоо",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/fractions-mixed-numbers/latest/fractions-mixed-numbers_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/fractions-mixed-numbers",
+   "translations": "https://phet.colorado.edu/en/simulations/fractions-mixed-numbers/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Improper fractions and mixed numbers",
+   "verified": "PhET metadata API lists an mn title; fractions-mixed-numbers_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  }
+ ],
+ "frac-add": [
+  {
+   "name": "Fractions: Equality",
+   "name_mn": "Бутархай: Тэнцэтгэл",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/fractions-equality/latest/fractions-equality_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/fractions-equality",
+   "translations": "https://phet.colorado.edu/en/simulations/fractions-equality/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Equivalent fractions, the step needed before adding with unlike denominators (no adding screen)",
+   "verified": "PhET metadata API lists an mn title; fractions-equality_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  }
+ ],
+ "dec": [
+  {
+   "name": "Area Model Decimals",
+   "name_mn": "Талбайн Загвар Бутархайгаар",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/area-model-decimals/latest/area-model-decimals_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/area-model-decimals",
+   "translations": "https://phet.colorado.edu/en/simulations/area-model-decimals/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Multiplying decimals with an area model",
+   "verified": "PhET metadata API lists an mn title; area-model-decimals_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  },
+  {
+   "name": "Illustrative Mathematics Grade 6 Unit 5: Arithmetic in Base Ten",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/MS/students/1/5/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Adding, subtracting, multiplying, dividing decimals",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "pct": [
+  {
+   "name": "Illustrative Mathematics Grade 6 Unit 3: Unit Rates and Percentages",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/MS/students/1/3/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Percentages as rates per 100",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "ratio": [
+  {
+   "name": "Ratio and Proportion",
+   "name_mn": "Харьцаа ба Пропорц",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/ratio-and-proportion/latest/ratio-and-proportion_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/ratio-and-proportion",
+   "translations": "https://phet.colorado.edu/en/simulations/ratio-and-proportion/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Move two hands to keep a ratio constant",
+   "verified": "PhET metadata API lists an mn title; ratio-and-proportion_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  },
+  {
+   "name": "Proportion Playground",
+   "name_mn": "Хамаарлын Тоглоомын талбай",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/proportion-playground/latest/proportion-playground_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/proportion-playground",
+   "translations": "https://phet.colorado.edu/en/simulations/proportion-playground/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Necklaces, paint mixing, billiards: same ratio, different sizes",
+   "verified": "PhET metadata API lists an mn title; proportion-playground_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header",
+   "mn_note": "Translation may be partial (few Mongolian strings found in the file); check in the browser"
+  },
+  {
+   "name": "Illustrative Mathematics Grade 6 Unit 2: Introducing Ratios",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/MS/students/1/2/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Ratios, equivalent ratios, tables and double number lines",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "int": [
+  {
+   "name": "Number Line: Integers",
+   "name_mn": "Тоон шулуун: Бүхэл",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/number-line-integers/latest/number-line-integers_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/number-line-integers",
+   "translations": "https://phet.colorado.edu/en/simulations/number-line-integers/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Integers on horizontal and vertical number lines (temperature, elevation, money)",
+   "verified": "PhET metadata API lists an mn title; number-line-integers_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  },
+  {
+   "name": "Illustrative Mathematics Grade 6 Unit 7: Rational Numbers",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/MS/students/1/7/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Negative numbers, absolute value, inequalities",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "charts": [
+  {
+   "name": "Center and Variability",
+   "name_mn": "Хувьсагчийн төв",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/center-and-variability/latest/center-and-variability_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/center-and-variability",
+   "translations": "https://phet.colorado.edu/en/simulations/center-and-variability/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Dot plots and box plots",
+   "verified": "PhET metadata API lists an mn title; center-and-variability_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  },
+  {
+   "name": "Illustrative Mathematics Grade 6 Unit 8: Data Sets and Distributions",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/MS/students/1/8/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Dot plots and histograms",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "average": [
+  {
+   "name": "Mean: Share and Balance",
+   "name_mn": "Дундаж: Харилцах савны Тэнцвэр",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/mean-share-and-balance/latest/mean-share-and-balance_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/mean-share-and-balance",
+   "translations": "https://phet.colorado.edu/en/simulations/mean-share-and-balance/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Mean as fair sharing and as balance point",
+   "verified": "PhET metadata API lists an mn title; mean-share-and-balance_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  },
+  {
+   "name": "Center and Variability",
+   "name_mn": "Хувьсагчийн төв",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/center-and-variability/latest/center-and-variability_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/center-and-variability",
+   "translations": "https://phet.colorado.edu/en/simulations/center-and-variability/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Mean, median and mode on a dot plot",
+   "verified": "PhET metadata API lists an mn title; center-and-variability_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  },
+  {
+   "name": "Illustrative Mathematics Grade 6 Unit 8: Data Sets and Distributions",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/MS/students/1/8/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Mean, median and variability",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "expr": [
+  {
+   "name": "Expression Exchange",
+   "name_mn": "Шуурхай Өөрчлөх",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/expression-exchange/latest/expression-exchange_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/expression-exchange",
+   "translations": "https://phet.colorado.edu/en/simulations/expression-exchange/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Collect like terms with coins and variables",
+   "verified": "PhET metadata API lists an mn title; expression-exchange_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header",
+   "mn_note": "Translation may be partial (few Mongolian strings found in the file); check in the browser"
+  },
+  {
+   "name": "Area Model Algebra",
+   "name_mn": "Талбайн загварын Алгебр",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/area-model-algebra/latest/area-model-algebra_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/area-model-algebra",
+   "translations": "https://phet.colorado.edu/en/simulations/area-model-algebra/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Expressions as areas of rectangles",
+   "verified": "PhET metadata API lists an mn title; area-model-algebra_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  },
+  {
+   "name": "Illustrative Mathematics Grade 6 Unit 6: Expressions and Equations",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/MS/students/1/6/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Equivalent expressions and expressions with exponents",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "lin-eq": [
+  {
+   "name": "Equality Explorer",
+   "name_mn": "Тэнцэтгэл Судлах",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/equality-explorer/latest/equality-explorer_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/equality-explorer",
+   "translations": "https://phet.colorado.edu/en/simulations/equality-explorer/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Solve linear equations by doing the same thing to both sides of a balance",
+   "verified": "PhET metadata API lists an mn title; equality-explorer_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  },
+  {
+   "name": "Equality Explorer: Basics",
+   "name_mn": "Тэнцэтгэл Судлах: Үндсэн",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/equality-explorer-basics/latest/equality-explorer-basics_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/equality-explorer-basics",
+   "translations": "https://phet.colorado.edu/en/simulations/equality-explorer-basics/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Simpler balance-scale equations",
+   "verified": "PhET metadata API lists an mn title; equality-explorer-basics_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  },
+  {
+   "name": "Illustrative Mathematics Grade 6 Unit 6: Expressions and Equations",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/MS/students/1/6/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Equations in one variable",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "seq": [
+  {
+   "name": "Illustrative Mathematics Algebra 2 Unit 1: Sequences and Functions",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/HS/students/3/1/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Sequences defined by a rule",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "func": [
+  {
+   "name": "Function Builder",
+   "name_mn": "Үйлдэл бүтээгч",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/function-builder/latest/function-builder_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/function-builder",
+   "translations": "https://phet.colorado.edu/en/simulations/function-builder/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Input-output machines; find the rule",
+   "verified": "PhET metadata API lists an mn title; function-builder_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  },
+  {
+   "name": "Function Builder: Basics",
+   "name_mn": "Үйлдэл Бүтээгч: Үндсэн",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/function-builder-basics/latest/function-builder-basics_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/function-builder-basics",
+   "translations": "https://phet.colorado.edu/en/simulations/function-builder-basics/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Simple function machines with shapes and numbers",
+   "verified": "PhET metadata API lists an mn title; function-builder-basics_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  },
+  {
+   "name": "Illustrative Mathematics Grade 8 Unit 5: Functions and Volume",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/MS/students/3/5/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Inputs and outputs, representing functions",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "direct": [
+  {
+   "name": "Unit Rates",
+   "name_mn": "Нэгжийн харьцаа",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/unit-rates/latest/unit-rates_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/unit-rates",
+   "translations": "https://phet.colorado.edu/en/simulations/unit-rates/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Price per kilogram: double line and a constant unit rate",
+   "verified": "PhET metadata API lists an mn title; unit-rates_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  },
+  {
+   "name": "Illustrative Mathematics Grade 7 Unit 2: Introducing Proportional Relationships",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/MS/students/2/2/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Proportional relationships in tables, equations and graphs",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "angle": [
+  {
+   "name": "Parallel Lines & Related Angles",
+   "kind": "geogebra",
+   "url": "https://www.geogebra.org/m/nfb2rtys",
+   "material_id": "nfb2rtys",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Vertical and supplementary angles where a line crosses two lines",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  },
+  {
+   "name": "Illustrative Mathematics Grade 7 Unit 7: Angles, Triangles, and Prisms",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/MS/students/2/7/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Angle relationships",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "polygon": [
+  {
+   "name": "Quadrilateral",
+   "name_mn": "Дөрвөлжин",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/quadrilateral/latest/quadrilateral_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/quadrilateral",
+   "translations": "https://phet.colorado.edu/en/simulations/quadrilateral/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Properties of quadrilaterals as you drag corners",
+   "verified": "PhET metadata API lists an mn title; quadrilateral_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  }
+ ],
+ "circle": [
+  {
+   "name": "Unroll a Circle",
+   "kind": "geogebra",
+   "url": "https://www.geogebra.org/m/BYFEtXWw",
+   "material_id": "BYFEtXWw",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Unroll a circle: the diameter fits about 3.14 times",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  }
+ ],
+ "frac-mul": [
+  {
+   "name": "Illustrative Mathematics Grade 6 Unit 4: Dividing Fractions",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/MS/students/1/4/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Meaning of dividing fractions and the algorithm",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "prop": [
+  {
+   "name": "Ratio and Proportion",
+   "name_mn": "Харьцаа ба Пропорц",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/ratio-and-proportion/latest/ratio-and-proportion_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/ratio-and-proportion",
+   "translations": "https://phet.colorado.edu/en/simulations/ratio-and-proportion/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Equal ratios form a proportion",
+   "verified": "PhET metadata API lists an mn title; ratio-and-proportion_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  },
+  {
+   "name": "Proportion Playground",
+   "name_mn": "Хамаарлын Тоглоомын талбай",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/proportion-playground/latest/proportion-playground_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/proportion-playground",
+   "translations": "https://phet.colorado.edu/en/simulations/proportion-playground/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Find equal ratios in pictures",
+   "verified": "PhET metadata API lists an mn title; proportion-playground_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header",
+   "mn_note": "Translation may be partial (few Mongolian strings found in the file); check in the browser"
+  },
+  {
+   "name": "Illustrative Mathematics Grade 7 Unit 2: Introducing Proportional Relationships",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/MS/students/2/2/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Proportional relationships",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "pow": [
+  {
+   "name": "Illustrative Mathematics Grade 6 Unit 6: Expressions and Equations",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/MS/students/1/6/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Expressions with exponents",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "root": [
+  {
+   "name": "Illustrative Mathematics Grade 8 Unit 8: Pythagorean Theorem and Irrational Numbers",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/MS/students/3/8/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Side lengths of squares and cubes (square and cube roots)",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "data": [
+  {
+   "name": "Center and Variability",
+   "name_mn": "Хувьсагчийн төв",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/center-and-variability/latest/center-and-variability_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/center-and-variability",
+   "translations": "https://phet.colorado.edu/en/simulations/center-and-variability/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Dot plots of collected data",
+   "verified": "PhET metadata API lists an mn title; center-and-variability_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  },
+  {
+   "name": "Illustrative Mathematics Grade 7 Unit 8: Probability and Sampling",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/MS/students/2/8/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Sampling and using samples",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "prob": [
+  {
+   "name": "Plinko Probability",
+   "name_mn": "Plinko магадлалын түгэлт",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/plinko-probability/latest/plinko-probability_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/plinko-probability",
+   "translations": "https://phet.colorado.edu/en/simulations/plinko-probability/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Many random trials of a ball falling through pegs",
+   "verified": "PhET metadata API lists an mn title; plinko-probability_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header",
+   "mn_note": "Translation may be partial (few Mongolian strings found in the file); check in the browser"
+  },
+  {
+   "name": "Illustrative Mathematics Grade 7 Unit 8: Probability and Sampling",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/MS/students/2/8/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Single- and multi-step probability",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "poly": [
+  {
+   "name": "Area Model Algebra",
+   "name_mn": "Талбайн загварын Алгебр",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/area-model-algebra/latest/area-model-algebra_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/area-model-algebra",
+   "translations": "https://phet.colorado.edu/en/simulations/area-model-algebra/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Multiplying polynomials with an area model",
+   "verified": "PhET metadata API lists an mn title; area-model-algebra_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  }
+ ],
+ "ap": [
+  {
+   "name": "Illustrative Mathematics Algebra 2 Unit 1: Sequences and Functions",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/HS/students/3/1/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Arithmetic and geometric sequences",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "linear": [
+  {
+   "name": "Graphing Lines",
+   "name_mn": "Шулууны График",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/graphing-lines/latest/graphing-lines_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/graphing-lines",
+   "translations": "https://phet.colorado.edu/en/simulations/graphing-lines/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "y = mx + b and point-slope form; change m and b and watch the line",
+   "verified": "PhET metadata API lists an mn title; graphing-lines_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  },
+  {
+   "name": "Graphing Slope-Intercept",
+   "name_mn": "Налуу-Хэрчимийн График",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/graphing-slope-intercept/latest/graphing-slope-intercept_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/graphing-slope-intercept",
+   "translations": "https://phet.colorado.edu/en/simulations/graphing-slope-intercept/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Slope-intercept form of a line",
+   "verified": "PhET metadata API lists an mn title; graphing-slope-intercept_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  },
+  {
+   "name": "Illustrative Mathematics Grade 8 Unit 3: Linear Relationships",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/MS/students/3/3/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Linear relationships and slope",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "parallel": [
+  {
+   "name": "Parallel Lines & Related Angles",
+   "kind": "geogebra-book",
+   "url": "https://www.geogebra.org/m/Mp5eG5hA",
+   "material_id": "Mp5eG5hA",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Book (Tim Brzezinski): corresponding, alternate and co-interior angles",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  },
+  {
+   "name": "Parallel Lines & Related Angles",
+   "kind": "geogebra",
+   "url": "https://www.geogebra.org/m/nfb2rtys",
+   "material_id": "nfb2rtys",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Drag the transversal and find the angle relationships",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  }
+ ],
+ "proof": [
+  {
+   "name": "Illustrative Mathematics Geometry Unit 2: Congruence",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/HS/students/2/2/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Proofs about congruent triangles and quadrilaterals",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "construct": [
+  {
+   "name": "Basic Constructions",
+   "kind": "geogebra",
+   "url": "https://www.geogebra.org/m/n9m22gj5",
+   "material_id": "n9m22gj5",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Compass steps: perpendicular bisector and angle bisector",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  },
+  {
+   "name": "Constructing a perpendicular Bisector",
+   "kind": "geogebra",
+   "url": "https://www.geogebra.org/m/tqfsrpcf",
+   "material_id": "tqfsrpcf",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Perpendicular bisector with hints for each step",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  },
+  {
+   "name": "Illustrative Mathematics Geometry Unit 1: Constructions and Rigid Transformations",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/HS/students/2/1/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Compass and straightedge constructions",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "congruent": [
+  {
+   "name": "Triangle Congruence Investigation",
+   "kind": "geogebra-book",
+   "url": "https://www.geogebra.org/m/dVUczkUm",
+   "material_id": "dVUczkUm",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Book: which of SSS, SAS, ASA, SSA, AAA force congruence",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  },
+  {
+   "name": "Exploring Triangle Congruence",
+   "kind": "geogebra-book",
+   "url": "https://www.geogebra.org/m/rt6u7n8v",
+   "material_id": "rt6u7n8v",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Book: explore each congruence condition",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  },
+  {
+   "name": "Illustrative Mathematics Grade 8 Unit 1: Rigid Transformations and Congruence",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/MS/students/3/1/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Congruence through transformations",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "circle-meas": [
+  {
+   "name": "Circumference and Area of a Circle",
+   "kind": "geogebra",
+   "url": "https://www.geogebra.org/m/WsQH6NmT",
+   "material_id": "WsQH6NmT",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Roll the circle for C = πd; cut into sectors for A = πr^2",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  },
+  {
+   "name": "Area of Circle",
+   "kind": "geogebra",
+   "url": "https://www.geogebra.org/m/jzsxxnhq",
+   "material_id": "jzsxxnhq",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Sectors rearranged into a near-rectangle gives the area",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  },
+  {
+   "name": "Illustrative Mathematics Grade 7 Unit 3: Measuring Circles",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/MS/students/2/3/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Circumference and area of a circle",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "int-ops": [
+  {
+   "name": "Number Line: Operations",
+   "name_mn": "Тоон шулуун: Үйлдэл",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/number-line-operations/latest/number-line-operations_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/number-line-operations",
+   "translations": "https://phet.colorado.edu/en/simulations/number-line-operations/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Adding and subtracting integers as moves on a number line",
+   "verified": "PhET metadata API lists an mn title; number-line-operations_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  },
+  {
+   "name": "Illustrative Mathematics Grade 7 Unit 5: Rational Number Arithmetic",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/MS/students/2/5/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Four operations with positive and negative numbers",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "abs": [
+  {
+   "name": "Number Line: Distance",
+   "name_mn": "Тоон шулуун: Зай",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/number-line-distance/latest/number-line-distance_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/number-line-distance",
+   "translations": "https://phet.colorado.edu/en/simulations/number-line-distance/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Distance between numbers and absolute value on a number line",
+   "verified": "PhET metadata API lists an mn title; number-line-distance_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  },
+  {
+   "name": "Illustrative Mathematics Grade 6 Unit 7: Rational Numbers",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/MS/students/1/7/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Absolute value as distance from zero",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "grouped": [
+  {
+   "name": "Illustrative Mathematics Grade 6 Unit 8: Data Sets and Distributions",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/MS/students/1/8/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Histograms of grouped data",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "rel-freq": [
+  {
+   "name": "Plinko Probability",
+   "name_mn": "Plinko магадлалын түгэлт",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/plinko-probability/latest/plinko-probability_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/plinko-probability",
+   "translations": "https://phet.colorado.edu/en/simulations/plinko-probability/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Relative frequency settles down as trials grow",
+   "verified": "PhET metadata API lists an mn title; plinko-probability_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header",
+   "mn_note": "Translation may be partial (few Mongolian strings found in the file); check in the browser"
+  }
+ ],
+ "special-prod": [
+  {
+   "name": "Area Model Algebra",
+   "name_mn": "Талбайн загварын Алгебр",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/area-model-algebra/latest/area-model-algebra_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/area-model-algebra",
+   "translations": "https://phet.colorado.edu/en/simulations/area-model-algebra/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "(a+b)^2 and similar products as areas",
+   "verified": "PhET metadata API lists an mn title; area-model-algebra_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  }
+ ],
+ "factor": [
+  {
+   "name": "Area Model Algebra",
+   "name_mn": "Талбайн загварын Алгебр",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/area-model-algebra/latest/area-model-algebra_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/area-model-algebra",
+   "translations": "https://phet.colorado.edu/en/simulations/area-model-algebra/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Factoring as finding the sides of a rectangle with a given area",
+   "verified": "PhET metadata API lists an mn title; area-model-algebra_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  }
+ ],
+ "formula": [
+  {
+   "name": "Illustrative Mathematics Algebra 1 Unit 2: Linear Equations, Inequalities, and Systems",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/HS/students/1/2/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Manipulating equations and their structure",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "system": [
+  {
+   "name": "Equality Explorer: Two Variables",
+   "name_mn": "Тэнцэтгэл Судлах: Хоёр Хувьсагч",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/equality-explorer-two-variables/latest/equality-explorer-two-variables_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/equality-explorer-two-variables",
+   "translations": "https://phet.colorado.edu/en/simulations/equality-explorer-two-variables/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Balances with two unknowns",
+   "verified": "PhET metadata API lists an mn title; equality-explorer-two-variables_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  },
+  {
+   "name": "Graphing Lines",
+   "name_mn": "Шулууны График",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/graphing-lines/latest/graphing-lines_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/graphing-lines",
+   "translations": "https://phet.colorado.edu/en/simulations/graphing-lines/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Two lines on one graph; the intersection point",
+   "verified": "PhET metadata API lists an mn title; graphing-lines_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  },
+  {
+   "name": "Illustrative Mathematics Grade 8 Unit 4: Linear Equations and Linear Systems",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/MS/students/3/4/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Systems of linear equations",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "ineq": [
+  {
+   "name": "Illustrative Mathematics Grade 7 Unit 6: Expressions, Equations, and Inequalities",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/MS/students/2/6/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Writing and solving inequalities",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "rat-eq": [
+  {
+   "name": "Illustrative Mathematics Algebra 2 Unit 2: Polynomials and Rational Functions",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/HS/students/3/2/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Rational equations",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "slope": [
+  {
+   "name": "Graphing Slope-Intercept",
+   "name_mn": "Налуу-Хэрчимийн График",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/graphing-slope-intercept/latest/graphing-slope-intercept_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/graphing-slope-intercept",
+   "translations": "https://phet.colorado.edu/en/simulations/graphing-slope-intercept/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Slope as rise over run",
+   "verified": "PhET metadata API lists an mn title; graphing-slope-intercept_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  },
+  {
+   "name": "Graphing Lines",
+   "name_mn": "Шулууны График",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/graphing-lines/latest/graphing-lines_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/graphing-lines",
+   "translations": "https://phet.colorado.edu/en/simulations/graphing-lines/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Slope screen with rise and run arrows",
+   "verified": "PhET metadata API lists an mn title; graphing-lines_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  },
+  {
+   "name": "Illustrative Mathematics Grade 8 Unit 2: Dilations, Similarity, and Introducing Slope",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/MS/students/3/2/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Dilations, similarity and slope",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "quad-fn": [
+  {
+   "name": "Graphing Quadratics",
+   "name_mn": "Квадрат Функцын График",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/graphing-quadratics/latest/graphing-quadratics_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/graphing-quadratics",
+   "translations": "https://phet.colorado.edu/en/simulations/graphing-quadratics/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Change a, b, c and vertex form; vertex, axis of symmetry, roots",
+   "verified": "PhET metadata API lists an mn title; graphing-quadratics_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  },
+  {
+   "name": "Standard Form of a Quadratic Equation",
+   "kind": "geogebra",
+   "url": "https://www.geogebra.org/m/xTcB4eQu",
+   "material_id": "xTcB4eQu",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Sliders a, h, k in y = a(x-h)^2 + k",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  },
+  {
+   "name": "Quadratic Functions: Vertex Form",
+   "kind": "geogebra",
+   "url": "https://www.geogebra.org/m/DKqSmxK9",
+   "material_id": "DKqSmxK9",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Vertex form explained step by step",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  },
+  {
+   "name": "Illustrative Mathematics Algebra 1 Unit 6: Introduction to Quadratic Functions",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/HS/students/1/6/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Introduction to quadratic functions",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "similar": [
+  {
+   "name": "Dilation and similar triangles",
+   "kind": "geogebra",
+   "url": "https://www.geogebra.org/m/huphdfg8",
+   "material_id": "huphdfg8",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Dilation from a point makes a similar triangle",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  },
+  {
+   "name": "Similarity, Right Triangles, and Trigonometry (SRT) Cluster",
+   "kind": "geogebra-book",
+   "url": "https://www.geogebra.org/m/YHFzmrSJ",
+   "material_id": "YHFzmrSJ",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Book (Tim Brzezinski): dilations, similarity, right triangles, trig",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  },
+  {
+   "name": "Illustrative Mathematics Grade 7 Unit 1: Scale Drawings",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/MS/students/2/1/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Scaled copies and scale drawings",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "pyth": [
+  {
+   "name": "Dynamic Pythagorean Theorem",
+   "kind": "geogebra",
+   "url": "https://www.geogebra.org/m/pc5fubmq",
+   "material_id": "pc5fubmq",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Move a slider for a dynamic area proof of a^2 + b^2 = c^2",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  },
+  {
+   "name": "Illustrative Mathematics Grade 8 Unit 8: Pythagorean Theorem and Irrational Numbers",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/MS/students/3/8/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "The Pythagorean theorem",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "tri-lines": [
+  {
+   "name": "Incenter, Orthocenter, Centroid and Circumcenter Interactive",
+   "kind": "geogebra",
+   "url": "https://www.geogebra.org/m/BfVXWKGh",
+   "material_id": "BfVXWKGh",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Medians, angle bisectors, altitudes and their meeting points",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  },
+  {
+   "name": "Triangle Center Applet",
+   "kind": "geogebra",
+   "url": "https://www.geogebra.org/m/kmTYpfhj",
+   "material_id": "kmTYpfhj",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Tick boxes to show each kind of line and its centre",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  }
+ ],
+ "circle-angles": [
+  {
+   "name": "Inscribed Angle Theorem: Discovery and Proof",
+   "kind": "geogebra-book",
+   "url": "https://www.geogebra.org/m/VUnBAhvB",
+   "material_id": "VUnBAhvB",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Book (Tim Brzezinski): discover and prove the inscribed angle theorem",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  },
+  {
+   "name": "Inscribed Angle Theorem (Intro): What Do You See Here?",
+   "kind": "geogebra",
+   "url": "https://www.geogebra.org/m/CkttSz4u",
+   "material_id": "CkttSz4u",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Inscribed angle is half the central angle on the same arc",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  },
+  {
+   "name": "Illustrative Mathematics Geometry Unit 7: Circles",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/HS/students/2/7/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Lines, angles and circles",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "chord-tangent": [
+  {
+   "name": "Theorems about Tangents & Chords - play around with each of these applets to discover!",
+   "kind": "geogebra",
+   "url": "https://www.geogebra.org/m/bvtxyfaj",
+   "material_id": "bvtxyfaj",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Tangent is perpendicular to the radius; chord theorems",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  },
+  {
+   "name": "Circle Theorems",
+   "kind": "geogebra",
+   "url": "https://www.geogebra.org/m/ERRf2GBU",
+   "material_id": "ERRf2GBU",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Circle theorems collection: tangents, chords",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  },
+  {
+   "name": "Illustrative Mathematics Geometry Unit 7: Circles",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/HS/students/2/7/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Lines, angles and circles",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "coord-geo": [
+  {
+   "name": "Illustrative Mathematics Geometry Unit 6: Coordinate Geometry",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/HS/students/2/6/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Distances, circles and parabolas on coordinates",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "sim-ratio": [
+  {
+   "name": "Illustrative Mathematics Geometry Unit 5: Solid Geometry",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/HS/students/2/5/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Scaling solids: area and volume",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "speed": [
+  {
+   "name": "Unit Rates",
+   "name_mn": "Нэгжийн харьцаа",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/unit-rates/latest/unit-rates_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/unit-rates",
+   "translations": "https://phet.colorado.edu/en/simulations/unit-rates/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Racing Lab screen: distance, time and rate",
+   "verified": "PhET metadata API lists an mn title; unit-rates_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  }
+ ],
+ "pct-app": [
+  {
+   "name": "Illustrative Mathematics Grade 7 Unit 4: Proportional Relationships and Percentages",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/MS/students/2/4/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Percent increase and decrease, applying percentages",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "inv-prop": [
+  {
+   "name": "Balancing Act",
+   "name_mn": "Тэнцвэрийн хууль",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/balancing-act/latest/balancing-act_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/balancing-act",
+   "translations": "https://phet.colorado.edu/en/simulations/balancing-act/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Mass times distance: a heavier mass needs a shorter arm (inverse proportion)",
+   "verified": "PhET metadata API lists an mn title; balancing-act_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  }
+ ],
+ "neg-pow": [
+  {
+   "name": "Illustrative Mathematics Grade 8 Unit 7: Exponents and Scientific Notation",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/MS/students/3/7/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Exponent rules including negative exponents",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "prob-rules": [
+  {
+   "name": "Illustrative Mathematics Geometry Unit 8: Conditional Probability",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/HS/students/2/8/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Combining events",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "quad-eq": [
+  {
+   "name": "Graphing Quadratics",
+   "name_mn": "Квадрат Функцын График",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/graphing-quadratics/latest/graphing-quadratics_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/graphing-quadratics",
+   "translations": "https://phet.colorado.edu/en/simulations/graphing-quadratics/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Roots of the quadratic seen as x-intercepts; no real roots case",
+   "verified": "PhET metadata API lists an mn title; graphing-quadratics_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  },
+  {
+   "name": "Illustrative Mathematics Algebra 1 Unit 7: Quadratic Equations",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/HS/students/1/7/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Solving quadratic equations, completing the square, the formula",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "exp-eq": [
+  {
+   "name": "Illustrative Mathematics Algebra 2 Unit 4: Exponential Functions and Equations",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/HS/students/3/4/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Missing exponents",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "cross-sec": [
+  {
+   "name": "Cross Sections",
+   "kind": "geogebra-book",
+   "url": "https://www.geogebra.org/m/wfdu3sq8",
+   "material_id": "wfdu3sq8",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Book: plane cutting a cube and a prism, cross-section shown beside",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  },
+  {
+   "name": "Cross Sections of a Cube",
+   "kind": "geogebra",
+   "url": "https://www.geogebra.org/m/jaevjs6z",
+   "material_id": "jaevjs6z",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Cross-sections of a cube: triangle to hexagon",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  },
+  {
+   "name": "Illustrative Mathematics Grade 7 Unit 7: Angles, Triangles, and Prisms",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/MS/students/2/7/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Solid geometry, including cross-sections",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "trig-right": [
+  {
+   "name": "Trig Tour",
+   "name_mn": "Тригно Аян",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/trig-tour/latest/trig-tour_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/trig-tour",
+   "translations": "https://phet.colorado.edu/en/simulations/trig-tour/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "sin, cos and tan of an angle shown on a circle",
+   "verified": "PhET metadata API lists an mn title; trig-tour_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  },
+  {
+   "name": "Trig Ratios of Similar Right Triangles",
+   "kind": "geogebra",
+   "url": "https://www.geogebra.org/m/xjV43vwS",
+   "material_id": "xjV43vwS",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Similar right triangles have the same sin, cos, tan",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  },
+  {
+   "name": "Right Triangle Trig Ratios",
+   "kind": "geogebra",
+   "url": "https://www.geogebra.org/m/uzEFMwtd",
+   "material_id": "uzEFMwtd",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Measure three similar triangles and compare ratios",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  },
+  {
+   "name": "Illustrative Mathematics Geometry Unit 4: Right Triangle Trigonometry",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/HS/students/2/4/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Defining trigonometric ratios",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "vector": [
+  {
+   "name": "Vector Addition",
+   "name_mn": "Векторын Нийлбэр",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/vector-addition/latest/vector-addition_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/vector-addition",
+   "translations": "https://phet.colorado.edu/en/simulations/vector-addition/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Add vectors tip to tail; components",
+   "verified": "PhET metadata API lists an mn title; vector-addition_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  },
+  {
+   "name": "Vector Addition: Equations",
+   "name_mn": "Векторын Нийлбэр: Томъёо",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/vector-addition-equations/latest/vector-addition-equations_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/vector-addition-equations",
+   "translations": "https://phet.colorado.edu/en/simulations/vector-addition-equations/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Vector equations a + b = c and multiples",
+   "verified": "PhET metadata API lists an mn title; vector-addition-equations_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  }
+ ],
+ "sector": [
+  {
+   "name": "Arc Length and Sector Area",
+   "kind": "geogebra",
+   "url": "https://www.geogebra.org/m/NWWDJdu8",
+   "material_id": "NWWDJdu8",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Arc length and sector area with radius and angle",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  },
+  {
+   "name": "Arc Length, Sector, Segment and Chord calculator",
+   "kind": "geogebra",
+   "url": "https://www.geogebra.org/m/senUbWBP",
+   "material_id": "senUbWBP",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Calculator for arc, sector, segment and chord",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  },
+  {
+   "name": "Illustrative Mathematics Geometry Unit 7: Circles",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/HS/students/2/7/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Measuring circles: arcs and sectors",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "sci": [
+  {
+   "name": "Illustrative Mathematics Grade 8 Unit 7: Exponents and Scientific Notation",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/MS/students/3/7/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Scientific notation",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "real": [
+  {
+   "name": "Illustrative Mathematics Grade 8 Unit 8: Pythagorean Theorem and Irrational Numbers",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/MS/students/3/8/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Irrational numbers and decimal representation",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "scatter": [
+  {
+   "name": "Least-Squares Regression",
+   "name_mn": "Хамгийн бага Квадратын Регресс",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/least-squares-regression/latest/least-squares-regression_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/least-squares-regression",
+   "translations": "https://phet.colorado.edu/en/simulations/least-squares-regression/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Scatter plot, best-fit line and correlation coefficient r",
+   "verified": "PhET metadata API lists an mn title; least-squares-regression_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  },
+  {
+   "name": "Curve Fitting",
+   "name_mn": "Муруйг тодорхойлох",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/curve-fitting/latest/curve-fitting_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/curve-fitting",
+   "translations": "https://phet.colorado.edu/en/simulations/curve-fitting/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Fit lines and curves to data points",
+   "verified": "PhET metadata API lists an mn title; curve-fitting_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  },
+  {
+   "name": "Illustrative Mathematics Grade 8 Unit 6: Associations in Data",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/MS/students/3/6/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Associations in numerical data",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "exp-fn": [
+  {
+   "name": "Exponential and Logarithmic Functions",
+   "kind": "geogebra",
+   "url": "https://www.geogebra.org/m/H9darXbr",
+   "material_id": "H9darXbr",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Exponential and log graphs with a base slider; symmetric about y = x",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  },
+  {
+   "name": "Illustrative Mathematics Algebra 1 Unit 5: Introduction to Exponential Functions",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/HS/students/1/5/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Exponential growth and decay",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "det": [
+  {
+   "name": "Determinant of a 2x2 Matrix",
+   "kind": "geogebra",
+   "url": "https://www.geogebra.org/m/rsfuwyur",
+   "material_id": "rsfuwyur",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Determinant equals the area of a parallelogram",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  },
+  {
+   "name": "Geometry_determinant",
+   "kind": "geogebra",
+   "url": "https://www.geogebra.org/m/h7jy2wk3",
+   "material_id": "h7jy2wk3",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Geometric meaning of a 2x2 determinant",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  }
+ ],
+ "tangent-slope": [
+  {
+   "name": "Calculus Grapher",
+   "name_mn": "Графикын Тооцоолол",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/calculus-grapher/latest/calculus-grapher_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/calculus-grapher",
+   "translations": "https://phet.colorado.edu/en/simulations/calculus-grapher/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Tangent line and slope of a curve at a point",
+   "verified": "PhET metadata API lists an mn title; calculus-grapher_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  },
+  {
+   "name": "Derivative as Limit of Slopes of Secant Lines",
+   "kind": "geogebra",
+   "url": "https://www.geogebra.org/m/JxQ3BdSz",
+   "material_id": "JxQ3BdSz",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Secant slopes approach the tangent slope",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  },
+  {
+   "name": "Slope of a Curve",
+   "kind": "geogebra",
+   "url": "https://www.geogebra.org/m/fdSYJtym",
+   "material_id": "fdSYJtym",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Slope of a curve: animate h to 0",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  }
+ ],
+ "locus": [
+  {
+   "name": "Graphing Quadratics",
+   "name_mn": "Квадрат Функцын График",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/graphing-quadratics/latest/graphing-quadratics_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/graphing-quadratics",
+   "translations": "https://phet.colorado.edu/en/simulations/graphing-quadratics/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Focus and Directrix screen: a parabola as a set of points",
+   "verified": "PhET metadata API lists an mn title; graphing-quadratics_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  },
+  {
+   "name": "Parabola as a Locus of Points",
+   "kind": "geogebra",
+   "url": "https://www.geogebra.org/m/XeTnyZ5y",
+   "material_id": "XeTnyZ5y",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Parabola as the locus of points equidistant from a point and a line",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  },
+  {
+   "name": "Locus Definition of a Parabola",
+   "kind": "geogebra",
+   "url": "https://www.geogebra.org/m/fw9u6zRG",
+   "material_id": "fw9u6zRG",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Trace a parabola as a locus",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  }
+ ],
+ "trig-tri": [
+  {
+   "name": "Discovering the Law of Cosines",
+   "kind": "geogebra",
+   "url": "https://www.geogebra.org/m/cwVnWRkJ",
+   "material_id": "cwVnWRkJ",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Discover the cosine rule by changing the triangle",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  },
+  {
+   "name": "Laws of Sine and Cosine",
+   "kind": "geogebra",
+   "url": "https://www.geogebra.org/m/g8d5ujrq",
+   "material_id": "g8d5ujrq",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Sine and cosine rules",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  }
+ ],
+ "dot": [
+  {
+   "name": "Dot Product Insight",
+   "kind": "geogebra",
+   "url": "https://www.geogebra.org/m/y4yda6mr",
+   "material_id": "y4yda6mr",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Dot product and the angle between vectors",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  },
+  {
+   "name": "Dot products and Cross products",
+   "kind": "geogebra",
+   "url": "https://www.geogebra.org/m/TBVcMyYD",
+   "material_id": "TBVcMyYD",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Dot product, projection, perpendicular vectors",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  }
+ ],
+ "mat-transform": [
+  {
+   "name": "Matrices and Linear Transformations ",
+   "kind": "geogebra",
+   "url": "https://www.geogebra.org/m/BHw6fDmB",
+   "material_id": "BHw6fDmB",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Pick a 2x2 matrix and see how it moves a unit square",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  },
+  {
+   "name": "Matrix Transformations 2x2",
+   "kind": "geogebra",
+   "url": "https://www.geogebra.org/m/nhHhrdQY",
+   "material_id": "nhHhrdQY",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Matrix sliders; what the determinant does to area",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  }
+ ],
+ "spread": [
+  {
+   "name": "Center and Variability",
+   "name_mn": "Хувьсагчийн төв",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/center-and-variability/latest/center-and-variability_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/center-and-variability",
+   "translations": "https://phet.colorado.edu/en/simulations/center-and-variability/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Range, interquartile range and mean absolute deviation",
+   "verified": "PhET metadata API lists an mn title; center-and-variability_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  },
+  {
+   "name": "Illustrative Mathematics Algebra 1 Unit 1: One-variable Statistics",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/HS/students/1/1/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "One-variable statistics: shape, centre, spread",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "gp": [
+  {
+   "name": "Illustrative Mathematics Algebra 2 Unit 1: Sequences and Functions",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/HS/students/3/1/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Arithmetic and geometric sequences",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "fn-props": [
+  {
+   "name": "Illustrative Mathematics Algebra 1 Unit 4: Functions",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/HS/students/1/4/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Functions and inverse functions",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "deriv": [
+  {
+   "name": "Calculus Grapher",
+   "name_mn": "Графикын Тооцоолол",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/calculus-grapher/latest/calculus-grapher_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/calculus-grapher",
+   "translations": "https://phet.colorado.edu/en/simulations/calculus-grapher/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Draw f(x) and see its derivative graph",
+   "verified": "PhET metadata API lists an mn title; calculus-grapher_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  },
+  {
+   "name": "The Tangent Line Problem",
+   "kind": "geogebra",
+   "url": "https://www.geogebra.org/m/jjvtyp6w",
+   "material_id": "jjvtyp6w",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Average vs instantaneous rate of change; limit of the difference quotient",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  }
+ ],
+ "deriv-app": [
+  {
+   "name": "Calculus Grapher",
+   "name_mn": "Графикын Тооцоолол",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/calculus-grapher/latest/calculus-grapher_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/calculus-grapher",
+   "translations": "https://phet.colorado.edu/en/simulations/calculus-grapher/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Where the derivative is zero the curve has a peak or valley",
+   "verified": "PhET metadata API lists an mn title; calculus-grapher_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  }
+ ],
+ "integral": [
+  {
+   "name": "Calculus Grapher",
+   "name_mn": "Графикын Тооцоолол",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/calculus-grapher/latest/calculus-grapher_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/calculus-grapher",
+   "translations": "https://phet.colorado.edu/en/simulations/calculus-grapher/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Draw f(x) and see the integral graph",
+   "verified": "PhET metadata API lists an mn title; calculus-grapher_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  },
+  {
+   "name": "Upper and lower Riemann Sums",
+   "kind": "geogebra",
+   "url": "https://www.geogebra.org/m/XxcwuUm3",
+   "material_id": "XxcwuUm3",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Upper and lower sums for your own function",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  }
+ ],
+ "def-int": [
+  {
+   "name": "Calculus Grapher",
+   "name_mn": "Графикын Тооцоолол",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/calculus-grapher/latest/calculus-grapher_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/calculus-grapher",
+   "translations": "https://phet.colorado.edu/en/simulations/calculus-grapher/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Area under a curve between two points",
+   "verified": "PhET metadata API lists an mn title; calculus-grapher_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  },
+  {
+   "name": "Definite Integral Introduction & Approximation",
+   "kind": "geogebra",
+   "url": "https://www.geogebra.org/m/pmwy2qht",
+   "material_id": "pmwy2qht",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Riemann sums approach the definite integral",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  }
+ ],
+ "radian": [
+  {
+   "name": "Trig Tour",
+   "name_mn": "Тригно Аян",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/trig-tour/latest/trig-tour_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/trig-tour",
+   "translations": "https://phet.colorado.edu/en/simulations/trig-tour/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Switch angle units between degrees and radians",
+   "verified": "PhET metadata API lists an mn title; trig-tour_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  },
+  {
+   "name": "Math 2 | Phase 2 Week 5 Days 1&3 | Measuring Angles With Radians",
+   "kind": "geogebra",
+   "url": "https://www.geogebra.org/m/xg8guvm6",
+   "material_id": "xg8guvm6",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Make the arc equal to the radius: one radian",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  },
+  {
+   "name": "Unit Circle, Radians, and Degrees",
+   "kind": "geogebra",
+   "url": "https://www.geogebra.org/m/F9tFt5ST",
+   "material_id": "F9tFt5ST",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Unit circle with degree and radian labels",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  },
+  {
+   "name": "Illustrative Mathematics Algebra 2 Unit 6: Trigonometric Functions",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/HS/students/3/6/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "The unit circle (radians)",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "trig-fn": [
+  {
+   "name": "Trig Tour",
+   "name_mn": "Тригно Аян",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/trig-tour/latest/trig-tour_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/trig-tour",
+   "translations": "https://phet.colorado.edu/en/simulations/trig-tour/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Graphs of sin, cos, tan traced from the unit circle",
+   "verified": "PhET metadata API lists an mn title; trig-tour_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header"
+  },
+  {
+   "name": "Unit Circle, Radians, and Degrees",
+   "kind": "geogebra",
+   "url": "https://www.geogebra.org/m/F9tFt5ST",
+   "material_id": "F9tFt5ST",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Point on the unit circle: x = cos, y = sin",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  },
+  {
+   "name": "SOHCAHTOA in the Unit Circle",
+   "kind": "geogebra",
+   "url": "https://www.geogebra.org/m/xxTBR6RU",
+   "material_id": "xxTBR6RU",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Unit circle point traces the sine graph",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  },
+  {
+   "name": "Illustrative Mathematics Algebra 2 Unit 6: Trigonometric Functions",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/HS/students/3/6/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "The unit circle and periodic functions",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "cond-prob": [
+  {
+   "name": "Illustrative Mathematics Geometry Unit 8: Conditional Probability",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/HS/students/2/8/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Conditional probability",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "poly-div": [
+  {
+   "name": "Illustrative Mathematics Algebra 2 Unit 2: Polynomials and Rational Functions",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/HS/students/3/2/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Working with polynomials",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "complex": [
+  {
+   "name": "Complex number arithmetic and geometry",
+   "kind": "geogebra",
+   "url": "https://www.geogebra.org/m/zwnkjyvd",
+   "material_id": "zwnkjyvd",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Complex numbers on the plane: add like vectors, multiply by turning",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  },
+  {
+   "name": "Complex multiplication",
+   "kind": "geogebra",
+   "url": "https://www.geogebra.org/m/pZMudksD",
+   "material_id": "pZMudksD",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Multiplying by a complex number rotates and stretches",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  },
+  {
+   "name": "Illustrative Mathematics Algebra 2 Unit 3: Complex Numbers and Rational Exponents",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/HS/students/3/3/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "A new kind of number; quadratics with complex solutions",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "log": [
+  {
+   "name": "Exponential and Logarithmic Functions",
+   "kind": "geogebra",
+   "url": "https://www.geogebra.org/m/H9darXbr",
+   "material_id": "H9darXbr",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Logarithm as the inverse of the exponential function",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  },
+  {
+   "name": "Interactive Transformation of Logarithmic Graphs",
+   "kind": "geogebra",
+   "url": "https://www.geogebra.org/m/by2cdgfp",
+   "material_id": "by2cdgfp",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Parameters of log and exponential graphs",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  },
+  {
+   "name": "Illustrative Mathematics Algebra 2 Unit 4: Exponential Functions and Equations",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/HS/students/3/4/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Logarithmic functions and graphs",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "rat-fn": [
+  {
+   "name": "Illustrative Mathematics Algebra 2 Unit 2: Polynomials and Rational Functions",
+   "kind": "task",
+   "url": "https://im.kendallhunt.com/HS/students/3/2/index.html",
+   "mn": false,
+   "license": "CC BY 4.0 (IM 6-8 Math / IM 9-12 Math); IM name and logo excluded",
+   "fit": "Rational functions",
+   "verified": "unit page returned HTTP 200; unit title read from the course index page (2026-10-14)"
+  }
+ ],
+ "binom-dist": [
+  {
+   "name": "Plinko Probability",
+   "name_mn": "Plinko магадлалын түгэлт",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/plinko-probability/latest/plinko-probability_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/plinko-probability",
+   "translations": "https://phet.colorado.edu/en/simulations/plinko-probability/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Histogram of a binomial distribution; change the probability p",
+   "verified": "PhET metadata API lists an mn title; plinko-probability_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header",
+   "mn_note": "Translation may be partial (few Mongolian strings found in the file); check in the browser"
+  }
+ ],
+ "normal": [
+  {
+   "name": "Plinko Probability",
+   "name_mn": "Plinko магадлалын түгэлт",
+   "kind": "phet",
+   "url": "https://phet.colorado.edu/sims/html/plinko-probability/latest/plinko-probability_mn.html",
+   "page": "https://phet.colorado.edu/en/simulations/plinko-probability",
+   "translations": "https://phet.colorado.edu/en/simulations/plinko-probability/translations",
+   "mn": true,
+   "license": "CC BY-NC 4.0 (PhET sims published after 2026-03-29; earlier versions CC BY 4.0)",
+   "fit": "Bell-shaped histogram when many rows are used (enrichment)",
+   "verified": "PhET metadata API lists an mn title; plinko-probability_mn.html returned HTTP 200 on 2026-10-14; no X-Frame-Options header",
+   "mn_note": "Translation may be partial (few Mongolian strings found in the file); check in the browser"
+  },
+  {
+   "name": "Normal distribution",
+   "kind": "geogebra",
+   "url": "https://www.geogebra.org/m/ERsBuVkW",
+   "material_id": "ERsBuVkW",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Change μ and σ; shade area under the curve",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  },
+  {
+   "name": "Normal Distributions Sliders",
+   "kind": "geogebra",
+   "url": "https://www.geogebra.org/m/FkM9xWNH",
+   "material_id": "FkM9xWNH",
+   "mn": false,
+   "license": "GeoGebra License (non-commercial use with attribution)",
+   "fit": "Compare two normal curves with different spreads",
+   "verified": "api.geogebra.org/v1.0/materials returned this title, public, not deleted (2026-10-14)"
+  }
+ ],
+ "missing": [
+  "b-pattern",
+  "b-model",
+  "b-shapes",
+  "b-sym",
+  "b-grid",
+  "b-units",
+  "b-time",
+  "b-data",
+  "b-angle",
+  "b-rem",
+  "b-order",
+  "b-round",
+  "b-chance",
+  "b-vol",
+  "time",
+  "divis",
+  "round",
+  "counting",
+  "prime",
+  "frac-dec",
+  "sets",
+  "alg-frac",
+  "bearing",
+  "rational",
+  "tree",
+  "power-fn",
+  "matrix",
+  "perm-comb",
+  "quad-ineq",
+  "binomial-th",
+  "lin-sys-mat",
+  "space-coord",
+  "space-vec",
+  "induction",
+  "series",
+  "diff-eq",
+  "rand-var",
+  "geo-prob"
+ ]
+}

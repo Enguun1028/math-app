@@ -1,0 +1,9062 @@
+[
+ {
+  "mn": "тоо",
+  "en": "number",
+  "ru": "число",
+  "grade": 1,
+  "concepts": [
+   "b-place"
+  ],
+  "def": "Тоо ширхэг, хэмжээг илэрхийлэх ойлголт.",
+  "latin": [
+   "too"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "цифр",
+  "en": "digit",
+  "ru": "цифра",
+  "grade": 1,
+  "concepts": [
+   "b-place"
+  ],
+  "def": "Тоог бичихэд хэрэглэдэг 0-9 хүртэлх тэмдэгт.",
+  "latin": [
+   "tsifr",
+   "cifr"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "орон",
+  "en": "place (digit position)",
+  "ru": "разряд",
+  "grade": 1,
+  "concepts": [
+   "b-place"
+  ],
+  "def": "Цифрийн тоон доторх байрлал: нэгж, арав, зуу гэх мэт.",
+  "latin": [
+   "oron"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "оронгийн утга",
+  "en": "place value",
+  "ru": "разрядное значение",
+  "grade": 1,
+  "concepts": [
+   "b-place"
+  ],
+  "def": "Цифр аль оронд байгаагаас хамаарах утга: 352-т 5 нь 50.",
+  "latin": [
+   "orongiin utga",
+   "orongiyn utga"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "натурал тоо",
+  "en": "natural number",
+  "ru": "натуральное число",
+  "grade": 1,
+  "concepts": [
+   "b-place",
+   "sets"
+  ],
+  "def": "Тоолоход хэрэглэдэг 1, 2, 3, ... тоонууд; олонлогийг ℕ гэж тэмдэглэнэ.",
+  "latin": [
+   "natural too"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 21–22 (5-р ангийн номд энэ сэдэв байхгүй)",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-21.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "тэгш тоо",
+  "en": "even number",
+  "ru": "чётное число",
+  "grade": 1,
+  "concepts": [
+   "b-place",
+   "divis"
+  ],
+  "def": "2-т үлдэгдэлгүй хуваагддаг тоо.",
+  "latin": [
+   "tegsh too"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "сондгой тоо",
+  "en": "odd number",
+  "ru": "нечётное число",
+  "grade": 1,
+  "concepts": [
+   "b-place",
+   "divis"
+  ],
+  "def": "2-т хуваахад 1 үлдэгдэл гардаг тоо.",
+  "latin": [
+   "sondgoi too",
+   "sondgoy too"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "тоон шулуун",
+  "en": "number line",
+  "ru": "числовая прямая",
+  "grade": 1,
+  "concepts": [
+   "b-numline",
+   "int"
+  ],
+  "def": "Тоонуудыг тэнцүү зайтай цэгээр дүрсэлсэн шулуун.",
+  "latin": [
+   "toon shuluun"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 100–102",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-100.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "тэнцүүгийн тэмдэг",
+  "en": "equals sign",
+  "ru": "знак равенства",
+  "grade": 1,
+  "concepts": [
+   "b-equal"
+  ],
+  "def": "Хоёр талын утга тэнцүү гэдгийг заах = тэмдэг.",
+  "latin": [
+   "tentsuugiin temdeg",
+   "tentsuugiyn temdeg",
+   "tencvvgiin temdeg"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "хэв маяг",
+  "en": "pattern",
+  "ru": "закономерность",
+  "grade": 1,
+  "concepts": [
+   "b-pattern"
+  ],
+  "def": "Тодорхой дүрмээр давтагдах дүрс, тооны эгнээ.",
+  "latin": [
+   "hev mayag",
+   "khev mayag",
+   "xev mayag"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "загварчлах",
+  "en": "to model",
+  "ru": "моделировать",
+  "grade": 1,
+  "concepts": [
+   "b-model"
+  ],
+  "def": "Бодлогыг зураг, зураас, хүснэгтээр дүрслэх.",
+  "latin": [
+   "zagvarchlah",
+   "zagvarchlakh",
+   "zagvarchlax"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "нэмэх",
+  "en": "to add",
+  "ru": "сложить",
+  "grade": 1,
+  "concepts": [
+   "b-add"
+  ],
+  "def": "Хоёр ба түүнээс олон тоог нийлүүлэх үйлдэл.",
+  "latin": [
+   "nemeh",
+   "nemekh",
+   "nemex"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "хасах",
+  "en": "to subtract",
+  "ru": "вычесть",
+  "grade": 1,
+  "concepts": [
+   "b-add"
+  ],
+  "def": "Нэг тооноос нөгөөг хорогдуулах үйлдэл.",
+  "latin": [
+   "hasah",
+   "khasakh",
+   "xasax"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "нийлбэр",
+  "en": "sum",
+  "ru": "сумма",
+  "grade": 1,
+  "concepts": [
+   "b-add"
+  ],
+  "def": "Нэмэх үйлдлийн үр дүн.",
+  "latin": [
+   "niilber",
+   "niylber"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "ялгавар",
+  "en": "difference",
+  "ru": "разность",
+  "grade": 1,
+  "concepts": [
+   "b-add"
+  ],
+  "def": "Хасах үйлдлийн үр дүн.",
+  "latin": [
+   "yalgavar"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "нэмэгдэхүүн",
+  "en": "addend",
+  "ru": "слагаемое",
+  "grade": 1,
+  "concepts": [
+   "b-add"
+  ],
+  "def": "Нэмэгдэж буй тоо бүр.",
+  "latin": [
+   "nemegdehuun",
+   "nemegdekhuun",
+   "nemegdexvvn"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "хасагдагч",
+  "en": "minuend",
+  "ru": "уменьшаемое",
+  "grade": 1,
+  "concepts": [
+   "b-add"
+  ],
+  "def": "Түүнээс хасаж буй тоо.",
+  "latin": [
+   "hasagdagch",
+   "khasagdagch",
+   "xasagdagch"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "хасагч",
+  "en": "subtrahend",
+  "ru": "вычитаемое",
+  "grade": 1,
+  "concepts": [
+   "b-add"
+  ],
+  "def": "Хасаж буй тоо.",
+  "latin": [
+   "hasagch",
+   "khasagch",
+   "xasagch"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "байр солих чанар",
+  "en": "commutative property",
+  "ru": "переместительный закон",
+  "grade": 1,
+  "concepts": [
+   "b-props"
+  ],
+  "def": "Нэмэгдэхүүн (үржигдэхүүн)-ий байрыг солиход нийлбэр (үржвэр) өөрчлөгдөхгүй.",
+  "latin": [
+   "bair solih chanar",
+   "bayr solikh chanar",
+   "bair solix chanar"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "хэсэглэн нэгтгэх чанар",
+  "en": "associative property",
+  "ru": "сочетательный закон",
+  "grade": 1,
+  "concepts": [
+   "b-props"
+  ],
+  "def": "Гурван тоог нэмэх (үржүүлэх)-д хаалтын байрлал үр дүнг өөрчлөхгүй.",
+  "latin": [
+   "heseglen negtgeh chanar",
+   "kheseglen negtgekh chanar",
+   "xeseglen negtgex chanar"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "хуваарилах чанар",
+  "en": "distributive property",
+  "ru": "распределительный закон",
+  "grade": 1,
+  "concepts": [
+   "b-props",
+   "expr"
+  ],
+  "def": "a(b + c) = ab + ac.",
+  "latin": [
+   "huvaarilah chanar",
+   "khuvaarilakh chanar",
+   "xuvaarilax chanar"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "үржих",
+  "en": "to multiply",
+  "ru": "умножить",
+  "grade": 2,
+  "concepts": [
+   "b-mul"
+  ],
+  "def": "Ижил тоог олон дахин нэмэхийг товчлон бичих үйлдэл.",
+  "latin": [
+   "urjih",
+   "urzhikh",
+   "vrjix"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "хуваах",
+  "en": "to divide",
+  "ru": "разделить",
+  "grade": 2,
+  "concepts": [
+   "b-mul"
+  ],
+  "def": "Тоог тэнцүү хэсгүүдэд хуваах үйлдэл.",
+  "latin": [
+   "huvaah",
+   "khuvaakh",
+   "xuvaax"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "үржвэр",
+  "en": "product",
+  "ru": "произведение",
+  "grade": 2,
+  "concepts": [
+   "b-mul"
+  ],
+  "def": "Үржих үйлдлийн үр дүн.",
+  "latin": [
+   "urjver",
+   "urzhver",
+   "vrjver"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "үржигдэхүүн",
+  "en": "factor",
+  "ru": "множитель",
+  "grade": 2,
+  "concepts": [
+   "b-mul",
+   "factor"
+  ],
+  "def": "Үржиж буй тоо (илэрхийлэл) бүр.",
+  "latin": [
+   "urjigdehuun",
+   "urzhigdekhuun",
+   "vrjigdexvvn"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VIII, х. 52–53",
+   "url": "https://econtent.edu.mn/content/8rangi/mat/pages/mat-310-52.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "ногдвор",
+  "en": "quotient",
+  "ru": "частное",
+  "grade": 2,
+  "concepts": [
+   "b-mul"
+  ],
+  "def": "Хуваах үйлдлийн үр дүн.",
+  "latin": [
+   "nogdvor"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "хуваагдагч",
+  "en": "dividend",
+  "ru": "делимое",
+  "grade": 2,
+  "concepts": [
+   "b-mul",
+   "divis"
+  ],
+  "def": "Хуваагдаж буй тоо.",
+  "latin": [
+   "huvaagdagch",
+   "khuvaagdagch",
+   "xuvaagdagch"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 32–35",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-32.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "хуваагч",
+  "en": "divisor",
+  "ru": "делитель",
+  "grade": 2,
+  "concepts": [
+   "b-mul",
+   "divis"
+  ],
+  "def": "Хуваж буй тоо; мөн тоог үлдэгдэлгүй хуваадаг тоо.",
+  "latin": [
+   "huvaagch",
+   "khuvaagch",
+   "xuvaagch"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 32–35",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-32.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "үржүүлэх хүснэгт",
+  "en": "multiplication table",
+  "ru": "таблица умножения",
+  "grade": 2,
+  "concepts": [
+   "b-mul"
+  ],
+  "def": "1-10 хүртэлх тоонуудын үржвэрийн хүснэгт.",
+  "latin": [
+   "urjuuleh husnegt",
+   "urzhuulekh khusnegt",
+   "vrjvvlex xvsnegt"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "үлдэгдэл",
+  "en": "remainder",
+  "ru": "остаток",
+  "grade": 2,
+  "concepts": [
+   "b-rem",
+   "poly-div"
+  ],
+  "def": "Тэнцүү хуваасны дараа илүү гарах хэсэг; хуваагчаас бага.",
+  "latin": [
+   "uldegdel",
+   "vldegdel"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик XII, х. 23–29",
+   "url": "https://econtent.edu.mn/content/12rangi/mat/pages/mat-343-23.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "үйлдлийн дараалал",
+  "en": "order of operations",
+  "ru": "порядок действий",
+  "grade": 2,
+  "concepts": [
+   "b-order",
+   "expr"
+  ],
+  "def": "Хаалт, зэрэг, үржих ба хуваах, нэмэх ба хасах гэсэн дараалал.",
+  "latin": [
+   "uildliin daraalal",
+   "uyldliyn daraalal",
+   "vildliin daraalal"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 70–76",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-70.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "хаалт",
+  "en": "brackets / parentheses",
+  "ru": "скобки",
+  "grade": 2,
+  "concepts": [
+   "b-order"
+  ],
+  "def": "Эхэлж гүйцэтгэх үйлдлийг заах ( ) тэмдэг.",
+  "latin": [
+   "haalt",
+   "khaalt",
+   "xaalt"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "баганаар бодох",
+  "en": "column method",
+  "ru": "вычисление столбиком",
+  "grade": 1,
+  "concepts": [
+   "b-add",
+   "b-mul"
+  ],
+  "def": "Тоонуудыг оронгоор нь харалдаа бичиж нэмэх, хасах, үржүүлэх арга.",
+  "latin": [
+   "baganaar bodoh",
+   "baganaar bodokh",
+   "baganaar bodox"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "бүхэл",
+  "en": "whole",
+  "ru": "целое",
+  "grade": 2,
+  "concepts": [
+   "b-frac"
+  ],
+  "def": "Хуваагдаагүй бүтэн зүйл.",
+  "latin": [
+   "buhel",
+   "bukhel",
+   "bvxel"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "хагас",
+  "en": "half",
+  "ru": "половина",
+  "grade": 2,
+  "concepts": [
+   "b-frac"
+  ],
+  "def": "Бүхлийг 2 тэнцүү хуваасны нэг хэсэг: 1/2.",
+  "latin": [
+   "hagas",
+   "khagas",
+   "xagas"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "сөрөг тоо",
+  "en": "negative number",
+  "ru": "отрицательное число",
+  "grade": 3,
+  "concepts": [
+   "b-neg",
+   "int"
+  ],
+  "def": "Тэгээс бага тоо; «−» тэмдэгтэй бичнэ.",
+  "latin": [
+   "surug too",
+   "sorog too"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 100–102",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-100.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "эерэг тоо",
+  "en": "positive number",
+  "ru": "положительное число",
+  "grade": 3,
+  "concepts": [
+   "b-neg",
+   "int"
+  ],
+  "def": "Тэгээс их тоо.",
+  "latin": [
+   "eereg too",
+   "eyereg too"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "боломжтой",
+  "en": "possible",
+  "ru": "возможно",
+  "grade": 3,
+  "concepts": [
+   "b-chance"
+  ],
+  "def": "Илэрч болох үзэгдэл.",
+  "latin": [
+   "bolomjtoi",
+   "bolomzhtoy"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "боломжгүй",
+  "en": "impossible",
+  "ru": "невозможно",
+  "grade": 3,
+  "concepts": [
+   "b-chance"
+  ],
+  "def": "Хэзээ ч илрэхгүй үзэгдэл.",
+  "latin": [
+   "bolomjgui",
+   "bolomzhguy",
+   "bolomjgvi"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "ангилах",
+  "en": "to sort / classify",
+  "ru": "классифицировать",
+  "grade": 1,
+  "concepts": [
+   "b-data"
+  ],
+  "def": "Юмсыг шинжээр нь бүлэглэх.",
+  "latin": [
+   "angilah",
+   "angilakh",
+   "angilax"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "пиктограмм",
+  "en": "pictogram",
+  "ru": "пиктограмма",
+  "grade": 1,
+  "concepts": [
+   "b-data",
+   "charts"
+  ],
+  "def": "Нэг дүрс тодорхой тооны юмсыг илэрхийлэх диаграмм.",
+  "latin": [
+   "piktogramm"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 130–135",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-130.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "тор",
+  "en": "grid",
+  "ru": "сетка",
+  "grade": 1,
+  "concepts": [
+   "b-grid"
+  ],
+  "def": "Тэнцүү нүднүүдээс бүрдсэн хүснэгтэн зураг.",
+  "latin": [
+   "tor"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "байршил",
+  "en": "position",
+  "ru": "положение",
+  "grade": 1,
+  "concepts": [
+   "b-grid"
+  ],
+  "def": "Цэг, дүрсийн хаана байгаа нь.",
+  "latin": [
+   "bairshil",
+   "bayrshil"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "аравны нэг",
+  "en": "tenth",
+  "ru": "десятая",
+  "grade": 4,
+  "concepts": [
+   "b-dec",
+   "dec"
+  ],
+  "def": "Бүхлийг 10 тэнцүү хуваасны нэг хэсэг: 0.1.",
+  "latin": [
+   "aravnii neg",
+   "aravny neg",
+   "aravni neg"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "зууны нэг",
+  "en": "hundredth",
+  "ru": "сотая",
+  "grade": 4,
+  "concepts": [
+   "b-dec",
+   "dec"
+  ],
+  "def": "Бүхлийг 100 тэнцүү хуваасны нэг хэсэг: 0.01.",
+  "latin": [
+   "zuunii neg",
+   "zuuny neg",
+   "zuuni neg"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "тоймлох",
+  "en": "to round",
+  "ru": "округлять",
+  "grade": 2,
+  "concepts": [
+   "b-round",
+   "round"
+  ],
+  "def": "Тоог ойролцоо, хялбар тоогоор солих.",
+  "latin": [
+   "toimloh",
+   "toymlokh",
+   "toimlox"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 16–17, 68–69",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-16.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "хуваагдах чанар",
+  "en": "divisibility",
+  "ru": "делимость",
+  "grade": 5,
+  "concepts": [
+   "divis"
+  ],
+  "def": "Тоо нөгөө тоонд үлдэгдэлгүй хуваагдах эсэх.",
+  "latin": [
+   "huvaagdah chanar",
+   "khuvaagdakh chanar",
+   "xuvaagdax chanar"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "хуваагдах шинж",
+  "en": "divisibility rule",
+  "ru": "признак делимости",
+  "grade": 5,
+  "concepts": [
+   "divis"
+  ],
+  "def": "Тоог хуваахгүйгээр хуваагдах эсэхийг цифрээр нь мэдэх дүрэм.",
+  "latin": [
+   "huvaagdah shinj",
+   "khuvaagdakh shinzh",
+   "xuvaagdax shinj"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 32–35",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-32.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "ерөнхий хуваагч",
+  "en": "common divisor",
+  "ru": "общий делитель",
+  "grade": 5,
+  "concepts": [
+   "gcd"
+  ],
+  "def": "Хоёр тоонд хоёуланд нь үлдэгдэлгүй хуваагддаг тоо.",
+  "latin": [
+   "erunhii huvaagch",
+   "yeronkhiy khuvaagch",
+   "eronxii xuvaagch"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 32–35, 54",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-32.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "хамгийн их ерөнхий хуваагч (ХИЕХ)",
+  "en": "greatest common divisor (GCD)",
+  "ru": "наибольший общий делитель (НОД)",
+  "grade": 5,
+  "concepts": [
+   "gcd"
+  ],
+  "def": "Ерөнхий хуваагчдаас хамгийн их нь.",
+  "latin": [
+   "hamgiin ih erunhii huvaagch",
+   "khamgiyn ikh yeronkhiy khuvaagch",
+   "xamgiin ix eronxii xuvaagch"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 32–35, 54",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-32.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "ерөнхий хуваагдагч",
+  "en": "common multiple",
+  "ru": "общее кратное",
+  "grade": 5,
+  "concepts": [
+   "gcd"
+  ],
+  "def": "Хоёр тоонд хоёуланд нь хуваагддаг тоо.",
+  "latin": [
+   "erunhii huvaagdagch",
+   "yeronkhiy khuvaagdagch",
+   "eronxii xuvaagdagch"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 32–35, 54",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-32.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "хамгийн бага ерөнхий хуваагдагч (ХБЕХ)",
+  "en": "least common multiple (LCM)",
+  "ru": "наименьшее общее кратное (НОК)",
+  "grade": 5,
+  "concepts": [
+   "gcd"
+  ],
+  "def": "Ерөнхий хуваагдагчдаас хамгийн бага нь.",
+  "latin": [
+   "hamgiin baga erunhii huvaagdagch",
+   "khamgiyn baga yeronkhiy khuvaagdagch",
+   "xamgiin baga eronxii xuvaagdagch"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 32–35, 54",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-32.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "энгийн бутархай",
+  "en": "common fraction",
+  "ru": "обыкновенная дробь",
+  "grade": 5,
+  "concepts": [
+   "frac"
+  ],
+  "def": "Бүхлийн хэдэн тэнцүү хэсгийг авсныг хүртвэр, хуваариар илэрхийлсэн тоо.",
+  "latin": [
+   "engiin butarhai",
+   "engiyn butarkhay",
+   "engiin butarxai"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 53–58",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-53.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "бутархай",
+  "en": "fraction",
+  "ru": "дробь",
+  "grade": 5,
+  "concepts": [
+   "frac"
+  ],
+  "def": "Бүхлийн хэсгийг илэрхийлэх тоо.",
+  "latin": [
+   "butarhai",
+   "butarkhay",
+   "butarxai"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 53–58",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-53.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "хүртвэр",
+  "en": "numerator",
+  "ru": "числитель",
+  "grade": 5,
+  "concepts": [
+   "frac"
+  ],
+  "def": "Бутархайн зураасны дээрх тоо: хэдэн хэсэг авсныг заана.",
+  "latin": [
+   "hurtver",
+   "khurtver",
+   "xvrtver"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 53–58",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-53.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "хуваарь",
+  "en": "denominator",
+  "ru": "знаменатель",
+  "grade": 5,
+  "concepts": [
+   "frac"
+  ],
+  "def": "Бутархайн зураасны доорх тоо: бүхлийг хэдэн тэнцүү хэсэгт хуваасныг заана. (Геометр прогрессын q-г мөн хуваарь гэнэ.)",
+  "latin": [
+   "huvaari",
+   "khuvaar",
+   "xuvaar"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 53–58",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-53.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "бутархайн зураас",
+  "en": "fraction bar",
+  "ru": "дробная черта",
+  "grade": 5,
+  "concepts": [
+   "frac"
+  ],
+  "def": "Хүртвэр ба хуваарийг тусгаарлах хэвтээ зураас.",
+  "latin": [
+   "butarhain zuraas",
+   "butarkhayn zuraas",
+   "butarxain zuraas"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "бутархайн үндсэн чанар",
+  "en": "fundamental property of fractions",
+  "ru": "основное свойство дроби",
+  "grade": 5,
+  "concepts": [
+   "frac"
+  ],
+  "def": "Хүртвэр, хуваарийг ижил тоогоор үржүүлж (хувааж) болно; утга өөрчлөгдөхгүй.",
+  "latin": [
+   "butarhain undsen chanar",
+   "butarkhayn undsen chanar",
+   "butarxain vndsen chanar"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 53–58",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-53.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "бутархай хураах",
+  "en": "simplify a fraction",
+  "ru": "сократить дробь",
+  "grade": 5,
+  "concepts": [
+   "frac"
+  ],
+  "def": "Хүртвэр, хуваарийг ижил тоонд хуваах.",
+  "latin": [
+   "butarhai huraah",
+   "butarkhay khuraakh",
+   "butarxai xuraax"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 53–58",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-53.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "тэнцүү бутархай",
+  "en": "equivalent fractions",
+  "ru": "равные дроби",
+  "grade": 5,
+  "concepts": [
+   "frac"
+  ],
+  "def": "Хэлбэр нь өөр боловч утга нь ижил бутархайнууд: 1/2 = 2/4.",
+  "latin": [
+   "tentsuu butarhai",
+   "tentsuu butarkhay",
+   "tencvv butarxai"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 53–58",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-53.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "ерөнхий хуваарь",
+  "en": "common denominator",
+  "ru": "общий знаменатель",
+  "grade": 5,
+  "concepts": [
+   "frac",
+   "frac-add"
+  ],
+  "def": "Бутархайнуудыг ижил хуваарьтай болгоход хэрэглэх тоо.",
+  "latin": [
+   "erunhii huvaari",
+   "yeronkhiy khuvaar",
+   "eronxii xuvaar"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 59–61",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-59.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "зөв бутархай",
+  "en": "proper fraction",
+  "ru": "правильная дробь",
+  "grade": 5,
+  "concepts": [
+   "frac"
+  ],
+  "def": "Хүртвэр нь хуваариасаа бага бутархай.",
+  "latin": [
+   "zuv butarhai",
+   "zov butarkhay",
+   "zov butarxai"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "зөв бус бутархай",
+  "en": "improper fraction",
+  "ru": "неправильная дробь",
+  "grade": 5,
+  "concepts": [
+   "frac",
+   "frac-mul"
+  ],
+  "def": "Хүртвэр нь хуваариасаа их буюу тэнцүү бутархай.",
+  "latin": [
+   "zuv bus butarhai",
+   "zov bus butarkhay",
+   "zov bus butarxai"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 46–50",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-46.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "холимог тоо",
+  "en": "mixed number",
+  "ru": "смешанное число",
+  "grade": 5,
+  "concepts": [
+   "frac",
+   "frac-mul"
+  ],
+  "def": "Бүхэл хэсэг ба зөв бутархайгаас тогтох тоо: 2 ба 1/3.",
+  "latin": [
+   "holimog too",
+   "kholimog too",
+   "xolimog too"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 46–50",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-46.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "урвуу тоо",
+  "en": "reciprocal",
+  "ru": "обратное число",
+  "grade": 6,
+  "concepts": [
+   "frac-mul"
+  ],
+  "def": "Үржвэр нь 1 байх тоо: c/d-ийн урвуу нь d/c.",
+  "latin": [
+   "urvuu too"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 46–50",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-46.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "аравтын бутархай",
+  "en": "decimal (fraction)",
+  "ru": "десятичная дробь",
+  "grade": 5,
+  "concepts": [
+   "dec"
+  ],
+  "def": "Хуваарь нь 10, 100, 1000 ... байх бутархайг цэгтэй бичсэн хэлбэр: 0.37.",
+  "latin": [
+   "aravtiin butarhai",
+   "aravtyn butarkhay",
+   "aravtin butarxai"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 62–71, 77–83",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-62.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "бүхэл хэсэг",
+  "en": "whole-number part",
+  "ru": "целая часть",
+  "grade": 5,
+  "concepts": [
+   "dec"
+  ],
+  "def": "Аравтын бутархайн цэгээс зүүн талын хэсэг.",
+  "latin": [
+   "buhel heseg",
+   "bukhel kheseg",
+   "bvxel xeseg"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 62–71, 77–83",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-62.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "бутархай хэсэг",
+  "en": "fractional part",
+  "ru": "дробная часть",
+  "grade": 5,
+  "concepts": [
+   "dec"
+  ],
+  "def": "Аравтын бутархайн цэгээс баруун талын хэсэг.",
+  "latin": [
+   "butarhai heseg",
+   "butarkhay kheseg",
+   "butarxai xeseg"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "мянганы нэг",
+  "en": "thousandth",
+  "ru": "тысячная",
+  "grade": 5,
+  "concepts": [
+   "dec"
+  ],
+  "def": "Бүхлийн 1000-ны нэг хэсэг: 0.001.",
+  "latin": [
+   "myanganii neg",
+   "myangany neg",
+   "myangani neg"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "ойролцоо утга",
+  "en": "approximate value",
+  "ru": "приближённое значение",
+  "grade": 5,
+  "concepts": [
+   "round",
+   "real"
+  ],
+  "def": "Тоог тоймлож гаргасан, яг биш утга; ≈ тэмдгээр бичнэ.",
+  "latin": [
+   "oiroltsoo utga",
+   "oyroltsoo utga",
+   "oirolcoo utga"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик IX, х. 7–13",
+   "url": "https://econtent.edu.mn/content/9rangi/mat/pages/mat-324-7.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "нарийвчлал",
+  "en": "accuracy / precision",
+  "ru": "точность",
+  "grade": 5,
+  "concepts": [
+   "round"
+  ],
+  "def": "Тоог аль орон хүртэл тоймлосныг заана.",
+  "latin": [
+   "nariivchlal",
+   "nariyvchlal"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "процент",
+  "en": "percent",
+  "ru": "процент",
+  "grade": 5,
+  "concepts": [
+   "pct"
+  ],
+  "def": "Тооны зуугийн нэг хэсэг; % тэмдгээр тэмдэглэнэ.",
+  "latin": [
+   "protsent",
+   "protsyent",
+   "procent"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 120–123",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-120.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "хувь",
+  "en": "percentage / share",
+  "ru": "доля, процент",
+  "grade": 5,
+  "concepts": [
+   "pct"
+  ],
+  "def": "Ярианд процентыг ихэвчлэн «хувь» гэдэг: 20 хувь = 20%.",
+  "latin": [
+   "huvi",
+   "khuv",
+   "xuv"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 120–123",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-120.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "харьцаа",
+  "en": "ratio",
+  "ru": "отношение",
+  "grade": 5,
+  "concepts": [
+   "ratio"
+  ],
+  "def": "Нэг тоо нөгөөгөөсөө хэд дахин их буюу ямар хэсэг болохыг заах жишиг; a : b.",
+  "latin": [
+   "haritsaa",
+   "khartsaa",
+   "xarcaa"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 95–97",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-95.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "харьцааны гишүүн",
+  "en": "term of a ratio",
+  "ru": "член отношения",
+  "grade": 5,
+  "concepts": [
+   "ratio"
+  ],
+  "def": "a : b харьцааны a ба b тоо.",
+  "latin": [
+   "haritsaanii gishuun",
+   "khartsaany gishuun",
+   "xarcaani gishvvn"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "масштаб",
+  "en": "scale",
+  "ru": "масштаб",
+  "grade": 5,
+  "concepts": [
+   "ratio"
+  ],
+  "def": "Зураг дээрх зайг бодит зайд харьцуулсан харьцаа: 1 : 1000.",
+  "latin": [
+   "masshtab"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "бүхэл тоо",
+  "en": "integer",
+  "ru": "целое число",
+  "grade": 5,
+  "concepts": [
+   "int"
+  ],
+  "def": "Натурал тоо, тэдгээрийн эсрэг тоо ба 0; олонлогийг ℤ гэж тэмдэглэнэ.",
+  "latin": [
+   "buhel too",
+   "bukhel too",
+   "bvxel too"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 100–102",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-100.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "эсрэг тоо",
+  "en": "opposite number",
+  "ru": "противоположное число",
+  "grade": 5,
+  "concepts": [
+   "int",
+   "int-ops"
+  ],
+  "def": "Тэгээс ижил зайд, эсрэг талд орших тоо: 3 ба −3.",
+  "latin": [
+   "esreg too"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VII, х. 7–10",
+   "url": "https://econtent.edu.mn/content/7rangi/mat/pages/mat-294-7.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "тэг",
+  "en": "zero",
+  "ru": "ноль",
+  "grade": 5,
+  "concepts": [
+   "int"
+  ],
+  "def": "Эерэг ч биш, сөрөг ч биш тоо 0.",
+  "latin": [
+   "teg"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 100–102",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-100.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "тооллын эх",
+  "en": "origin (of a number line)",
+  "ru": "начало отсчёта",
+  "grade": 5,
+  "concepts": [
+   "int",
+   "abs"
+  ],
+  "def": "Тоон шулуун дээрх 0 цэг.",
+  "latin": [
+   "toolliin eh",
+   "toollyn ekh",
+   "toollin ex"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VII, х. 5–6",
+   "url": "https://econtent.edu.mn/content/7rangi/mat/pages/mat-294-5.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "диаграмм",
+  "en": "chart / diagram",
+  "ru": "диаграмма",
+  "grade": 5,
+  "concepts": [
+   "charts"
+  ],
+  "def": "Өгөгдлийг зургаар харуулах арга.",
+  "latin": [
+   "diagramm"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 130–135",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-130.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "баганан диаграмм",
+  "en": "bar chart",
+  "ru": "столбчатая диаграмма",
+  "grade": 5,
+  "concepts": [
+   "charts"
+  ],
+  "def": "Баганын өндрөөр тоо хэмжээг харуулах диаграмм.",
+  "latin": [
+   "baganan diagramm"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 130–135",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-130.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "дугуй диаграмм",
+  "en": "pie chart",
+  "ru": "круговая диаграмма",
+  "grade": 5,
+  "concepts": [
+   "charts"
+  ],
+  "def": "Бүхлийг дугуйн секторуудаар хуваан харуулах диаграмм.",
+  "latin": [
+   "dugui diagramm",
+   "duguy diagramm"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 130–135",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-130.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "шугаман диаграмм",
+  "en": "line graph",
+  "ru": "линейная диаграмма",
+  "grade": 5,
+  "concepts": [
+   "charts"
+  ],
+  "def": "Хэмжигдэхүүний өөрчлөлтийг цэгүүдийг холбосон шугамаар харуулах график.",
+  "latin": [
+   "shugaman diagramm"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "график",
+  "en": "graph",
+  "ru": "график",
+  "grade": 5,
+  "concepts": [
+   "charts",
+   "func"
+  ],
+  "def": "Хамаарлыг координатын хавтгайд зурсан дүрслэл.",
+  "latin": [
+   "grafik"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 130–135",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-130.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "бүртгэлийн хүснэгт",
+  "en": "tally chart",
+  "ru": "таблица подсчёта",
+  "grade": 5,
+  "concepts": [
+   "charts",
+   "data"
+  ],
+  "def": "Өгөгдлийг зураасаар (тавтаар) бүртгэх хүснэгт.",
+  "latin": [
+   "burtgeliin husnegt",
+   "burtgeliyn khusnegt",
+   "bvrtgeliin xvsnegt"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 147–157",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-147.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "давтамж",
+  "en": "frequency",
+  "ru": "частота",
+  "grade": 5,
+  "concepts": [
+   "charts",
+   "data"
+  ],
+  "def": "Нэг утга хэдэн удаа гарсан тоо.",
+  "latin": [
+   "davtamj",
+   "davtamzh"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 130–135",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-130.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "арифметик дундаж",
+  "en": "mean (arithmetic mean)",
+  "ru": "среднее арифметическое",
+  "grade": 5,
+  "concepts": [
+   "average"
+  ],
+  "def": "Тоонуудын нийлбэрийг тэдгээрийн тоонд хуваасан утга.",
+  "latin": [
+   "arifmetik dundaj",
+   "arifmyetik dundazh"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 84–86",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-84.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "медиан",
+  "en": "median",
+  "ru": "медиана",
+  "grade": 5,
+  "concepts": [
+   "average",
+   "tri-lines"
+  ],
+  "def": "Өгөгдлийн: эрэмбэлсэн утгуудын яг дундах утга. Гурвалжны: оройг эсрэг талын дундаж цэгтэй холбосон хэрчим.",
+  "latin": [
+   "median",
+   "myedian"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 84–86",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-84.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "моод",
+  "en": "mode",
+  "ru": "мода",
+  "grade": 5,
+  "concepts": [
+   "average"
+  ],
+  "def": "Хамгийн олон давтагдсан утга.",
+  "latin": [
+   "mood"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 84–86",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-84.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "дундаж",
+  "en": "average",
+  "ru": "среднее",
+  "grade": 5,
+  "concepts": [
+   "average"
+  ],
+  "def": "Арифметик дундаж, медиан, моодыг ерөнхийд нь дунджууд гэнэ.",
+  "latin": [
+   "dundaj",
+   "dundazh"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 84–86",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-84.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "тоолох зарчим",
+  "en": "counting principle",
+  "ru": "правило подсчёта",
+  "grade": 5,
+  "concepts": [
+   "counting"
+  ],
+  "def": "Бүх боломжийг алгасахгүй, давтахгүй тоолох арга.",
+  "latin": [
+   "tooloh zarchim",
+   "toolokh zarchim",
+   "toolox zarchim"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "боломж",
+  "en": "outcome",
+  "ru": "исход",
+  "grade": 5,
+  "concepts": [
+   "counting",
+   "prob"
+  ],
+  "def": "Туршилтын гарч болох үр дүн.",
+  "latin": [
+   "bolomj",
+   "bolomzh"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 87–89",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-87.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "модны схем",
+  "en": "tree diagram",
+  "ru": "дерево вариантов",
+  "grade": 5,
+  "concepts": [
+   "counting",
+   "tree",
+   "cond-prob"
+  ],
+  "def": "Боломжуудыг салаалсан мөчрөөр дүрсэлсэн зураг.",
+  "latin": [
+   "modnii shem",
+   "modny skhyem",
+   "modni sxem"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 87–89",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-87.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "туршилт",
+  "en": "experiment / trial",
+  "ru": "испытание, опыт",
+  "grade": 5,
+  "concepts": [
+   "counting",
+   "prob"
+  ],
+  "def": "Үр дүн нь урьдчилан мэдэгдэхгүй үйлдэл: шоо хаях гэх мэт.",
+  "latin": [
+   "turshilt"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 87–89",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-87.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "координатын хавтгай",
+  "en": "coordinate plane",
+  "ru": "координатная плоскость",
+  "grade": 5,
+  "concepts": [
+   "coord"
+  ],
+  "def": "Харилцан перпендикуляр хоёр тэнхлэгтэй хавтгай.",
+  "latin": [
+   "koordinatiin havtgai",
+   "koordinatyn khavtgay",
+   "koordinatin xavtgai"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 100–103",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-100.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "координатын эх",
+  "en": "origin",
+  "ru": "начало координат",
+  "grade": 5,
+  "concepts": [
+   "coord"
+  ],
+  "def": "Тэнхлэгүүд огтлолцох O(0, 0) цэг.",
+  "latin": [
+   "koordinatiin eh",
+   "koordinatyn ekh",
+   "koordinatin ex"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 100–103",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-100.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "тэнхлэг",
+  "en": "axis",
+  "ru": "ось",
+  "grade": 5,
+  "concepts": [
+   "coord"
+  ],
+  "def": "Координатын хавтгайн хэвтээ (x) ба босоо (y) тоон шулуун.",
+  "latin": [
+   "tenhleg",
+   "tenkhleg",
+   "tenxleg"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 100–103",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-100.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "координат",
+  "en": "coordinate",
+  "ru": "координата",
+  "grade": 5,
+  "concepts": [
+   "coord"
+  ],
+  "def": "Цэгийн байрлалыг заах тоо; (x, y) хос.",
+  "latin": [
+   "koordinat"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 100–103",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-100.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "абсцисс",
+  "en": "abscissa (x-coordinate)",
+  "ru": "абсцисса",
+  "grade": 5,
+  "concepts": [
+   "coord",
+   "func"
+  ],
+  "def": "Цэгийн x координат.",
+  "latin": [
+   "abstsiss",
+   "absciss"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 87–92",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-87.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "ординат",
+  "en": "ordinate (y-coordinate)",
+  "ru": "ордината",
+  "grade": 5,
+  "concepts": [
+   "coord",
+   "func"
+  ],
+  "def": "Цэгийн y координат.",
+  "latin": [
+   "ordinat"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 100–103",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-100.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "мөч",
+  "en": "quadrant",
+  "ru": "четверть (координатная)",
+  "grade": 5,
+  "concepts": [
+   "coord",
+   "trig-fn"
+  ],
+  "def": "Тэнхлэгүүдээр хуваагдсан координатын хавтгайн 4 хэсгийн нэг (I-IV).",
+  "latin": [
+   "much",
+   "moch"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик XI, х. 87–97",
+   "url": "https://econtent.edu.mn/content/11rangi/mat/pages/mat-273-87.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "гурвалжин",
+  "en": "triangle",
+  "ru": "треугольник",
+  "grade": 5,
+  "concepts": [
+   "tri"
+  ],
+  "def": "Гурван тал, гурван өнцөгтэй дүрс.",
+  "latin": [
+   "gurvaljin",
+   "gurvalzhin"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 31",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-31.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "зөв гурвалжин",
+  "en": "equilateral triangle",
+  "ru": "равносторонний треугольник",
+  "grade": 5,
+  "concepts": [
+   "tri"
+  ],
+  "def": "Бүх тал нь тэнцүү гурвалжин (тэнцүү талт).",
+  "latin": [
+   "zuv gurvaljin",
+   "zov gurvalzhin",
+   "zov gurvaljin"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "адил хажуут гурвалжин",
+  "en": "isosceles triangle",
+  "ru": "равнобедренный треугольник",
+  "grade": 5,
+  "concepts": [
+   "tri"
+  ],
+  "def": "Хоёр тал нь тэнцүү гурвалжин.",
+  "latin": [
+   "adil hajuut gurvaljin",
+   "adil khazhuut gurvalzhin",
+   "adil xajuut gurvaljin"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 31",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-31.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "элдэв талт гурвалжин",
+  "en": "scalene triangle",
+  "ru": "разносторонний треугольник",
+  "grade": 5,
+  "concepts": [
+   "tri"
+  ],
+  "def": "Бүх тал нь ялгаатай гурвалжин.",
+  "latin": [
+   "eldev talt gurvaljin",
+   "eldev talt gurvalzhin"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "хурц өнцөгт гурвалжин",
+  "en": "acute triangle",
+  "ru": "остроугольный треугольник",
+  "grade": 5,
+  "concepts": [
+   "tri"
+  ],
+  "def": "Бүх өнцөг нь хурц гурвалжин.",
+  "latin": [
+   "hurts untsugt gurvaljin",
+   "khurts ontsogt gurvalzhin",
+   "xurc oncogt gurvaljin"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "тэгш өнцөгт гурвалжин",
+  "en": "right triangle",
+  "ru": "прямоугольный треугольник",
+  "grade": 5,
+  "concepts": [
+   "tri",
+   "pyth"
+  ],
+  "def": "Нэг өнцөг нь 90° гурвалжин.",
+  "latin": [
+   "tegsh untsugt gurvaljin",
+   "tegsh ontsogt gurvalzhin",
+   "tegsh oncogt gurvaljin"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VIII, х. 101–104",
+   "url": "https://econtent.edu.mn/content/8rangi/mat/pages/mat-310-101.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "мохоо өнцөгт гурвалжин",
+  "en": "obtuse triangle",
+  "ru": "тупоугольный треугольник",
+  "grade": 5,
+  "concepts": [
+   "tri"
+  ],
+  "def": "Нэг өнцөг нь мохоо гурвалжин.",
+  "latin": [
+   "mohoo untsugt gurvaljin",
+   "mokhoo ontsogt gurvalzhin",
+   "moxoo oncogt gurvaljin"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "тэгш хэм",
+  "en": "symmetry",
+  "ru": "симметрия",
+  "grade": 1,
+  "concepts": [
+   "transform",
+   "b-sym"
+  ],
+  "def": "Дүрсийн хоёр хэсэг яг давхцах шинж.",
+  "latin": [
+   "tegsh hem",
+   "tegsh khem",
+   "tegsh xem"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 42–44",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-42.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "тэгш хэмийн тэнхлэг",
+  "en": "line of symmetry",
+  "ru": "ось симметрии",
+  "grade": 5,
+  "concepts": [
+   "transform"
+  ],
+  "def": "Дүрсийг яг давхцах хоёр хэсэгт хуваах шулуун.",
+  "latin": [
+   "tegsh hemiin tenhleg",
+   "tegsh khemiyn tenkhleg",
+   "tegsh xemiin tenxleg"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 42–44",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-42.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "тэнхлэгийн тэгш хэм",
+  "en": "reflection (in a line)",
+  "ru": "осевая симметрия",
+  "grade": 5,
+  "concepts": [
+   "transform",
+   "mat-transform"
+  ],
+  "def": "Шулууны хувьд толин тусгал мэт буулгах хувиргалт.",
+  "latin": [
+   "tenhlegiin tegsh hem",
+   "tenkhlegiyn tegsh khem",
+   "tenxlegiin tegsh xem"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "төвийн тэгш хэм",
+  "en": "point symmetry",
+  "ru": "центральная симметрия",
+  "grade": 5,
+  "concepts": [
+   "transform",
+   "congruent"
+  ],
+  "def": "Цэгийн хувьд 180° эргүүлэлттэй ижил хувиргалт.",
+  "latin": [
+   "tuviin tegsh hem",
+   "toviyn tegsh khem",
+   "toviin tegsh xem"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 126; Математик VII, х. 104–107",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-126.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "зөөлт",
+  "en": "translation",
+  "ru": "параллельный перенос",
+  "grade": 5,
+  "concepts": [
+   "transform"
+  ],
+  "def": "Дүрсийг хэлбэр, хэмжээг өөрчлөхгүйгээр шилжүүлэх.",
+  "latin": [
+   "zuult",
+   "zoolt"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 42–44",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-42.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "эргүүлэлт",
+  "en": "rotation",
+  "ru": "поворот",
+  "grade": 5,
+  "concepts": [
+   "transform",
+   "mat-transform"
+  ],
+  "def": "Дүрсийг нэг цэгийн тойронд эргүүлэх.",
+  "latin": [
+   "erguulelt",
+   "ergvvlelt"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 42–44",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-42.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "хувиргалт",
+  "en": "transformation",
+  "ru": "преобразование",
+  "grade": 5,
+  "concepts": [
+   "transform"
+  ],
+  "def": "Дүрсийг шилжүүлэх, эргүүлэх, тусгах, томруулах үйлдэл.",
+  "latin": [
+   "huvirgalt",
+   "khuvirgalt",
+   "xuvirgalt"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "биет",
+  "en": "solid (3D shape)",
+  "ru": "тело (геометрическое)",
+  "grade": 1,
+  "concepts": [
+   "solids",
+   "b-shapes"
+  ],
+  "def": "Огторгуйд орон зай эзлэх дүрс: куб, призм, цилиндр.",
+  "latin": [
+   "biet",
+   "biyet"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 110–112",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-110.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "дэлгээс",
+  "en": "net",
+  "ru": "развёртка",
+  "grade": 5,
+  "concepts": [
+   "solids"
+  ],
+  "def": "Биетийн бүх талсыг хавтгайд дэлгэсэн дүрс.",
+  "latin": [
+   "delgees"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 110–112",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-110.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "орой",
+  "en": "vertex",
+  "ru": "вершина",
+  "grade": 5,
+  "concepts": [
+   "solids",
+   "angle"
+  ],
+  "def": "Өнцгийн, олон өнцөгтийн, биетийн булан цэг.",
+  "latin": [
+   "oroi",
+   "oroy"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 110–112",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-110.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "ирмэг",
+  "en": "edge",
+  "ru": "ребро",
+  "grade": 5,
+  "concepts": [
+   "solids"
+  ],
+  "def": "Биетийн хоёр талс нийлэх хэрчим.",
+  "latin": [
+   "irmeg"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 110–112",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-110.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "талс",
+  "en": "face",
+  "ru": "грань",
+  "grade": 5,
+  "concepts": [
+   "solids"
+  ],
+  "def": "Биетийг хүрээлэх хавтгай дүрс.",
+  "latin": [
+   "tals"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 110–112",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-110.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "куб",
+  "en": "cube",
+  "ru": "куб",
+  "grade": 5,
+  "concepts": [
+   "solids"
+  ],
+  "def": "6 талс нь тэнцүү квадрат биет.",
+  "latin": [
+   "kub"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 110–112",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-110.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "тэгш өнцөгт параллелепипед",
+  "en": "cuboid (rectangular box)",
+  "ru": "прямоугольный параллелепипед",
+  "grade": 5,
+  "concepts": [
+   "solids",
+   "vol-surf"
+  ],
+  "def": "6 талс нь тэгш өнцөгт биет.",
+  "latin": [
+   "tegsh untsugt parallelepiped",
+   "tegsh ontsogt parallyelyepipyed",
+   "tegsh oncogt parallelepiped"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 110–112",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-110.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "призм",
+  "en": "prism",
+  "ru": "призма",
+  "grade": 5,
+  "concepts": [
+   "solids"
+  ],
+  "def": "Хоёр тэнцүү, параллель суурьтай, хажуу талс нь параллелограмм биет.",
+  "latin": [
+   "prizm"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 110–112",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-110.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "пирамид",
+  "en": "pyramid",
+  "ru": "пирамида",
+  "grade": 5,
+  "concepts": [
+   "solids"
+  ],
+  "def": "Олон өнцөгт суурьтай, хажуу талсууд нь нэг оройд нийлсэн гурвалжнууд биет.",
+  "latin": [
+   "piramid"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 110–112",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-110.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "цилиндр",
+  "en": "cylinder",
+  "ru": "цилиндр",
+  "grade": 5,
+  "concepts": [
+   "solids",
+   "cross-sec"
+  ],
+  "def": "Хоёр тэнцүү дугуй суурьтай биет.",
+  "latin": [
+   "tsilindr",
+   "cilindr"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 110–112",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-110.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "конус",
+  "en": "cone",
+  "ru": "конус",
+  "grade": 5,
+  "concepts": [
+   "solids",
+   "cross-sec"
+  ],
+  "def": "Дугуй суурьтай, нэг оройтой биет.",
+  "latin": [
+   "konus"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик IX, х. 153–156",
+   "url": "https://econtent.edu.mn/content/9rangi/mat/pages/mat-324-153.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "бөмбөрцөг",
+  "en": "sphere",
+  "ru": "шар, сфера",
+  "grade": 5,
+  "concepts": [
+   "solids",
+   "cross-sec"
+  ],
+  "def": "Төвөөсөө ижил зайд орших огторгуйн цэгүүдийн олонлог.",
+  "latin": [
+   "bumburtsug",
+   "bombortsog",
+   "bomborcog"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "суурь",
+  "en": "base",
+  "ru": "основание",
+  "grade": 5,
+  "concepts": [
+   "solids",
+   "pow",
+   "log"
+  ],
+  "def": "Биет, дүрсийн доод тал; мөн зэрэг, логарифмын суурь.",
+  "latin": [
+   "suuri",
+   "suur"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 110–112",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-110.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "хэмжих нэгж",
+  "en": "unit of measurement",
+  "ru": "единица измерения",
+  "grade": 1,
+  "concepts": [
+   "units",
+   "b-units"
+  ],
+  "def": "Хэмжээг илэрхийлэх стандарт хэмжээ: м, кг, л.",
+  "latin": [
+   "hemjih negj",
+   "khemzhikh negzh",
+   "xemjix negj"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 92–94, 116",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-92.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "урт",
+  "en": "length",
+  "ru": "длина",
+  "grade": 1,
+  "concepts": [
+   "units",
+   "b-units"
+  ],
+  "def": "Хоёр цэгийн хоорондох хэмжээ.",
+  "latin": [
+   "urt"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 92–94, 116",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-92.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "масс (хүнд)",
+  "en": "mass",
+  "ru": "масса",
+  "grade": 1,
+  "concepts": [
+   "units",
+   "b-units"
+  ],
+  "def": "Биеийн хүндийн хэмжээ; кг, г, т.",
+  "latin": [
+   "mass"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 92–94, 116",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-92.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "багтаамж",
+  "en": "capacity",
+  "ru": "вместимость, ёмкость",
+  "grade": 1,
+  "concepts": [
+   "units",
+   "b-units"
+  ],
+  "def": "Сав хэр их шингэн багтаахыг заах хэмжээ; л, мл.",
+  "latin": [
+   "bagtaamj",
+   "bagtaamzh"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "километр",
+  "en": "kilometre",
+  "ru": "километр",
+  "grade": 5,
+  "concepts": [
+   "units"
+  ],
+  "def": "1 км = 1000 м.",
+  "latin": [
+   "kilometr",
+   "kilomyetr"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "сантиметр",
+  "en": "centimetre",
+  "ru": "сантиметр",
+  "grade": 5,
+  "concepts": [
+   "units"
+  ],
+  "def": "1 м = 100 см.",
+  "latin": [
+   "santimetr",
+   "santimyetr"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "литр",
+  "en": "litre",
+  "ru": "литр",
+  "grade": 5,
+  "concepts": [
+   "units",
+   "vol-surf"
+  ],
+  "def": "1 л = 1000 мл = 1 дм³.",
+  "latin": [
+   "litr"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 112–117",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-112.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "тонн",
+  "en": "tonne",
+  "ru": "тонна",
+  "grade": 5,
+  "concepts": [
+   "units"
+  ],
+  "def": "1 т = 1000 кг.",
+  "latin": [
+   "tonn"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 92–94, 116",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-92.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "гектар",
+  "en": "hectare",
+  "ru": "гектар",
+  "grade": 5,
+  "concepts": [
+   "perim-area"
+  ],
+  "def": "1 га = 10000 м².",
+  "latin": [
+   "gektar",
+   "gyektar"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "хугацаа",
+  "en": "time / duration",
+  "ru": "время, промежуток времени",
+  "grade": 5,
+  "concepts": [
+   "time",
+   "speed"
+  ],
+  "def": "Үйл явдал үргэлжлэх хэмжээ.",
+  "latin": [
+   "hugatsaa",
+   "khugatsaa",
+   "xugacaa"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 36–37; Математик VI, х. 129. Цагийн бүс 5, 6-р ангийн номд олдсонгүй.",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-36.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "цагийн бүс",
+  "en": "time zone",
+  "ru": "часовой пояс",
+  "grade": 5,
+  "concepts": [
+   "time"
+  ],
+  "def": "Нэг стандарт цаг хэрэглэдэг газар нутаг.",
+  "latin": [
+   "tsagiin bus",
+   "tsagiyn bus",
+   "cagiin bvs"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 36–37; Математик VI, х. 129. Цагийн бүс 5, 6-р ангийн номд олдсонгүй.",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-36.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "24 цагийн систем",
+  "en": "24-hour clock",
+  "ru": "24-часовой формат",
+  "grade": 5,
+  "concepts": [
+   "time"
+  ],
+  "def": "Үдээс хойшхи цагийг 12 нэмж бичих: 19:20.",
+  "latin": [
+   "24 tsagiin sistem",
+   "24 tsagiyn sistyem",
+   "24 cagiin sistem"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 36–37; Математик VI, х. 129. Цагийн бүс 5, 6-р ангийн номд олдсонгүй.",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-36.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "периметр",
+  "en": "perimeter",
+  "ru": "периметр",
+  "grade": 5,
+  "concepts": [
+   "perim-area"
+  ],
+  "def": "Дүрсийн бүх талын уртын нийлбэр.",
+  "latin": [
+   "perimetr",
+   "pyerimyetr"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 133–138",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-133.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "талбай",
+  "en": "area",
+  "ru": "площадь",
+  "grade": 3,
+  "concepts": [
+   "perim-area",
+   "b-area"
+  ],
+  "def": "Дүрсийн эзлэх хавтгайн хэмжээ; квадрат нэгжээр хэмжинэ.",
+  "latin": [
+   "talbai",
+   "talbay"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 133–138",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-133.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "квадрат нэгж",
+  "en": "square unit",
+  "ru": "квадратная единица",
+  "grade": 3,
+  "concepts": [
+   "perim-area",
+   "b-area"
+  ],
+  "def": "Талбайн нэгж: см², м².",
+  "latin": [
+   "kvadrat negj",
+   "kvadrat negzh"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "нийлмэл дүрс",
+  "en": "compound shape",
+  "ru": "составная фигура",
+  "grade": 5,
+  "concepts": [
+   "perim-area"
+  ],
+  "def": "Хэд хэдэн энгийн дүрсээс бүрдсэн дүрс.",
+  "latin": [
+   "niilmel durs",
+   "niylmel durs",
+   "niilmel dvrs"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 133–138",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-133.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "эзэлхүүн",
+  "en": "volume",
+  "ru": "объём",
+  "grade": 4,
+  "concepts": [
+   "vol-surf",
+   "b-vol"
+  ],
+  "def": "Биетийн эзлэх огторгуйн хэмжээ; куб нэгжээр хэмжинэ.",
+  "latin": [
+   "ezelhuun",
+   "ezelkhuun",
+   "ezelxvvn"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 112–117",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-112.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "гадаргуугийн талбай",
+  "en": "surface area",
+  "ru": "площадь поверхности",
+  "grade": 5,
+  "concepts": [
+   "vol-surf"
+  ],
+  "def": "Биетийн бүх талсын талбайн нийлбэр.",
+  "latin": [
+   "gadarguugiin talbai",
+   "gadarguugiyn talbay"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 112–117",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-112.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "куб нэгж",
+  "en": "cubic unit",
+  "ru": "кубическая единица",
+  "grade": 4,
+  "concepts": [
+   "vol-surf",
+   "b-vol"
+  ],
+  "def": "Эзэлхүүний нэгж: см³, м³.",
+  "latin": [
+   "kub negj",
+   "kub negzh"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "алгебрын илэрхийлэл",
+  "en": "algebraic expression",
+  "ru": "алгебраическое выражение",
+  "grade": 6,
+  "concepts": [
+   "expr"
+  ],
+  "def": "Үсэг, тоо, үйлдлийн тэмдгээс тогтох илэрхийлэл.",
+  "latin": [
+   "algebriin ilerhiilel",
+   "algyebryn ilerkhiylel",
+   "algebrin ilerxiilel"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 70–76",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-70.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "хувьсагч",
+  "en": "variable",
+  "ru": "переменная",
+  "grade": 6,
+  "concepts": [
+   "expr",
+   "func"
+  ],
+  "def": "Утга нь өөрчлөгдөж болох, үсгээр тэмдэглэсэн хэмжигдэхүүн.",
+  "latin": [
+   "huvisagch",
+   "khuvsagch",
+   "xuvsagch"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 70–76",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-70.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "илэрхийллийн утга",
+  "en": "value of an expression",
+  "ru": "значение выражения",
+  "grade": 6,
+  "concepts": [
+   "expr"
+  ],
+  "def": "Үсгийн оронд тоо орлуулж бодоод гарсан тоо.",
+  "latin": [
+   "ilerhiilliin utga",
+   "ilerkhiylliyn utga",
+   "ilerxiilliin utga"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 70–76",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-70.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "гишүүн",
+  "en": "term",
+  "ru": "член",
+  "grade": 6,
+  "concepts": [
+   "expr",
+   "seq",
+   "poly"
+  ],
+  "def": "Нэмэх, хасах тэмдгээр салсан хэсэг; дарааллын тоо бүр.",
+  "latin": [
+   "gishuun",
+   "gishvvn"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 70–76",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-70.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "коэффициент",
+  "en": "coefficient",
+  "ru": "коэффициент",
+  "grade": 6,
+  "concepts": [
+   "expr",
+   "poly"
+  ],
+  "def": "Хувьсагчийн өмнөх тоон үржигдэхүүн.",
+  "latin": [
+   "koeffitsient",
+   "koeffitsiyent",
+   "koefficient"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 70–76",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-70.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "сул гишүүн",
+  "en": "constant term",
+  "ru": "свободный член",
+  "grade": 6,
+  "concepts": [
+   "expr",
+   "linear",
+   "quad-eq"
+  ],
+  "def": "Хувьсагчгүй гишүүн.",
+  "latin": [
+   "sul gishuun",
+   "sul gishvvn"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 70–76",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-70.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "төсөөтэй гишүүд",
+  "en": "like terms",
+  "ru": "подобные члены",
+  "grade": 6,
+  "concepts": [
+   "expr",
+   "poly"
+  ],
+  "def": "Үсэг хэсэг нь ижил гишүүд.",
+  "latin": [
+   "tusuutei gishuud",
+   "tosootey gishuud",
+   "tosootei gishvvd"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 70–76",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-70.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "эмхэтгэх",
+  "en": "collect like terms / simplify",
+  "ru": "привести подобные",
+  "grade": 6,
+  "concepts": [
+   "expr",
+   "poly"
+  ],
+  "def": "Төсөөтэй гишүүдийн коэффициентийг нэмж хялбарчлах.",
+  "latin": [
+   "emhetgeh",
+   "emkhetgekh",
+   "emxetgex"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 70–76",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-70.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "орлуулах",
+  "en": "substitute",
+  "ru": "подставить",
+  "grade": 6,
+  "concepts": [
+   "expr",
+   "system"
+  ],
+  "def": "Үсгийн оронд тоо (илэрхийлэл) тавих.",
+  "latin": [
+   "orluulah",
+   "orluulakh",
+   "orluulax"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "хаалт задлах",
+  "en": "expand brackets",
+  "ru": "раскрыть скобки",
+  "grade": 6,
+  "concepts": [
+   "expr",
+   "special-prod"
+  ],
+  "def": "Хаалтан доторх гишүүн бүрийг үржүүлж хаалтгүй бичих.",
+  "latin": [
+   "haalt zadlah",
+   "khaalt zadlakh",
+   "xaalt zadlax"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 70–76",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-70.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "тэгшитгэл",
+  "en": "equation",
+  "ru": "уравнение",
+  "grade": 6,
+  "concepts": [
+   "lin-eq"
+  ],
+  "def": "Үл мэдэгдэх хэмжигдэхүүн агуулсан тэнцэтгэл.",
+  "latin": [
+   "tegshitgel"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 77–79",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-77.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "үл мэдэгдэгч",
+  "en": "unknown",
+  "ru": "неизвестное",
+  "grade": 1,
+  "concepts": [
+   "lin-eq",
+   "b-equal"
+  ],
+  "def": "Тэгшитгэлд олох ёстой хэмжигдэхүүн, ихэвчлэн x.",
+  "latin": [
+   "ul medegdegch",
+   "vl medegdegch"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "шугаман тэгшитгэл",
+  "en": "linear equation",
+  "ru": "линейное уравнение",
+  "grade": 6,
+  "concepts": [
+   "lin-eq"
+  ],
+  "def": "ax + b = 0 хэлбэрийн тэгшитгэл.",
+  "latin": [
+   "shugaman tegshitgel"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "тэгшитгэлийн шийд",
+  "en": "solution (root) of an equation",
+  "ru": "корень уравнения",
+  "grade": 6,
+  "concepts": [
+   "lin-eq"
+  ],
+  "def": "Тэгшитгэлийг үнэн тэнцэтгэл болгох тоо.",
+  "latin": [
+   "tegshitgeliin shiid",
+   "tegshitgeliyn shiyd"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "тэгшитгэл бодох",
+  "en": "solve an equation",
+  "ru": "решить уравнение",
+  "grade": 6,
+  "concepts": [
+   "lin-eq"
+  ],
+  "def": "Тэгшитгэлийн бүх шийдийг олох.",
+  "latin": [
+   "tegshitgel bodoh",
+   "tegshitgel bodokh",
+   "tegshitgel bodox"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 77–79",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-77.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "тэнцэтгэл",
+  "en": "equality",
+  "ru": "равенство",
+  "grade": 1,
+  "concepts": [
+   "lin-eq",
+   "b-equal"
+  ],
+  "def": "Тэнцүүгийн тэмдгээр холбосон хоёр илэрхийлэл.",
+  "latin": [
+   "tentsetgel",
+   "tencetgel"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 77–79",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-77.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "дараалал",
+  "en": "sequence",
+  "ru": "последовательность",
+  "grade": 6,
+  "concepts": [
+   "seq"
+  ],
+  "def": "Дүрмээр байрласан тоонуудын эгнээ.",
+  "latin": [
+   "daraalal"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 124–125",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-124.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "ерөнхий гишүүн",
+  "en": "general term (nth term)",
+  "ru": "общий член",
+  "grade": 6,
+  "concepts": [
+   "seq",
+   "ap"
+  ],
+  "def": "Дарааллын n-р гишүүнийг олох томьёо.",
+  "latin": [
+   "erunhii gishuun",
+   "yeronkhiy gishuun",
+   "eronxii gishvvn"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VII, х. 76–78",
+   "url": "https://econtent.edu.mn/content/7rangi/mat/pages/mat-294-76.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "функц",
+  "en": "function",
+  "ru": "функция",
+  "grade": 6,
+  "concepts": [
+   "func"
+  ],
+  "def": "x-ийн утга бүрт y-ийн ганц утгыг харгалзуулах дүрэм.",
+  "latin": [
+   "funkts",
+   "funkc"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 87–92",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-87.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "оролт",
+  "en": "input",
+  "ru": "вход",
+  "grade": 6,
+  "concepts": [
+   "func"
+  ],
+  "def": "Функцэд өгөх тоо.",
+  "latin": [
+   "orolt"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 87–92",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-87.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "гаралт",
+  "en": "output",
+  "ru": "выход",
+  "grade": 6,
+  "concepts": [
+   "func"
+  ],
+  "def": "Функцээс гарах тоо.",
+  "latin": [
+   "garalt"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 87–92",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-87.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "шууд пропорциональ хамаарал",
+  "en": "direct proportion",
+  "ru": "прямая пропорциональность",
+  "grade": 6,
+  "concepts": [
+   "direct"
+  ],
+  "def": "Нэг хэмжигдэхүүн хэд дахин ихсэхэд нөгөө нь мөн тэдэн дахин ихсэх хамаарал: y = kx.",
+  "latin": [
+   "shuud proportsionali hamaaral",
+   "shuud proportsional khamaaral",
+   "shuud proporcional xamaaral"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 59–60",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-59.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "пропорциональ коэффициент",
+  "en": "constant of proportionality",
+  "ru": "коэффициент пропорциональности",
+  "grade": 6,
+  "concepts": [
+   "direct",
+   "inv-prop"
+  ],
+  "def": "y = kx, y = k/x томьёоны k тоо.",
+  "latin": [
+   "proportsionali koeffitsient",
+   "proportsional koeffitsiyent",
+   "proporcional koefficient"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 59–60",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-59.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "хэмжигдэхүүн",
+  "en": "quantity",
+  "ru": "величина",
+  "grade": 6,
+  "concepts": [
+   "direct"
+  ],
+  "def": "Хэмжиж, тоогоор илэрхийлж болох зүйл: урт, хурд, үнэ.",
+  "latin": [
+   "hemjigdehuun",
+   "khemzhigdekhuun",
+   "xemjigdexvvn"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 59–60",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-59.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "өнцөг",
+  "en": "angle",
+  "ru": "угол",
+  "grade": 2,
+  "concepts": [
+   "angle",
+   "b-angle"
+  ],
+  "def": "Нэг цэгээс гарсан хоёр цацрагаар хашигдсан хавтгайн хэсэг.",
+  "latin": [
+   "untsug",
+   "ontsog",
+   "oncog"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 95–102",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-95.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "цацраг",
+  "en": "ray",
+  "ru": "луч",
+  "grade": 6,
+  "concepts": [
+   "angle"
+  ],
+  "def": "Нэг цэгээс эхэлж нэг тийш төгсгөлгүй үргэлжлэх шугам.",
+  "latin": [
+   "tsatsrag",
+   "cacrag"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 95–102",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-95.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "шулуун",
+  "en": "straight line",
+  "ru": "прямая",
+  "grade": 6,
+  "concepts": [
+   "angle"
+  ],
+  "def": "Хоёр тийш төгсгөлгүй үргэлжлэх шулуун шугам.",
+  "latin": [
+   "shuluun"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 95–102",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-95.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "хэрчим",
+  "en": "line segment",
+  "ru": "отрезок",
+  "grade": 6,
+  "concepts": [
+   "angle"
+  ],
+  "def": "Хоёр цэгээр хязгаарлагдсан шулууны хэсэг.",
+  "latin": [
+   "herchim",
+   "kherchim",
+   "xerchim"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "градус",
+  "en": "degree",
+  "ru": "градус",
+  "grade": 6,
+  "concepts": [
+   "angle"
+  ],
+  "def": "Өнцгийн хэмжих нэгж; бүтэн эргэлт 360°.",
+  "latin": [
+   "gradus"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "хурц өнцөг",
+  "en": "acute angle",
+  "ru": "острый угол",
+  "grade": 6,
+  "concepts": [
+   "angle"
+  ],
+  "def": "90°-аас бага өнцөг.",
+  "latin": [
+   "hurts untsug",
+   "khurts ontsog",
+   "xurc oncog"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 95–102",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-95.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "тэгш өнцөг",
+  "en": "right angle",
+  "ru": "прямой угол",
+  "grade": 6,
+  "concepts": [
+   "angle"
+  ],
+  "def": "90° өнцөг.",
+  "latin": [
+   "tegsh untsug",
+   "tegsh ontsog",
+   "tegsh oncog"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 95–102",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-95.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "мохоо өнцөг",
+  "en": "obtuse angle",
+  "ru": "тупой угол",
+  "grade": 6,
+  "concepts": [
+   "angle"
+  ],
+  "def": "90°-аас их, 180°-аас бага өнцөг.",
+  "latin": [
+   "mohoo untsug",
+   "mokhoo ontsog",
+   "moxoo oncog"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 95–102",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-95.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "дэлгэмэл өнцөг",
+  "en": "straight angle",
+  "ru": "развёрнутый угол",
+  "grade": 6,
+  "concepts": [
+   "angle"
+  ],
+  "def": "180° өнцөг.",
+  "latin": [
+   "delgemel untsug",
+   "delgemel ontsog",
+   "delgemel oncog"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 95–102",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-95.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "гүйцэд өнцөг",
+  "en": "full angle",
+  "ru": "полный угол",
+  "grade": 6,
+  "concepts": [
+   "angle"
+  ],
+  "def": "360° өнцөг.",
+  "latin": [
+   "guitsed untsug",
+   "guytsed ontsog",
+   "gviced oncog"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 95–102",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-95.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "хамар өнцөг",
+  "en": "adjacent (supplementary) angles",
+  "ru": "смежные углы",
+  "grade": 6,
+  "concepts": [
+   "angle",
+   "parallel"
+  ],
+  "def": "Нэг ерөнхий талтай, нөгөө тал нь нэг шулуун үүсгэх хоёр өнцөг; нийлбэр 180°.",
+  "latin": [
+   "hamar untsug",
+   "khamar ontsog",
+   "xamar oncog"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 95–102",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-95.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "босоо өнцөг",
+  "en": "vertical angles",
+  "ru": "вертикальные углы",
+  "grade": 6,
+  "concepts": [
+   "angle",
+   "parallel"
+  ],
+  "def": "Нэгнийх нь талууд нөгөөгийнхөө талын үргэлжлэл болох хоёр өнцөг; тэнцүү.",
+  "latin": [
+   "bosoo untsug",
+   "bosoo ontsog",
+   "bosoo oncog"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 95–102",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-95.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "параллель шулуун",
+  "en": "parallel lines",
+  "ru": "параллельные прямые",
+  "grade": 6,
+  "concepts": [
+   "angle",
+   "parallel"
+  ],
+  "def": "Нэг хавтгайд орших, огтлолцохгүй шулуунууд; a ∥ b.",
+  "latin": [
+   "paralleli shuluun",
+   "parallyel shuluun",
+   "parallel shuluun"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VII, х. 92–93",
+   "url": "https://econtent.edu.mn/content/7rangi/mat/pages/mat-294-92.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "перпендикуляр",
+  "en": "perpendicular",
+  "ru": "перпендикуляр",
+  "grade": 6,
+  "concepts": [
+   "angle"
+  ],
+  "def": "Тэгш өнцгөөр огтлолцох шулуун; a ⊥ b.",
+  "latin": [
+   "perpendikulyar",
+   "pyerpyendikulyar"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 95–102",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-95.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "транспортир",
+  "en": "protractor",
+  "ru": "транспортир",
+  "grade": 6,
+  "concepts": [
+   "angle",
+   "construct"
+  ],
+  "def": "Өнцөг хэмжих хэрэгсэл.",
+  "latin": [
+   "transportir"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 95–102",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-95.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "олон өнцөгт",
+  "en": "polygon",
+  "ru": "многоугольник",
+  "grade": 6,
+  "concepts": [
+   "polygon"
+  ],
+  "def": "Талууд нь огтлолцохгүй битүү тахир шугамаар хүрээлэгдсэн дүрс.",
+  "latin": [
+   "olon untsugt",
+   "olon ontsogt",
+   "olon oncogt"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 104–113",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-104.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "дөрвөн өнцөгт",
+  "en": "quadrilateral",
+  "ru": "четырёхугольник",
+  "grade": 6,
+  "concepts": [
+   "polygon"
+  ],
+  "def": "Дөрвөн талтай олон өнцөгт.",
+  "latin": [
+   "durvun untsugt",
+   "dorvon ontsogt",
+   "dorvon oncogt"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 104–113",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-104.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "тэгш өнцөгт",
+  "en": "rectangle",
+  "ru": "прямоугольник",
+  "grade": 5,
+  "concepts": [
+   "polygon",
+   "perim-area"
+  ],
+  "def": "Бүх өнцөг нь 90° дөрвөн өнцөгт.",
+  "latin": [
+   "tegsh untsugt",
+   "tegsh ontsogt",
+   "tegsh oncogt"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 104–113",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-104.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "квадрат",
+  "en": "square",
+  "ru": "квадрат",
+  "grade": 5,
+  "concepts": [
+   "polygon",
+   "perim-area"
+  ],
+  "def": "Бүх тал тэнцүү, бүх өнцөг 90° дөрвөн өнцөгт.",
+  "latin": [
+   "kvadrat"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 104–113",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-104.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "параллелограмм",
+  "en": "parallelogram",
+  "ru": "параллелограмм",
+  "grade": 6,
+  "concepts": [
+   "polygon"
+  ],
+  "def": "Эсрэг талууд нь хос хосоороо параллель дөрвөн өнцөгт.",
+  "latin": [
+   "parallelogramm",
+   "parallyelogramm"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 104–113",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-104.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "ромб",
+  "en": "rhombus",
+  "ru": "ромб",
+  "grade": 6,
+  "concepts": [
+   "polygon"
+  ],
+  "def": "Бүх тал нь тэнцүү параллелограмм.",
+  "latin": [
+   "romb"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 104–113",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-104.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "трапец",
+  "en": "trapezium / trapezoid",
+  "ru": "трапеция",
+  "grade": 6,
+  "concepts": [
+   "polygon"
+  ],
+  "def": "Зөвхөн нэг хос параллель талтай дөрвөн өнцөгт.",
+  "latin": [
+   "trapets",
+   "trapyets",
+   "trapec"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 104–113",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-104.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "диагональ",
+  "en": "diagonal",
+  "ru": "диагональ",
+  "grade": 6,
+  "concepts": [
+   "polygon"
+  ],
+  "def": "Хөрш биш хоёр оройг холбосон хэрчим.",
+  "latin": [
+   "diagonali",
+   "diagonal"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 104–113",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-104.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "гүдгэр олон өнцөгт",
+  "en": "convex polygon",
+  "ru": "выпуклый многоугольник",
+  "grade": 6,
+  "concepts": [
+   "polygon"
+  ],
+  "def": "Бүх диагональ нь дотроо орших олон өнцөгт.",
+  "latin": [
+   "gudger olon untsugt",
+   "gudger olon ontsogt",
+   "gvdger olon oncogt"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 104–113",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-104.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "зөв олон өнцөгт",
+  "en": "regular polygon",
+  "ru": "правильный многоугольник",
+  "grade": 6,
+  "concepts": [
+   "polygon"
+  ],
+  "def": "Бүх тал, бүх өнцөг нь тэнцүү олон өнцөгт.",
+  "latin": [
+   "zuv olon untsugt",
+   "zov olon ontsogt",
+   "zov olon oncogt"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 104–113",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-104.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "тойрог",
+  "en": "circle (the curve)",
+  "ru": "окружность",
+  "grade": 6,
+  "concepts": [
+   "circle"
+  ],
+  "def": "Төвөөс ижил зайд орших хавтгайн цэгүүдийн олонлог.",
+  "latin": [
+   "toirog",
+   "toyrog"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 114–115; Математик VII, х. 141–143",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-114.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "дугуй",
+  "en": "disc (circle region)",
+  "ru": "круг",
+  "grade": 6,
+  "concepts": [
+   "circle"
+  ],
+  "def": "Тойргоор хүрээлэгдсэн хавтгайн хэсэг.",
+  "latin": [
+   "dugui",
+   "duguy"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 114–115; Математик VII, х. 141–143",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-114.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "төв",
+  "en": "centre",
+  "ru": "центр",
+  "grade": 6,
+  "concepts": [
+   "circle"
+  ],
+  "def": "Тойргийн бүх цэгээс ижил зайд орших цэг.",
+  "latin": [
+   "tuv",
+   "tov"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 114–115; Математик VII, х. 141–143",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-114.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "радиус",
+  "en": "radius",
+  "ru": "радиус",
+  "grade": 6,
+  "concepts": [
+   "circle"
+  ],
+  "def": "Төвийг тойрог дээрх цэгтэй холбосон хэрчим.",
+  "latin": [
+   "radius"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 114–115; Математик VII, х. 141–143",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-114.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "диаметр",
+  "en": "diameter",
+  "ru": "диаметр",
+  "grade": 6,
+  "concepts": [
+   "circle"
+  ],
+  "def": "Төвийг дайрсан хөвч; D = 2R.",
+  "latin": [
+   "diametr",
+   "diamyetr"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 114–115; Математик VII, х. 141–143",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-114.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "хөвч",
+  "en": "chord",
+  "ru": "хорда",
+  "grade": 6,
+  "concepts": [
+   "circle",
+   "chord-tangent"
+  ],
+  "def": "Тойргийн хоёр цэгийг холбосон хэрчим.",
+  "latin": [
+   "huvch",
+   "khovch",
+   "xovch"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 114–115; Математик VII, х. 141–143",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-114.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "нум",
+  "en": "arc",
+  "ru": "дуга",
+  "grade": 6,
+  "concepts": [
+   "circle",
+   "sector"
+  ],
+  "def": "Тойргийн хоёр цэгийн хоорондох хэсэг.",
+  "latin": [
+   "num"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 114–115; Математик VII, х. 141–143",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-114.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "пи тоо (π)",
+  "en": "pi (π)",
+  "ru": "число пи",
+  "grade": 6,
+  "concepts": [
+   "circle",
+   "circle-meas"
+  ],
+  "def": "Тойргийн уртыг диаметрт харьцуулсан тогтмол тоо, ≈ 3.14.",
+  "latin": [
+   "pi too"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "гортиг",
+  "en": "compasses",
+  "ru": "циркуль",
+  "grade": 6,
+  "concepts": [
+   "circle",
+   "construct"
+  ],
+  "def": "Тойрог, нум зурах хэрэгсэл.",
+  "latin": [
+   "gortig"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 97, 103, 115; Математик VII, х. 108–112",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-97.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "анхны тоо",
+  "en": "prime number",
+  "ru": "простое число",
+  "grade": 6,
+  "concepts": [
+   "prime"
+  ],
+  "def": "Зөвхөн 1 ба өөртөө хуваагддаг, 1-ээс их натурал тоо.",
+  "latin": [
+   "anhnii too",
+   "ankhny too",
+   "anxni too"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 17; Математик VII, х. 13",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-17.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "зохиомол тоо",
+  "en": "composite number",
+  "ru": "составное число",
+  "grade": 6,
+  "concepts": [
+   "prime"
+  ],
+  "def": "2-оос олон хуваагчтай натурал тоо.",
+  "latin": [
+   "zohiomol too",
+   "zokhiomol too",
+   "zoxiomol too"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "анхны үржигдэхүүнд задлах",
+  "en": "prime factorisation",
+  "ru": "разложение на простые множители",
+  "grade": 6,
+  "concepts": [
+   "prime"
+  ],
+  "def": "Тоог анхны тоонуудын үржвэр хэлбэрт бичих.",
+  "latin": [
+   "anhnii urjigdehuund zadlah",
+   "ankhny urzhigdekhuund zadlakh",
+   "anxni vrjigdexvvnd zadlax"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "харилцан анхны тоо",
+  "en": "coprime numbers",
+  "ru": "взаимно простые числа",
+  "grade": 6,
+  "concepts": [
+   "prime"
+  ],
+  "def": "ХИЕХ нь 1 байх тоонууд.",
+  "latin": [
+   "hariltsan anhnii too",
+   "khariltsan ankhny too",
+   "xarilcan anxni too"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 17; Математик VII, х. 13",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-17.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "пропорц",
+  "en": "proportion",
+  "ru": "пропорция",
+  "grade": 5,
+  "concepts": [
+   "prop",
+   "ratio"
+  ],
+  "def": "Хоёр харьцааны тэнцэтгэл: a : b = c : d.",
+  "latin": [
+   "proports",
+   "proporc"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 55–58",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-55.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "пропорцын үндсэн чанар",
+  "en": "cross-multiplication property",
+  "ru": "основное свойство пропорции",
+  "grade": 6,
+  "concepts": [
+   "prop"
+  ],
+  "def": "Захын гишүүдийн үржвэр дунд гишүүдийн үржвэртэй тэнцүү: ad = bc.",
+  "latin": [
+   "proportsiin undsen chanar",
+   "proportsyn undsen chanar",
+   "proporcin vndsen chanar"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 55–58",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-55.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "зэрэг",
+  "en": "power",
+  "ru": "степень",
+  "grade": 6,
+  "concepts": [
+   "pow"
+  ],
+  "def": "Ижил тоог олон дахин үржүүлсэн үржвэр: aⁿ.",
+  "latin": [
+   "zereg"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 18; Математик VII, х. 11, 61–62",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-18.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "зэргийн суурь",
+  "en": "base of a power",
+  "ru": "основание степени",
+  "grade": 6,
+  "concepts": [
+   "pow"
+  ],
+  "def": "aⁿ-ийн a тоо.",
+  "latin": [
+   "zergiin suuri",
+   "zergiyn suur",
+   "zergiin suur"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 18; Математик VII, х. 11, 61–62",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-18.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "зэргийн илтгэгч",
+  "en": "exponent",
+  "ru": "показатель степени",
+  "grade": 6,
+  "concepts": [
+   "pow"
+  ],
+  "def": "aⁿ-ийн n тоо: хэдэн удаа үржүүлэхийг заана.",
+  "latin": [
+   "zergiin iltgegch",
+   "zergiyn iltgegch"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 18; Математик VII, х. 11, 61–62",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-18.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "квадрат (зэрэг)",
+  "en": "square (second power)",
+  "ru": "квадрат (вторая степень)",
+  "grade": 6,
+  "concepts": [
+   "pow"
+  ],
+  "def": "a² = a · a.",
+  "latin": [
+   "kvadrat"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 18; Математик VII, х. 11, 61–62",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-18.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "куб (зэрэг)",
+  "en": "cube (third power)",
+  "ru": "куб (третья степень)",
+  "grade": 6,
+  "concepts": [
+   "pow"
+  ],
+  "def": "a³ = a · a · a.",
+  "latin": [
+   "kub"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 18; Математик VII, х. 11, 61–62",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-18.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "зэрэг дэвшүүлэх",
+  "en": "raise to a power",
+  "ru": "возвести в степень",
+  "grade": 6,
+  "concepts": [
+   "pow"
+  ],
+  "def": "Тооны зэргийг олох үйлдэл.",
+  "latin": [
+   "zereg devshuuleh",
+   "zereg devshuulekh",
+   "zereg devshvvlex"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "квадрат язгуур",
+  "en": "square root",
+  "ru": "квадратный корень",
+  "grade": 6,
+  "concepts": [
+   "root"
+  ],
+  "def": "Квадрат нь a байх тоо: √a.",
+  "latin": [
+   "kvadrat yazguur"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 18–19; Математик VII, х. 11–12",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-18.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "куб язгуур",
+  "en": "cube root",
+  "ru": "кубический корень",
+  "grade": 6,
+  "concepts": [
+   "root"
+  ],
+  "def": "Куб нь a байх тоо: ∛a.",
+  "latin": [
+   "kub yazguur"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 18–19; Математик VII, х. 11–12",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-18.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "язгуур гаргах",
+  "en": "take a root",
+  "ru": "извлечь корень",
+  "grade": 6,
+  "concepts": [
+   "root"
+  ],
+  "def": "Тооны язгуурыг олох үйлдэл.",
+  "latin": [
+   "yazguur gargah",
+   "yazguur gargakh",
+   "yazguur gargax"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "олонлог",
+  "en": "set",
+  "ru": "множество",
+  "grade": 6,
+  "concepts": [
+   "sets"
+  ],
+  "def": "Ялгаатай юмсын цуглуулга; { } хаалтад бичнэ.",
+  "latin": [
+   "olonlog"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 21–22 (5-р ангийн номд энэ сэдэв байхгүй)",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-21.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "элемент",
+  "en": "element",
+  "ru": "элемент",
+  "grade": 6,
+  "concepts": [
+   "sets",
+   "matrix"
+  ],
+  "def": "Олонлогийг бүрдүүлэх юм бүр; ∈.",
+  "latin": [
+   "element",
+   "elyemyent"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 21–22 (5-р ангийн номд энэ сэдэв байхгүй)",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-21.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "хоосон олонлог",
+  "en": "empty set",
+  "ru": "пустое множество",
+  "grade": 6,
+  "concepts": [
+   "sets"
+  ],
+  "def": "Нэг ч элементгүй олонлог; ∅.",
+  "latin": [
+   "hooson olonlog",
+   "khooson olonlog",
+   "xooson olonlog"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 21–22 (5-р ангийн номд энэ сэдэв байхгүй)",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-21.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "дэд олонлог",
+  "en": "subset",
+  "ru": "подмножество",
+  "grade": 6,
+  "concepts": [
+   "sets"
+  ],
+  "def": "Бүх элемент нь өөр олонлогт агуулагдах олонлог; ⊂.",
+  "latin": [
+   "ded olonlog"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "огтлолцол (олонлогийн)",
+  "en": "intersection",
+  "ru": "пересечение",
+  "grade": 6,
+  "concepts": [
+   "sets"
+  ],
+  "def": "Хоёр олонлогт зэрэг орсон элементүүд; A ∩ B.",
+  "latin": [
+   "ogtloltsol",
+   "ogtlolcol"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 21–22 (5-р ангийн номд энэ сэдэв байхгүй)",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-21.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "нэгдэл",
+  "en": "union",
+  "ru": "объединение",
+  "grade": 6,
+  "concepts": [
+   "sets"
+  ],
+  "def": "Ядаж нэг олонлогт орсон элементүүд; A ∪ B.",
+  "latin": [
+   "negdel"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 21–22 (5-р ангийн номд энэ сэдэв байхгүй)",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-21.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "Эйлер-Веннийн диаграмм",
+  "en": "Venn diagram",
+  "ru": "диаграмма Эйлера-Венна",
+  "grade": 6,
+  "concepts": [
+   "sets"
+  ],
+  "def": "Олонлогуудыг дугуйгаар дүрсэлсэн зураг.",
+  "latin": [
+   "eiler-venniin diagramm",
+   "eylyer-vyenniyn diagramm"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 21–22 (5-р ангийн номд энэ сэдэв байхгүй)",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-21.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "өгөгдөл",
+  "en": "data",
+  "ru": "данные",
+  "grade": 6,
+  "concepts": [
+   "data"
+  ],
+  "def": "Цуглуулсан тоо, мэдээлэл.",
+  "latin": [
+   "ugugdul",
+   "ogogdol"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "түүвэр",
+  "en": "sample",
+  "ru": "выборка",
+  "grade": 6,
+  "concepts": [
+   "data"
+  ],
+  "def": "Бүх хүн амаас судлахаар сонгосон хэсэг.",
+  "latin": [
+   "tuuver",
+   "tvvver"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "эх олонлог",
+  "en": "population",
+  "ru": "генеральная совокупность",
+  "grade": 6,
+  "concepts": [
+   "data"
+  ],
+  "def": "Судалж буй бүх объектын олонлог.",
+  "latin": [
+   "eh olonlog",
+   "ekh olonlog",
+   "ex olonlog"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "судалгаа",
+  "en": "survey",
+  "ru": "опрос, исследование",
+  "grade": 6,
+  "concepts": [
+   "data"
+  ],
+  "def": "Асуулга зэргээр өгөгдөл цуглуулах ажил.",
+  "latin": [
+   "sudalgaa"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "магадлал",
+  "en": "probability",
+  "ru": "вероятность",
+  "grade": 6,
+  "concepts": [
+   "prob"
+  ],
+  "def": "Үзэгдэл илрэх боломжийг 0-ээс 1 хүртэлх тоогоор илэрхийлсэн нь.",
+  "latin": [
+   "magadlal"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "үзэгдэл",
+  "en": "event",
+  "ru": "событие",
+  "grade": 6,
+  "concepts": [
+   "prob"
+  ],
+  "def": "Туршилтын нэг буюу хэд хэдэн үр дүн.",
+  "latin": [
+   "uzegdel",
+   "vzegdel"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 87–89, 136–138",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-87.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "тэнцүү боломжтой",
+  "en": "equally likely",
+  "ru": "равновозможные",
+  "grade": 6,
+  "concepts": [
+   "prob"
+  ],
+  "def": "Илрэх боломж нь ижил үр дүнгүүд.",
+  "latin": [
+   "tentsuu bolomjtoi",
+   "tentsuu bolomzhtoy",
+   "tencvv bolomjtoi"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "итгэлтэй үзэгдэл",
+  "en": "certain event",
+  "ru": "достоверное событие",
+  "grade": 6,
+  "concepts": [
+   "prob"
+  ],
+  "def": "Заавал илрэх үзэгдэл; магадлал 1.",
+  "latin": [
+   "itgeltei uzegdel",
+   "itgeltey uzegdel",
+   "itgeltei vzegdel"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "нэг гишүүнт",
+  "en": "monomial",
+  "ru": "одночлен",
+  "grade": 7,
+  "concepts": [
+   "poly"
+  ],
+  "def": "Зөвхөн үржих ба зэрэг дэвшүүлэх үйлдэл агуулсан илэрхийлэл: 5x²y.",
+  "latin": [
+   "neg gishuunt",
+   "neg gishvvnt"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VII, х. 59–68",
+   "url": "https://econtent.edu.mn/content/7rangi/mat/pages/mat-294-59.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "олон гишүүнт",
+  "en": "polynomial",
+  "ru": "многочлен",
+  "grade": 7,
+  "concepts": [
+   "poly"
+  ],
+  "def": "Нэг гишүүнтүүдийн нийлбэр.",
+  "latin": [
+   "olon gishuunt",
+   "olon gishvvnt"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VII, х. 59–68",
+   "url": "https://econtent.edu.mn/content/7rangi/mat/pages/mat-294-59.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "олон гишүүнтийн зэрэг",
+  "en": "degree of a polynomial",
+  "ru": "степень многочлена",
+  "grade": 7,
+  "concepts": [
+   "poly",
+   "poly-div"
+  ],
+  "def": "Гишүүдийн хамгийн их зэрэг.",
+  "latin": [
+   "olon gishuuntiin zereg",
+   "olon gishuuntiyn zereg",
+   "olon gishvvntiin zereg"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "арифметик прогресс",
+  "en": "arithmetic progression",
+  "ru": "арифметическая прогрессия",
+  "grade": 7,
+  "concepts": [
+   "ap"
+  ],
+  "def": "Гишүүн бүр нь өмнөхөөсөө ижил d тоогоор ялгаатай дараалал.",
+  "latin": [
+   "arifmetik progress",
+   "arifmyetik progryess"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VII, х. 76–78",
+   "url": "https://econtent.edu.mn/content/7rangi/mat/pages/mat-294-76.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "прогрессын ялгавар",
+  "en": "common difference",
+  "ru": "разность прогрессии",
+  "grade": 7,
+  "concepts": [
+   "ap"
+  ],
+  "def": "Арифметик прогрессын дараалсан хоёр гишүүний ялгавар d.",
+  "latin": [
+   "progressiin yalgavar",
+   "progryessyn yalgavar",
+   "progressin yalgavar"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "шугаман функц",
+  "en": "linear function",
+  "ru": "линейная функция",
+  "grade": 7,
+  "concepts": [
+   "linear"
+  ],
+  "def": "y = ax + b хэлбэрийн функц; график нь шулуун.",
+  "latin": [
+   "shugaman funkts",
+   "shugaman funkc"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VII, х. 79–85",
+   "url": "https://econtent.edu.mn/content/7rangi/mat/pages/mat-294-79.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "огтлогч",
+  "en": "transversal / secant",
+  "ru": "секущая",
+  "grade": 7,
+  "concepts": [
+   "parallel",
+   "chord-tangent"
+  ],
+  "def": "Хоёр шулууныг (тойргийг) огтлох шулуун.",
+  "latin": [
+   "ogtlogch"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VII, х. 92–93",
+   "url": "https://econtent.edu.mn/content/7rangi/mat/pages/mat-294-92.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "солбисон өнцөг",
+  "en": "alternate angles",
+  "ru": "накрест лежащие углы",
+  "grade": 7,
+  "concepts": [
+   "parallel"
+  ],
+  "def": "Огтлогчийн хоёр талд, шулуунуудын дотор орших өнцгүүд; параллель үед тэнцүү.",
+  "latin": [
+   "solbison untsug",
+   "solbison ontsog",
+   "solbison oncog"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VII, х. 92–93",
+   "url": "https://econtent.edu.mn/content/7rangi/mat/pages/mat-294-92.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "харгалзах өнцөг",
+  "en": "corresponding angles",
+  "ru": "соответственные углы",
+  "grade": 7,
+  "concepts": [
+   "parallel"
+  ],
+  "def": "Огтлогчийн нэг талд, ижил байрлалд орших өнцгүүд.",
+  "latin": [
+   "hargalzah untsug",
+   "khargalzakh ontsog",
+   "xargalzax oncog"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "батлах",
+  "en": "to prove",
+  "ru": "доказать",
+  "grade": 7,
+  "concepts": [
+   "proof"
+  ],
+  "def": "Мэдэх чанарт тулгуурлан шинэ дүгнэлт үнэн гэдгийг алхам алхмаар харуулах.",
+  "latin": [
+   "batlah",
+   "batlakh",
+   "batlax"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VII, х. 94–99, 104–107",
+   "url": "https://econtent.edu.mn/content/7rangi/mat/pages/mat-294-94.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "теорем",
+  "en": "theorem",
+  "ru": "теорема",
+  "grade": 7,
+  "concepts": [
+   "proof"
+  ],
+  "def": "Баталгаатай математик дүгнэлт.",
+  "latin": [
+   "teorem",
+   "tyeoryem"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "аксиом",
+  "en": "axiom",
+  "ru": "аксиома",
+  "grade": 7,
+  "concepts": [
+   "proof"
+  ],
+  "def": "Батлахгүйгээр үнэн гэж хүлээн зөвшөөрдөг өгүүлбэр.",
+  "latin": [
+   "aksiom"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "дотоод өнцөг",
+  "en": "interior angle",
+  "ru": "внутренний угол",
+  "grade": 6,
+  "concepts": [
+   "proof",
+   "polygon"
+  ],
+  "def": "Олон өнцөгтийн дотор талын өнцөг.",
+  "latin": [
+   "dotood untsug",
+   "dotood ontsog",
+   "dotood oncog"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "гадаад өнцөг",
+  "en": "exterior angle",
+  "ru": "внешний угол",
+  "grade": 7,
+  "concepts": [
+   "proof"
+  ],
+  "def": "Олон өнцөгтийн дотоод өнцгийн хамар өнцөг.",
+  "latin": [
+   "gadaad untsug",
+   "gadaad ontsog",
+   "gadaad oncog"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VII, х. 94–99, 104–107",
+   "url": "https://econtent.edu.mn/content/7rangi/mat/pages/mat-294-94.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "байгуулалт",
+  "en": "construction",
+  "ru": "построение",
+  "grade": 7,
+  "concepts": [
+   "construct"
+  ],
+  "def": "Гортиг, хуваарьгүй шугамаар дүрс зурах.",
+  "latin": [
+   "baiguulalt",
+   "bayguulalt"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 97, 103, 115; Математик VII, х. 108–112",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-97.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "хуваарьгүй шугам",
+  "en": "straightedge",
+  "ru": "линейка без делений",
+  "grade": 7,
+  "concepts": [
+   "construct"
+  ],
+  "def": "Хэмжээсгүй шулуун зурах хэрэгсэл.",
+  "latin": [
+   "huvaarigui shugam",
+   "khuvaarguy shugam",
+   "xuvaargvi shugam"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 97, 103, 115; Математик VII, х. 108–112",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-97.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "дундаж перпендикуляр",
+  "en": "perpendicular bisector",
+  "ru": "серединный перпендикуляр",
+  "grade": 7,
+  "concepts": [
+   "construct",
+   "locus",
+   "tri-lines"
+  ],
+  "def": "Хэрчмийн дундаж цэгийг дайрсан, түүнд перпендикуляр шулуун.",
+  "latin": [
+   "dundaj perpendikulyar",
+   "dundazh pyerpyendikulyar"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VIII, х. 99–100; Математик IX, х. 86",
+   "url": "https://econtent.edu.mn/content/8rangi/mat/pages/mat-310-99.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "тэнцүү гурвалжин",
+  "en": "congruent triangles",
+  "ru": "равные треугольники",
+  "grade": 7,
+  "concepts": [
+   "congruent"
+  ],
+  "def": "Харгалзах талууд, өнцгүүд нь тэнцүү гурвалжнууд.",
+  "latin": [
+   "tentsuu gurvaljin",
+   "tentsuu gurvalzhin",
+   "tencvv gurvaljin"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 126; Математик VII, х. 104–107",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-126.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "тэнцүүгийн шинж",
+  "en": "congruence criteria (SSS, SAS, ASA)",
+  "ru": "признаки равенства треугольников",
+  "grade": 7,
+  "concepts": [
+   "congruent",
+   "proof"
+  ],
+  "def": "ТТТ, ТӨТ, ӨТӨ: гурвалжнууд тэнцүү болохыг тогтоох нөхцөл.",
+  "latin": [
+   "tentsuugiin shinj",
+   "tentsuugiyn shinzh",
+   "tencvvgiin shinj"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VII, х. 94–99, 104–107",
+   "url": "https://econtent.edu.mn/content/7rangi/mat/pages/mat-294-94.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "тойргийн урт",
+  "en": "circumference",
+  "ru": "длина окружности",
+  "grade": 7,
+  "concepts": [
+   "circle-meas"
+  ],
+  "def": "C = πD = 2πR.",
+  "latin": [
+   "toirgiin urt",
+   "toyrgiyn urt"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VII, х. 141–143",
+   "url": "https://econtent.edu.mn/content/7rangi/mat/pages/mat-294-141.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "дугуйн талбай",
+  "en": "area of a circle",
+  "ru": "площадь круга",
+  "grade": 7,
+  "concepts": [
+   "circle-meas"
+  ],
+  "def": "S = πR².",
+  "latin": [
+   "duguin talbai",
+   "duguyn talbay"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VII, х. 141–143",
+   "url": "https://econtent.edu.mn/content/7rangi/mat/pages/mat-294-141.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "модуль",
+  "en": "absolute value (modulus)",
+  "ru": "модуль",
+  "grade": 7,
+  "concepts": [
+   "abs"
+  ],
+  "def": "Тооллын эхээс тухайн тоо хүртэлх зай: |a|.",
+  "latin": [
+   "moduli",
+   "modul"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VII, х. 5–6",
+   "url": "https://econtent.edu.mn/content/7rangi/mat/pages/mat-294-5.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "бүлэглэсэн өгөгдөл",
+  "en": "grouped data",
+  "ru": "сгруппированные данные",
+  "grade": 7,
+  "concepts": [
+   "grouped"
+  ],
+  "def": "Ижил урттай завсруудад хуваасан өгөгдөл.",
+  "latin": [
+   "buleglesen ugugdul",
+   "buleglesen ogogdol",
+   "bvleglesen ogogdol"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "гистограмм",
+  "en": "histogram",
+  "ru": "гистограмма",
+  "grade": 7,
+  "concepts": [
+   "grouped"
+  ],
+  "def": "Хоорондоо зайгүй баганаар тасралтгүй өгөгдлийн давтамжийг харуулах диаграмм.",
+  "latin": [
+   "gistogramm"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VII, х. 161–162; Математик VIII, х. 175, 178–179",
+   "url": "https://econtent.edu.mn/content/7rangi/mat/pages/mat-294-161.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "завсар",
+  "en": "interval",
+  "ru": "интервал, промежуток",
+  "grade": 7,
+  "concepts": [
+   "grouped",
+   "ineq"
+  ],
+  "def": "Хоёр тооны хоорондох бүх тоо: [5, 10[.",
+  "latin": [
+   "zavsar"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VII, х. 161–162; Математик VIII, х. 175, 178–179",
+   "url": "https://econtent.edu.mn/content/7rangi/mat/pages/mat-294-161.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "тасралтгүй өгөгдөл",
+  "en": "continuous data",
+  "ru": "непрерывные данные",
+  "grade": 7,
+  "concepts": [
+   "grouped"
+  ],
+  "def": "Хэмжиж олдох өгөгдөл.",
+  "latin": [
+   "tasraltgui ugugdul",
+   "tasraltguy ogogdol",
+   "tasraltgvi ogogdol"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "дискрет өгөгдөл",
+  "en": "discrete data",
+  "ru": "дискретные данные",
+  "grade": 7,
+  "concepts": [
+   "grouped"
+  ],
+  "def": "Тоолж олдох өгөгдөл.",
+  "latin": [
+   "diskret ugugdul",
+   "diskryet ogogdol",
+   "diskret ogogdol"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "моод бүлэг",
+  "en": "modal class",
+  "ru": "модальный интервал",
+  "grade": 7,
+  "concepts": [
+   "grouped"
+  ],
+  "def": "Хамгийн их давтамжтай бүлэг.",
+  "latin": [
+   "mood buleg",
+   "mood bvleg"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VII, х. 161–162; Математик VIII, х. 175, 178–179",
+   "url": "https://econtent.edu.mn/content/7rangi/mat/pages/mat-294-161.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "харьцангуй давтамж",
+  "en": "relative frequency",
+  "ru": "относительная частота",
+  "grade": 7,
+  "concepts": [
+   "rel-freq"
+  ],
+  "def": "Үзэгдлийн давтамжийг нийт туршилтын тоонд харьцуулсан харьцаа.",
+  "latin": [
+   "haritsangui davtamj",
+   "khartsanguy davtamzh",
+   "xarcangui davtamj"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VII, х. 180–182",
+   "url": "https://econtent.edu.mn/content/7rangi/mat/pages/mat-294-180.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "адилтгал",
+  "en": "identity",
+  "ru": "тождество",
+  "grade": 8,
+  "concepts": [
+   "special-prod",
+   "poly-div"
+  ],
+  "def": "Хувьсагчийн бүх утгад үнэн тэнцэтгэл.",
+  "latin": [
+   "adiltgal"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VIII, х. 50–51",
+   "url": "https://econtent.edu.mn/content/8rangi/mat/pages/mat-310-50.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "товчилсон үржвэрийн томьёо",
+  "en": "special product formulas",
+  "ru": "формулы сокращённого умножения",
+  "grade": 8,
+  "concepts": [
+   "special-prod"
+  ],
+  "def": "(a + b)², (a − b)², a² − b² гэх мэт томьёо.",
+  "latin": [
+   "tovchilson urjveriin tomiyoo",
+   "tovchilson urzhveriyn tomyoo",
+   "tovchilson vrjveriin tomyoo"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VIII, х. 50–51",
+   "url": "https://econtent.edu.mn/content/8rangi/mat/pages/mat-310-50.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "нийлбэрийн квадрат",
+  "en": "square of a sum",
+  "ru": "квадрат суммы",
+  "grade": 8,
+  "concepts": [
+   "special-prod"
+  ],
+  "def": "(a + b)² = a² + 2ab + b².",
+  "latin": [
+   "niilberiin kvadrat",
+   "niylberiyn kvadrat"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VIII, х. 50–51",
+   "url": "https://econtent.edu.mn/content/8rangi/mat/pages/mat-310-50.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "ялгаврын квадрат",
+  "en": "square of a difference",
+  "ru": "квадрат разности",
+  "grade": 8,
+  "concepts": [
+   "special-prod"
+  ],
+  "def": "(a − b)² = a² − 2ab + b².",
+  "latin": [
+   "yalgavriin kvadrat",
+   "yalgavryn kvadrat",
+   "yalgavrin kvadrat"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VIII, х. 50–51",
+   "url": "https://econtent.edu.mn/content/8rangi/mat/pages/mat-310-50.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "квадратуудын ялгавар",
+  "en": "difference of squares",
+  "ru": "разность квадратов",
+  "grade": 8,
+  "concepts": [
+   "special-prod",
+   "factor"
+  ],
+  "def": "a² − b² = (a − b)(a + b).",
+  "latin": [
+   "kvadratuudiin yalgavar",
+   "kvadratuudyn yalgavar",
+   "kvadratuudin yalgavar"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "үржигдэхүүн болгон задлах",
+  "en": "factorise",
+  "ru": "разложить на множители",
+  "grade": 8,
+  "concepts": [
+   "factor"
+  ],
+  "def": "Олон гишүүнтийг үржвэр хэлбэрт бичих.",
+  "latin": [
+   "urjigdehuun bolgon zadlah",
+   "urzhigdekhuun bolgon zadlakh",
+   "vrjigdexvvn bolgon zadlax"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VIII, х. 52–53",
+   "url": "https://econtent.edu.mn/content/8rangi/mat/pages/mat-310-52.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "ерөнхий үржигдэхүүн",
+  "en": "common factor",
+  "ru": "общий множитель",
+  "grade": 7,
+  "concepts": [
+   "factor",
+   "poly"
+  ],
+  "def": "Бүх гишүүнд орсон үржигдэхүүн; хаалтаас гаргана.",
+  "latin": [
+   "erunhii urjigdehuun",
+   "yeronkhiy urzhigdekhuun",
+   "eronxii vrjigdexvvn"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VIII, х. 52–53",
+   "url": "https://econtent.edu.mn/content/8rangi/mat/pages/mat-310-52.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "бүлэглэх арга",
+  "en": "factor by grouping",
+  "ru": "способ группировки",
+  "grade": 8,
+  "concepts": [
+   "factor"
+  ],
+  "def": "Гишүүдийг бүлэглэн ерөнхий үржигдэхүүн гаргах арга.",
+  "latin": [
+   "bulegleh arga",
+   "buleglekh arga",
+   "bvleglex arga"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "алгебрын бутархай",
+  "en": "algebraic fraction",
+  "ru": "алгебраическая дробь",
+  "grade": 8,
+  "concepts": [
+   "alg-frac"
+  ],
+  "def": "P/Q хэлбэрийн илэрхийлэл, P, Q нь олон гишүүнт.",
+  "latin": [
+   "algebriin butarhai",
+   "algyebryn butarkhay",
+   "algebrin butarxai"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VIII, х. 56–57",
+   "url": "https://econtent.edu.mn/content/8rangi/mat/pages/mat-310-56.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "томьёо",
+  "en": "formula",
+  "ru": "формула",
+  "grade": 8,
+  "concepts": [
+   "formula"
+  ],
+  "def": "Хэмжигдэхүүнүүдийн хамаарлыг тэмдэгтээр илэрхийлсэн тэнцэтгэл.",
+  "latin": [
+   "tomiyoo",
+   "tomyoo"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VIII, х. 61",
+   "url": "https://econtent.edu.mn/content/8rangi/mat/pages/mat-310-61.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "томьёо хувиргах",
+  "en": "rearrange a formula",
+  "ru": "выразить из формулы",
+  "grade": 8,
+  "concepts": [
+   "formula"
+  ],
+  "def": "Нэг хувьсагчийг бусдаар нь илэрхийлэх.",
+  "latin": [
+   "tomiyoo huvirgah",
+   "tomyoo khuvirgakh",
+   "tomyoo xuvirgax"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "тэгшитгэлийн систем",
+  "en": "system of equations",
+  "ru": "система уравнений",
+  "grade": 8,
+  "concepts": [
+   "system"
+  ],
+  "def": "Нэгэн зэрэг хангагдах ёстой хэд хэдэн тэгшитгэл.",
+  "latin": [
+   "tegshitgeliin sistem",
+   "tegshitgeliyn sistyem"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VIII, х. 62–65, 86–87",
+   "url": "https://econtent.edu.mn/content/8rangi/mat/pages/mat-310-62.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "орлуулах арга",
+  "en": "substitution method",
+  "ru": "метод подстановки",
+  "grade": 8,
+  "concepts": [
+   "system"
+  ],
+  "def": "Нэг хувьсагчийг илэрхийлж нөгөө тэгшитгэлд орлуулах арга.",
+  "latin": [
+   "orluulah arga",
+   "orluulakh arga",
+   "orluulax arga"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "нэмэх арга",
+  "en": "elimination method",
+  "ru": "метод сложения",
+  "grade": 8,
+  "concepts": [
+   "system"
+  ],
+  "def": "Тэгшитгэлүүдийг нэмж нэг хувьсагчийг устгах арга.",
+  "latin": [
+   "nemeh arga",
+   "nemekh arga",
+   "nemex arga"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VIII, х. 62–65, 86–87",
+   "url": "https://econtent.edu.mn/content/8rangi/mat/pages/mat-310-62.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "графикийн арга",
+  "en": "graphical method",
+  "ru": "графический метод",
+  "grade": 8,
+  "concepts": [
+   "system",
+   "exp-eq"
+  ],
+  "def": "Графикуудын огтлолцлын цэгээр шийд олох арга.",
+  "latin": [
+   "grafikiin arga",
+   "grafikiyn arga"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VIII, х. 62–65, 86–87",
+   "url": "https://econtent.edu.mn/content/8rangi/mat/pages/mat-310-62.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "тэнцэтгэл биш",
+  "en": "inequality",
+  "ru": "неравенство",
+  "grade": 8,
+  "concepts": [
+   "ineq"
+  ],
+  "def": "<, >, ≤, ≥ тэмдгээр холбосон хоёр илэрхийлэл.",
+  "latin": [
+   "tentsetgel bish",
+   "tencetgel bish"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VIII, х. 66–71",
+   "url": "https://econtent.edu.mn/content/8rangi/mat/pages/mat-310-66.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "тэнцэтгэл бишийн шийд",
+  "en": "solution of an inequality",
+  "ru": "решение неравенства",
+  "grade": 8,
+  "concepts": [
+   "ineq"
+  ],
+  "def": "Тэнцэтгэл бишийг үнэн болгох тоонууд.",
+  "latin": [
+   "tentsetgel bishiin shiid",
+   "tentsetgel bishiyn shiyd",
+   "tencetgel bishiin shiid"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VIII, х. 66–71",
+   "url": "https://econtent.edu.mn/content/8rangi/mat/pages/mat-310-66.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "давхар тэнцэтгэл биш",
+  "en": "compound (double) inequality",
+  "ru": "двойное неравенство",
+  "grade": 8,
+  "concepts": [
+   "ineq"
+  ],
+  "def": "a < x < b хэлбэрийн тэнцэтгэл биш.",
+  "latin": [
+   "davhar tentsetgel bish",
+   "davkhar tentsetgel bish",
+   "davxar tencetgel bish"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VIII, х. 66–71",
+   "url": "https://econtent.edu.mn/content/8rangi/mat/pages/mat-310-66.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "тоон завсар",
+  "en": "number interval",
+  "ru": "числовой промежуток",
+  "grade": 8,
+  "concepts": [
+   "ineq"
+  ],
+  "def": "Тоон шулууны хэсэг; ]a, b[, [a, b].",
+  "latin": [
+   "toon zavsar"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VIII, х. 66–71",
+   "url": "https://econtent.edu.mn/content/8rangi/mat/pages/mat-310-66.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "рационал тэгшитгэл",
+  "en": "rational equation",
+  "ru": "дробно-рациональное уравнение",
+  "grade": 8,
+  "concepts": [
+   "rat-eq"
+  ],
+  "def": "Алгебрын бутархай агуулсан тэгшитгэл.",
+  "latin": [
+   "ratsional tegshitgel",
+   "racional tegshitgel"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VIII, х. 58–60",
+   "url": "https://econtent.edu.mn/content/8rangi/mat/pages/mat-310-58.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "налалт",
+  "en": "slope / gradient",
+  "ru": "угловой коэффициент",
+  "grade": 8,
+  "concepts": [
+   "slope"
+  ],
+  "def": "Шулууны өсөлтийн хэмжээ: (y₂ − y₁)/(x₂ − x₁).",
+  "latin": [
+   "nalalt"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VIII, х. 81–85",
+   "url": "https://econtent.edu.mn/content/8rangi/mat/pages/mat-310-81.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "өнцгийн коэффициент",
+  "en": "slope (angular coefficient)",
+  "ru": "угловой коэффициент",
+  "grade": 8,
+  "concepts": [
+   "slope"
+  ],
+  "def": "y = kx + b-ийн k; налалт.",
+  "latin": [
+   "untsgiin koeffitsient",
+   "ontsgiyn koeffitsiyent",
+   "oncgiin koefficient"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VIII, х. 81–85",
+   "url": "https://econtent.edu.mn/content/8rangi/mat/pages/mat-310-81.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "квадрат функц",
+  "en": "quadratic function",
+  "ru": "квадратичная функция",
+  "grade": 8,
+  "concepts": [
+   "quad-fn"
+  ],
+  "def": "y = ax² + bx + c (a ≠ 0) хэлбэрийн функц.",
+  "latin": [
+   "kvadrat funkts",
+   "kvadrat funkc"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "парабол",
+  "en": "parabola",
+  "ru": "парабола",
+  "grade": 8,
+  "concepts": [
+   "quad-fn"
+  ],
+  "def": "Квадрат функцийн график.",
+  "latin": [
+   "parabol"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VIII, х. 90–92",
+   "url": "https://econtent.edu.mn/content/8rangi/mat/pages/mat-310-90.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "параболын орой",
+  "en": "vertex of a parabola",
+  "ru": "вершина параболы",
+  "grade": 8,
+  "concepts": [
+   "quad-fn"
+  ],
+  "def": "Параболын хамгийн доод (дээд) цэг.",
+  "latin": [
+   "paraboliin oroi",
+   "parabolyn oroy",
+   "parabolin oroi"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VIII, х. 90–92",
+   "url": "https://econtent.edu.mn/content/8rangi/mat/pages/mat-310-90.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "төсөөтэй дүрс",
+  "en": "similar figures",
+  "ru": "подобные фигуры",
+  "grade": 8,
+  "concepts": [
+   "similar"
+  ],
+  "def": "Харгалзах өнцөг тэнцүү, талуудын харьцаа тогтмол дүрсүүд.",
+  "latin": [
+   "tusuutei durs",
+   "tosootey durs",
+   "tosootei dvrs"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VIII, х. 115–116, 120–125",
+   "url": "https://econtent.edu.mn/content/8rangi/mat/pages/mat-310-115.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "төсөөгийн коэффициент",
+  "en": "scale factor",
+  "ru": "коэффициент подобия",
+  "grade": 8,
+  "concepts": [
+   "similar",
+   "sim-ratio"
+  ],
+  "def": "Төсөөтэй дүрсийн харгалзах талуудын харьцаа k.",
+  "latin": [
+   "tusuugiin koeffitsient",
+   "tosoogiyn koeffitsiyent",
+   "tosoogiin koefficient"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VIII, х. 115–116, 120–125",
+   "url": "https://econtent.edu.mn/content/8rangi/mat/pages/mat-310-115.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "гомотет",
+  "en": "enlargement (homothety)",
+  "ru": "гомотетия",
+  "grade": 8,
+  "concepts": [
+   "similar"
+  ],
+  "def": "O төвөөс зайг k дахин өөрчлөх хувиргалт.",
+  "latin": [
+   "gomotet",
+   "gomotyet"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VIII, х. 115–116, 120–125",
+   "url": "https://econtent.edu.mn/content/8rangi/mat/pages/mat-310-115.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "Пифагорын теорем",
+  "en": "Pythagorean theorem",
+  "ru": "теорема Пифагора",
+  "grade": 8,
+  "concepts": [
+   "pyth"
+  ],
+  "def": "Тэгш өнцөгт гурвалжинд c² = a² + b².",
+  "latin": [
+   "pifagoriin teorem",
+   "pifagoryn tyeoryem",
+   "pifagorin teorem"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "гипотенуз",
+  "en": "hypotenuse",
+  "ru": "гипотенуза",
+  "grade": 8,
+  "concepts": [
+   "pyth",
+   "trig-right"
+  ],
+  "def": "Тэгш өнцгийн эсрэг орших хамгийн урт тал.",
+  "latin": [
+   "gipotenuz",
+   "gipotyenuz"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VIII, х. 101–104",
+   "url": "https://econtent.edu.mn/content/8rangi/mat/pages/mat-310-101.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "катет",
+  "en": "leg (cathetus)",
+  "ru": "катет",
+  "grade": 8,
+  "concepts": [
+   "pyth",
+   "trig-right"
+  ],
+  "def": "Тэгш өнцгийг үүсгэх хоёр тал.",
+  "latin": [
+   "katet",
+   "katyet"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VIII, х. 101–104",
+   "url": "https://econtent.edu.mn/content/8rangi/mat/pages/mat-310-101.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "биссектрис",
+  "en": "angle bisector",
+  "ru": "биссектриса",
+  "grade": 7,
+  "concepts": [
+   "tri-lines",
+   "construct"
+  ],
+  "def": "Өнцгийг тэнцүү хоёр хуваах цацраг (хэрчим).",
+  "latin": [
+   "bissektris",
+   "bissyektris"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VIII, х. 99–100; Математик IX, х. 86",
+   "url": "https://econtent.edu.mn/content/8rangi/mat/pages/mat-310-99.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "өндөр",
+  "en": "altitude / height",
+  "ru": "высота",
+  "grade": 5,
+  "concepts": [
+   "tri-lines",
+   "vol-surf"
+  ],
+  "def": "Оройгоос эсрэг тал руу буулгасан перпендикуляр.",
+  "latin": [
+   "undur",
+   "ondor"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VIII, х. 99–100; Математик IX, х. 86",
+   "url": "https://econtent.edu.mn/content/8rangi/mat/pages/mat-310-99.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "дундаж шугам",
+  "en": "midline (midsegment)",
+  "ru": "средняя линия",
+  "grade": 8,
+  "concepts": [
+   "tri-lines"
+  ],
+  "def": "Хоёр талын дундаж цэгийг холбосон хэрчим; гурав дахь талын хагас.",
+  "latin": [
+   "dundaj shugam",
+   "dundazh shugam"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VIII, х. 99–100; Математик IX, х. 86",
+   "url": "https://econtent.edu.mn/content/8rangi/mat/pages/mat-310-99.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "дундаж цэг",
+  "en": "midpoint",
+  "ru": "середина отрезка",
+  "grade": 7,
+  "concepts": [
+   "tri-lines",
+   "construct",
+   "coord-geo"
+  ],
+  "def": "Хэрчмийг тэнцүү хоёр хуваах цэг.",
+  "latin": [
+   "dundaj tseg",
+   "dundazh tseg",
+   "dundaj ceg"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VIII, х. 99–100; Математик IX, х. 86",
+   "url": "https://econtent.edu.mn/content/8rangi/mat/pages/mat-310-99.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "багтсан тойрог",
+  "en": "inscribed circle (incircle)",
+  "ru": "вписанная окружность",
+  "grade": 8,
+  "concepts": [
+   "tri-lines"
+  ],
+  "def": "Олон өнцөгтийн бүх талыг шүргэх тойрог.",
+  "latin": [
+   "bagtsan toirog",
+   "bagtsan toyrog"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "багтаасан тойрог",
+  "en": "circumscribed circle",
+  "ru": "описанная окружность",
+  "grade": 8,
+  "concepts": [
+   "tri-lines",
+   "trig-tri"
+  ],
+  "def": "Олон өнцөгтийн бүх оройг дайрах тойрог.",
+  "latin": [
+   "bagtaasan toirog",
+   "bagtaasan toyrog"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "төв өнцөг",
+  "en": "central angle",
+  "ru": "центральный угол",
+  "grade": 8,
+  "concepts": [
+   "circle-angles",
+   "sector"
+  ],
+  "def": "Орой нь тойргийн төв дээр орших өнцөг.",
+  "latin": [
+   "tuv untsug",
+   "tov ontsog",
+   "tov oncog"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VIII, х. 107–110",
+   "url": "https://econtent.edu.mn/content/8rangi/mat/pages/mat-310-107.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "багтсан өнцөг",
+  "en": "inscribed angle",
+  "ru": "вписанный угол",
+  "grade": 8,
+  "concepts": [
+   "circle-angles"
+  ],
+  "def": "Орой нь тойрог дээр орших, талууд нь тойргийг огтлох өнцөг.",
+  "latin": [
+   "bagtsan untsug",
+   "bagtsan ontsog",
+   "bagtsan oncog"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VIII, х. 107–110",
+   "url": "https://econtent.edu.mn/content/8rangi/mat/pages/mat-310-107.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "шүргэгч",
+  "en": "tangent (line)",
+  "ru": "касательная",
+  "grade": 8,
+  "concepts": [
+   "chord-tangent",
+   "tangent-slope"
+  ],
+  "def": "Тойрог (муруй)-той нэг цэгээр шүргэлцэх шулуун.",
+  "latin": [
+   "shurgegch",
+   "shvrgegch"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VIII, х. 105–106; Математик IX, х. 95–97",
+   "url": "https://econtent.edu.mn/content/8rangi/mat/pages/mat-310-105.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "шүргэлтийн цэг",
+  "en": "point of tangency",
+  "ru": "точка касания",
+  "grade": 8,
+  "concepts": [
+   "chord-tangent"
+  ],
+  "def": "Шүргэгч тойрогт хүрэх цэг.",
+  "latin": [
+   "shurgeltiin tseg",
+   "shurgeltiyn tseg",
+   "shvrgeltiin ceg"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VIII, х. 105–106; Математик IX, х. 95–97",
+   "url": "https://econtent.edu.mn/content/8rangi/mat/pages/mat-310-105.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "хоёр цэгийн хоорондох зай",
+  "en": "distance between two points",
+  "ru": "расстояние между точками",
+  "grade": 8,
+  "concepts": [
+   "coord-geo"
+  ],
+  "def": "d = √((x₂ − x₁)² + (y₂ − y₁)²).",
+  "latin": [
+   "hoyor tsegiin hoorondoh zai",
+   "khoyor tsegiyn khoorondokh zay",
+   "xoyor cegiin xoorondox zai"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VIII, х. 135–136",
+   "url": "https://econtent.edu.mn/content/8rangi/mat/pages/mat-310-135.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "азимут",
+  "en": "bearing",
+  "ru": "азимут",
+  "grade": 8,
+  "concepts": [
+   "bearing"
+  ],
+  "def": "Хойд зүгээс цагийн зүүний дагуу хэмжсэн, 3 оронтой бичих өнцөг.",
+  "latin": [
+   "azimut"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VIII, х. 142–145",
+   "url": "https://econtent.edu.mn/content/8rangi/mat/pages/mat-310-142.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "зүг",
+  "en": "direction (compass)",
+  "ru": "направление, сторона света",
+  "grade": 8,
+  "concepts": [
+   "bearing"
+  ],
+  "def": "Хойд, урд, зүүн, баруун.",
+  "latin": [
+   "zug",
+   "zvg"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VIII, х. 142–145",
+   "url": "https://econtent.edu.mn/content/8rangi/mat/pages/mat-310-142.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "хурд",
+  "en": "speed",
+  "ru": "скорость",
+  "grade": 8,
+  "concepts": [
+   "speed"
+  ],
+  "def": "Нэгж хугацаанд туулсан зам.",
+  "latin": [
+   "hurd",
+   "khurd",
+   "xurd"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VIII, х. 152–155",
+   "url": "https://econtent.edu.mn/content/8rangi/mat/pages/mat-310-152.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "зам",
+  "en": "distance travelled",
+  "ru": "путь",
+  "grade": 8,
+  "concepts": [
+   "speed"
+  ],
+  "def": "Хөдөлгөөнөөр туулсан урт; зам = хурд × хугацаа.",
+  "latin": [
+   "zam"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VIII, х. 152–155",
+   "url": "https://econtent.edu.mn/content/8rangi/mat/pages/mat-310-152.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "жигд хөдөлгөөн",
+  "en": "uniform motion",
+  "ru": "равномерное движение",
+  "grade": 8,
+  "concepts": [
+   "speed"
+  ],
+  "def": "Тэнцүү хугацаанд тэнцүү зам туулах хөдөлгөөн.",
+  "latin": [
+   "jigd hudulguun",
+   "zhigd khodolgoon",
+   "jigd xodolgoon"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VIII, х. 152–155",
+   "url": "https://econtent.edu.mn/content/8rangi/mat/pages/mat-310-152.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "дундаж хурд",
+  "en": "average speed",
+  "ru": "средняя скорость",
+  "grade": 8,
+  "concepts": [
+   "speed"
+  ],
+  "def": "Нийт замыг нийт хугацаанд хуваасан хурд.",
+  "latin": [
+   "dundaj hurd",
+   "dundazh khurd",
+   "dundaj xurd"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VIII, х. 152–155",
+   "url": "https://econtent.edu.mn/content/8rangi/mat/pages/mat-310-152.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "хүү",
+  "en": "interest",
+  "ru": "процент (банковский)",
+  "grade": 8,
+  "concepts": [
+   "pct-app"
+  ],
+  "def": "Мөнгө хадгалах, зээлэхэд нэмэгдэх төлбөр.",
+  "latin": [
+   "huu",
+   "khuu",
+   "xvv"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VIII, х. 21–24",
+   "url": "https://econtent.edu.mn/content/8rangi/mat/pages/mat-310-21.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "хямдрал",
+  "en": "discount",
+  "ru": "скидка",
+  "grade": 8,
+  "concepts": [
+   "pct-app"
+  ],
+  "def": "Үнээс тодорхой хувийг хасах.",
+  "latin": [
+   "hyamdral",
+   "khyamdral",
+   "xyamdral"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VIII, х. 21–24",
+   "url": "https://econtent.edu.mn/content/8rangi/mat/pages/mat-310-21.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "татвар",
+  "en": "tax",
+  "ru": "налог",
+  "grade": 8,
+  "concepts": [
+   "pct-app"
+  ],
+  "def": "Үнэ, орлогоос төлөх хувь.",
+  "latin": [
+   "tatvar"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VIII, х. 21–24",
+   "url": "https://econtent.edu.mn/content/8rangi/mat/pages/mat-310-21.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "нийлмэл хүү",
+  "en": "compound interest",
+  "ru": "сложные проценты",
+  "grade": 8,
+  "concepts": [
+   "pct-app",
+   "gp"
+  ],
+  "def": "Хүүгээ үндсэн мөнгөнд нэмж дахин хүү бодох.",
+  "latin": [
+   "niilmel huu",
+   "niylmel khuu",
+   "niilmel xvv"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "урвуу пропорциональ хамаарал",
+  "en": "inverse proportion",
+  "ru": "обратная пропорциональность",
+  "grade": 8,
+  "concepts": [
+   "inv-prop"
+  ],
+  "def": "Нэг хэмжигдэхүүн хэд дахин ихсэхэд нөгөө нь төдий дахин багасах хамаарал: y = k/x.",
+  "latin": [
+   "urvuu proportsionali hamaaral",
+   "urvuu proportsional khamaaral",
+   "urvuu proporcional xamaaral"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "гипербол",
+  "en": "hyperbola",
+  "ru": "гипербола",
+  "grade": 8,
+  "concepts": [
+   "inv-prop"
+  ],
+  "def": "y = k/x функцийн график.",
+  "latin": [
+   "giperbol",
+   "gipyerbol"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VIII, х. 27–29, 88–89",
+   "url": "https://econtent.edu.mn/content/8rangi/mat/pages/mat-310-27.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "сөрөг илтгэгч",
+  "en": "negative exponent",
+  "ru": "отрицательный показатель",
+  "grade": 8,
+  "concepts": [
+   "neg-pow"
+  ],
+  "def": "a⁻ᵏ = 1/aᵏ.",
+  "latin": [
+   "surug iltgegch",
+   "sorog iltgegch"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VIII, х. 14, 17; Математик X, х. 15–16",
+   "url": "https://econtent.edu.mn/content/8rangi/mat/pages/mat-310-14.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "бутархай илтгэгч",
+  "en": "fractional (rational) exponent",
+  "ru": "дробный показатель",
+  "grade": 8,
+  "concepts": [
+   "neg-pow"
+  ],
+  "def": "aᵏ/ⁿ = ⁿ√aᵏ.",
+  "latin": [
+   "butarhai iltgegch",
+   "butarkhay iltgegch",
+   "butarxai iltgegch"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VIII, х. 14, 17; Математик X, х. 15–16",
+   "url": "https://econtent.edu.mn/content/8rangi/mat/pages/mat-310-14.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "рационал тоо",
+  "en": "rational number",
+  "ru": "рациональное число",
+  "grade": 8,
+  "concepts": [
+   "rational"
+  ],
+  "def": "a/b (a бүхэл, b натурал) хэлбэрээр бичигдэх тоо; ℚ.",
+  "latin": [
+   "ratsional too",
+   "racional too"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VIII, х. 6–7",
+   "url": "https://econtent.edu.mn/content/8rangi/mat/pages/mat-310-6.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "үет аравтын бутархай",
+  "en": "repeating decimal",
+  "ru": "периодическая дробь",
+  "grade": 8,
+  "concepts": [
+   "rational"
+  ],
+  "def": "Цифрүүд нь давтагддаг аравтын бутархай: 0.(45).",
+  "latin": [
+   "uet aravtiin butarhai",
+   "uyet aravtyn butarkhay",
+   "vet aravtin butarxai"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VIII, х. 6–7",
+   "url": "https://econtent.edu.mn/content/8rangi/mat/pages/mat-310-6.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "үе",
+  "en": "period (repetend)",
+  "ru": "период",
+  "grade": 8,
+  "concepts": [
+   "rational"
+  ],
+  "def": "Үет бутархайн давтагдах цифрүүд.",
+  "latin": [
+   "ue",
+   "uye",
+   "ve"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VIII, х. 6–7",
+   "url": "https://econtent.edu.mn/content/8rangi/mat/pages/mat-310-6.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "нийцгүй үзэгдлүүд",
+  "en": "mutually exclusive events",
+  "ru": "несовместные события",
+  "grade": 8,
+  "concepts": [
+   "prob-rules"
+  ],
+  "def": "Нэгэн зэрэг илрэх боломжгүй үзэгдлүүд.",
+  "latin": [
+   "niitsgui uzegdluud",
+   "niytsguy uzegdluud",
+   "niicgvi vzegdlvvd"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VIII, х. 35–40",
+   "url": "https://econtent.edu.mn/content/8rangi/mat/pages/mat-310-35.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "эсрэг үзэгдэл",
+  "en": "complementary event",
+  "ru": "противоположное событие",
+  "grade": 8,
+  "concepts": [
+   "prob-rules"
+  ],
+  "def": "A илрэхгүй байх үзэгдэл Ā; P(A) + P(Ā) = 1.",
+  "latin": [
+   "esreg uzegdel",
+   "esreg vzegdel"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "эгэл үзэгдэл",
+  "en": "elementary event (outcome)",
+  "ru": "элементарное событие",
+  "grade": 8,
+  "concepts": [
+   "prob-rules"
+  ],
+  "def": "Туршилтын нэг үр дүн.",
+  "latin": [
+   "egel uzegdel",
+   "egel vzegdel"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VIII, х. 35–40",
+   "url": "https://econtent.edu.mn/content/8rangi/mat/pages/mat-310-35.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "магадлалын нэмэх дүрэм",
+  "en": "addition rule",
+  "ru": "правило сложения вероятностей",
+  "grade": 8,
+  "concepts": [
+   "prob-rules"
+  ],
+  "def": "Нийцгүй үзэгдэлд P(A ∪ B) = P(A) + P(B).",
+  "latin": [
+   "magadlaliin nemeh durem",
+   "magadlalyn nemekh durem",
+   "magadlalin nemex dvrem"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "квадрат тэгшитгэл",
+  "en": "quadratic equation",
+  "ru": "квадратное уравнение",
+  "grade": 9,
+  "concepts": [
+   "quad-eq"
+  ],
+  "def": "ax² + bx + c = 0 (a ≠ 0) хэлбэрийн тэгшитгэл.",
+  "latin": [
+   "kvadrat tegshitgel"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик IX, х. 57–58; Математик X, х. 71–73",
+   "url": "https://econtent.edu.mn/content/9rangi/mat/pages/mat-324-57.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "дискриминант",
+  "en": "discriminant",
+  "ru": "дискриминант",
+  "grade": 9,
+  "concepts": [
+   "quad-eq"
+  ],
+  "def": "D = b² − 4ac; шийдийн тоог заана.",
+  "latin": [
+   "diskriminant"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик IX, х. 57–58; Математик X, х. 71–73",
+   "url": "https://econtent.edu.mn/content/9rangi/mat/pages/mat-324-57.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "эмхэтгэсэн квадрат тэгшитгэл",
+  "en": "monic (reduced) quadratic",
+  "ru": "приведённое квадратное уравнение",
+  "grade": 9,
+  "concepts": [
+   "quad-eq"
+  ],
+  "def": "x² + px + q = 0 хэлбэр.",
+  "latin": [
+   "emhetgesen kvadrat tegshitgel",
+   "emkhetgesen kvadrat tegshitgel",
+   "emxetgesen kvadrat tegshitgel"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик IX, х. 57–58; Математик X, х. 71–73",
+   "url": "https://econtent.edu.mn/content/9rangi/mat/pages/mat-324-57.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "Виетийн теорем",
+  "en": "Vieta's formulas",
+  "ru": "теорема Виета",
+  "grade": 9,
+  "concepts": [
+   "quad-eq"
+  ],
+  "def": "x² + px + q = 0-ийн шийдүүдийн нийлбэр −p, үржвэр q.",
+  "latin": [
+   "vietiin teorem",
+   "viyetiyn tyeoryem"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "бүтэн квадрат ялгах",
+  "en": "completing the square",
+  "ru": "выделение полного квадрата",
+  "grade": 9,
+  "concepts": [
+   "quad-eq",
+   "quad-fn"
+  ],
+  "def": "ax² + bx + c-г a(x + m)² + n хэлбэрт оруулах.",
+  "latin": [
+   "buten kvadrat yalgah",
+   "buten kvadrat yalgakh",
+   "bvten kvadrat yalgax"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик IX, х. 57–58; Математик X, х. 71–73",
+   "url": "https://econtent.edu.mn/content/9rangi/mat/pages/mat-324-57.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "илтгэгч тэгшитгэл",
+  "en": "exponential equation",
+  "ru": "показательное уравнение",
+  "grade": 9,
+  "concepts": [
+   "exp-eq"
+  ],
+  "def": "Үл мэдэгдэгч нь илтгэгчид орсон тэгшитгэл.",
+  "latin": [
+   "iltgegch tegshitgel"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик X, х. 82–85 (9-р ангийн номд байхгүй)",
+   "url": "https://econtent.edu.mn/content/10rangi/mat/pages/mat-279-82.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "огтлол",
+  "en": "cross-section",
+  "ru": "сечение",
+  "grade": 9,
+  "concepts": [
+   "cross-sec"
+  ],
+  "def": "Биетийг хавтгайгаар огтлоход гарах дүрс.",
+  "latin": [
+   "ogtlol"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик IX, х. 153–156",
+   "url": "https://econtent.edu.mn/content/9rangi/mat/pages/mat-324-153.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "хавтгай",
+  "en": "plane",
+  "ru": "плоскость",
+  "grade": 9,
+  "concepts": [
+   "cross-sec",
+   "space-coord"
+  ],
+  "def": "Хоёр хэмжээст төгсгөлгүй гадаргуу.",
+  "latin": [
+   "havtgai",
+   "khavtgay",
+   "xavtgai"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик IX, х. 153–156",
+   "url": "https://econtent.edu.mn/content/9rangi/mat/pages/mat-324-153.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "тэнхлэг огтлол",
+  "en": "axial section",
+  "ru": "осевое сечение",
+  "grade": 9,
+  "concepts": [
+   "cross-sec"
+  ],
+  "def": "Биетийн тэнхлэгийг дайруулсан огтлол.",
+  "latin": [
+   "tenhleg ogtlol",
+   "tenkhleg ogtlol",
+   "tenxleg ogtlol"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик IX, х. 153–156",
+   "url": "https://econtent.edu.mn/content/9rangi/mat/pages/mat-324-153.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "синус",
+  "en": "sine",
+  "ru": "синус",
+  "grade": 9,
+  "concepts": [
+   "trig-right",
+   "trig-fn"
+  ],
+  "def": "Эсрэг катетыг гипотенузад харьцуулсан харьцаа: sin α.",
+  "latin": [
+   "sinus"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик IX, х. 89–93",
+   "url": "https://econtent.edu.mn/content/9rangi/mat/pages/mat-324-89.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "косинус",
+  "en": "cosine",
+  "ru": "косинус",
+  "grade": 9,
+  "concepts": [
+   "trig-right",
+   "trig-fn"
+  ],
+  "def": "Налсан катетыг гипотенузад харьцуулсан харьцаа: cos α.",
+  "latin": [
+   "kosinus"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик IX, х. 89–93",
+   "url": "https://econtent.edu.mn/content/9rangi/mat/pages/mat-324-89.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "тангенс",
+  "en": "tangent (trig ratio)",
+  "ru": "тангенс",
+  "grade": 9,
+  "concepts": [
+   "trig-right",
+   "trig-fn"
+  ],
+  "def": "Эсрэг катетыг налсан катетад харьцуулсан харьцаа: tg α.",
+  "latin": [
+   "tangens",
+   "tangyens"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик IX, х. 89–93",
+   "url": "https://econtent.edu.mn/content/9rangi/mat/pages/mat-324-89.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "котангенс",
+  "en": "cotangent",
+  "ru": "котангенс",
+  "grade": 9,
+  "concepts": [
+   "trig-right"
+  ],
+  "def": "Налсан катетыг эсрэг катетад харьцуулсан харьцаа: ctg α.",
+  "latin": [
+   "kotangens",
+   "kotangyens"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик IX, х. 89–93",
+   "url": "https://econtent.edu.mn/content/9rangi/mat/pages/mat-324-89.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "эсрэг катет",
+  "en": "opposite side",
+  "ru": "противолежащий катет",
+  "grade": 9,
+  "concepts": [
+   "trig-right"
+  ],
+  "def": "α өнцгийн эсрэг талд орших катет.",
+  "latin": [
+   "esreg katet",
+   "esreg katyet"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик IX, х. 89–93",
+   "url": "https://econtent.edu.mn/content/9rangi/mat/pages/mat-324-89.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "налсан катет",
+  "en": "adjacent side",
+  "ru": "прилежащий катет",
+  "grade": 9,
+  "concepts": [
+   "trig-right"
+  ],
+  "def": "α өнцгийг үүсгэх катет.",
+  "latin": [
+   "nalsan katet",
+   "nalsan katyet"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик IX, х. 89–93",
+   "url": "https://econtent.edu.mn/content/9rangi/mat/pages/mat-324-89.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "тригонометр",
+  "en": "trigonometry",
+  "ru": "тригонометрия",
+  "grade": 9,
+  "concepts": [
+   "trig-right",
+   "trig-fn"
+  ],
+  "def": "Гурвалжны тал, өнцгийн хамаарлыг судлах салбар.",
+  "latin": [
+   "trigonometr",
+   "trigonomyetr"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик XI, х. 87–97",
+   "url": "https://econtent.edu.mn/content/11rangi/mat/pages/mat-273-87.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "вектор",
+  "en": "vector",
+  "ru": "вектор",
+  "grade": 9,
+  "concepts": [
+   "vector"
+  ],
+  "def": "Чиглэлт хэрчим.",
+  "latin": [
+   "vektor",
+   "vyektor"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик IX, х. 116–121",
+   "url": "https://econtent.edu.mn/content/9rangi/mat/pages/mat-324-116.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "векторын урт",
+  "en": "magnitude of a vector",
+  "ru": "длина (модуль) вектора",
+  "grade": 9,
+  "concepts": [
+   "vector"
+  ],
+  "def": "Векторыг дүрсэлсэн хэрчмийн урт: |a|.",
+  "latin": [
+   "vektoriin urt",
+   "vyektoryn urt",
+   "vektorin urt"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик IX, х. 116–121",
+   "url": "https://econtent.edu.mn/content/9rangi/mat/pages/mat-324-116.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "эсрэг вектор",
+  "en": "opposite vector",
+  "ru": "противоположный вектор",
+  "grade": 9,
+  "concepts": [
+   "vector"
+  ],
+  "def": "Урт нь ижил, чиглэл нь эсрэг вектор.",
+  "latin": [
+   "esreg vektor",
+   "esreg vyektor"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик IX, х. 116–121",
+   "url": "https://econtent.edu.mn/content/9rangi/mat/pages/mat-324-116.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "векторын координат",
+  "en": "vector components",
+  "ru": "координаты вектора",
+  "grade": 9,
+  "concepts": [
+   "vector",
+   "space-vec"
+  ],
+  "def": "Векторын x, y (z) тэнхлэгийн дагуух шилжилт.",
+  "latin": [
+   "vektoriin koordinat",
+   "vyektoryn koordinat",
+   "vektorin koordinat"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик IX, х. 116–121",
+   "url": "https://econtent.edu.mn/content/9rangi/mat/pages/mat-324-116.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "сектор",
+  "en": "sector",
+  "ru": "сектор",
+  "grade": 8,
+  "concepts": [
+   "sector",
+   "circle-angles"
+  ],
+  "def": "Хоёр радиус ба нумаар хүрээлэгдсэн дугуйн хэсэг.",
+  "latin": [
+   "sektor",
+   "syektor"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик X, х. 193–194 (9-р ангид зөвхөн тойргийн урт, дугуйн талбай: Математик IX, х. 142)",
+   "url": "https://econtent.edu.mn/content/10rangi/mat/pages/mat-279-193.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "сегмент",
+  "en": "segment (of a circle)",
+  "ru": "сегмент",
+  "grade": 9,
+  "concepts": [
+   "sector"
+  ],
+  "def": "Хөвч ба нумаар хүрээлэгдсэн дугуйн хэсэг.",
+  "latin": [
+   "segment",
+   "syegmyent"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик X, х. 193–194 (9-р ангид зөвхөн тойргийн урт, дугуйн талбай: Математик IX, х. 142)",
+   "url": "https://econtent.edu.mn/content/10rangi/mat/pages/mat-279-193.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "нумын урт",
+  "en": "arc length",
+  "ru": "длина дуги",
+  "grade": 9,
+  "concepts": [
+   "sector"
+  ],
+  "def": "Тойргийн уртын төв өнцөгт харгалзах хэсэг.",
+  "latin": [
+   "numiin urt",
+   "numyn urt",
+   "numin urt"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик X, х. 193–194 (9-р ангид зөвхөн тойргийн урт, дугуйн талбай: Математик IX, х. 142)",
+   "url": "https://econtent.edu.mn/content/10rangi/mat/pages/mat-279-193.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "стандарт хэлбэр",
+  "en": "standard form (scientific notation)",
+  "ru": "стандартный вид числа",
+  "grade": 9,
+  "concepts": [
+   "sci"
+  ],
+  "def": "A × 10ⁿ, 1 ≤ A < 10.",
+  "latin": [
+   "standart helber",
+   "standart khelber",
+   "standart xelber"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик IX, х. 14–16",
+   "url": "https://econtent.edu.mn/content/9rangi/mat/pages/mat-324-14.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "иррационал тоо",
+  "en": "irrational number",
+  "ru": "иррациональное число",
+  "grade": 9,
+  "concepts": [
+   "real"
+  ],
+  "def": "Төгсгөлгүй үегүй аравтын бутархай: √2, π.",
+  "latin": [
+   "irratsional too",
+   "irracional too"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик IX, х. 7–13",
+   "url": "https://econtent.edu.mn/content/9rangi/mat/pages/mat-324-7.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "бодит тоо",
+  "en": "real number",
+  "ru": "действительное число",
+  "grade": 9,
+  "concepts": [
+   "real"
+  ],
+  "def": "Рационал ба иррационал тоонууд; ℝ.",
+  "latin": [
+   "bodit too"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик IX, х. 7–13",
+   "url": "https://econtent.edu.mn/content/9rangi/mat/pages/mat-324-7.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "цэгэн диаграмм",
+  "en": "scatter plot",
+  "ru": "точечная диаграмма",
+  "grade": 9,
+  "concepts": [
+   "scatter"
+  ],
+  "def": "Утгын хос бүрийг цэгээр тэмдэглэсэн диаграмм.",
+  "latin": [
+   "tsegen diagramm",
+   "cegen diagramm"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик IX, х. 174–176",
+   "url": "https://econtent.edu.mn/content/9rangi/mat/pages/mat-324-174.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "корреляц",
+  "en": "correlation",
+  "ru": "корреляция",
+  "grade": 9,
+  "concepts": [
+   "scatter"
+  ],
+  "def": "Хоёр хэмжигдэхүүний хамт өөрчлөгдөх хандлага.",
+  "latin": [
+   "korrelyats",
+   "korryelyats",
+   "korrelyac"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик IX, х. 174–176",
+   "url": "https://econtent.edu.mn/content/9rangi/mat/pages/mat-324-174.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "хандлагын шулуун",
+  "en": "line of best fit",
+  "ru": "линия тренда",
+  "grade": 9,
+  "concepts": [
+   "scatter"
+  ],
+  "def": "Цэгүүдэд хамгийн ойр татсан шулуун.",
+  "latin": [
+   "handlagiin shuluun",
+   "khandlagyn shuluun",
+   "xandlagin shuluun"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик IX, х. 174–176",
+   "url": "https://econtent.edu.mn/content/9rangi/mat/pages/mat-324-174.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "нийлмэл үзэгдэл",
+  "en": "combined (compound) event",
+  "ru": "сложное событие",
+  "grade": 9,
+  "concepts": [
+   "tree"
+  ],
+  "def": "Хоёр ба түүнээс олон үзэгдэл хамт эсвэл дараалан илрэх.",
+  "latin": [
+   "niilmel uzegdel",
+   "niylmel uzegdel",
+   "niilmel vzegdel"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик IX, х. 33–37",
+   "url": "https://econtent.edu.mn/content/9rangi/mat/pages/mat-324-33.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "үл хамаарах үзэгдлүүд",
+  "en": "independent events",
+  "ru": "независимые события",
+  "grade": 9,
+  "concepts": [
+   "tree",
+   "cond-prob"
+  ],
+  "def": "Нэг нь илрэх нь нөгөөдөө нөлөөлөхгүй үзэгдлүүд.",
+  "latin": [
+   "ul hamaarah uzegdluud",
+   "ul khamaarakh uzegdluud",
+   "vl xamaarax vzegdlvvd"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик IX, х. 33–37",
+   "url": "https://econtent.edu.mn/content/9rangi/mat/pages/mat-324-33.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "зэрэгт функц",
+  "en": "power function",
+  "ru": "степенная функция",
+  "grade": 10,
+  "concepts": [
+   "power-fn"
+  ],
+  "def": "y = axⁿ хэлбэрийн функц.",
+  "latin": [
+   "zeregt funkts",
+   "zeregt funkc"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик X, х. 60–63",
+   "url": "https://econtent.edu.mn/content/10rangi/mat/pages/mat-279-60.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "тодорхойлогдох муж",
+  "en": "domain",
+  "ru": "область определения",
+  "grade": 10,
+  "concepts": [
+   "power-fn",
+   "fn-props"
+  ],
+  "def": "Функцийн x-ийн авч болох бүх утга.",
+  "latin": [
+   "todorhoilogdoh muj",
+   "todorkhoylogdokh muzh",
+   "todorxoilogdox muj"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик X, х. 60–63",
+   "url": "https://econtent.edu.mn/content/10rangi/mat/pages/mat-279-60.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "утгын муж (дүр)",
+  "en": "range",
+  "ru": "область значений",
+  "grade": 10,
+  "concepts": [
+   "power-fn",
+   "fn-props"
+  ],
+  "def": "Функцийн авах бүх утга.",
+  "latin": [
+   "utgiin muj",
+   "utgyn muzh",
+   "utgin muj"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "куб функц",
+  "en": "cubic function",
+  "ru": "кубическая функция",
+  "grade": 10,
+  "concepts": [
+   "power-fn"
+  ],
+  "def": "y = ax³ хэлбэрийн функц.",
+  "latin": [
+   "kub funkts",
+   "kub funkc"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик X, х. 60–63",
+   "url": "https://econtent.edu.mn/content/10rangi/mat/pages/mat-279-60.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "илтгэгч функц",
+  "en": "exponential function",
+  "ru": "показательная функция",
+  "grade": 10,
+  "concepts": [
+   "exp-fn"
+  ],
+  "def": "y = aˣ (a > 0, a ≠ 1) хэлбэрийн функц.",
+  "latin": [
+   "iltgegch funkts",
+   "iltgegch funkc"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик X, х. 64–65",
+   "url": "https://econtent.edu.mn/content/10rangi/mat/pages/mat-279-64.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "матриц",
+  "en": "matrix",
+  "ru": "матрица",
+  "grade": 10,
+  "concepts": [
+   "matrix"
+  ],
+  "def": "Мөр, баганаар байрлуулсан тоонуудын тэгш өнцөгт хүснэгт.",
+  "latin": [
+   "matrits",
+   "matric"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик X, х. 132–142",
+   "url": "https://econtent.edu.mn/content/10rangi/mat/pages/mat-279-132.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "мөр",
+  "en": "row",
+  "ru": "строка",
+  "grade": 10,
+  "concepts": [
+   "matrix"
+  ],
+  "def": "Матрицын хэвтээ эгнээ.",
+  "latin": [
+   "mur",
+   "mor"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик X, х. 132–142",
+   "url": "https://econtent.edu.mn/content/10rangi/mat/pages/mat-279-132.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "багана",
+  "en": "column",
+  "ru": "столбец",
+  "grade": 10,
+  "concepts": [
+   "matrix"
+  ],
+  "def": "Матрицын босоо эгнээ.",
+  "latin": [
+   "bagana"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик X, х. 132–142",
+   "url": "https://econtent.edu.mn/content/10rangi/mat/pages/mat-279-132.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "матрицын хэмжээс",
+  "en": "order (size) of a matrix",
+  "ru": "размер матрицы",
+  "grade": 10,
+  "concepts": [
+   "matrix"
+  ],
+  "def": "m × n: мөр ба баганын тоо.",
+  "latin": [
+   "matritsiin hemjees",
+   "matritsyn khemzhees",
+   "matricin xemjees"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик X, х. 132–142",
+   "url": "https://econtent.edu.mn/content/10rangi/mat/pages/mat-279-132.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "нэгж матриц",
+  "en": "identity matrix",
+  "ru": "единичная матрица",
+  "grade": 10,
+  "concepts": [
+   "det"
+  ],
+  "def": "Гол диагональ нь 1, бусад нь 0 квадрат матриц E.",
+  "latin": [
+   "negj matrits",
+   "negzh matrits",
+   "negj matric"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик X, х. 143–149",
+   "url": "https://econtent.edu.mn/content/10rangi/mat/pages/mat-279-143.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "тэг матриц",
+  "en": "zero matrix",
+  "ru": "нулевая матрица",
+  "grade": 10,
+  "concepts": [
+   "matrix"
+  ],
+  "def": "Бүх элемент нь 0 матриц.",
+  "latin": [
+   "teg matrits",
+   "teg matric"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик X, х. 132–142",
+   "url": "https://econtent.edu.mn/content/10rangi/mat/pages/mat-279-132.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "тодорхойлогч",
+  "en": "determinant",
+  "ru": "определитель",
+  "grade": 10,
+  "concepts": [
+   "det"
+  ],
+  "def": "2 × 2 матрицын ad − bc тоо; |A|.",
+  "latin": [
+   "todorhoilogch",
+   "todorkhoylogch",
+   "todorxoilogch"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик X, х. 143–149",
+   "url": "https://econtent.edu.mn/content/10rangi/mat/pages/mat-279-143.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "урвуу матриц",
+  "en": "inverse matrix",
+  "ru": "обратная матрица",
+  "grade": 10,
+  "concepts": [
+   "det",
+   "lin-sys-mat"
+  ],
+  "def": "AB = BA = E байх B = A⁻¹.",
+  "latin": [
+   "urvuu matrits",
+   "urvuu matric"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик X, х. 143–149",
+   "url": "https://econtent.edu.mn/content/10rangi/mat/pages/mat-279-143.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "муруй",
+  "en": "curve",
+  "ru": "кривая",
+  "grade": 10,
+  "concepts": [
+   "tangent-slope"
+  ],
+  "def": "Шулуун биш шугам.",
+  "latin": [
+   "murui",
+   "muruy"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик X, х. 65–66",
+   "url": "https://econtent.edu.mn/content/10rangi/mat/pages/mat-279-65.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "цэгийн геометр байр",
+  "en": "locus",
+  "ru": "геометрическое место точек",
+  "grade": 10,
+  "concepts": [
+   "locus"
+  ],
+  "def": "Өгсөн нөхцөлийг хангах цэгүүдийн олонлог.",
+  "latin": [
+   "tsegiin geometr bair",
+   "tsegiyn gyeomyetr bayr",
+   "cegiin geometr bair"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик X, х. 100–102",
+   "url": "https://econtent.edu.mn/content/10rangi/mat/pages/mat-279-100.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "синусын теорем",
+  "en": "sine rule",
+  "ru": "теорема синусов",
+  "grade": 10,
+  "concepts": [
+   "trig-tri"
+  ],
+  "def": "a/sin α = b/sin β = c/sin γ = 2R.",
+  "latin": [
+   "sinusiin teorem",
+   "sinusyn tyeoryem",
+   "sinusin teorem"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик X, х. 106–110",
+   "url": "https://econtent.edu.mn/content/10rangi/mat/pages/mat-279-106.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "косинусын теорем",
+  "en": "cosine rule",
+  "ru": "теорема косинусов",
+  "grade": 10,
+  "concepts": [
+   "trig-tri"
+  ],
+  "def": "a² = b² + c² − 2bc · cos α.",
+  "latin": [
+   "kosinusiin teorem",
+   "kosinusyn tyeoryem",
+   "kosinusin teorem"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик X, х. 106–110",
+   "url": "https://econtent.edu.mn/content/10rangi/mat/pages/mat-279-106.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "скаляр үржвэр",
+  "en": "dot (scalar) product",
+  "ru": "скалярное произведение",
+  "grade": 10,
+  "concepts": [
+   "dot",
+   "space-vec"
+  ],
+  "def": "a · b = x₁x₂ + y₁y₂; үр дүн нь тоо.",
+  "latin": [
+   "skalyar urjver",
+   "skalyar urzhver",
+   "skalyar vrjver"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик X, х. 128–130",
+   "url": "https://econtent.edu.mn/content/10rangi/mat/pages/mat-279-128.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "хувиргалтын матриц",
+  "en": "transformation matrix",
+  "ru": "матрица преобразования",
+  "grade": 10,
+  "concepts": [
+   "mat-transform"
+  ],
+  "def": "Цэгийн координатыг хувиргах 2 × 2 матриц.",
+  "latin": [
+   "huvirgaltiin matrits",
+   "khuvirgaltyn matrits",
+   "xuvirgaltin matric"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик X, х. 153–162",
+   "url": "https://econtent.edu.mn/content/10rangi/mat/pages/mat-279-153.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "далайц",
+  "en": "range (of data)",
+  "ru": "размах",
+  "grade": 10,
+  "concepts": [
+   "spread"
+  ],
+  "def": "Хамгийн их ба хамгийн бага утгын ялгавар.",
+  "latin": [
+   "dalaits",
+   "dalayts",
+   "dalaic"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VIII, х. 184; Математик X, х. 170–171; Математик XI, х. 198–200",
+   "url": "https://econtent.edu.mn/content/8rangi/mat/pages/mat-310-184.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "квартил",
+  "en": "quartile",
+  "ru": "квартиль",
+  "grade": 10,
+  "concepts": [
+   "spread"
+  ],
+  "def": "Эрэмбэлсэн өгөгдлийг 4 тэнцүү хэсэгт хуваах утга: Q₁, Q₃.",
+  "latin": [
+   "kvartil"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VIII, х. 184; Математик X, х. 170–171; Математик XI, х. 198–200",
+   "url": "https://econtent.edu.mn/content/8rangi/mat/pages/mat-310-184.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "квартил хоорондын далайц",
+  "en": "interquartile range",
+  "ru": "межквартильный размах",
+  "grade": 10,
+  "concepts": [
+   "spread"
+  ],
+  "def": "Q₃ − Q₁.",
+  "latin": [
+   "kvartil hoorondiin dalaits",
+   "kvartil khoorondyn dalayts",
+   "kvartil xoorondin dalaic"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VIII, х. 184; Математик X, х. 170–171; Математик XI, х. 198–200",
+   "url": "https://econtent.edu.mn/content/8rangi/mat/pages/mat-310-184.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "стандарт хазайлт",
+  "en": "standard deviation",
+  "ru": "стандартное отклонение",
+  "grade": 10,
+  "concepts": [
+   "spread",
+   "rand-var"
+  ],
+  "def": "Утгууд дунджаас хэр хол тархсаныг заах тоо: σ.",
+  "latin": [
+   "standart hazailt",
+   "standart khazaylt",
+   "standart xazailt"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VIII, х. 184; Математик X, х. 170–171; Математик XI, х. 198–200",
+   "url": "https://econtent.edu.mn/content/8rangi/mat/pages/mat-310-184.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "дисперс",
+  "en": "variance",
+  "ru": "дисперсия",
+  "grade": 10,
+  "concepts": [
+   "spread",
+   "rand-var"
+  ],
+  "def": "Хазайлтын квадратын дундаж; σ².",
+  "latin": [
+   "dispers",
+   "dispyers"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик XII, х. 161–178",
+   "url": "https://econtent.edu.mn/content/12rangi/mat/pages/mat-343-161.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "хайрцган диаграмм",
+  "en": "box plot",
+  "ru": "ящик с усами",
+  "grade": 10,
+  "concepts": [
+   "spread"
+  ],
+  "def": "Медиан, квартил, хамгийн их, бага утгыг харуулах диаграмм.",
+  "latin": [
+   "hairtsgan diagramm",
+   "khayrtsgan diagramm",
+   "xaircgan diagramm"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "сэлгэмэл",
+  "en": "permutation (arrangement)",
+  "ru": "размещение / перестановка",
+  "grade": 10,
+  "concepts": [
+   "perm-comb"
+  ],
+  "def": "n зүйлээс m-ийг сонгон дараалалтай байрлуулах; Aₙᵐ.",
+  "latin": [
+   "selgemel"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик X, х. 180–183",
+   "url": "https://econtent.edu.mn/content/10rangi/mat/pages/mat-279-180.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "хэсэглэл",
+  "en": "combination",
+  "ru": "сочетание",
+  "grade": 10,
+  "concepts": [
+   "perm-comb",
+   "binomial-th"
+  ],
+  "def": "n элементээс m элементтэй дэд олонлог сонгох; Cₙᵐ.",
+  "latin": [
+   "heseglel",
+   "kheseglel",
+   "xeseglel"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик X, х. 180–183",
+   "url": "https://econtent.edu.mn/content/10rangi/mat/pages/mat-279-180.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "факториал",
+  "en": "factorial",
+  "ru": "факториал",
+  "grade": 10,
+  "concepts": [
+   "perm-comb"
+  ],
+  "def": "n! = 1 · 2 · ... · n.",
+  "latin": [
+   "faktorial"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик X, х. 180–183",
+   "url": "https://econtent.edu.mn/content/10rangi/mat/pages/mat-279-180.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "квадрат тэнцэтгэл биш",
+  "en": "quadratic inequality",
+  "ru": "квадратное неравенство",
+  "grade": 11,
+  "concepts": [
+   "quad-ineq"
+  ],
+  "def": "ax² + bx + c > 0 (< 0, ≥ 0, ≤ 0) хэлбэрийн тэнцэтгэл биш.",
+  "latin": [
+   "kvadrat tentsetgel bish",
+   "kvadrat tencetgel bish"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик XI, х. 10–16",
+   "url": "https://econtent.edu.mn/content/11rangi/mat/pages/mat-273-10.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "интервалын арга",
+  "en": "method of intervals",
+  "ru": "метод интервалов",
+  "grade": 11,
+  "concepts": [
+   "quad-ineq",
+   "rat-fn"
+  ],
+  "def": "Илэрхийллийн тэмдгийг тоон шулууны завсар бүрээр шалгах арга.",
+  "latin": [
+   "intervaliin arga",
+   "intyervalyn arga",
+   "intervalin arga"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "геометр прогресс",
+  "en": "geometric progression",
+  "ru": "геометрическая прогрессия",
+  "grade": 11,
+  "concepts": [
+   "gp"
+  ],
+  "def": "Гишүүн бүр нь өмнөхийгөө ижил q тоогоор үржүүлж гардаг дараалал.",
+  "latin": [
+   "geometr progress",
+   "gyeomyetr progryess"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик XI, х. 66–69",
+   "url": "https://econtent.edu.mn/content/11rangi/mat/pages/mat-273-66.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "прогрессын хуваарь",
+  "en": "common ratio",
+  "ru": "знаменатель прогрессии",
+  "grade": 11,
+  "concepts": [
+   "gp"
+  ],
+  "def": "Геометр прогрессын q тоо.",
+  "latin": [
+   "progressiin huvaari",
+   "progryessyn khuvaar",
+   "progressin xuvaar"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "Ньютоны бином",
+  "en": "binomial theorem",
+  "ru": "бином Ньютона",
+  "grade": 11,
+  "concepts": [
+   "binomial-th"
+  ],
+  "def": "(a + b)ⁿ-ийн задаргаа; коэффициентүүд нь Cₙᵏ.",
+  "latin": [
+   "niyutonii binom",
+   "nyutony binom",
+   "nyutoni binom"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик X, х. 181–184 (хэсэглэл; дасгал 15–16)",
+   "url": "https://econtent.edu.mn/content/10rangi/mat/pages/mat-279-181.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "Паскалийн гурвалжин",
+  "en": "Pascal's triangle",
+  "ru": "треугольник Паскаля",
+  "grade": 11,
+  "concepts": [
+   "binomial-th",
+   "perm-comb"
+  ],
+  "def": "Биномын коэффициентүүдийг гурвалжин хэлбэрээр байрлуулсан хүснэгт.",
+  "latin": [
+   "paskaliin gurvaljin",
+   "paskaliyn gurvalzhin"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "өсөх функц",
+  "en": "increasing function",
+  "ru": "возрастающая функция",
+  "grade": 11,
+  "concepts": [
+   "fn-props"
+  ],
+  "def": "x ихсэхэд утга нь ихсэх функц.",
+  "latin": [
+   "usuh funkts",
+   "osokh funkts",
+   "osox funkc"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "буурах функц",
+  "en": "decreasing function",
+  "ru": "убывающая функция",
+  "grade": 11,
+  "concepts": [
+   "fn-props"
+  ],
+  "def": "x ихсэхэд утга нь багасах функц.",
+  "latin": [
+   "buurah funkts",
+   "buurakh funkts",
+   "buurax funkc"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик XI, х. 47–57; Математик IX, х. 79–80",
+   "url": "https://econtent.edu.mn/content/11rangi/mat/pages/mat-273-47.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "тэгш функц",
+  "en": "even function",
+  "ru": "чётная функция",
+  "grade": 11,
+  "concepts": [
+   "fn-props"
+  ],
+  "def": "f(−x) = f(x); график Oy-ийн хувьд тэгш хэмтэй.",
+  "latin": [
+   "tegsh funkts",
+   "tegsh funkc"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик XI, х. 47–57; Математик IX, х. 79–80",
+   "url": "https://econtent.edu.mn/content/11rangi/mat/pages/mat-273-47.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "сондгой функц",
+  "en": "odd function",
+  "ru": "нечётная функция",
+  "grade": 11,
+  "concepts": [
+   "fn-props"
+  ],
+  "def": "f(−x) = −f(x); график эхийн хувьд тэгш хэмтэй.",
+  "latin": [
+   "sondgoi funkts",
+   "sondgoy funkts",
+   "sondgoi funkc"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик XI, х. 47–57; Математик IX, х. 79–80",
+   "url": "https://econtent.edu.mn/content/11rangi/mat/pages/mat-273-47.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "урвуу функц",
+  "en": "inverse function",
+  "ru": "обратная функция",
+  "grade": 11,
+  "concepts": [
+   "fn-props"
+  ],
+  "def": "f-ийн утгаас x-ийг буцааж олох функц f⁻¹.",
+  "latin": [
+   "urvuu funkts",
+   "urvuu funkc"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик XI, х. 47–57; Математик IX, х. 79–80",
+   "url": "https://econtent.edu.mn/content/11rangi/mat/pages/mat-273-47.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "давхар функц",
+  "en": "composite function",
+  "ru": "сложная функция (композиция)",
+  "grade": 11,
+  "concepts": [
+   "fn-props"
+  ],
+  "def": "y = g(f(x)) функц.",
+  "latin": [
+   "davhar funkts",
+   "davkhar funkts",
+   "davxar funkc"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик XI, х. 47–57; Математик IX, х. 79–80",
+   "url": "https://econtent.edu.mn/content/11rangi/mat/pages/mat-273-47.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "уламжлал",
+  "en": "derivative",
+  "ru": "производная",
+  "grade": 11,
+  "concepts": [
+   "deriv"
+  ],
+  "def": "Функцийн өөрчлөлтийн хурд; шүргэгчийн налалт: f′(x).",
+  "latin": [
+   "ulamjlal",
+   "ulamzhlal"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик XI, х. 118–130",
+   "url": "https://econtent.edu.mn/content/11rangi/mat/pages/mat-273-118.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "дифференциалчлах",
+  "en": "differentiate",
+  "ru": "дифференцировать",
+  "grade": 11,
+  "concepts": [
+   "deriv"
+  ],
+  "def": "Уламжлал олох үйлдэл.",
+  "latin": [
+   "differentsialchlah",
+   "diffyeryentsialchlakh",
+   "differencialchlax"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик XI, х. 118–130",
+   "url": "https://econtent.edu.mn/content/11rangi/mat/pages/mat-273-118.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "хязгаар",
+  "en": "limit",
+  "ru": "предел",
+  "grade": 11,
+  "concepts": [
+   "deriv"
+  ],
+  "def": "Хувьсагч ойртоход функцийн ойртох тоо.",
+  "latin": [
+   "hyazgaar",
+   "khyazgaar",
+   "xyazgaar"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "өсөлт (Δx)",
+  "en": "increment",
+  "ru": "приращение",
+  "grade": 11,
+  "concepts": [
+   "deriv"
+  ],
+  "def": "Хувьсагчийн өөрчлөлт Δx.",
+  "latin": [
+   "usult",
+   "osolt"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "хоёрдугаар эрэмбийн уламжлал",
+  "en": "second derivative",
+  "ru": "вторая производная",
+  "grade": 11,
+  "concepts": [
+   "deriv"
+  ],
+  "def": "Уламжлалын уламжлал f″(x).",
+  "latin": [
+   "hoyordugaar erembiin ulamjlal",
+   "khoyordugaar erembiyn ulamzhlal",
+   "xoyordugaar erembiin ulamjlal"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик XI, х. 118–130",
+   "url": "https://econtent.edu.mn/content/11rangi/mat/pages/mat-273-118.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "экстремум",
+  "en": "extremum",
+  "ru": "экстремум",
+  "grade": 11,
+  "concepts": [
+   "deriv-app"
+  ],
+  "def": "Функцийн максимум буюу минимумын цэг.",
+  "latin": [
+   "ekstremum",
+   "ekstryemum"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик XI, х. 131–150",
+   "url": "https://econtent.edu.mn/content/11rangi/mat/pages/mat-273-131.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "максимум",
+  "en": "maximum",
+  "ru": "максимум",
+  "grade": 11,
+  "concepts": [
+   "deriv-app"
+  ],
+  "def": "Өсөж байгаад буурч эхлэх цэг.",
+  "latin": [
+   "maksimum"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик XI, х. 131–150",
+   "url": "https://econtent.edu.mn/content/11rangi/mat/pages/mat-273-131.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "минимум",
+  "en": "minimum",
+  "ru": "минимум",
+  "grade": 11,
+  "concepts": [
+   "deriv-app"
+  ],
+  "def": "Буурч байгаад өсөж эхлэх цэг.",
+  "latin": [
+   "minimum"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик XI, х. 131–150",
+   "url": "https://econtent.edu.mn/content/11rangi/mat/pages/mat-273-131.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "тогтворжилтын цэг",
+  "en": "stationary point",
+  "ru": "стационарная точка",
+  "grade": 11,
+  "concepts": [
+   "deriv-app"
+  ],
+  "def": "Уламжлал 0 байх цэг.",
+  "latin": [
+   "togtvorjiltiin tseg",
+   "togtvorzhiltyn tseg",
+   "togtvorjiltin ceg"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик XI, х. 131–150",
+   "url": "https://econtent.edu.mn/content/11rangi/mat/pages/mat-273-131.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "нугаралтын цэг",
+  "en": "point of inflection",
+  "ru": "точка перегиба",
+  "grade": 11,
+  "concepts": [
+   "deriv-app"
+  ],
+  "def": "Уламжлал 0 боловч тэмдэг нь өөрчлөгдөхгүй цэг.",
+  "latin": [
+   "nugaraltiin tseg",
+   "nugaraltyn tseg",
+   "nugaraltin ceg"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик XI, х. 131–150",
+   "url": "https://econtent.edu.mn/content/11rangi/mat/pages/mat-273-131.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "эх функц",
+  "en": "antiderivative (primitive)",
+  "ru": "первообразная",
+  "grade": 11,
+  "concepts": [
+   "integral"
+  ],
+  "def": "F′(x) = f(x) байх F(x).",
+  "latin": [
+   "eh funkts",
+   "ekh funkts",
+   "ex funkc"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик XI, х. 155–166",
+   "url": "https://econtent.edu.mn/content/11rangi/mat/pages/mat-273-155.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "тодорхойгүй интеграл",
+  "en": "indefinite integral",
+  "ru": "неопределённый интеграл",
+  "grade": 11,
+  "concepts": [
+   "integral"
+  ],
+  "def": "Бүх эх функц: ∫f(x)dx = F(x) + C.",
+  "latin": [
+   "todorhoigui integral",
+   "todorkhoyguy intyegral",
+   "todorxoigvi integral"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик XI, х. 155–166",
+   "url": "https://econtent.edu.mn/content/11rangi/mat/pages/mat-273-155.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "интегралчлах",
+  "en": "integrate",
+  "ru": "интегрировать",
+  "grade": 11,
+  "concepts": [
+   "integral"
+  ],
+  "def": "Дифференциалчлахын урвуу үйлдэл.",
+  "latin": [
+   "integralchlah",
+   "intyegralchlakh",
+   "integralchlax"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик XI, х. 155–166",
+   "url": "https://econtent.edu.mn/content/11rangi/mat/pages/mat-273-155.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "тодорхой интеграл",
+  "en": "definite integral",
+  "ru": "определённый интеграл",
+  "grade": 11,
+  "concepts": [
+   "def-int"
+  ],
+  "def": "∫ₐᵇf(x)dx; муруй шугаман трапецийн талбай.",
+  "latin": [
+   "todorhoi integral",
+   "todorkhoy intyegral",
+   "todorxoi integral"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик XI, х. 167–175",
+   "url": "https://econtent.edu.mn/content/11rangi/mat/pages/mat-273-167.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "муруй шугаман трапец",
+  "en": "region under a curve",
+  "ru": "криволинейная трапеция",
+  "grade": 11,
+  "concepts": [
+   "def-int"
+  ],
+  "def": "Функцийн график, Ox тэнхлэг, x = a, x = b шулуунаар хүрээлэгдсэн дүрс.",
+  "latin": [
+   "murui shugaman trapets",
+   "muruy shugaman trapyets",
+   "murui shugaman trapec"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик XI, х. 167–175",
+   "url": "https://econtent.edu.mn/content/11rangi/mat/pages/mat-273-167.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "интегралын хил",
+  "en": "limits of integration",
+  "ru": "пределы интегрирования",
+  "grade": 11,
+  "concepts": [
+   "def-int"
+  ],
+  "def": "a нь доод хил, b нь дээд хил.",
+  "latin": [
+   "integraliin hil",
+   "intyegralyn khil",
+   "integralin xil"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "огторгуй",
+  "en": "space (3D)",
+  "ru": "пространство",
+  "grade": 11,
+  "concepts": [
+   "space-coord",
+   "space-vec"
+  ],
+  "def": "Гурван хэмжээст орчин.",
+  "latin": [
+   "ogtorgui",
+   "ogtorguy"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик XI, х. 79–85",
+   "url": "https://econtent.edu.mn/content/11rangi/mat/pages/mat-273-79.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "аппликат",
+  "en": "applicate (z-coordinate)",
+  "ru": "аппликата",
+  "grade": 11,
+  "concepts": [
+   "space-coord"
+  ],
+  "def": "Огторгуйн цэгийн z координат.",
+  "latin": [
+   "applikat"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик XI, х. 79–85",
+   "url": "https://econtent.edu.mn/content/11rangi/mat/pages/mat-273-79.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "радиан",
+  "en": "radian",
+  "ru": "радиан",
+  "grade": 11,
+  "concepts": [
+   "radian"
+  ],
+  "def": "Радиустай тэнцүү урттай нум тулсан төв өнцөг; π рад = 180°.",
+  "latin": [
+   "radian"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик XII, х. 86–87",
+   "url": "https://econtent.edu.mn/content/12rangi/mat/pages/mat-343-86.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "нэгж тойрог",
+  "en": "unit circle",
+  "ru": "единичная окружность",
+  "grade": 11,
+  "concepts": [
+   "trig-fn"
+  ],
+  "def": "Эх дээр төвтэй, радиус нь 1 тойрог.",
+  "latin": [
+   "negj toirog",
+   "negzh toyrog"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "тригонометр функц",
+  "en": "trigonometric function",
+  "ru": "тригонометрическая функция",
+  "grade": 11,
+  "concepts": [
+   "trig-fn"
+  ],
+  "def": "sin, cos, tg функцүүд.",
+  "latin": [
+   "trigonometr funkts",
+   "trigonomyetr funkts",
+   "trigonometr funkc"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик XI, х. 87–97",
+   "url": "https://econtent.edu.mn/content/11rangi/mat/pages/mat-273-87.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "тригонометр адилтгал",
+  "en": "trigonometric identity",
+  "ru": "тригонометрическое тождество",
+  "grade": 11,
+  "concepts": [
+   "trig-fn"
+  ],
+  "def": "sin²α + cos²α = 1 гэх мэт.",
+  "latin": [
+   "trigonometr adiltgal",
+   "trigonomyetr adiltgal"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "үе (функцийн)",
+  "en": "period (of a function)",
+  "ru": "период функции",
+  "grade": 11,
+  "concepts": [
+   "trig-fn"
+  ],
+  "def": "Функцийн утга давтагдах хамгийн бага алхам: sin-ийнх 2π.",
+  "latin": [
+   "ue",
+   "uye",
+   "ve"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик XI, х. 87–97",
+   "url": "https://econtent.edu.mn/content/11rangi/mat/pages/mat-273-87.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "суурь нэгж вектор",
+  "en": "unit basis vectors",
+  "ru": "единичные базисные векторы",
+  "grade": 11,
+  "concepts": [
+   "space-vec"
+  ],
+  "def": "i, j, k: тэнхлэгүүдийн чиглэлтэй нэгж урттай векторууд.",
+  "latin": [
+   "suuri negj vektor",
+   "suur negzh vyektor",
+   "suur negj vektor"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик XI, х. 101–113",
+   "url": "https://econtent.edu.mn/content/11rangi/mat/pages/mat-273-101.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "нөхцөлт магадлал",
+  "en": "conditional probability",
+  "ru": "условная вероятность",
+  "grade": 11,
+  "concepts": [
+   "cond-prob"
+  ],
+  "def": "A илэрсэн нөхцөлд B илрэх магадлал: P(B|A).",
+  "latin": [
+   "nuhtsult magadlal",
+   "nokhtsolt magadlal",
+   "noxcolt magadlal"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик X, х. 188–191 (нийлмэл үзэгдлийн магадлал, модны схем)",
+   "url": "https://econtent.edu.mn/content/10rangi/mat/pages/mat-279-188.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "олон гишүүнт хуваах",
+  "en": "polynomial division",
+  "ru": "деление многочленов",
+  "grade": 12,
+  "concepts": [
+   "poly-div"
+  ],
+  "def": "P(x) = Q(x)·K(x) + R(x) хэлбэрт хуваах.",
+  "latin": [
+   "olon gishuunt huvaah",
+   "olon gishuunt khuvaakh",
+   "olon gishvvnt xuvaax"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "Безугийн теорем",
+  "en": "remainder theorem (Bézout)",
+  "ru": "теорема Безу",
+  "grade": 12,
+  "concepts": [
+   "poly-div"
+  ],
+  "def": "P(x)-ийг x − t-д хуваахад үлдэгдэл нь P(t).",
+  "latin": [
+   "bezugiin teorem",
+   "byezugiyn tyeoryem"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик XII, х. 23–29",
+   "url": "https://econtent.edu.mn/content/12rangi/mat/pages/mat-343-23.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "ахлах коэффициент",
+  "en": "leading coefficient",
+  "ru": "старший коэффициент",
+  "grade": 12,
+  "concepts": [
+   "poly-div",
+   "rat-fn"
+  ],
+  "def": "Олон гишүүнтийн хамгийн их зэрэгтэй гишүүний коэффициент.",
+  "latin": [
+   "ahlah koeffitsient",
+   "akhlakh koeffitsiyent",
+   "axlax koefficient"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик XII, х. 23–29",
+   "url": "https://econtent.edu.mn/content/12rangi/mat/pages/mat-343-23.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "комплекс тоо",
+  "en": "complex number",
+  "ru": "комплексное число",
+  "grade": 12,
+  "concepts": [
+   "complex"
+  ],
+  "def": "a + bi хэлбэрийн тоо, i² = −1; ℂ.",
+  "latin": [
+   "kompleks too",
+   "komplyeks too"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик XII, х. 183–204",
+   "url": "https://econtent.edu.mn/content/12rangi/mat/pages/mat-343-183.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "хуурмаг нэгж",
+  "en": "imaginary unit",
+  "ru": "мнимая единица",
+  "grade": 12,
+  "concepts": [
+   "complex"
+  ],
+  "def": "i² = −1 байх i тоо.",
+  "latin": [
+   "huurmag negj",
+   "khuurmag negzh",
+   "xuurmag negj"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "бодит хэсэг",
+  "en": "real part",
+  "ru": "действительная часть",
+  "grade": 12,
+  "concepts": [
+   "complex"
+  ],
+  "def": "a + bi-ийн a: Re.",
+  "latin": [
+   "bodit heseg",
+   "bodit kheseg",
+   "bodit xeseg"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик XII, х. 183–204",
+   "url": "https://econtent.edu.mn/content/12rangi/mat/pages/mat-343-183.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "хуурмаг хэсэг",
+  "en": "imaginary part",
+  "ru": "мнимая часть",
+  "grade": 12,
+  "concepts": [
+   "complex"
+  ],
+  "def": "a + bi-ийн b: Im.",
+  "latin": [
+   "huurmag heseg",
+   "khuurmag kheseg",
+   "xuurmag xeseg"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик XII, х. 183–204",
+   "url": "https://econtent.edu.mn/content/12rangi/mat/pages/mat-343-183.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "хосмог тоо",
+  "en": "complex conjugate",
+  "ru": "сопряжённое число",
+  "grade": 12,
+  "concepts": [
+   "complex"
+  ],
+  "def": "a + bi-ийн хосмог нь a − bi.",
+  "latin": [
+   "hosmog too",
+   "khosmog too",
+   "xosmog too"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик XII, х. 183–204",
+   "url": "https://econtent.edu.mn/content/12rangi/mat/pages/mat-343-183.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "аргумент",
+  "en": "argument (of a complex number)",
+  "ru": "аргумент",
+  "grade": 12,
+  "concepts": [
+   "complex"
+  ],
+  "def": "Комплекс тоог хавтгайд дүрсэлсэн цэгийн өнцөг φ.",
+  "latin": [
+   "argument",
+   "argumyent"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик XII, х. 183–204",
+   "url": "https://econtent.edu.mn/content/12rangi/mat/pages/mat-343-183.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "математик индукц",
+  "en": "mathematical induction",
+  "ru": "математическая индукция",
+  "grade": 12,
+  "concepts": [
+   "induction"
+  ],
+  "def": "n = 1-д үнэн, n = k-д үнэн бол n = k + 1-д үнэн гэж харуулж батлах арга.",
+  "latin": [
+   "matematik indukts",
+   "matyematik indukts",
+   "matematik indukc"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "логарифм",
+  "en": "logarithm",
+  "ru": "логарифм",
+  "grade": 12,
+  "concepts": [
+   "log"
+  ],
+  "def": "aᵏ = b бол k = log_a b.",
+  "latin": [
+   "logarifm"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик XII, х. 43–51",
+   "url": "https://econtent.edu.mn/content/12rangi/mat/pages/mat-343-43.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "логарифмын суурь",
+  "en": "base of a logarithm",
+  "ru": "основание логарифма",
+  "grade": 12,
+  "concepts": [
+   "log"
+  ],
+  "def": "log_a b-ийн a.",
+  "latin": [
+   "logarifmiin suuri",
+   "logarifmyn suur",
+   "logarifmin suur"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик XII, х. 43–51",
+   "url": "https://econtent.edu.mn/content/12rangi/mat/pages/mat-343-43.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "аравтын логарифм",
+  "en": "common logarithm",
+  "ru": "десятичный логарифм",
+  "grade": 12,
+  "concepts": [
+   "log"
+  ],
+  "def": "10 суурьтай логарифм: lg.",
+  "latin": [
+   "aravtiin logarifm",
+   "aravtyn logarifm",
+   "aravtin logarifm"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "натурал логарифм",
+  "en": "natural logarithm",
+  "ru": "натуральный логарифм",
+  "grade": 12,
+  "concepts": [
+   "log"
+  ],
+  "def": "e суурьтай логарифм: ln.",
+  "latin": [
+   "natural logarifm"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "логарифм функц",
+  "en": "logarithmic function",
+  "ru": "логарифмическая функция",
+  "grade": 12,
+  "concepts": [
+   "log",
+   "exp-fn"
+  ],
+  "def": "y = log_a x функц; илтгэгч функцийн урвуу.",
+  "latin": [
+   "logarifm funkts",
+   "logarifm funkc"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "рационал функц",
+  "en": "rational function",
+  "ru": "рациональная функция",
+  "grade": 12,
+  "concepts": [
+   "rat-fn"
+  ],
+  "def": "P(x)/Q(x) хэлбэрийн функц.",
+  "latin": [
+   "ratsional funkts",
+   "racional funkc"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик XII, х. 77–82",
+   "url": "https://econtent.edu.mn/content/12rangi/mat/pages/mat-343-77.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "асимптот",
+  "en": "asymptote",
+  "ru": "асимптота",
+  "grade": 12,
+  "concepts": [
+   "rat-fn"
+  ],
+  "def": "График ойртох боловч хүрэхгүй шулуун.",
+  "latin": [
+   "asimptot"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик XII, х. 77–82",
+   "url": "https://econtent.edu.mn/content/12rangi/mat/pages/mat-343-77.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "цуваа",
+  "en": "series",
+  "ru": "ряд",
+  "grade": 12,
+  "concepts": [
+   "series"
+  ],
+  "def": "Дарааллын гишүүдийн нийлбэр.",
+  "latin": [
+   "tsuvaa",
+   "cuvaa"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "сигма тэмдэг (Σ)",
+  "en": "sigma notation",
+  "ru": "знак суммы",
+  "grade": 12,
+  "concepts": [
+   "series"
+  ],
+  "def": "Нийлбэрийг товчлон бичих Σ тэмдэг.",
+  "latin": [
+   "sigma temdeg"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "дифференциал тэгшитгэл",
+  "en": "differential equation",
+  "ru": "дифференциальное уравнение",
+  "grade": 12,
+  "concepts": [
+   "diff-eq"
+  ],
+  "def": "Үл мэдэгдэх функц ба түүний уламжлал орсон тэгшитгэл.",
+  "latin": [
+   "differentsial tegshitgel",
+   "diffyeryentsial tegshitgel",
+   "differencial tegshitgel"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "хурдатгал",
+  "en": "acceleration",
+  "ru": "ускорение",
+  "grade": 12,
+  "concepts": [
+   "diff-eq"
+  ],
+  "def": "Хурдны уламжлал.",
+  "latin": [
+   "hurdatgal",
+   "khurdatgal",
+   "xurdatgal"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик XI, х. 164–166",
+   "url": "https://econtent.edu.mn/content/11rangi/mat/pages/mat-273-164.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "санамсаргүй хувьсагч",
+  "en": "random variable",
+  "ru": "случайная величина",
+  "grade": 12,
+  "concepts": [
+   "rand-var"
+  ],
+  "def": "Туршилтын үр дүнд харгалзуулсан тоон утга.",
+  "latin": [
+   "sanamsargui huvisagch",
+   "sanamsarguy khuvsagch",
+   "sanamsargvi xuvsagch"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик XII, х. 161–178",
+   "url": "https://econtent.edu.mn/content/12rangi/mat/pages/mat-343-161.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "дискрет санамсаргүй хувьсагч",
+  "en": "discrete random variable",
+  "ru": "дискретная случайная величина",
+  "grade": 12,
+  "concepts": [
+   "rand-var"
+  ],
+  "def": "Төгсгөлөг тооны утга авах санамсаргүй хувьсагч.",
+  "latin": [
+   "diskret sanamsargui huvisagch",
+   "diskryet sanamsarguy khuvsagch",
+   "diskret sanamsargvi xuvsagch"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик XII, х. 161–178",
+   "url": "https://econtent.edu.mn/content/12rangi/mat/pages/mat-343-161.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "магадлалын тархалт",
+  "en": "probability distribution",
+  "ru": "распределение вероятностей",
+  "grade": 12,
+  "concepts": [
+   "rand-var"
+  ],
+  "def": "Утга бүрт магадлалыг харгалзуулсан хүснэгт (дүрэм).",
+  "latin": [
+   "magadlaliin tarhalt",
+   "magadlalyn tarkhalt",
+   "magadlalin tarxalt"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик XII, х. 161–178",
+   "url": "https://econtent.edu.mn/content/12rangi/mat/pages/mat-343-161.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "математик дундаж (E(X))",
+  "en": "expected value",
+  "ru": "математическое ожидание",
+  "grade": 12,
+  "concepts": [
+   "rand-var"
+  ],
+  "def": "Санамсаргүй хувьсагчийн дундаж утга E(X).",
+  "latin": [
+   "matematik dundaj)",
+   "matyematik dundazh)"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "бином тархалт",
+  "en": "binomial distribution",
+  "ru": "биномиальное распределение",
+  "grade": 12,
+  "concepts": [
+   "binom-dist"
+  ],
+  "def": "n бие даасан туршилтад амжилтын тоогоор тодорхойлогдох тархалт.",
+  "latin": [
+   "binom tarhalt",
+   "binom tarkhalt",
+   "binom tarxalt"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "хэвийн тархалт",
+  "en": "normal distribution",
+  "ru": "нормальное распределение",
+  "grade": 12,
+  "concepts": [
+   "normal"
+  ],
+  "def": "Хонх хэлбэрийн муруйтай тасралтгүй тархалт.",
+  "latin": [
+   "heviin tarhalt",
+   "kheviyn tarkhalt",
+   "xeviin tarxalt"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "геометр магадлал",
+  "en": "geometric probability",
+  "ru": "геометрическая вероятность",
+  "grade": 12,
+  "concepts": [
+   "geo-prob"
+  ],
+  "def": "Урт, талбайн харьцаагаар олох магадлал.",
+  "latin": [
+   "geometr magadlal",
+   "gyeomyetr magadlal"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "цаг",
+  "en": "hour / clock",
+  "ru": "час, часы",
+  "grade": 1,
+  "concepts": [
+   "b-time",
+   "time"
+  ],
+  "def": "Хугацааны нэгж: 1 цаг = 60 минут; мөн цаг заах хэрэгсэл.",
+  "latin": [
+   "tsag",
+   "cag"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 36–37; Математик VI, х. 129. Цагийн бүс 5, 6-р ангийн номд олдсонгүй.",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-36.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "минут",
+  "en": "minute",
+  "ru": "минута",
+  "grade": 1,
+  "concepts": [
+   "b-time",
+   "time"
+  ],
+  "def": "1 минут = 60 секунд.",
+  "latin": [
+   "minut"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик V, х. 36–37; Математик VI, х. 129. Цагийн бүс 5, 6-р ангийн номд олдсонгүй.",
+   "url": "https://econtent.edu.mn/content/5rangi/mat/pages/mat-253-36.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "мөнгө",
+  "en": "money",
+  "ru": "деньги",
+  "grade": 1,
+  "concepts": [
+   "b-time"
+  ],
+  "def": "Төгрөг, мөнгөн дэвсгэрт, зоос; үнэ, хариулт тооцоолох.",
+  "latin": [
+   "mungu",
+   "mongo"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "хариулт (мөнгө)",
+  "en": "change (money)",
+  "ru": "сдача",
+  "grade": 1,
+  "concepts": [
+   "b-time"
+  ],
+  "def": "Төлсөн мөнгөнөөс үнийг хассан үлдэгдэл.",
+  "latin": [
+   "hariult",
+   "khariult",
+   "xariult"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ },
+ {
+  "mn": "бутархайг процент болгох",
+  "en": "convert a fraction to a percent",
+  "ru": "перевести дробь в проценты",
+  "grade": 6,
+  "concepts": [
+   "frac-dec"
+  ],
+  "def": "Бутархайг 100%-иар үржүүлэх эсвэл хуваарийг 100 болгох.",
+  "latin": [
+   "butarhaig protsent bolgoh",
+   "butarkhayg protsyent bolgokh",
+   "butarxaig procent bolgox"
+  ],
+  "in_textbook_content": true,
+  "src": {
+   "textbook": "Математик VI, х. 51–52",
+   "url": "https://econtent.edu.mn/content/6rangi/mat/pages/mat-284-51.jpg"
+  },
+  "draft": false
+ },
+ {
+  "mn": "аравтын бутархайг энгийн бутархай болгох",
+  "en": "convert a decimal to a fraction",
+  "ru": "перевести десятичную дробь в обыкновенную",
+  "grade": 6,
+  "concepts": [
+   "frac-dec"
+  ],
+  "def": "0.25 = 25/100 = 1/4 гэх мэт хуваарь нь 10, 100 ... бутархайгаар бичээд хураана.",
+  "latin": [
+   "aravtiin butarhaig engiin butarhai bolgoh",
+   "aravtyn butarkhayg engiyn butarkhay bolgokh",
+   "aravtin butarxaig engiin butarxai bolgox"
+  ],
+  "in_textbook_content": false,
+  "src": null,
+  "draft": true
+ }
+]

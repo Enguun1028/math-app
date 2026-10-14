@@ -1,0 +1,1077 @@
+{
+ "_note": "Observed topic frequencies in official ЭЕШ/ЭШ mathematics papers, mapped by hand to concepts.txt ids. Sources: official item bank eyeshitems.eec.mn (2021 A, 2022 A, 2023 A part 1, items visible publicly) and official PDFs from eec.mn (2022 A full, 2023 B part 2, 2025 A full; retrieved via web.archive.org). Each item counted once under its main concept; several items touch 2 concepts (see esh-exam.md). The mapping and the one-line descriptions are my own judgement, not an official classification (draft). share = count / mapped items; point_share weights by points (part 1: 1/2/3 pt, part 2: 7 pt each).",
+ "draft": true,
+ "years": [
+  2021,
+  2022,
+  2023,
+  2025
+ ],
+ "papers": [
+  {
+   "year": 2021,
+   "variant": "A",
+   "parts": [
+    1
+   ],
+   "source": "http://eyeshitems.eec.mn/ (year 2021, variant A)"
+  },
+  {
+   "year": 2022,
+   "variant": "A",
+   "parts": [
+    1,
+    2
+   ],
+   "source": "https://eec.mn/wp-content/uploads/2022/08/Математик-A.pdf (archived: http://web.archive.org/web/20220930160857/https://eec.mn/wp-content/uploads/2022/08/%D0%9C%D0%B0%D1%82%D0%B5%D0%BC%D0%B0%D1%82%D0%B8%D0%BA-A.pdf) + item bank"
+  },
+  {
+   "year": 2023,
+   "variant": "A",
+   "parts": [
+    1
+   ],
+   "source": "http://eyeshitems.eec.mn/ (year 2023, variant A)"
+  },
+  {
+   "year": 2023,
+   "variant": "B",
+   "parts": [
+    2
+   ],
+   "source": "https://eec.mn/wp-content/uploads/2023/10/Математик-B-хувилбар.pdf (archived 2025-11-29 on web.archive.org)"
+  },
+  {
+   "year": 2025,
+   "variant": "A",
+   "parts": [
+    1,
+    2
+   ],
+   "source": "https://eec.mn/wp-content/uploads/2025/06/ЭШ-2025-Математик-A-хувилбар.pdf (archived on web.archive.org)"
+  }
+ ],
+ "n_items": 156,
+ "n_mapped": 155,
+ "total_points_mapped": 371.0,
+ "by_exam_strand": {
+  "Тоо тоолол": {
+   "count": 16,
+   "share": 0.103,
+   "point_share": 0.067
+  },
+  "Алгебр": {
+   "count": 48,
+   "share": 0.31,
+   "point_share": 0.302
+  },
+  "Анализын эхлэл": {
+   "count": 24,
+   "share": 0.155,
+   "point_share": 0.178
+  },
+  "Геометр ба тригонометр": {
+   "count": 43,
+   "share": 0.277,
+   "point_share": 0.286
+  },
+  "Магадлал, статистик": {
+   "count": 24,
+   "share": 0.155,
+   "point_share": 0.167
+  }
+ },
+ "by_concept_grade": {
+  "5": {
+   "count": 12,
+   "share": 0.077,
+   "point_share": 0.07
+  },
+  "6": {
+   "count": 12,
+   "share": 0.077,
+   "point_share": 0.046
+  },
+  "7": {
+   "count": 8,
+   "share": 0.052,
+   "point_share": 0.046
+  },
+  "8": {
+   "count": 33,
+   "share": 0.213,
+   "point_share": 0.253
+  },
+  "9": {
+   "count": 16,
+   "share": 0.103,
+   "point_share": 0.113
+  },
+  "10": {
+   "count": 22,
+   "share": 0.142,
+   "point_share": 0.129
+  },
+  "11": {
+   "count": 30,
+   "share": 0.194,
+   "point_share": 0.208
+  },
+  "12": {
+   "count": 22,
+   "share": 0.142,
+   "point_share": 0.135
+  }
+ },
+ "weights": {
+  "def-int": {
+   "count": 7,
+   "share": 0.045,
+   "points": 26.0,
+   "point_share": 0.07,
+   "name": "Тодорхой интеграл ба талбай",
+   "grade": "11",
+   "exam_strand": "Анализын эхлэл",
+   "examples": [
+    "2021 A №32 (3 pt): evaluate a definite integral",
+    "2022 A №28 (2 pt): evaluate a definite integral",
+    "2022 A №31 (3 pt): area of the region between two parabolas",
+    "2023 A №28 (2 pt): definite integral of a trigonometric function",
+    "2023 B №2.4 (7 pt): area between a parabola and a line through the origin; find the slope",
+    "2025 A №16 (2 pt): definite integral of a piecewise function",
+    "2025 A №2.3 (7 pt): curves √(7x) and y=x: intersection, area under a tangent, volume of revolution"
+   ]
+  },
+  "poly-div": {
+   "count": 6,
+   "share": 0.039,
+   "points": 14.0,
+   "point_share": 0.038,
+   "name": "Олон гишүүнт хуваах, Безугийн теорем",
+   "grade": "12",
+   "exam_strand": "Алгебр",
+   "examples": [
+    "2021 A №17 (2 pt): remainder when one polynomial is divided by another",
+    "2021 A №21 (2 pt): build a cubic polynomial from its three roots",
+    "2022 A №24 (2 pt): factor a cubic polynomial using one known root",
+    "2022 A №36 (3 pt): remainder on division by a quadratic, from two given remainders",
+    "2023 A №34 (3 pt): find coefficients from divisibility and equal remainders",
+    "2025 A №28 (2 pt): remainders on division by linear factors form a geometric progression"
+   ]
+  },
+  "vector": {
+   "count": 6,
+   "share": 0.039,
+   "points": 13.0,
+   "point_share": 0.035,
+   "name": "Вектор",
+   "grade": "9",
+   "exam_strand": "Геометр ба тригонометр",
+   "examples": [
+    "2021 A №25 (2 pt): express a vector to a point dividing a side in ratio 2:1",
+    "2021 A №31 (3 pt): find a parameter so that two vectors are parallel",
+    "2022 A №6 (1 pt): coordinates of a linear combination of two vectors",
+    "2022 A №35 (3 pt): express a vector in a parallelogram through an intersection ratio",
+    "2023 A №3 (1 pt): opposite vector of a drawn vector",
+    "2025 A №33 (3 pt): express a vector between the bisector foot and a midpoint"
+   ]
+  },
+  "quad-fn": {
+   "count": 5,
+   "share": 0.032,
+   "points": 25.0,
+   "point_share": 0.067,
+   "name": "Квадрат функц",
+   "grade": "8",
+   "exam_strand": "Алгебр",
+   "examples": [
+    "2021 A №16 (2 pt): range of a quadratic function on a closed interval",
+    "2022 A №2.1 (7 pt): quadratic family with a parameter: vertex, min/max on an interval, tangency to Ox, shift of graph",
+    "2023 B №2.1 (7 pt): quadratic with parameters p, q: vertex, maximum on an interval, conditions on the graph",
+    "2025 A №13 (2 pt): from the graph of y=ax+b choose the possible graph of y=ax²+bx",
+    "2025 A №2.1 (7 pt): quadratic from its x- and y-intercepts; vertex; values of k where |f(x)|=k has four roots"
+   ]
+  },
+  "rand-var": {
+   "count": 5,
+   "share": 0.032,
+   "points": 14.0,
+   "point_share": 0.038,
+   "name": "Санамсаргүй хувьсагч",
+   "grade": "12",
+   "exam_strand": "Магадлал, статистик",
+   "examples": [
+    "2022 A №18 (2 pt): expected value from a probability distribution table",
+    "2022 A №34 (3 pt): variance of the number of white balls in a draw of two",
+    "2023 A №6 (1 pt): missing probability in a distribution table",
+    "2023 B №2.3 (7 pt): drawing balls without replacement until 2 white: distribution and mean",
+    "2025 A №7 (1 pt): distribution given by a formula k(2+y): find one probability"
+   ]
+  },
+  "sets": {
+   "count": 5,
+   "share": 0.032,
+   "points": 7.0,
+   "point_share": 0.019,
+   "name": "Олонлог ба Эйлер-Веннийн диаграмм",
+   "grade": "6",
+   "exam_strand": "Алгебр",
+   "examples": [
+    "2021 A №6 (1 pt): name the shaded region of a Venn diagram (difference A minus B)",
+    "2021 A №18 (2 pt): count elements using set operations",
+    "2022 A №4 (1 pt): number of elements of a union of two sets",
+    "2023 A №4 (1 pt): which set is a subset of a given set",
+    "2025 A №15 (2 pt): size of an intersection of a range and a remainder class"
+   ]
+  },
+  "spread": {
+   "count": 5,
+   "share": 0.032,
+   "points": 10.0,
+   "point_share": 0.027,
+   "name": "Далайц, квартил, стандарт хазайлт",
+   "grade": "10",
+   "exam_strand": "Магадлал, статистик",
+   "examples": [
+    "2021 A №12 (2 pt): interquartile range of nine test scores",
+    "2022 A №30 (3 pt): compare two teams' spread from sums and sums of squares",
+    "2023 A №9 (2 pt): upper quartile of a data list",
+    "2023 A №26 (2 pt): variance of five data values",
+    "2025 A №6 (1 pt): upper quartile of a data list"
+   ]
+  },
+  "trig-fn": {
+   "count": 5,
+   "share": 0.032,
+   "points": 9.0,
+   "point_share": 0.024,
+   "name": "Тригонометр функц ба адилтгал",
+   "grade": "11",
+   "exam_strand": "Геометр ба тригонометр",
+   "examples": [
+    "2021 A №9 (1 pt): find cos from sin of an obtuse angle (sign by quadrant)",
+    "2022 A №26 (2 pt): given tan α, evaluate a trigonometric expression (identities)",
+    "2023 A №29 (3 pt): from sin α − cos α find sin³α − cos³α",
+    "2025 A №2 (1 pt): sine of a large angle (reduce by full turns)",
+    "2025 A №18 (2 pt): number of solutions of a trigonometric equation on an interval"
+   ]
+  },
+  "abs": {
+   "count": 4,
+   "share": 0.026,
+   "points": 8.0,
+   "point_share": 0.022,
+   "name": "Модуль",
+   "grade": "7",
+   "exam_strand": "Алгебр",
+   "examples": [
+    "2021 A №13 (2 pt): simplify a sum of square roots of squares on a given interval (|a| rules)",
+    "2021 A №22 (2 pt): equation with a sum of two absolute values",
+    "2023 A №30 (3 pt): inequality comparing two absolute values",
+    "2025 A №5 (1 pt): linear absolute-value inequality; sum of the interval ends"
+   ]
+  },
+  "alg-frac": {
+   "count": 4,
+   "share": 0.026,
+   "points": 9.0,
+   "point_share": 0.024,
+   "name": "Алгебрын бутархай",
+   "grade": "8",
+   "exam_strand": "Алгебр",
+   "examples": [
+    "2021 A №27 (3 pt): simplify a sum/quotient of algebraic fractions",
+    "2022 A №21 (2 pt): evaluate a radical expression in a and b for given numbers",
+    "2023 A №14 (2 pt): evaluate an algebraic fraction after factoring",
+    "2025 A №10 (2 pt): simplify a product and sum of algebraic fractions"
+   ]
+  },
+  "complex": {
+   "count": 4,
+   "share": 0.026,
+   "points": 7.0,
+   "point_share": 0.019,
+   "name": "Комплекс тоо",
+   "grade": "12",
+   "exam_strand": "Алгебр",
+   "examples": [
+    "2022 A №17 (2 pt): rewrite a complex number in another form",
+    "2023 A №5 (1 pt): square of a complex number",
+    "2023 A №18 (2 pt): quadratic with a given complex root: find the constant term",
+    "2025 A №12 (2 pt): simplify an expression with high powers of i"
+   ]
+  },
+  "coord-geo": {
+   "count": 4,
+   "share": 0.026,
+   "points": 9.0,
+   "point_share": 0.024,
+   "name": "Координатын геометр",
+   "grade": "8",
+   "exam_strand": "Геометр ба тригонометр",
+   "examples": [
+    "2022 A №12 (2 pt): length of a triangle median from vertex coordinates",
+    "2022 A №33 (3 pt): equation of a circle centred at the origin tangent to a line",
+    "2023 A №22 (2 pt): equation of the line through two points",
+    "2025 A №20 (2 pt): circle centre from its equation; line parallel to a given line"
+   ]
+  },
+  "deriv-app": {
+   "count": 4,
+   "share": 0.026,
+   "points": 15.0,
+   "point_share": 0.04,
+   "name": "Уламжлалын хэрэглээ: экстремум, график",
+   "grade": "11",
+   "exam_strand": "Анализын эхлэл",
+   "examples": [
+    "2022 A №2.2 (7 pt): box with fixed edge-sum: write V(x) and maximise it with the derivative",
+    "2023 A №35 (3 pt): cubic with given extremum points and maximum: find the minimum",
+    "2025 A №14 (2 pt): interval where a function with a logarithm increases",
+    "2025 A №36 (3 pt): maximum length of a horizontal segment between a line and an exponential curve"
+   ]
+  },
+  "tangent-slope": {
+   "count": 4,
+   "share": 0.026,
+   "points": 9.0,
+   "point_share": 0.024,
+   "name": "Муруйн шүргэгчийн налалт",
+   "grade": "10",
+   "exam_strand": "Анализын эхлэл",
+   "examples": [
+    "2021 A №24 (2 pt): equation of the normal line to a graph at a point",
+    "2022 A №15 (2 pt): slope of the tangent line to a graph at a point",
+    "2023 A №32 (3 pt): tangent to a parabola through an outside point",
+    "2025 A №19 (2 pt): equation of the normal line at a point"
+   ]
+  },
+  "average": {
+   "count": 3,
+   "share": 0.019,
+   "points": 5.0,
+   "point_share": 0.013,
+   "name": "Дундаж, медиан, моод",
+   "grade": "5",
+   "exam_strand": "Магадлал, статистик",
+   "examples": [
+    "2021 A №26 (2 pt): find the number of data values from the mean and a sum",
+    "2022 A №2 (1 pt): median of nine small data values",
+    "2025 A №24 (2 pt): frequency table with known mean: find a missing frequency"
+   ]
+  },
+  "chord-tangent": {
+   "count": 3,
+   "share": 0.019,
+   "points": 7.0,
+   "point_share": 0.019,
+   "name": "Хөвч, шүргэгч, огтлогч",
+   "grade": "8",
+   "exam_strand": "Геометр ба тригонометр",
+   "examples": [
+    "2022 A №27 (2 pt): perimeter of an isosceles trapezoid circumscribed about a circle",
+    "2025 A №17 (2 pt): angle between two secants from the arcs they cut",
+    "2025 A №31 (3 pt): length of a chord cut by a rectangle diagonal from an inscribed circle"
+   ]
+  },
+  "deriv": {
+   "count": 3,
+   "share": 0.019,
+   "points": 4.0,
+   "point_share": 0.011,
+   "name": "Уламжлал",
+   "grade": "11",
+   "exam_strand": "Анализын эхлэл",
+   "examples": [
+    "2021 A №10 (1 pt): derivative of a power/root function at a point",
+    "2022 A №8 (1 pt): derivative of a function",
+    "2023 A №15 (2 pt): second derivative of an exponential function"
+   ]
+  },
+  "diff-eq": {
+   "count": 3,
+   "share": 0.019,
+   "points": 7.0,
+   "point_share": 0.019,
+   "name": "Дифференциал тэгшитгэл",
+   "grade": "12",
+   "exam_strand": "Анализын эхлэл",
+   "examples": [
+    "2021 A №23 (2 pt): find the curve from dy/dx and one point on it",
+    "2025 A №11 (2 pt): solve a separable differential equation",
+    "2025 A №34 (3 pt): cooling of coffee: exponential model from a differential equation"
+   ]
+  },
+  "integral": {
+   "count": 3,
+   "share": 0.019,
+   "points": 5.0,
+   "point_share": 0.013,
+   "name": "Интеграл",
+   "grade": "11",
+   "exam_strand": "Анализын эхлэл",
+   "examples": [
+    "2022 A №20 (2 pt): find f from f'(x) and one value f(0)",
+    "2023 A №25 (2 pt): indefinite integral of a squared linear expression",
+    "2025 A №4 (1 pt): indefinite integral of cos 2x"
+   ]
+  },
+  "mat-transform": {
+   "count": 3,
+   "share": 0.019,
+   "points": 8.0,
+   "point_share": 0.022,
+   "name": "Хувиргалтын матриц",
+   "grade": "10",
+   "exam_strand": "Геометр ба тригонометр",
+   "examples": [
+    "2021 A №29 (3 pt): find the matrix of a transformation shown in a picture",
+    "2023 A №23 (2 pt): identify the transformation given by a 2×2 matrix (rotation)",
+    "2025 A №32 (3 pt): reflection in y=−x followed by a matrix transformation"
+   ]
+  },
+  "neg-pow": {
+   "count": 3,
+   "share": 0.019,
+   "points": 3.0,
+   "point_share": 0.008,
+   "name": "Сөрөг ба бутархай илтгэгч",
+   "grade": "8",
+   "exam_strand": "Тоо тоолол",
+   "examples": [
+    "2021 A №5 (1 pt): rewrite a fractional power as a root",
+    "2022 A №1 (1 pt): value of a number to a negative power",
+    "2025 A №1 (1 pt): value of a nested radical (fractional powers)"
+   ]
+  },
+  "perm-comb": {
+   "count": 3,
+   "share": 0.019,
+   "points": 7.0,
+   "point_share": 0.019,
+   "name": "Сэлгэмэл ба хэсэглэл",
+   "grade": "10",
+   "exam_strand": "Магадлал, статистик",
+   "examples": [
+    "2021 A №19 (2 pt): number of natural-number solutions of x+y+z=n (stars and bars)",
+    "2023 A №27 (2 pt): arrangements in a line with two people not at the ends",
+    "2025 A №29 (3 pt): count numbers formed from given digits with a restriction"
+   ]
+  },
+  "similar": {
+   "count": 3,
+   "share": 0.019,
+   "points": 13.0,
+   "point_share": 0.035,
+   "name": "Төсөөтэй дүрс ба гомотет",
+   "grade": "8",
+   "exam_strand": "Геометр ба тригонометр",
+   "examples": [
+    "2022 A №29 (3 pt): homothety then reflection of a point; area of the resulting triangle",
+    "2023 A №33 (3 pt): altitude to the hypotenuse: find a side (similar triangles)",
+    "2023 B №2.2 (7 pt): parallelogram with a midpoint: similar triangles, area ratios, circumradius"
+   ]
+  },
+  "transform": {
+   "count": 3,
+   "share": 0.019,
+   "points": 6.0,
+   "point_share": 0.016,
+   "name": "Хувиргалт: тэгш хэм, зөөлт, эргүүлэлт",
+   "grade": "5",
+   "exam_strand": "Геометр ба тригонометр",
+   "examples": [
+    "2021 A №35 (3 pt): image of a point under reflection in a line",
+    "2022 A №7 (1 pt): find the translation vector that maps one triangle to another",
+    "2023 A №13 (2 pt): point symmetry about a point: find a coordinate"
+   ]
+  },
+  "vol-surf": {
+   "count": 3,
+   "share": 0.019,
+   "points": 11.0,
+   "point_share": 0.03,
+   "name": "Гадаргуун талбай ба эзэлхүүн",
+   "grade": "5",
+   "exam_strand": "Геометр ба тригонометр",
+   "examples": [
+    "2022 A №14 (2 pt): height of a cylinder whose axial section is a square, from base area",
+    "2022 A №2.3 (7 pt): triangular pyramid on a 5-12-13 base with 60° faces: base area, inradius, surface area, volume",
+    "2023 A №24 (2 pt): volume of the cone formed by rotating a right triangle"
+   ]
+  },
+  "ap": {
+   "count": 2,
+   "share": 0.013,
+   "points": 5.0,
+   "point_share": 0.013,
+   "name": "Арифметик прогресс",
+   "grade": "7",
+   "exam_strand": "Алгебр",
+   "examples": [
+    "2021 A №30 (3 pt): maximum partial sum of a decreasing arithmetic progression",
+    "2023 A №11 (2 pt): difference of two sums of consecutive integers"
+   ]
+  },
+  "circle-angles": {
+   "count": 2,
+   "share": 0.013,
+   "points": 4.0,
+   "point_share": 0.011,
+   "name": "Төвийн ба багтсан өнцөг",
+   "grade": "8",
+   "exam_strand": "Геометр ба тригонометр",
+   "examples": [
+    "2021 A №33 (3 pt): area of a right triangle inscribed in a unit circle given its perimeter",
+    "2023 A №8 (1 pt): angle in a triangle inscribed on a diameter"
+   ]
+  },
+  "det": {
+   "count": 2,
+   "share": 0.013,
+   "points": 4.0,
+   "point_share": 0.011,
+   "name": "Тодорхойлогч ба урвуу матриц",
+   "grade": "10",
+   "exam_strand": "Алгебр",
+   "examples": [
+    "2021 A №14 (2 pt): inverse of a 2×2 matrix",
+    "2023 A №20 (2 pt): parameter value that makes a 2×2 matrix non-invertible"
+   ]
+  },
+  "matrix": {
+   "count": 2,
+   "share": 0.013,
+   "points": 4.0,
+   "point_share": 0.011,
+   "name": "Матриц",
+   "grade": "10",
+   "exam_strand": "Алгебр",
+   "examples": [
+    "2022 A №5 (1 pt): size of a matrix product",
+    "2023 A №36 (3 pt): matrix power written as pA+qE using the determinant"
+   ]
+  },
+  "prob-rules": {
+   "count": 2,
+   "share": 0.013,
+   "points": 4.0,
+   "point_share": 0.011,
+   "name": "Магадлалын нэмэх дүрэм",
+   "grade": "8",
+   "exam_strand": "Магадлал, статистик",
+   "examples": [
+    "2022 A №13 (2 pt): probability a chosen number up to 60 is divisible by 3 or 5",
+    "2023 A №16 (2 pt): probability a die shows an even number or a divisor of 4"
+   ]
+  },
+  "real": {
+   "count": 2,
+   "share": 0.013,
+   "points": 3.0,
+   "point_share": 0.008,
+   "name": "Иррационал ба бодит тоо",
+   "grade": "9",
+   "exam_strand": "Тоо тоолол",
+   "examples": [
+    "2021 A №11 (2 pt): pick the numbers from a list that are smaller than a square root",
+    "2025 A №3 (1 pt): choose the subset whose elements are all irrational"
+   ]
+  },
+  "root": {
+   "count": 2,
+   "share": 0.013,
+   "points": 3.0,
+   "point_share": 0.008,
+   "name": "Квадрат ба куб язгуур",
+   "grade": "6",
+   "exam_strand": "Тоо тоолол",
+   "examples": [
+    "2022 A №11 (2 pt): solve a product equation that contains a square root (check domain)",
+    "2023 A №1 (1 pt): square root of a mixed number"
+   ]
+  },
+  "sci": {
+   "count": 2,
+   "share": 0.013,
+   "points": 3.0,
+   "point_share": 0.008,
+   "name": "Тооны стандарт дүрс",
+   "grade": "9",
+   "exam_strand": "Тоо тоолол",
+   "examples": [
+    "2021 A №2 (1 pt): write a five-digit number in standard form a×10^n",
+    "2025 A №9 (2 pt): add two numbers in standard form"
+   ]
+  },
+  "space-vec": {
+   "count": 2,
+   "share": 0.013,
+   "points": 4.0,
+   "point_share": 0.011,
+   "name": "Огторгуйн вектор",
+   "grade": "11",
+   "exam_strand": "Геометр ба тригонометр",
+   "examples": [
+    "2023 A №17 (2 pt): find a coordinate from the length of a 3-D vector",
+    "2025 A №23 (2 pt): angle between two vectors in space"
+   ]
+  },
+  "system": {
+   "count": 2,
+   "share": 0.013,
+   "points": 4.0,
+   "point_share": 0.011,
+   "name": "Тэгшитгэлийн систем",
+   "grade": "8",
+   "exam_strand": "Алгебр",
+   "examples": [
+    "2021 A №15 (2 pt): solve a 3-variable linear system for one unknown",
+    "2022 A №23 (2 pt): solve a system of equations"
+   ]
+  },
+  "tree": {
+   "count": 2,
+   "share": 0.013,
+   "points": 14.0,
+   "point_share": 0.038,
+   "name": "Нийлмэл үзэгдэл ба модны схем",
+   "grade": "9",
+   "exam_strand": "Магадлал, статистик",
+   "examples": [
+    "2022 A №2.4 (7 pt): point moving on a number line by die rolls: probabilities after 1, 2, 3 rolls",
+    "2025 A №2.2 (7 pt): card game: winning probabilities with and without replacement over two rounds"
+   ]
+  },
+  "trig-tri": {
+   "count": 2,
+   "share": 0.013,
+   "points": 4.0,
+   "point_share": 0.011,
+   "name": "Синус, косинусын теорем",
+   "grade": "10",
+   "exam_strand": "Геометр ба тригонометр",
+   "examples": [
+    "2022 A №16 (2 pt): side of a triangle from two sides/angles (sine or cosine rule)",
+    "2023 A №21 (2 pt): cosine of an angle from three sides (cosine rule)"
+   ]
+  },
+  "binom-dist": {
+   "count": 1,
+   "share": 0.006,
+   "points": 2.0,
+   "point_share": 0.005,
+   "name": "Бином тархалт",
+   "grade": "12",
+   "exam_strand": "Магадлал, статистик",
+   "examples": [
+    "2025 A №25 (2 pt): variance of the number of tails in 3 coin tosses"
+   ]
+  },
+  "binomial-th": {
+   "count": 1,
+   "share": 0.006,
+   "points": 3.0,
+   "point_share": 0.008,
+   "name": "Ньютоны бином",
+   "grade": "11",
+   "exam_strand": "Алгебр",
+   "examples": [
+    "2025 A №30 (3 pt): coefficient in the expansion of a trinomial to the 4th power"
+   ]
+  },
+  "coord": {
+   "count": 1,
+   "share": 0.006,
+   "points": 1.0,
+   "point_share": 0.003,
+   "name": "Координатын хавтгай",
+   "grade": "5",
+   "exam_strand": "Геометр ба тригонометр",
+   "examples": [
+    "2023 A №2 (1 pt): distance from a point to the x-axis"
+   ]
+  },
+  "cross-sec": {
+   "count": 1,
+   "share": 0.006,
+   "points": 3.0,
+   "point_share": 0.008,
+   "name": "Биетийн огтлол",
+   "grade": "9",
+   "exam_strand": "Геометр ба тригонометр",
+   "examples": [
+    "2021 A №34 (3 pt): ratio of the volumes of two pieces of a cube cut by a plane"
+   ]
+  },
+  "dot": {
+   "count": 1,
+   "share": 0.006,
+   "points": 2.0,
+   "point_share": 0.005,
+   "name": "Скаляр үржвэр",
+   "grade": "10",
+   "exam_strand": "Геометр ба тригонометр",
+   "examples": [
+    "2022 A №19 (2 pt): find a parameter from the value of a dot product"
+   ]
+  },
+  "exp-eq": {
+   "count": 1,
+   "share": 0.006,
+   "points": 2.0,
+   "point_share": 0.005,
+   "name": "Илтгэгч тэгшитгэл",
+   "grade": "9",
+   "exam_strand": "Алгебр",
+   "examples": [
+    "2023 A №19 (2 pt): matching: negative power, exponential equation, logarithm value"
+   ]
+  },
+  "fn-props": {
+   "count": 1,
+   "share": 0.006,
+   "points": 2.0,
+   "point_share": 0.005,
+   "name": "Функцийн чанар: өсөх, тэгш, урвуу, давхар",
+   "grade": "11",
+   "exam_strand": "Алгебр",
+   "examples": [
+    "2022 A №25 (2 pt): solve an equation involving a composite function g(f(x))"
+   ]
+  },
+  "frac-mul": {
+   "count": 1,
+   "share": 0.006,
+   "points": 2.0,
+   "point_share": 0.005,
+   "name": "Бутархай үржих, хуваах",
+   "grade": "6",
+   "exam_strand": "Тоо тоолол",
+   "examples": [
+    "2022 A №9 (2 pt): evaluate an expression with mixed numbers and division of fractions"
+   ]
+  },
+  "func": {
+   "count": 1,
+   "share": 0.006,
+   "points": 1.0,
+   "point_share": 0.003,
+   "name": "Функц",
+   "grade": "6",
+   "exam_strand": "Алгебр",
+   "examples": [
+    "2022 A №3 (1 pt): evaluate a linear function at a point"
+   ]
+  },
+  "geo-prob": {
+   "count": 1,
+   "share": 0.006,
+   "points": 2.0,
+   "point_share": 0.005,
+   "name": "Геометр магадлал",
+   "grade": "12",
+   "exam_strand": "Магадлал, статистик",
+   "examples": [
+    "2025 A №26 (2 pt): probability a random point of a trapezoid lies in its inscribed circle"
+   ]
+  },
+  "gp": {
+   "count": 1,
+   "share": 0.006,
+   "points": 2.0,
+   "point_share": 0.005,
+   "name": "Геометр прогресс",
+   "grade": "11",
+   "exam_strand": "Алгебр",
+   "examples": [
+    "2022 A №22 (2 pt): term of a geometric progression from two given terms"
+   ]
+  },
+  "grouped": {
+   "count": 1,
+   "share": 0.006,
+   "points": 3.0,
+   "point_share": 0.008,
+   "name": "Бүлэглэсэн өгөгдөл ба гистограм",
+   "grade": "7",
+   "exam_strand": "Магадлал, статистик",
+   "examples": [
+    "2023 A №31 (3 pt): grouped frequency table with known mean: find a missing frequency"
+   ]
+  },
+  "ineq": {
+   "count": 1,
+   "share": 0.006,
+   "points": 3.0,
+   "point_share": 0.008,
+   "name": "Тэнцэтгэл биш",
+   "grade": "8",
+   "exam_strand": "Алгебр",
+   "examples": [
+    "2022 A №32 (3 pt): parameter range so an inequality has exactly three integer solutions"
+   ]
+  },
+  "lin-sys-mat": {
+   "count": 1,
+   "share": 0.006,
+   "points": 3.0,
+   "point_share": 0.008,
+   "name": "Матрицаар систем бодох",
+   "grade": "11",
+   "exam_strand": "Алгебр",
+   "examples": [
+    "2025 A №35 (3 pt): solve a linear system using the given inverse matrix"
+   ]
+  },
+  "linear": {
+   "count": 1,
+   "share": 0.006,
+   "points": 1.0,
+   "point_share": 0.003,
+   "name": "Шугаман функц",
+   "grade": "7",
+   "exam_strand": "Алгебр",
+   "examples": [
+    "2023 A №7 (1 pt): interval where a linear function increases"
+   ]
+  },
+  "log": {
+   "count": 1,
+   "share": 0.006,
+   "points": 2.0,
+   "point_share": 0.005,
+   "name": "Логарифм",
+   "grade": "12",
+   "exam_strand": "Алгебр",
+   "examples": [
+    "2023 A №10 (2 pt): solve a logarithmic inequality"
+   ]
+  },
+  "pct-app": {
+   "count": 1,
+   "share": 0.006,
+   "points": 3.0,
+   "point_share": 0.008,
+   "name": "Процентын хэрэглээ: хүү, хямдрал, татвар",
+   "grade": "8",
+   "exam_strand": "Тоо тоолол",
+   "examples": [
+    "2021 A №28 (3 pt): alloy mixture: percentage change after adding metal"
+   ]
+  },
+  "prob": {
+   "count": 1,
+   "share": 0.006,
+   "points": 1.0,
+   "point_share": 0.003,
+   "name": "Магадлал",
+   "grade": "6",
+   "exam_strand": "Магадлал, статистик",
+   "examples": [
+    "2021 A №4 (1 pt): probability of the complementary event"
+   ]
+  },
+  "prop": {
+   "count": 1,
+   "share": 0.006,
+   "points": 2.0,
+   "point_share": 0.005,
+   "name": "Пропорц",
+   "grade": "6",
+   "exam_strand": "Тоо тоолол",
+   "examples": [
+    "2022 A №10 (2 pt): from a proportion a/2=b/3 evaluate a fraction in a and b"
+   ]
+  },
+  "quad-ineq": {
+   "count": 1,
+   "share": 0.006,
+   "points": 3.0,
+   "point_share": 0.008,
+   "name": "Квадрат тэнцэтгэл биш",
+   "grade": "11",
+   "exam_strand": "Алгебр",
+   "examples": [
+    "2021 A №36 (3 pt): parameter range so a quadratic inequality holds for all real x"
+   ]
+  },
+  "ratio": {
+   "count": 1,
+   "share": 0.006,
+   "points": 2.0,
+   "point_share": 0.005,
+   "name": "Харьцаа",
+   "grade": "5",
+   "exam_strand": "Тоо тоолол",
+   "examples": [
+    "2025 A №27 (2 pt): ratio word problem with counts that change"
+   ]
+  },
+  "rational": {
+   "count": 1,
+   "share": 0.006,
+   "points": 1.0,
+   "point_share": 0.003,
+   "name": "Рационал тоо",
+   "grade": "8",
+   "exam_strand": "Тоо тоолол",
+   "examples": [
+    "2021 A №3 (1 pt): turn a repeating decimal into a common fraction"
+   ]
+  },
+  "round": {
+   "count": 1,
+   "share": 0.006,
+   "points": 1.0,
+   "point_share": 0.003,
+   "name": "Тоймлох ба нарийвчлал",
+   "grade": "5",
+   "exam_strand": "Тоо тоолол",
+   "examples": [
+    "2021 A №1 (1 pt): round a one-decimal number to a whole number"
+   ]
+  },
+  "sector": {
+   "count": 1,
+   "share": 0.006,
+   "points": 2.0,
+   "point_share": 0.005,
+   "name": "Нум ба сектор",
+   "grade": "9",
+   "exam_strand": "Геометр ба тригонометр",
+   "examples": [
+    "2021 A №20 (2 pt): central angle of the sector that forms a cone's lateral surface"
+   ]
+  },
+  "seq": {
+   "count": 1,
+   "share": 0.006,
+   "points": 1.0,
+   "point_share": 0.003,
+   "name": "Дараалал",
+   "grade": "6",
+   "exam_strand": "Алгебр",
+   "examples": [
+    "2021 A №7 (1 pt): compute the 4th term of a recursively defined sequence"
+   ]
+  },
+  "series": {
+   "count": 1,
+   "share": 0.006,
+   "points": 2.0,
+   "point_share": 0.005,
+   "name": "Цуваа ба Σ",
+   "grade": "12",
+   "exam_strand": "Алгебр",
+   "examples": [
+    "2025 A №21 (2 pt): difference of two Σ sums"
+   ]
+  },
+  "sim-ratio": {
+   "count": 1,
+   "share": 0.006,
+   "points": 7.0,
+   "point_share": 0.019,
+   "name": "Төсөөтэй дүрсийн талбай, эзэлхүүн",
+   "grade": "8",
+   "exam_strand": "Геометр ба тригонометр",
+   "examples": [
+    "2025 A №2.4 (7 pt): solid of two truncated cones: heights by similarity, then volume"
+   ]
+  },
+  "space-coord": {
+   "count": 1,
+   "share": 0.006,
+   "points": 1.0,
+   "point_share": 0.003,
+   "name": "Огторгуйн координат, шулуун, хавтгай",
+   "grade": "11",
+   "exam_strand": "Геометр ба тригонометр",
+   "examples": [
+    "2025 A №8 (1 pt): point where a line in space meets a coordinate plane"
+   ]
+  },
+  "speed": {
+   "count": 1,
+   "share": 0.006,
+   "points": 2.0,
+   "point_share": 0.005,
+   "name": "Хурд, зам, хугацаа",
+   "grade": "8",
+   "exam_strand": "Тоо тоолол",
+   "examples": [
+    "2025 A №22 (2 pt): two vehicles, parts of a route, speed difference: find the distance"
+   ]
+  },
+  "trig-right": {
+   "count": 1,
+   "share": 0.006,
+   "points": 2.0,
+   "point_share": 0.005,
+   "name": "Тэгш өнцөгт гурвалжны sin, cos, tg",
+   "grade": "9",
+   "exam_strand": "Геометр ба тригонометр",
+   "examples": [
+    "2023 A №12 (2 pt): value of an expression with sin/tan of special angles"
+   ]
+  }
+ },
+ "unmapped": [
+  "2021 A №8: item image in the official bank is broken (shows an unrelated picture); topic not identifiable"
+ ],
+ "never_main_concept_in_sample_note": "Grade 5+ concepts that were never the MAIN concept of an item. Many (pyth, quad-eq, factor, frac, pct, slope) still appear as sub-steps inside other items.",
+ "never_main_concept_in_sample": [
+  "angle",
+  "bearing",
+  "charts",
+  "circle",
+  "circle-meas",
+  "cond-prob",
+  "congruent",
+  "construct",
+  "counting",
+  "data",
+  "dec",
+  "direct",
+  "divis",
+  "exp-fn",
+  "expr",
+  "factor",
+  "formula",
+  "frac",
+  "frac-add",
+  "frac-dec",
+  "gcd",
+  "induction",
+  "int",
+  "int-ops",
+  "inv-prop",
+  "lin-eq",
+  "locus",
+  "normal",
+  "parallel",
+  "pct",
+  "perim-area",
+  "poly",
+  "polygon",
+  "pow",
+  "power-fn",
+  "prime",
+  "proof",
+  "pyth",
+  "quad-eq",
+  "radian",
+  "rat-eq",
+  "rat-fn",
+  "rel-freq",
+  "scatter",
+  "slope",
+  "solids",
+  "special-prod",
+  "time",
+  "tri",
+  "tri-lines",
+  "units"
+ ]
+}

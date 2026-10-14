@@ -1,0 +1,1727 @@
+{
+ "_note": "Common student misconceptions for strands num + alg (grades 1-12), keyed by concepts.txt ids. Each item: wrong (what the student does), example (own numbers, recomputed), why, fix, en, src. src points to a source that documents the misconception or the error category; numeric examples are our own. \"draft\": true = the specific misconception is well known but the cited source only supports the general error type (or is a practitioner page), so a teacher should review it before use. Built 2026-10-14 (fanout stream misconceptions num+alg).",
+ "b-equal": [
+  {
+   "wrong": "«=» тэмдгийг «одоо хариугаа бич» гэсэн дохио гэж ойлгох",
+   "example": "8 + 4 = □ + 5 гэхэд □ = 12 гэж бичих (зөв нь 7)",
+   "why": "Ихэнх дасгалд «=» зөвхөн хариуны өмнө гардаг тул хүүхэд үүнийг үйлдлийн тэмдэг гэж сурдаг.",
+   "fix": "Жинлүүр, дүүжин ашиглан «=» нь хоёр тал тэнцүү гэсэн утгатайг үзүүлж, 7 = 3 + 4, 3 + 4 = 4 + 3 зэрэг хэлбэрийг байнга харуулна.",
+   "en": "Equal sign read as 'write the answer' (operational view) instead of 'same value as'.",
+   "src": "https://www.nctm.org/Publications/journal-for-research-in-mathematics-education/2006/Vol37/Issue4/Does-Understanding-the-Equal-Sign-Matter_-Evidence-from-Solving-Equations/"
+  },
+  {
+   "wrong": "Бүх тоог нэмж хариу гаргах",
+   "example": "8 + 4 = □ + 5 гэхэд □ = 17 гэж бичих (8 + 4 + 5)",
+   "why": "«=»-ийн хоёр талыг тусдаа гэж ойлгохгүй, харагдсан бүх тоог нийлүүлдэг.",
+   "fix": "Хоёр талыг тус тусад нь бодож (8 + 4 = 12, 12 + 5 = 17 ≠ 12) тэнцүү эсэхийг шалгуулна.",
+   "en": "Adds all the numbers in an equation with operations on both sides.",
+   "src": "https://www.nctm.org/Publications/journal-for-research-in-mathematics-education/2006/Vol37/Issue4/Does-Understanding-the-Equal-Sign-Matter_-Evidence-from-Solving-Equations/",
+   "draft": true
+  },
+  {
+   "wrong": "«=»-ийг бодолтын алхмуудыг холбох сум мэт хэрэглэх",
+   "example": "3 + 4 = 7 + 2 = 9 гэж бичих (3 + 4 нь 9 биш)",
+   "why": "«=»-ийг «дараа нь» гэсэн утгаар ойлгодог.",
+   "fix": "Алхам бүрийг шинэ мөрөнд бичиж, мөр бүрийн хоёр тал үнэхээр тэнцүү эсэхийг уншиж шалгуулна.",
+   "en": "Uses = to chain steps, producing false statements.",
+   "src": "https://map.mathshell.org/lessons.php?unit=8240&collection=8"
+  }
+ ],
+ "b-pattern": [
+  {
+   "wrong": "Хэв маягийн алс гишүүнийг зөвхөн нэг нэгээр нь нэмж тоолох",
+   "example": "2, 5, 8, 11, ... дарааллын 20 дахь гишүүнийг олохдоо 20 хүртэл бичиж тоолох эсвэл 20 × 3 = 60 гэх (зөв нь 59)",
+   "why": "Дараагийн гишүүн рүү шилжих дүрмийг л хардаг, байрлал ба утгын холбоог хардаггүй.",
+   "fix": "Хүснэгт (байрлал → утга) зуруулж, «3 дахин байрлал, 1-ийг хасна» гэх ерөнхий дүрмийг олуулна.",
+   "en": "Relies on counting/term-to-term rule instead of a position rule.",
+   "src": "https://map.mathshell.org/lessons.php?unit=9230&collection=8"
+  },
+  {
+   "wrong": "Хэв маяг үргэлж пропорциональ гэж бодох",
+   "example": "Шүдэнзээр 2 дөрвөлжин хийхэд 7 шүдэнз бол 4 дөрвөлжинд 14 гэх (зөв нь 13)",
+   "why": "«2 дахин их дүрс → 2 дахин их шүдэнз» гэсэн шууд пропорцын санаа давамгайлдаг.",
+   "fix": "Дүрсийг зурж, эхний шүдэнз нэмэлт гэдгийг харуулан 3n + 1 дүрмийг гаргуулна.",
+   "en": "Assumes doubling the pattern number doubles the count.",
+   "src": "https://map.mathshell.org/lessons.php?unit=9200&collection=8"
+  }
+ ],
+ "b-model": [
+  {
+   "wrong": "Түлхүүр үгээр үйлдэл сонгох («илүү» гэвэл нэмнэ)",
+   "example": "«Бат 15 чихэртэй, энэ нь Доржийнхоос 4-өөр илүү. Дорж хэдтэй вэ?» → 15 + 4 = 19 (зөв нь 11)",
+   "why": "Бодлогын утгыг ойлгохын оронд үгэнд тулгуурласан дүрэм хэрэглэдэг.",
+   "fix": "Хоёр туузан загвар зуруулж, хэн нь урт болохыг эхлээд тодорхойлсны дараа үйлдлээ сонгуулна.",
+   "en": "Chooses the operation from keywords ('more' → add) instead of the structure.",
+   "src": "https://www.ncetm.org.uk/media/cocnx0it/misconceptions-with-the-key-objectives2.doc"
+  },
+  {
+   "wrong": "Туузны уртыг тоотой нь харьцуулахгүй зурах",
+   "example": "«Ах дүүгээсээ 3 дахин их мөнгөтэй» гэхэд хоёр туузыг ижил урт зурах",
+   "why": "Загварыг тоонуудын жагсаалт гэж үздэг, хэмжээг дүрслэх хэрэгсэл гэж үздэггүй.",
+   "fix": "Нэг жижиг хэсгийг нэгж болгож, ахын туузыг 3 ийм хэсгээр бүтээлгэнэ.",
+   "en": "Draws bars that do not reflect the stated relationship.",
+   "src": "https://www.ncetm.org.uk/media/cocnx0it/misconceptions-with-the-key-objectives2.doc",
+   "draft": true
+  }
+ ],
+ "b-place": [
+  {
+   "wrong": "Тоог дуудсанаар нь цифр болгон бичих",
+   "example": "«хоёр зуун гучин дөрөв»-ийг 20034 гэж бичих (зөв нь 234)",
+   "why": "Оронгийн утгыг ойлгохгүй, сонссон хэсэг бүрийг тусад нь бичдэг.",
+   "fix": "Зуут, аравт, нэгжийн хүснэгт ба шоо, саваа ашиглан 200 + 30 + 4 гэж задлуулна.",
+   "en": "Writes numbers as spoken (two hundred thirty-four → 20034).",
+   "src": "https://www.ncetm.org.uk/media/cocnx0it/misconceptions-with-the-key-objectives2.doc"
+  },
+  {
+   "wrong": "Цифрийн утгыг байрлалаас үл хамааран тэр л тоо гэж үзэх",
+   "example": "352-ын 5-ыг «5» гэж хэлэх (зөв нь 50)",
+   "why": "Цифр ба түүний оронгоос хамаарсан утгыг ялгаж сураагүй.",
+   "fix": "Тоог оронгийн хүснэгтэд байрлуулж, цифр бүрийн утгыг үгээр хэлүүлнэ.",
+   "en": "Reads a digit's face value instead of its place value.",
+   "src": "https://www.ncetm.org.uk/media/cocnx0it/misconceptions-with-the-key-objectives2.doc"
+  },
+  {
+   "wrong": "Тэгийн үүргийг үл тоох",
+   "example": "201 ба 210-ыг адилхан гэх, эсвэл 103-ыг «арван гурав» гэж унших",
+   "why": "Тэг «юу ч биш» тул чухал биш гэж боддог.",
+   "fix": "Тэг нь хоосон оронг заадаг гэдгийг хүснэгтээр үзүүлж, 201 ба 210-ыг харьцуулуулна.",
+   "en": "Ignores zero as a place holder.",
+   "src": "https://www.ncetm.org.uk/media/cocnx0it/misconceptions-with-the-key-objectives2.doc"
+  }
+ ],
+ "b-numline": [
+  {
+   "wrong": "Тоон шулуун дээр зайг биш зураасыг тоолох",
+   "example": "0-ээс 1 хүртэлх хэрчмийг 4 тэнцүү хэсэгт хуваасан; 3 дахь хэсгийн төгсгөлийг 4/5 гэх (зөв нь 3/4)",
+   "why": "0 дээрх зураасыг ч тоолдог тул нэгээр илүү гардаг.",
+   "fix": "Үсрэлтийг нумаар зуруулж, «хэдэн алхам явсан бэ?» гэж асууна.",
+   "en": "Counts tick marks (including 0) instead of intervals.",
+   "src": "https://acuresearchbank.acu.edu.au/download/b0c42bc06b73134adfb9b309ec012b29c92246652cbb242db5202bbb5b4c4b04/264132/Horne_2008_Fraction_number_line_tasks.pdf"
+  },
+  {
+   "wrong": "Шулууны хуваарийг 1-ээр явна гэж үзэх",
+   "example": "0, 10, 20 гэж бичсэн, завсарт нь нэг зураастай шулуун дээр 0-ээс 3 дахь зураасыг 3 гэх (зөв нь 15)",
+   "why": "Хуваарийн алхмыг шалгахгүйгээр зураас бүрийг 1 гэж үздэг.",
+   "fix": "Эхлээд «хоёр тэмдэглэгээний хооронд хэдэн алхам, нэг алхам хэд вэ?» гэж олуулна.",
+   "en": "Ignores the scale of the number line.",
+   "src": "https://map.mathshell.org/lessons.php?unit=8230&collection=8"
+  }
+ ],
+ "b-add": [
+  {
+   "wrong": "Багана бүрт ихээс багыг хасах",
+   "example": "52 − 27 = 35 (зөв нь 25)",
+   "why": "Дээд цифр бага үед зээлэх оронд «бага тооноос их тоо хасагдахгүй» гэж үзээд эргүүлж хасдаг.",
+   "fix": "Шоо, саваагаар 1 аравтыг 10 нэгж болгон задлах үйлдлийг үзүүлж, хариугаа нэмэхээр шалгуулна.",
+   "en": "Subtracts the smaller digit from the larger in each column.",
+   "src": "https://eedi.substack.com/p/what-do-4-million-students-responses"
+  },
+  {
+   "wrong": "Шилжүүлэлгүйгээр нэмэх",
+   "example": "48 + 35 = 713 (8 + 5 = 13-ыг бүтнээр нь бичих; зөв нь 83)",
+   "why": "10-аас их нийлбэрийг дараагийн оронд шилжүүлэх гэдгийг ойлгоогүй.",
+   "fix": "Хариуг ойролцоогоор тооцоолуулж (50 + 35 ≈ 85) утгагүй хариуг илрүүлүүлнэ.",
+   "en": "Does not carry; writes the full column sum.",
+   "src": "https://map.mathshell.org/lessons.php?unit=6105&collection=8"
+  },
+  {
+   "wrong": "Тэгтэй оронгоос зээлэхэд алдах",
+   "example": "302 − 158 = 256 (зөв нь 144)",
+   "why": "Тэгээс зээлэх нь хоёр алхамтай тул «0 − 5 = 5» мэт хялбарчилдаг.",
+   "fix": "302-ыг 2 зуут, 9 аравт, 12 нэгж гэж задлах загварыг шоогоор хийлгэнэ.",
+   "en": "Mishandles borrowing across zero.",
+   "src": "https://www.ncetm.org.uk/media/cocnx0it/misconceptions-with-the-key-objectives2.doc"
+  }
+ ],
+ "b-props": [
+  {
+   "wrong": "Хасах үйлдлийг байр сэлгэж болно гэж бодох",
+   "example": "10 − 3 ба 3 − 10-ыг ижил гэх",
+   "why": "Нэмэх, үржихийн байр сэлгэх чанарыг хасахад шилжүүлдэг.",
+   "fix": "Хоёр хасалтыг тоон шулуун дээр харуулж, хариу ялгаатайг харуулна.",
+   "en": "Treats subtraction as commutative.",
+   "src": "https://map.mathshell.org/lessons.php?unit=6225&collection=8"
+  },
+  {
+   "wrong": "Хуваахыг байр сэлгэж болно гэж бодох",
+   "example": "12 : 3 = 3 : 12 гэх",
+   "why": "Үржихийн чанарыг хуваахад хэрэглэдэг.",
+   "fix": "12 чихрийг 3 хүнд, 3 чихрийг 12 хүнд хуваах хоёр нөхцөлийг харьцуулуулна.",
+   "en": "Treats division as commutative.",
+   "src": "https://www.ncetm.org.uk/media/cocnx0it/misconceptions-with-the-key-objectives2.doc"
+  },
+  {
+   "wrong": "Хаалт задлахдаа зөвхөн эхний гишүүнийг үржүүлэх",
+   "example": "10 × (4 + 5)-ыг 10 × 4 + 5 = 45 гэх (зөв нь 90)",
+   "why": "Хаалтын үүрэг ба хуваарилах чанарыг ойлгоогүй.",
+   "fix": "Тэгш өнцөгтийн талбайгаар (10 × 4 ба 10 × 5) хоёр хэсгийг зуруулна.",
+   "en": "Applies the distributive law to only one term.",
+   "src": "https://map.mathshell.org/lessons.php?unit=6220&collection=8"
+  }
+ ],
+ "b-mul": [
+  {
+   "wrong": "Үржих нь үргэлж ихэсгэж, хуваах нь үргэлж багасгана гэж бодох",
+   "example": "8 × 1/2-ыг 8-аас их гэж таамаглах (зөв нь 4)",
+   "why": "Натурал тоон дээрх туршлагаа бүх тоонд ерөнхийлдөг.",
+   "fix": "8-ын хагас гэх утгаар зураг дээр харуулж, 1-ээс бага тоогоор үржих тохиолдлыг тусгайлан авч үзнэ.",
+   "en": "'Multiplication makes bigger, division makes smaller'.",
+   "src": "https://pasithee.library.upatras.gr/ejupUNESCOchair/article/view/3210"
+  },
+  {
+   "wrong": "0-ээр үржихэд тоо хэвээр үлдэнэ гэх",
+   "example": "5 × 0 = 5 гэх (зөв нь 0)",
+   "why": "0-ийг нэмэхэд тоо өөрчлөгдөхгүйтэй хольдог.",
+   "fix": "«5 хайрцаг, хайрцаг бүрт 0 алим» гэх мэт нөхцөлөөр утгыг нь ярилцана.",
+   "en": "Confuses ×0 with +0.",
+   "src": "https://www.ncetm.org.uk/media/cocnx0it/misconceptions-with-the-key-objectives2.doc"
+  }
+ ],
+ "b-rem": [
+  {
+   "wrong": "Үлдэгдлийг хуваагчаас их эсвэл тэнцүү үлдээх",
+   "example": "17 : 5 = 2 (үлдэгдэл 7) гэх (зөв нь 3, үлдэгдэл 2)",
+   "why": "Үлдэгдэл юуг илэрхийлдгийг (бүтэн бүлэг болохгүй үлдсэн хэсэг) ойлгоогүй.",
+   "fix": "Шоог 5-аар бүлэглүүлж, үлдсэн шоогоор дахиад бүлэг хийж болох эсэхийг шалгуулна.",
+   "en": "Leaves a remainder that is not smaller than the divisor.",
+   "src": "https://www.ncetm.org.uk/media/cocnx0it/misconceptions-with-the-key-objectives2.doc"
+  },
+  {
+   "wrong": "Бодлогын нөхцөлийг харгалзахгүй үлдэгдлийг орхих",
+   "example": "26 хүүхдийг 4 суудалтай машинд суулгахад 6 машин хангалттай гэх (зөв нь 7)",
+   "why": "Хариуг тооцооны үр дүн гэж л хардаг, нөхцөлтэй холбодоггүй.",
+   "fix": "«Үлдсэн 2 хүүхэд хаана суух вэ?» гэж асууж, хариуг нөхцөлд нь буцааж шалгуулна.",
+   "en": "Ignores the context when interpreting the remainder.",
+   "src": "https://www.ncetm.org.uk/media/cocnx0it/misconceptions-with-the-key-objectives2.doc"
+  }
+ ],
+ "b-order": [
+  {
+   "wrong": "Үйлдлийг зүүнээс баруун тийш дарааллаар хийх",
+   "example": "3 + 4 × 2 = 14 (зөв нь 11)",
+   "why": "Уншдаг шигээ зүүнээс баруун тийш тооцдог.",
+   "fix": "Тооцоолуурын хариутай харьцуулж, үржих нь эхэлдэг дүрмийг хаалтаар тодотгож бичүүлнэ.",
+   "en": "Works strictly left to right, ignoring precedence.",
+   "src": "https://map.mathshell.org/lessons.php?unit=9225&collection=8"
+  },
+  {
+   "wrong": "Үржихийг хуваахаас үргэлж өмнө хийх",
+   "example": "24 : 4 × 2 = 3 гэх (зөв нь 12)",
+   "why": "Дүрмийг цээжилсэн дарааллаар нь (үржих, тэгээд хуваах) ойлгодог.",
+   "fix": "Үржих, хуваах нь ижил эрэмбэтэй тул зүүнээс баруун тийш хийнэ гэдгийг жишээгээр батална.",
+   "en": "Believes multiplication always precedes division.",
+   "src": "https://ujcontent.uj.ac.za/esploro/outputs/conferencePaper/Investigating-deficiencies-in-knowledge-and-understanding/9955408007691"
+  },
+  {
+   "wrong": "Нэмэхийг хасахаас үргэлж өмнө хийх",
+   "example": "10 − 3 + 2 = 5 гэх (зөв нь 9)",
+   "why": "Нэмэх, хасах нь ижил эрэмбэтэй гэдгийг мэдэхгүй.",
+   "fix": "Мөнгөний жишээгээр (10₮ байсан, 3-ыг өгөөд 2-ыг авсан) утгыг нь тайлбарлуулна.",
+   "en": "Believes addition always precedes subtraction.",
+   "src": "https://ujcontent.uj.ac.za/esploro/outputs/conferencePaper/Investigating-deficiencies-in-knowledge-and-understanding/9955408007691"
+  }
+ ],
+ "b-round": [
+  {
+   "wrong": "Гинжлэн тоймлох",
+   "example": "3.45-ыг бүхэл рүү: 3.45 → 3.5 → 4 гэх (зөв нь 3)",
+   "why": "Тоймлохыг цифр бүрийг дараалан өөрчлөх алхам гэж ойлгодог.",
+   "fix": "Тоон шулуун дээр 3.45 нь 3-т ойр уу, 4-т ойр уу гэдгийг харуулна.",
+   "en": "Rounds in a chain of steps instead of once.",
+   "src": "https://mrbartonmaths.com/rounding-to-significant-figures-probing-questions/"
+  },
+  {
+   "wrong": "Тоймлосны дараа оронгийн тэгүүдийг хаях",
+   "example": "3 472-ыг зуут хүртэл тоймлоод 35 гэж бичих (зөв нь 3 500)",
+   "why": "Тоймлох нь тооны хэмжээг хадгалах ёстойг анхаардаггүй.",
+   "fix": "Тоймлосон тоо анхныхтайгаа ойролцоо хэмжээтэй эсэхийг үргэлж шалгуулна.",
+   "en": "Drops place-holder zeros after rounding.",
+   "src": "https://mrbartonmaths.com/rounding-to-significant-figures-probing-questions/",
+   "draft": true
+  }
+ ],
+ "b-frac": [
+  {
+   "wrong": "Тэнцүү биш хэсгүүдийг бутархай гэж нэрлэх",
+   "example": "Тэнцүү бус 3 хэсэгт хуваасан дугуйн нэг хэсгийг 1/3 гэх",
+   "why": "Бутархайг «хэдэн хэсгийн нэг» гэж тоолдог, хэсгүүд тэнцүү байх ёстойг анхаардаггүй.",
+   "fix": "Цаас нугалж тэнцүү хэсэг хийлгэж, тэнцүү ба тэнцүү бус хуваалтыг харьцуулуулна.",
+   "en": "Names unequal parts as fractions.",
+   "src": "https://www.ncetm.org.uk/media/cocnx0it/misconceptions-with-the-key-objectives2.doc"
+  },
+  {
+   "wrong": "Хуваарь их бол бутархай их гэж бодох",
+   "example": "1/8 > 1/4 гэх, учир нь 8 > 4",
+   "why": "Натурал тоог харьцуулах дүрмийг хуваарьт хэрэглэдэг.",
+   "fix": "Нэг ижил талх 8 ба 4 хэсэгт хуваахад аль хэсэг нь том болохыг зургаар харьцуулуулна.",
+   "en": "Thinks a larger denominator means a larger fraction.",
+   "src": "https://www.ncetm.org.uk/media/cocnx0it/misconceptions-with-the-key-objectives2.doc",
+   "draft": true
+  }
+ ],
+ "b-neg": [
+  {
+   "wrong": "Сөрөг тоог тоон утгаар нь харьцуулах",
+   "example": "−7 > −3 гэх, учир нь 7 > 3",
+   "why": "Тэгээс бага тоог төсөөлөх нь хэцүү тул тэмдгийг үл тоодог.",
+   "fix": "Термометр, тоон шулуун дээр байршуулж, баруун тийш их болдгийг харуулна.",
+   "en": "Orders negatives by their absolute value.",
+   "src": "https://www.ncetm.org.uk/media/cocnx0it/misconceptions-with-the-key-objectives2.doc"
+  },
+  {
+   "wrong": "Бага тооноос их тоог хасах боломжгүй эсвэл байр сольж хасах",
+   "example": "3 − 5 = 2 гэх (зөв нь −2)",
+   "why": "Натурал тооны «ихээс бага хасна» дүрмийг хэрэглэдэг.",
+   "fix": "Тоон шулуун дээр 3-аас зүүн тийш 5 алхам явуулна.",
+   "en": "Thinks a larger number cannot be taken from a smaller one.",
+   "src": "https://ntnuopen.ntnu.no/ntnu-xmlui/handle/11250/2784828"
+  }
+ ],
+ "b-dec": [
+  {
+   "wrong": "Урт нь их (аравтын хэсгийн цифр олон бол их)",
+   "example": "0.25 > 0.4 гэх (зөв нь 0.4 > 0.25)",
+   "why": "Аравтын хэсгийг бүхэл тоо (25 > 4) мэт уншдаг.",
+   "fix": "0.4-ийг 0.40 гэж бичүүлэх, эсвэл 100 нүдтэй дөрвөлжин дээр будуулж харьцуулуулна.",
+   "en": "'Longer is larger' decimal misconception.",
+   "src": "https://extranet.education.unimelb.edu.au/SME/TNMY/Decimals/Decimals/tests/incidenc.htm"
+  },
+  {
+   "wrong": "Богино нь их (цифр цөөн бол их)",
+   "example": "0.4 > 0.45 гэх, учир нь «аравны нэг нь зууны нэгээс том»",
+   "why": "Хуваарийг санаж байгаа ч бүх цифрийг харьцуулдаггүй.",
+   "fix": "Хоёр тоог ижил оронтой болгож (0.40 ба 0.45) харьцуулуулна.",
+   "en": "'Shorter is larger' decimal misconception.",
+   "src": "https://extranet.education.unimelb.edu.au/SME/TNMY/Decimals/Decimals/tests/incidenc.htm"
+  },
+  {
+   "wrong": "Аравтын бутархайн тэгийг алгасаж унших",
+   "example": "3.09-ийг 3.9 гэж унших",
+   "why": "Таслалын дараах цифрүүдийг нэг тоо гэж уншдаг.",
+   "fix": "Оронгийн хүснэгтэд байрлуулж «3 бүхэл 9 зууны нэг» гэж уншуулна.",
+   "en": "Reads digits after the point as a whole number, ignoring zeros.",
+   "src": "https://www.ncetm.org.uk/media/cocnx0it/misconceptions-with-the-key-objectives2.doc"
+  }
+ ],
+ "coord": [
+  {
+   "wrong": "x ба y-ийг сольж тавих",
+   "example": "(2, 5) цэгийг x = 5, y = 2 дээр тэмдэглэх",
+   "why": "Аль координат эхэлдгийг дүрэмгүйгээр санадаг.",
+   "fix": "«Эхлээд хэвтээ (x), дараа нь босоо (y)» гэж хэлүүлж, хоёр цэгийг (2, 5), (5, 2) зэрэг тэмдэглүүлнэ.",
+   "en": "Mixes up the x and y coordinates; Eedi reports this rises with age.",
+   "src": "https://eedi.substack.com/p/what-do-4-million-students-responses"
+  },
+  {
+   "wrong": "Тэнхлэг дээрх цэгийг буруу тэнхлэгт тавих",
+   "example": "(0, 3) цэгийг x тэнхлэг дээр тэмдэглэх",
+   "why": "0 координатын утгыг ойлгоогүй.",
+   "fix": "(0, 3) нь «хэвтээ тийш 0 алхам, дээш 3 алхам» гэдгийг хурууны хөдөлгөөнөөр үзүүлнэ.",
+   "en": "Places points with a zero coordinate on the wrong axis.",
+   "src": "https://eedi.substack.com/p/what-do-4-million-students-responses",
+   "draft": true
+  }
+ ],
+ "divis": [
+  {
+   "wrong": "Хуваагч ба хуваагдагчийг хольж хэрэглэх",
+   "example": "12-ын хуваагч: 12, 24, 36 гэж бичих",
+   "why": "«Хуваагч» ба «хуваагдагч (үржвэр)» гэсэн нэр томьёо төстэй тул андуурдаг.",
+   "fix": "12-ыг тэгш өнцөгт хэлбэрээр байрлуулж (1 × 12, 2 × 6, 3 × 4) хуваагчийг олуулна.",
+   "en": "Confuses factors and multiples.",
+   "src": "https://eedi.substack.com/p/what-do-4-million-students-responses"
+  },
+  {
+   "wrong": "3-т хуваагдах шинжийг сүүлийн цифрээр шалгах",
+   "example": "13 нь 3-т хуваагдана, учир нь 3-аар төгссөн гэх",
+   "why": "2, 5, 10-ын шинжийг (сүүлийн цифр) бусад тоонд ерөнхийлдөг.",
+   "fix": "3-ын шинж нь цифрүүдийн нийлбэрээр шалгагддагийг 13, 33, 123 жишээгээр харьцуулуулна.",
+   "en": "Uses the last-digit test for divisibility by 3.",
+   "src": "https://journal.hcmue.edu.vn/index.php/hcmuejos/article/view/2616",
+   "draft": true
+  },
+  {
+   "wrong": "Хоёр тоонд хуваагдвал үржвэрт нь хуваагдана гэх",
+   "example": "12 нь 4 ба 6-д хуваагдах тул 24-т хуваагдана гэх",
+   "why": "4 ба 6 нь ерөнхий хуваагчтай гэдгийг анхаардаггүй.",
+   "fix": "Ерөнхий хуваагчгүй тоонууд (3 ба 4) дээр л энэ дүрэм биелдгийг жишээгээр үзүүлнэ.",
+   "en": "Assumes divisible by a and b implies divisible by a × b.",
+   "src": "https://journal.hcmue.edu.vn/index.php/hcmuejos/article/view/2616",
+   "draft": true
+  }
+ ],
+ "gcd": [
+  {
+   "wrong": "ХИЕХ ба ХБЕХ-г андуурах",
+   "example": "ХИЕХ(4, 6) = 12 гэх (зөв нь 2; ХБЕХ нь 12)",
+   "why": "Хоёр нэр томьёо урт бөгөөд төстэй тул утгыг нь хольдог.",
+   "fix": "Хуваагчдын жагсаалт ба үржвэрүүдийн жагсаалтыг зэрэгцүүлэн бичүүлж, аль нь «хамгийн их», аль нь «хамгийн бага»-г олуулна.",
+   "en": "Confuses GCD and LCM.",
+   "src": "https://map.mathshell.org/lessons.php?unit=6110&collection=8"
+  },
+  {
+   "wrong": "ХБЕХ-ийг үргэлж хоёр тооны үржвэр гэж бодох",
+   "example": "ХБЕХ(4, 6) = 24 гэх (зөв нь 12)",
+   "why": "Үржвэр нь ерөнхий үржвэр мөн тул хамгийн бага гэж андуурдаг.",
+   "fix": "4 ба 6-ын үржвэрүүдийг 24 хүртэл бичүүлж, 12 аль алинд нь байгааг харуулна.",
+   "en": "Thinks the LCM is always the product of the numbers.",
+   "src": "https://repository.undikma.ac.id/441/1/2.3%20Fourth-Grade%20Primary%20%20School.pdf"
+  }
+ ],
+ "frac": [
+  {
+   "wrong": "Хуваарь их бол бутархай их гэж бодох",
+   "example": "1/6 > 1/3 гэх",
+   "why": "Натурал тоог харьцуулах туршлагаа шилжүүлдэг.",
+   "fix": "Ижил хэмжээтэй хоёр тууз 6 ба 3 хэсэгт хуваагдахад нэг хэсгийг харьцуулуулна.",
+   "en": "Thinks a larger denominator means a larger fraction.",
+   "src": "https://www.ncetm.org.uk/media/cocnx0it/misconceptions-with-the-key-objectives2.doc",
+   "draft": true
+  },
+  {
+   "wrong": "Бутархайг «дутуу хэсэг»-ээр нь харьцуулах",
+   "example": "3/4 ба 5/6 хоёулаа 1 хэсгээр дутуу тул тэнцүү гэх (зөв нь 5/6 их)",
+   "why": "Хэсгийн тоог харж, хэсгийн хэмжээг анхаардаггүй.",
+   "fix": "Ижил хуваарьтай болгож (9/12 ба 10/12) харьцуулуулна.",
+   "en": "Compares fractions by the 'gap' to one whole.",
+   "src": "https://www.ncetm.org.uk/media/cocnx0it/misconceptions-with-the-key-objectives2.doc",
+   "draft": true
+  }
+ ],
+ "frac-add": [
+  {
+   "wrong": "Хүртвэрийг хүртвэртэй, хуваарийг хуваарьтай нэмэх",
+   "example": "1/2 + 1/3 = 2/5 гэх (зөв нь 5/6)",
+   "why": "Бүхэл тоон нэмэх дүрмийг бутархайн хэсэг бүрт хэрэглэдэг.",
+   "fix": "1/2 + 1/3 нь 1/2-оос их байх ёстой гэтэл 2/5 бага гэдгийг зургаар харуулна.",
+   "en": "Adds numerators and denominators separately.",
+   "src": "https://www.nfer.ac.uk/assessment-hub/what-are-the-common-mistakes-when-adding-fractions/"
+  },
+  {
+   "wrong": "Ижил хуваарьтай үед хуваарийг ч нэмэх",
+   "example": "2/7 + 3/7 = 5/14 гэх (зөв нь 5/7)",
+   "why": "Хуваарь нь хэсгийн хэмжээ гэдгийг ойлгоогүй.",
+   "fix": "Цаасыг 7 хэсэгт хувааж 2 ба 3 хэсгийг нийлүүлэхэд хэсгийн хэмжээ өөрчлөгдөхгүйг харуулна.",
+   "en": "Adds the denominators even when they are equal.",
+   "src": "https://www.nfer.ac.uk/assessment-hub/what-are-the-common-mistakes-when-adding-fractions/"
+  },
+  {
+   "wrong": "Ерөнхий хуваарьт оруулахдаа хүртвэрийг үржүүлэхгүй",
+   "example": "1/3 + 1/4 = 1/12 + 1/12 = 2/12 гэх (зөв нь 7/12)",
+   "why": "Хуваарийг өөрчлөхөд хүртвэр ч өөрчлөгдөх ёстойг мэдэхгүй.",
+   "fix": "1/3 = 4/12 гэдгийг зургаар баталж, «хүртвэр, хуваарийг ижил тоогоор үржүүлнэ» гэж хэлүүлнэ.",
+   "en": "Changes the denominator but not the numerator.",
+   "src": "https://www.ncetm.org.uk/media/cocnx0it/misconceptions-with-the-key-objectives2.doc",
+   "draft": true
+  }
+ ],
+ "dec": [
+  {
+   "wrong": "Аравтын бутархайг үржихэд таслалыг нэмэх шиг байрлуулах",
+   "example": "0.3 × 0.2 = 0.6 гэх (зөв нь 0.06)",
+   "why": "Таслалгүйгээр үржүүлээд, нэмэх үйлдлийн таслалын дүрмийг хэрэглэдэг.",
+   "fix": "3/10 × 2/10 = 6/100 гэж бутархайгаар шалгуулна.",
+   "en": "Places the decimal point as in addition when multiplying.",
+   "src": "https://www.ncetm.org.uk/media/cocnx0it/misconceptions-with-the-key-objectives2.doc"
+  },
+  {
+   "wrong": "Ялгаатай оронтой тоог хасахдаа багана бүрт ихээс багыг хасах",
+   "example": "4.3 − 1.56 = 3.26 гэх (зөв нь 2.74)",
+   "why": "Хоосон оронг 0 гэж нөхөхгүй, бүхэл тооны «ихээс бага» алдааг давтдаг.",
+   "fix": "4.3-ыг 4.30 гэж бичүүлээд зээлэх алхмыг үзүүлнэ.",
+   "en": "Subtracts smaller from larger digit in decimal subtraction.",
+   "src": "https://eedi.substack.com/p/what-do-4-million-students-responses"
+  },
+  {
+   "wrong": "10-аар үржихэд ард нь 0 залгах",
+   "example": "2.5 × 10 = 2.50 гэх (зөв нь 25)",
+   "why": "Бүхэл тоонд хэрэглэдэг «0 залгах» товчлолыг аравтын бутархайд хэрэглэдэг.",
+   "fix": "Цифрүүд нэг орон зүүн тийш шилждэгийг оронгийн хүснэгт дээр харуулна.",
+   "en": "Appends a zero when multiplying a decimal by 10.",
+   "src": "https://map.mathshell.org/lessons.php?unit=8105&collection=8"
+  }
+ ],
+ "round": [
+  {
+   "wrong": "Гинжлэн тоймлох",
+   "example": "2.348-ыг аравны нэг хүртэл: 2.348 → 2.35 → 2.4 гэх (зөв нь 2.3)",
+   "why": "Тоймлохыг сүүлийн цифрээс эхлэн дараалан хийх алхам гэж ойлгодог.",
+   "fix": "Зөвхөн дараагийн нэг цифрийг (4) харахыг, тоон шулуун дээр ойрын утгыг олохыг сануулна.",
+   "en": "Chain-rounds digit by digit.",
+   "src": "https://mrbartonmaths.com/rounding-to-decimal-places/"
+  },
+  {
+   "wrong": "Буруу оронд тоймлох",
+   "example": "4.672-ыг зууны нэг хүртэл тоймлоход 4.7 гэх (зөв нь 4.67)",
+   "why": "Тоймлохыг зөвхөн аравны нэгтэй холбож сурсан.",
+   "fix": "Тоймлох оронг доогуур нь зурж тэмдэглүүлсний дараа бодуулна.",
+   "en": "Rounds to the wrong place value.",
+   "src": "https://arbs.nzcer.org.nz/resources/rounding-numbers-sensibly"
+  }
+ ],
+ "pct": [
+  {
+   "wrong": "Процентоор өсгөөд ижил процентоор бууруулахад анхныхаа хэмжээнд буцна гэх",
+   "example": "10 000₮-ийн барааг 50%-иар үнэтэй болгоод дараа нь 50%-иар хямдруулахад 10 000₮ гэх (зөв нь 7 500₮)",
+   "why": "Процентыг тогтмол хэмжээ гэж үзэж, суурь нь өөрчлөгддөгийг анхаардаггүй.",
+   "fix": "Өөрчлөлт бүрийг үржвэрээр (× 1.5, × 0.5) бичүүлж, нийлбэр үржигдэхүүнийг олуулна.",
+   "en": "Thinks +x% then −x% returns to the start.",
+   "src": "https://map.mathshell.org/lessons.php?unit=7100&collection=8"
+  },
+  {
+   "wrong": "Процентын өөрчлөлтийг буруу суурьтай харьцуулах",
+   "example": "350-аас 450 болоход «100% өссөн» гэх (зөв нь 100/350 ≈ 28.6%)",
+   "why": "Өөрчлөлтийн хэмжээг (100) шууд процент гэж үздэг эсвэл шинэ утгаар хуваадаг.",
+   "fix": "«Юутай харьцуулж байна вэ?» гэж асууж, анхны утгаар хуваахыг тэмдэглүүлнэ.",
+   "en": "Computes percent change against the wrong base.",
+   "src": "https://map.mathshell.org/lessons.php?unit=7100&collection=8"
+  },
+  {
+   "wrong": "Процентыг аравтын бутархай болгохдоо алдах",
+   "example": "6% = 0.6 гэх (зөв нь 0.06)",
+   "why": "«Процент» нь 100-д хуваах гэдгийг мартаж, таслалыг нэг л орон зөөдөг.",
+   "fix": "6% = 6/100 гэж бичүүлээд аравтын бутархай болгуулна.",
+   "en": "Converts percent to decimal incorrectly.",
+   "src": "https://map.mathshell.org/lessons.php?unit=7100&collection=8"
+  }
+ ],
+ "ratio": [
+  {
+   "wrong": "Нэмэх замаар харьцааг хадгална гэж бодох",
+   "example": "4 см × 10 см тэгш өнцөгтийн өргөнийг 6 см болгож томруулахад урт 12 см гэх (зөв нь 15 см)",
+   "why": "Өөрчлөлтийг «хэдээр нэмэгдсэн» гэж хардаг, «хэд дахин» гэж хардаггүй (Ryan & Williams-ийн нэмэх алдаа).",
+   "fix": "1 × 4 тэгш өнцөгтөд 2-ыг нэмбэл 3 × 6 болж хэлбэр өөрчлөгддөг гэх мэт утгагүй хариу гарах жишээ өгнө.",
+   "en": "Common additive misconception in ratio problems.",
+   "src": "https://www.ncetm.org.uk/media/cocnx0it/misconceptions-with-the-key-objectives2.doc"
+  },
+  {
+   "wrong": "Харьцааны хэсгийг бүхэлтэй андуурах",
+   "example": "3 : 5 харьцаагаар хуваахад эхний хэсэг нь 3/5 гэх (зөв нь 3/8)",
+   "why": "Харьцааны хоёр тоог «хэсэг ба бүхэл» гэж уншдаг.",
+   "fix": "3 ба 5 хэсгийг тууз дээр зуруулж, нийт 8 хэсэг гэдгийг тоолуулна.",
+   "en": "Reads a part:part ratio as a fraction of the whole.",
+   "src": "https://www.ncetm.org.uk/media/cocnx0it/misconceptions-with-the-key-objectives2.doc",
+   "draft": true
+  }
+ ],
+ "int": [
+  {
+   "wrong": "Сөрөг тоонуудыг тоон утгаар нь харьцуулах",
+   "example": "−8 > −3 гэх",
+   "why": "Тэгээс бага тоог төсөөлөхөд хэцүү тул тэмдгийг үл тоодог.",
+   "fix": "Термометр дээр −8 °C ба −3 °C-ийн аль нь дулаан болохыг асууна.",
+   "en": "Orders negative numbers by absolute value.",
+   "src": "https://www.ncetm.org.uk/media/cocnx0it/misconceptions-with-the-key-objectives2.doc"
+  },
+  {
+   "wrong": "«Хоёр хасах нэмэх болно» дүрмийг буруу газар хэрэглэх",
+   "example": "−5 − 6 = 11 гэх (зөв нь −11)",
+   "why": "Үржих дүрмийг нэмэх, хасахад шилжүүлдэг.",
+   "fix": "Тоон шулуун дээр −5-аас 6 алхам зүүн тийш явуулна.",
+   "en": "Applies 'two minuses make a plus' to addition/subtraction.",
+   "src": "https://map.mathshell.org/lessons.php?unit=6125&collection=8"
+  },
+  {
+   "wrong": "Сөрөг тоог хасахыг эерэг тоог хасахтай адил гэх",
+   "example": "4 − (−3) = 1 гэх (зөв нь 7)",
+   "why": "Сөрөг тоог хасах нь нэмэхтэй адил гэдгийг ойлгоогүй.",
+   "fix": "Температурын зөрүү (4 °C ба −3 °C-ийн зөрүү) зэрэг нөхцөлөөр утгыг ярилцана.",
+   "en": "Treats subtracting a negative as subtracting a positive.",
+   "src": "https://map.mathshell.org/lessons.php?unit=6125&collection=8"
+  }
+ ],
+ "expr": [
+  {
+   "wrong": "Үсгийг объект (жишээ нь алим) гэж ойлгох",
+   "example": "3a + 2b-д a нь «алим», b нь «банана» гэж уншаад «3 алим, 2 банана» гэх",
+   "why": "Үсэг нь тоо илэрхийлдэг хувьсагч гэдгийг ойлгоогүй.",
+   "fix": "a = 2, b = 5 гэх мэт тоо орлуулж илэрхийллийн утгыг бодуулна.",
+   "en": "Letter as object rather than as a number.",
+   "src": "https://map.mathshell.org/lessons.php?unit=9235&collection=8"
+  },
+  {
+   "wrong": "Төсөөтэй биш гишүүдийг нийлүүлэх",
+   "example": "2a + 3b = 5ab гэх",
+   "why": "Хариу нэг гишүүн байх ёстой гэж боддог (нийлүүлэх алдаа).",
+   "fix": "a = 1, b = 2 орлуулж хоёр талын утга ялгаатайг харуулна.",
+   "en": "Conjoins unlike terms (2a + 3b = 5ab).",
+   "src": "https://doaj.org/article/ce09e1ca1f0641848829a1a19ce18161"
+  },
+  {
+   "wrong": "Хаалтын өмнөх тоог зөвхөн эхний гишүүнд үржүүлэх",
+   "example": "2(n + 3) = 2n + 3 гэх (зөв нь 2n + 6)",
+   "why": "Хаалтыг бүтэн нэг тоо гэж харахгүй.",
+   "fix": "Талбайн загвараар 2 × n ба 2 × 3 гэсэн хоёр тэгш өнцөгтийг зуруулна.",
+   "en": "Multiplies only the first term inside brackets.",
+   "src": "https://map.mathshell.org/lessons.php?unit=9225&collection=8"
+  }
+ ],
+ "lin-eq": [
+  {
+   "wrong": "Тэгшитгэлийн хоёр талд өөр өөр үйлдэл хийх",
+   "example": "2x + 1 = 3x − 6 → 2x − 5 = 3x гэх (зөв нь 2x + 7 = 3x)",
+   "why": "«Тоог нөгөө тал руу зөөх» товчлолыг утгагүй хэрэглэдэг.",
+   "fix": "Хоёр талд ижил үйлдэл хийх (жинлүүрийн тэнцвэр) санааг алхам бүрт бичүүлнэ.",
+   "en": "Applies different operations to each side.",
+   "src": "https://map.mathshell.org/lessons.php?unit=9215&collection=8"
+  },
+  {
+   "wrong": "Хасахыг байр сэлгэнэ гэж үзэх",
+   "example": "5 − x = 6 → x = 11 гэх (зөв нь x = −1)",
+   "why": "5 − x ба x − 5-ыг ижил гэж боддог.",
+   "fix": "Олсон шийдийг анхны тэгшитгэлд орлуулж шалгуулна (5 − 11 = −6).",
+   "en": "Treats 5 − x as x − 5.",
+   "src": "https://map.mathshell.org/lessons.php?unit=8240&collection=8"
+  },
+  {
+   "wrong": "Хаалт задлахад нэг гишүүнийг үржүүлэхгүй",
+   "example": "3(x − 2) = 12 → 3x − 2 = 12 гэх (зөв нь 3x − 6 = 12, x = 6)",
+   "why": "Хаалтыг бүхэлд нь үржүүлэх ёстойг анхаардаггүй.",
+   "fix": "3(x − 2)-ыг (x − 2) + (x − 2) + (x − 2) гэж задлуулна.",
+   "en": "Multiplies just one term in the bracket.",
+   "src": "https://map.mathshell.org/lessons.php?unit=9215&collection=8"
+  }
+ ],
+ "seq": [
+  {
+   "wrong": "Ерөнхий гишүүнийг n + ялгавар гэж бичих",
+   "example": "1, 4, 7, 10 → aₙ = n + 3 гэх (зөв нь 3n − 2)",
+   "why": "Дараалсан гишүүдийн ялгаварыг байрлалтай хольдог.",
+   "fix": "n = 1, 2, 3-ыг орлуулж томьёо гишүүдийг гаргаж байгаа эсэхийг шалгуулна.",
+   "en": "Writes the nth term as n + d instead of dn + c.",
+   "src": "https://mr-mathematics.com/higher-tier-sequences/"
+  },
+  {
+   "wrong": "Дарааллыг пропорциональ гэж үзэх",
+   "example": "aₙ = 3n − 1 дарааллын 5 дахь гишүүн 14 тул 10 дахь гишүүн 28 гэх (зөв нь 29)",
+   "why": "Байрлал 2 дахин ихэсвэл утга 2 дахин ихэснэ гэж боддог.",
+   "fix": "10 дахь гишүүнийг томьёогоор бодуулж харьцуулна.",
+   "en": "Assumes term values are proportional to position.",
+   "src": "https://map.mathshell.org/lessons.php?unit=9200&collection=8"
+  }
+ ],
+ "func": [
+  {
+   "wrong": "Функцийн график үргэлж шулуун эсвэл өсөх гэж бодох",
+   "example": "Хугацаа өнгөрөхөд хөргөж буй цайны температурын графикийг өсөх шулуунаар зурах",
+   "why": "Цөөн төрлийн график (шугаман) л харсан тул бүгдийг тэгж зурдаг.",
+   "fix": "Нөхцөлийг «x ихсэхэд y ихсэх үү, багасах уу, тэнцүү алхмаар уу?» гэж асуулгаар задлуулна.",
+   "en": "Limited repertoire of graph shapes.",
+   "src": "https://map.mathshell.org/lessons.php?unit=9260&collection=8"
+  },
+  {
+   "wrong": "Графикийг зураг (бодит зам) гэж унших",
+   "example": "Зам-хугацааны график өгсөж уруудсан бол хүн уул өгссөн гэж тайлбарлах",
+   "why": "Графикийн хэлбэрийг бодит дүрстэй андуурдаг.",
+   "fix": "Тэнхлэг бүр юуг хэмжиж байгааг эхлээд хэлүүлж, нэг хэсгийг нь үгээр тайлбарлуулна.",
+   "en": "Reads a graph as a picture of the situation.",
+   "src": "https://map.mathshell.org/lessons.php?unit=8225&collection=8"
+  },
+  {
+   "wrong": "Хоёр x-д ижил y харгалзвал функц биш гэх",
+   "example": "f(x) = x²-д f(2) = f(−2) = 4 тул функц биш гэх",
+   "why": "Функцийн тодорхойлолтыг (x бүрт ганц y) урвуугаар нь ойлгодог.",
+   "fix": "Тодорхойлолтыг сумтай диаграммаар үзүүлж, x бүрээс нэг л сум гардаг эсэхийг шалгуулна.",
+   "en": "Thinks many-to-one mappings are not functions.",
+   "src": "https://doi.org/10.3102/00346543060001001",
+   "draft": true
+  }
+ ],
+ "direct": [
+  {
+   "wrong": "Шугаман хамаарал бүрийг пропорциональ гэж үзэх",
+   "example": "(2, 1) цэгээр гарах шулуун заавал (20, 10) цэгээр гарна гэх",
+   "why": "Шулуун бүр эхийн цэгээр гардаг гэж боддог.",
+   "fix": "y = x − 1 зэрэг эхийн цэгээр гардаггүй шулууныг (2, 1)-ээр гаргаж, (20, 10) дээр шалгуулна.",
+   "en": "Assumes every linear relationship is proportional.",
+   "src": "https://map.mathshell.org/lessons.php?unit=8215&collection=8"
+  },
+  {
+   "wrong": "Пропорциональ бодлогод нэмэх аргаар бодох",
+   "example": "3 литр будаг 12 м² будна; 5 литр будаг 14 м² будна гэх (зөв нь 20 м²)",
+   "why": "«2 литрээр нэмэгдсэн тул 2-оор нэмнэ» гэж боддог.",
+   "fix": "1 литр хэдэн м² будахыг (12 : 3 = 4) эхлээд олуулна.",
+   "en": "Uses additive instead of multiplicative reasoning.",
+   "src": "https://map.mathshell.org/lessons.php?unit=7215&collection=8"
+  }
+ ],
+ "prime": [
+  {
+   "wrong": "1-ийг анхны тоо гэж бодох",
+   "example": "Анхны тоонууд: 1, 2, 3, 5, 7 гэж бичих",
+   "why": "Анхны тооны тодорхойлолтыг «зөвхөн 1 ба өөртөө хуваагдана» гэж санаад, яг 2 хуваагчтай гэсэн нөхцөлийг мартдаг.",
+   "fix": "Тоо бүрийн хуваагчдыг тоолуулж, анхны тоо яг 2 хуваагчтай, 1 ганцхан хуваагчтай гэдгийг харуулна.",
+   "en": "Believes 1 is prime (end of an Eedi misconception chain).",
+   "src": "https://eedi.substack.com/p/what-do-4-million-students-responses"
+  },
+  {
+   "wrong": "Сондгой тоо бүрийг анхны гэж бодох",
+   "example": "9 ба 15-ыг анхны тоо гэх",
+   "why": "Анхны тоог «2-т хуваагдахгүй тоо» гэж ойлгодог.",
+   "fix": "9 = 3 × 3, 15 = 3 × 5 гэж тэгш өнцөгт хэлбэрээр байрлуулж харуулна.",
+   "en": "Confuses odd numbers with primes.",
+   "src": "https://eedi.substack.com/p/what-do-4-million-students-responses",
+   "draft": true
+  },
+  {
+   "wrong": "Анхны үржигдэхүүнд задлахдаа дуусгахгүй орхих",
+   "example": "24 = 4 × 6 гэж зогсох (зөв нь 2 × 2 × 2 × 3)",
+   "why": "Задаргааны мөчир бүр анхны тоогоор төгсөх ёстойг анхаардаггүй.",
+   "fix": "Үржигдэхүүний модыг зуруулж, навч бүр анхны эсэхийг шалгуулна.",
+   "en": "Stops prime factorisation at composite factors.",
+   "src": "https://eedi.substack.com/p/what-do-4-million-students-responses",
+   "draft": true
+  }
+ ],
+ "frac-mul": [
+  {
+   "wrong": "Бутархайгаар үржихэд тоо ихэснэ гэж бодох",
+   "example": "6 × 1/3-ыг 6-аас их гэж таамаглах (зөв нь 2)",
+   "why": "Натурал тоон үржвэрийн туршлагыг ерөнхийлдөг.",
+   "fix": "«6-ын гуравны нэг» гэж уншуулж зургаар үзүүлнэ.",
+   "en": "'Multiplication makes bigger' with fractions.",
+   "src": "https://pasithee.library.upatras.gr/ejupUNESCOchair/article/view/3210"
+  },
+  {
+   "wrong": "Бутархайд хуваахад тоо багасна гэж бодох",
+   "example": "6 : 1/2 = 3 гэх (зөв нь 12)",
+   "why": "Хуваахыг үргэлж «хагаслах, жижиглэх» гэж ойлгодог.",
+   "fix": "«6-д хэдэн хагас багтах вэ?» гэж асууж зургаар тоолуулна.",
+   "en": "'Division makes smaller'; halves instead of dividing by 1/2.",
+   "src": "https://pasithee.library.upatras.gr/ejupUNESCOchair/article/view/3210"
+  },
+  {
+   "wrong": "Хуваахдаа буруу бутархайг эргүүлэх",
+   "example": "3/4 : 1/2 = 4/3 × 1/2 = 2/3 гэх (зөв нь 3/4 × 2 = 3/2)",
+   "why": "«Эргүүлээд үржүүлнэ» дүрмийг утгагүй цээжилсэн.",
+   "fix": "Хариуг шалгах: 3/2 × 1/2 = 3/4 болж байгаа эсэхийг үржүүлж батлуулна.",
+   "en": "Inverts the wrong fraction when dividing.",
+   "src": "https://pasithee.library.upatras.gr/ejupUNESCOchair/article/view/3210",
+   "draft": true
+  }
+ ],
+ "frac-dec": [
+  {
+   "wrong": "33%-ийг яг 1/3 гэж бодох",
+   "example": "1/3 = 33% гэж бичих (зөв нь ойролцоогоор 33.3%)",
+   "why": "Ойролцоо утгыг яг тэнцүү гэж үздэг.",
+   "fix": "1 : 3 = 0.333...-ийг хувааж, үргэлжилсэн бутархай гэдгийг харуулна.",
+   "en": "Treats 33% as exactly one third.",
+   "src": "https://map.mathshell.org/lessons.php?unit=6120&collection=8"
+  },
+  {
+   "wrong": "Хуваарийг хүртвэрт хуваах",
+   "example": "3/4 = 4 : 3 ≈ 1.33 гэх (зөв нь 3 : 4 = 0.75)",
+   "why": "Бутархайн шугам нь хуваах үйлдэл, ямар дарааллаар гэдгийг ойлгоогүй.",
+   "fix": "«3 талхыг 4 хүнд хуваах» нөхцөлөөр утгыг нь тайлбарлана.",
+   "en": "Divides the denominator by the numerator.",
+   "src": "https://map.mathshell.org/lessons.php?unit=8105&collection=8"
+  },
+  {
+   "wrong": "Бутархайн цифрүүдийг таслалаар холбох",
+   "example": "3/5 = 3.5 гэх (зөв нь 0.6)",
+   "why": "Хоёр цифрийг таслалаар холбосон нь бутархайн бичлэг гэж боддог.",
+   "fix": "3/5 нь 1-ээс бага тул 3.5 байж болохгүйг ярилцаж, 6/10 болгон хувиргуулна.",
+   "en": "Writes a/b as the decimal a.b.",
+   "src": "https://map.mathshell.org/lessons.php?unit=8105&collection=8",
+   "draft": true
+  }
+ ],
+ "prop": [
+  {
+   "wrong": "Пропорцыг нэмэх аргаар бодох",
+   "example": "4 хүний хоолонд 6 өндөг; 6 хүнд 8 өндөг гэх (зөв нь 9)",
+   "why": "Хоёр хэмжигдэхүүний ялгаварыг тогтмол гэж үздэг.",
+   "fix": "1 хүнд хэдэн өндөг (6 : 4 = 1.5) ногдохыг эхлээд олуулна.",
+   "en": "Additive reasoning in proportion problems.",
+   "src": "https://map.mathshell.org/lessons.php?unit=7210&collection=8"
+  },
+  {
+   "wrong": "Хөндлөн үржүүлсний дараа буруу хувиргах",
+   "example": "x/3 = 4/6 → x = 3 × 6 : 4 = 4.5 гэх (зөв нь x = 3 × 4 : 6 = 2)",
+   "why": "Хөндлөн үржих дүрмийг утгагүй цээжилсэн.",
+   "fix": "x/3 = 2/3 гэж хялбарчлуулж шууд харуулна.",
+   "en": "Misapplies cross-multiplication.",
+   "src": "https://map.mathshell.org/lessons.php?unit=7215&collection=8"
+  },
+  {
+   "wrong": "Пропорциональ биш нөхцөлийг пропорциональ гэж үзэх",
+   "example": "1 хүн 100 м-ийг 15 секундэд гүйдэг бол 3 хүн хамт 5 секундэд гүйнэ гэх",
+   "why": "Бүх нөхцөлд «хэд дахин» гэсэн загвар хэрэглэдэг.",
+   "fix": "«Хүн нэмэгдвэл хугацаа үнэхээр өөрчлөгдөх үү?» гэж нөхцөлийг ярилцуулна.",
+   "en": "Applies proportion where quantities are not proportional.",
+   "src": "https://map.mathshell.org/lessons.php?unit=7215&collection=8"
+  }
+ ],
+ "pow": [
+  {
+   "wrong": "Суурийг илтгэгчээр үржүүлэх",
+   "example": "2³ = 6 гэх (зөв нь 8)",
+   "why": "Зэргийг давтан үржвэр биш, ердийн үржвэр гэж ойлгодог.",
+   "fix": "2³ = 2 × 2 × 2 гэж задлан бичүүлнэ.",
+   "en": "Multiplies base by exponent.",
+   "src": "https://map.mathshell.org/lessons.php?unit=8110&collection=8"
+  },
+  {
+   "wrong": "Квадрат зэргийг 2-оор үржихтэй андуурах",
+   "example": "5² = 10 гэх (зөв нь 25)",
+   "why": "Илтгэгч 2-ыг үржигдэхүүн гэж уншдаг.",
+   "fix": "5 × 5 хэмжээтэй квадратын нүдийг тоолуулна.",
+   "en": "Mixes up squaring and multiplying by 2 (persists through high school per Eedi).",
+   "src": "https://eedi.substack.com/p/what-do-4-million-students-responses"
+  },
+  {
+   "wrong": "Ижил суурьтай зэргийг үржүүлэхэд илтгэгчийг үржүүлэх",
+   "example": "2² × 2³ = 2⁶ гэх (зөв нь 2⁵ = 32)",
+   "why": "aᵐ · aⁿ ба (aᵐ)ⁿ дүрмийг хольдог.",
+   "fix": "2² × 2³ = (2 × 2) × (2 × 2 × 2) гэж задалж 2-ыг тоолуулна.",
+   "en": "Multiplies exponents instead of adding them.",
+   "src": "https://map.mathshell.org/lessons.php?unit=8110&collection=8"
+  }
+ ],
+ "root": [
+  {
+   "wrong": "Нийлбэрээс язгуур авахдаа гишүүн бүрээс авах",
+   "example": "√(9 + 16) = 3 + 4 = 7 гэх (зөв нь √25 = 5)",
+   "why": "Үйлдэл бүр «шугаман» гэж (хуурамч шугаман чанар) ерөнхийлдөг.",
+   "fix": "Хоёр талыг тоогоор бодуулж ялгааг харуулна.",
+   "en": "False linearity: √(a + b) = √a + √b.",
+   "src": "https://justinmath.com/has-the-topology-of-student-errors-in-algebra-been-studied-systematically/",
+   "draft": true
+  },
+  {
+   "wrong": "Квадрат язгуурыг 2-т хуваахтай андуурах",
+   "example": "√16 = 8 гэх (зөв нь 4)",
+   "why": "Квадрат зэрэг ба 2-оор үржихийг андуурдагтай адил шалтгаантай.",
+   "fix": "«Ямар тоог өөрөөр нь үржүүлбэл 16 болох вэ?» гэж асууна.",
+   "en": "Confuses square root with halving.",
+   "src": "https://eedi.substack.com/p/what-do-4-million-students-responses",
+   "draft": true
+  },
+  {
+   "wrong": "Сөрөг тооноос куб язгуур гарахгүй гэх",
+   "example": "∛(−8) байхгүй гэх (зөв нь −2)",
+   "why": "Квадрат язгуурын хязгаарлалтыг куб язгуурт шилжүүлдэг.",
+   "fix": "(−2) × (−2) × (−2) = −8 гэдгийг бодуулна.",
+   "en": "Thinks cube roots of negatives do not exist.",
+   "src": "https://map.mathshell.org/lessons.php?unit=9115&collection=8",
+   "draft": true
+  }
+ ],
+ "sets": [
+  {
+   "wrong": "Нэгдэл ба огтлолцлыг андуурах",
+   "example": "A = {1, 2, 3}, B = {2, 3, 4} үед A ∩ B = {1, 2, 3, 4} гэх (зөв нь {2, 3})",
+   "why": "«ба», «эсвэл» гэсэн үгийн утгыг олонлогийн үйлдэлтэй буруу холбодог.",
+   "fix": "Эйлер-Веннийн диаграмм дээр хоёр бүсийг өөр өөр өнгөөр будуулна.",
+   "en": "Confuses union and intersection.",
+   "src": "https://www.cpalms.org/PreviewStandard/Preview/15816"
+  },
+  {
+   "wrong": "Нэгдэлд давхардсан элементийг хоёр удаа бичих",
+   "example": "A ∪ B = {1, 2, 2, 3, 3, 4} гэх",
+   "why": "Олонлогт элемент нэг л удаа ордогийг мэдэхгүй.",
+   "fix": "Хоёр олонлогийн элементийг диаграммд нэг удаа л байрлуулуулна.",
+   "en": "Repeats common elements in a union.",
+   "src": "https://www.cpalms.org/PreviewStandard/Preview/15816"
+  },
+  {
+   "wrong": "Огтлолцлыг хасахгүйгээр нийт тоог олох",
+   "example": "10 сурагч шатар, 8 сурагч даам тоглодог, 3 нь хоёуланг нь тоглодог; нийт 18 гэх (зөв нь 15)",
+   "why": "Диаграммын давхцсан хэсгийг хоёр удаа тоолдог.",
+   "fix": "Эхлээд огтлолцол (3)-ыг бичээд, «зөвхөн шатар» = 7, «зөвхөн даам» = 5-ыг олуулна.",
+   "en": "Double-counts the overlap.",
+   "src": "https://link.springer.com/article/10.1007/BF00302628",
+   "draft": true
+  }
+ ],
+ "poly": [
+  {
+   "wrong": "Хаалтын зэрэгт зөвхөн нэг үржигдэхүүнийг зэрэгт дэвшүүлэх",
+   "example": "(5n)² = 5n² гэх (зөв нь 25n²)",
+   "why": "Зэрэг хаалтын доторх бүх үржигдэхүүнд үйлчилдгийг анхаардаггүй.",
+   "fix": "(5n)² = 5n × 5n гэж задлан бичүүлнэ.",
+   "en": "Raises only part of a product to a power.",
+   "src": "https://map.mathshell.org/lessons.php?unit=9225&collection=8"
+  },
+  {
+   "wrong": "Төсөөтэй биш гишүүдийг нэгтгэх",
+   "example": "3x + 2x² = 5x³ гэх",
+   "why": "Үсэг ба зэргийн утгыг анхаарахгүй, коэффициентуудыг нэмдэг.",
+   "fix": "x = 2 орлуулж хоёр талын утгыг харьцуулуулна (6 + 8 = 14, 5 × 8 = 40).",
+   "en": "Combines unlike terms.",
+   "src": "https://doaj.org/article/ce09e1ca1f0641848829a1a19ce18161"
+  },
+  {
+   "wrong": "Хаалтын өмнөх хасах тэмдгийг бүх гишүүнд хэрэглэхгүй",
+   "example": "(3x + 2) − (x − 4) = 2x − 2 гэх (зөв нь 2x + 6)",
+   "why": "Хасах тэмдэг зөвхөн эхний гишүүнд хамаарна гэж боддог.",
+   "fix": "−(x − 4) = −1 · (x − 4) гэж бичүүлж хуваарилах чанараар задлуулна.",
+   "en": "Does not distribute the minus sign.",
+   "src": "https://map.mathshell.org/lessons.php?unit=9215&collection=8",
+   "draft": true
+  }
+ ],
+ "ap": [
+  {
+   "wrong": "Ерөнхий гишүүний томьёонд (n − 1)-ийн оронд n хэрэглэх",
+   "example": "a₁ = 3, d = 4 үед a₁₀ = 3 + 10 · 4 = 43 гэх (зөв нь 3 + 9 · 4 = 39)",
+   "why": "Эхний гишүүнээс 10 дахь гишүүн хүртэл 9 алхам гэдгийг анзаардаггүй.",
+   "fix": "a₁, a₂, a₃-ийг томьёогоор бодуулж шалгуулна.",
+   "en": "Uses a₁ + nd instead of a₁ + (n − 1)d.",
+   "src": "https://journal.staiypiqbaubau.ac.id/index.php/Al-Tarbiyah/article/view/977"
+  },
+  {
+   "wrong": "Дараалал ба нийлбэрийг андуурах",
+   "example": "S₅-ыг асуухад a₅-ыг хариулах",
+   "why": "aₙ ба Sₙ-ийн тэмдэглэгээ төстэй тул ялгадаггүй.",
+   "fix": "Эхний 5 гишүүнийг бичүүлж, нэмж S₅-ыг гаргуулаад a₅-тай харьцуулна.",
+   "en": "Confuses the nth term with the sum of n terms.",
+   "src": "https://journal.staiypiqbaubau.ac.id/index.php/Al-Tarbiyah/article/view/977",
+   "draft": true
+  }
+ ],
+ "linear": [
+  {
+   "wrong": "Налалтыг хэвтээ өөрчлөлтийг босоод хувааж олох",
+   "example": "(1, 2) ба (3, 8) цэгээр гарах шулууны налалтыг 2/6 гэх (зөв нь 6/2 = 3)",
+   "why": "y-ийн өөрчлөлт хүртвэрт, x-ийнх хуваарьт гэдгийг андуурдаг.",
+   "fix": "Шатны зураг зуруулж «дээш хэд, баруун тийш хэд?» гэж асууна.",
+   "en": "Computes slope as run over rise.",
+   "src": "https://map.mathshell.org/lessons.php?unit=8215&collection=8"
+  },
+  {
+   "wrong": "x = 0 үед y-ийг буруу бодох",
+   "example": "y = 2x + 3 үед x = 0 бол y = 5 гэх (зөв нь 3)",
+   "why": "0-ээр үржихэд 0 болохыг анзаардаггүй (2 × 0-ийг 2 гэж үздэг).",
+   "fix": "Хүснэгт бөглүүлж графикийн y тэнхлэгтэй огтлолцох цэгтэй тулгана.",
+   "en": "Treats 2 × 0 as 2.",
+   "src": "https://map.mathshell.org/lessons.php?unit=8220&collection=8"
+  },
+  {
+   "wrong": "Тэнхлэгийн хуваарийг харгалзахгүй налалт харьцуулах",
+   "example": "Хоёр өөр хуваарьтай график дээр эгц харагдсан шулууныг илүү их налалттай гэх",
+   "why": "Налалтыг харагдах эгц байдлаар үнэлдэг.",
+   "fix": "Хоёр цэгийн координатаас налалтыг тоогоор бодуулна.",
+   "en": "Ignores axis scale when comparing slopes.",
+   "src": "https://map.mathshell.org/lessons.php?unit=8230&collection=8"
+  }
+ ],
+ "int-ops": [
+  {
+   "wrong": "Сөрөг тоог үржүүлэх тэмдгийн дүрмийг буруу хэрэглэх",
+   "example": "2 × (−1) + 3 = 5 гэх (зөв нь 1)",
+   "why": "Сөрөг тоог үржүүлэхэд тэмдэг алддаг.",
+   "fix": "Үйлдэл бүрийг тусад нь бичүүлж, тэмдгийг тойруулж тэмдэглүүлнэ.",
+   "en": "Mishandles signs when multiplying negatives.",
+   "src": "https://map.mathshell.org/lessons.php?unit=8220&collection=8"
+  },
+  {
+   "wrong": "−3²-ийг (−3)²-тэй адил гэх",
+   "example": "−3² = 9 гэх (зөв нь −9)",
+   "why": "Зэрэг хасах тэмдэгт хамаарах эсэхийг ялгадаггүй.",
+   "fix": "−3² = −(3 × 3), (−3)² = (−3) × (−3) гэж зэрэгцүүлэн бичүүлнэ.",
+   "en": "Treats −x² as (−x)².",
+   "src": "https://map.mathshell.org/lessons.php?unit=9210&collection=8"
+  },
+  {
+   "wrong": "Хоёр сөрөг тоог нэмэхэд хасах",
+   "example": "(−5) + (−11) = −6 гэх (зөв нь −16)",
+   "why": "Сөрөг тоог нэмэхийг ялгавар олох гэж ойлгодог.",
+   "fix": "Хоёр удаа өр тавих (5₮ ба 11₮) нөхцөлөөр нийт өрийг олуулна.",
+   "en": "Subtracts when adding two negatives.",
+   "src": "https://map.mathshell.org/lessons.php?unit=7105&collection=8"
+  }
+ ],
+ "abs": [
+  {
+   "wrong": "Модулийн тэмдгийг зүгээр л арилгах",
+   "example": "|x − 5| = 3 → x = 8 гэж ганц шийд гаргах (зөв нь x = 8 эсвэл x = 2)",
+   "why": "Модулийг хаалт мэт үзэж, хоёр тохиолдлыг авч үздэггүй.",
+   "fix": "Тоон шулуун дээр 5-аас 3 зайтай цэгүүдийг олуулна.",
+   "en": "Removes absolute-value bars and loses a solution.",
+   "src": "https://www.curriculumstudies.org/index.php/CS/article/view/408"
+  },
+  {
+   "wrong": "|a|-г үргэлж a гэж бичих",
+   "example": "a = −3 үед |a| = −3 гэх (зөв нь 3)",
+   "why": "Модулийг «тэмдгийг хаях» биш, ердийн хаалт гэж ойлгодог.",
+   "fix": "Модуль нь тэгээс хүртэлх зай гэдгийг тоон шулуунаар үзүүлнэ.",
+   "en": "Treats |a| as a plain bracket.",
+   "src": "https://www.curriculumstudies.org/index.php/CS/article/view/408"
+  },
+  {
+   "wrong": "Нийлбэрийн модулийг модулиудын нийлбэр гэх",
+   "example": "|3 + (−5)| = |3| + |−5| = 8 гэх (зөв нь 2)",
+   "why": "Шугаман чанарыг модульд ерөнхийлдөг.",
+   "fix": "Хоёр талыг тоогоор бодуулж харьцуулуулна.",
+   "en": "Assumes |a + b| = |a| + |b|.",
+   "src": "https://www.curriculumstudies.org/index.php/CS/article/view/408",
+   "draft": true
+  }
+ ],
+ "special-prod": [
+  {
+   "wrong": "(a + b)²-ийг a² + b² гэх",
+   "example": "(x + 3)² = x² + 9 гэх (зөв нь x² + 6x + 9)",
+   "why": "Зэргийг нийлбэрийн гишүүн бүрт тараадаг (хуурамч шугаман чанар).",
+   "fix": "(x + 3)(x + 3)-ыг талбайн загвараар задлуулж 2 · 3x хэсгийг харуулна.",
+   "en": "Freshman's dream: (a + b)² = a² + b².",
+   "src": "https://map.mathshell.org/lessons.php?unit=9225&collection=8"
+  },
+  {
+   "wrong": "(a − b)² задлахад тэмдэг алдах",
+   "example": "(x − 3)² = x² − 6x − 9 гэх (зөв нь x² − 6x + 9)",
+   "why": "(−3) × (−3) эерэг гэдгийг анзаардаггүй.",
+   "fix": "(x − 3)(x − 3)-ыг бүх 4 үржвэрээр нь бичүүлнэ.",
+   "en": "Sign error when expanding (a − b)².",
+   "src": "https://map.mathshell.org/lessons.php?unit=9250&collection=8"
+  },
+  {
+   "wrong": "Квадратуудын ялгаварт хасах тэмдгийг алдах",
+   "example": "(x + 4)(x − 4) = x² + 16 гэх (зөв нь x² − 16)",
+   "why": "4 × (−4)-ийн тэмдгийг анзаардаггүй.",
+   "fix": "x = 1 орлуулж шалгуулна: 5 × (−3) = −15 = 1 − 16.",
+   "en": "Gets the sign wrong in a difference of squares.",
+   "src": "https://map.mathshell.org/lessons.php?unit=8205&collection=8",
+   "draft": true
+  }
+ ],
+ "factor": [
+  {
+   "wrong": "Ерөнхий үржигдэхүүнийг бүрэн гаргахгүй",
+   "example": "6x² + 9x = 3(2x² + 3x) гэж зогсох (зөв нь 3x(2x + 3))",
+   "why": "Тоон үржигдэхүүнийг л хардаг, хувьсагчийг орхидог.",
+   "fix": "Хаалтын доторх гишүүдэд ерөнхий үржигдэхүүн үлдсэн эсэхийг шалгуулна.",
+   "en": "Incomplete common-factor extraction.",
+   "src": "https://map.mathshell.org/lessons.php?unit=9225&collection=8",
+   "draft": true
+  },
+  {
+   "wrong": "Язгуур ба үржигдэхүүний тэмдгийг андуурах",
+   "example": "x² − 5x + 6 = (x + 2)(x + 3) гэх (зөв нь (x − 2)(x − 3))",
+   "why": "Язгуур 2 ба 3 гэдгийг мэдээд үржигдэхүүнд шууд «+» тавьдаг.",
+   "fix": "Задалсан хэлбэрээ буцааж үржүүлж шалгуулна.",
+   "en": "Sign errors linking roots and factors.",
+   "src": "https://map.mathshell.org/lessons.php?unit=9270&collection=8"
+  },
+  {
+   "wrong": "Квадратуудын нийлбэрийг ялгавар шиг задлах",
+   "example": "x² + 9 = (x + 3)(x − 3) гэх",
+   "why": "a² − b² томьёог нийлбэрт хэрэглэдэг.",
+   "fix": "(x + 3)(x − 3)-ыг үржүүлж x² − 9 гарахыг харуулна.",
+   "en": "Factors a sum of squares as a difference of squares.",
+   "src": "https://map.mathshell.org/lessons.php?unit=8205&collection=8",
+   "draft": true
+  }
+ ],
+ "alg-frac": [
+  {
+   "wrong": "Гишүүнийг хураах (зөвхөн үржигдэхүүнийг хураадаг)",
+   "example": "(x + 3)/(x + 5) = 3/5 гэх",
+   "why": "Хураах нь гишүүнд биш, үржигдэхүүнд хэрэглэгддэгийг ойлгоогүй.",
+   "fix": "x = 1 орлуулж 4/6 ≠ 3/5 гэдгийг харуулна.",
+   "en": "Cancels terms instead of factors.",
+   "src": "https://etd.uwc.ac.za/handle/11394/6943"
+  },
+  {
+   "wrong": "Хүртвэрийн нэг гишүүнийг л хураах",
+   "example": "(2x + 4)/2 = x + 4 гэх (зөв нь x + 2)",
+   "why": "Хуваарь хүртвэрийн бүх гишүүнд үйлчилдгийг анзаардаггүй.",
+   "fix": "(2x + 4)/2 = 2x/2 + 4/2 гэж салгаж бичүүлнэ.",
+   "en": "Divides only one term of the numerator.",
+   "src": "https://etd.uwc.ac.za/handle/11394/6943"
+  },
+  {
+   "wrong": "Алгебрын бутархайг хүртвэр, хуваариар нь нэмэх",
+   "example": "1/x + 1/y = 2/(x + y) гэх (зөв нь (x + y)/(xy))",
+   "why": "Энгийн бутархайн нэмэх алдааг алгебрт давтдаг.",
+   "fix": "x = 1, y = 1 орлуулж: 2 ≠ 1 гэдгийг харуулна.",
+   "en": "Adds numerators and denominators of algebraic fractions.",
+   "src": "https://openlearning.aalto.fi/question/type/stack/doc/doc.php/CAS/Buggy_rules.md"
+  }
+ ],
+ "formula": [
+  {
+   "wrong": "Томьёо хувиргахдаа зөвхөн нэг гишүүнд үйлдэл хийх",
+   "example": "v = u + at-ээс t-г олоход t = v − u/a гэж бичих (зөв нь t = (v − u)/a)",
+   "why": "Хуваах үйлдлийг бүх талд, хаалттай хийх ёстойг анзаардаггүй.",
+   "fix": "Тоо орлуулж (u = 2, a = 3, v = 14) хоёр хариуг харьцуулуулна: (14 − 2)/3 = 4.",
+   "en": "Applies an operation to only one term when rearranging.",
+   "src": "https://map.mathshell.org/lessons.php?unit=8245&collection=8"
+  },
+  {
+   "wrong": "Квадрат язгуурыг хэсэгчлэн авах",
+   "example": "s = 5t²-ээс t = √s/5 гэх (зөв нь t = √(s/5))",
+   "why": "Үйлдлийн урвуу дарааллыг хадгалдаггүй.",
+   "fix": "Томьёо дээрх үйлдлийн дарааллыг сумаар бичүүлж, урвуу дарааллаар буцаана.",
+   "en": "Undoes operations in the wrong order.",
+   "src": "https://map.mathshell.org/lessons.php?unit=9115&collection=8",
+   "draft": true
+  }
+ ],
+ "system": [
+  {
+   "wrong": "Зөвхөн нэг тэгшитгэлийг хангах шийдийг өгөх",
+   "example": "x + y = 5, x − y = 1 системд x = 2, y = 3 гэх (зөв нь x = 3, y = 2)",
+   "why": "Систем гэдэг нь хоёр тэгшитгэл зэрэг биелэх ёстойг анхаардаггүй.",
+   "fix": "Олсон утгуудыг хоёр тэгшитгэлд хоёуланд нь орлуулж шалгуулна.",
+   "en": "Gives values that satisfy only one equation.",
+   "src": "https://map.mathshell.org/lessons.php?unit=9235&collection=8"
+  },
+  {
+   "wrong": "Хоёр өөр хэлбэрийн тэгшитгэл ерөнхий шийдгүй гэх",
+   "example": "y = 2x + 3 ба x = 1 − 2y нь ерөнхий шийдгүй гэх (зөв нь x = −1, y = 1)",
+   "why": "Хэлбэр нь өөр тул шулуунууд огтлолцохгүй гэж боддог.",
+   "fix": "Хоёр шулууныг нэг координатын хавтгайд зуруулна.",
+   "en": "Assumes differently-written equations cannot share a solution.",
+   "src": "https://map.mathshell.org/lessons.php?unit=8220&collection=8"
+  }
+ ],
+ "ineq": [
+  {
+   "wrong": "Сөрөг тоогоор хуваахад тэмдгийг эргүүлэхгүй",
+   "example": "−2x < 6 → x < −3 гэх (зөв нь x > −3)",
+   "why": "Тэгшитгэлийн дүрмийг тэнцэтгэл бишид шууд хэрэглэдэг.",
+   "fix": "x = 0-ийг орлуулж аль хариу зөв болохыг шалгуулна.",
+   "en": "Does not reverse the sign when dividing by a negative.",
+   "src": "https://jjes.yu.edu.jo/index.php/jjes/article/view/945"
+  },
+  {
+   "wrong": "Тэнцэтгэл бишийг тэгшитгэл шиг нэг шийдтэй гэж үзэх",
+   "example": "2x + 1 > 7-ийн шийд x = 3 гэх (зөв нь x > 3)",
+   "why": "«=» ба «>»-ийн ялгааг ойлгоогүй.",
+   "fix": "x = 3, 4, 10, 3.5-ыг орлуулж аль нь биелэхийг шалгуулна.",
+   "en": "Treats an inequality like an equation with one solution.",
+   "src": "https://map.mathshell.org/lessons.php?unit=6225&collection=8"
+  },
+  {
+   "wrong": "Шийдийг зөвхөн натурал тоогоор хязгаарлах",
+   "example": "x < 4-ийн шийд: 1, 2, 3 гэх",
+   "why": "Тоо гэхээр натурал тоог л төсөөлдөг.",
+   "fix": "0, −5, 2.5 зэрэг тоо биелэх эсэхийг асууна.",
+   "en": "Considers only natural-number solutions.",
+   "src": "https://map.mathshell.org/lessons.php?unit=6225&collection=8"
+  }
+ ],
+ "rat-eq": [
+  {
+   "wrong": "Хуваарийг 0 болгох гадны язгуурыг шалгахгүй",
+   "example": "x/(x − 2) = 2/(x − 2) → x = 2 гэх (x = 2 үед хуваарь 0 тул шийдгүй)",
+   "why": "Хуваарийг арилгасны дараа анхны хязгаарлалтыг мартдаг.",
+   "fix": "Эхлээд тодорхойлогдох мужийг (x ≠ 2) бичүүлж, хариуг заавал шалгуулна.",
+   "en": "Keeps an extraneous root that makes a denominator zero.",
+   "src": "https://map.mathshell.org/lessons.php?unit=9115&collection=8",
+   "draft": true
+  },
+  {
+   "wrong": "Ерөнхий хуваарьт үржүүлэхдээ нэг гишүүнийг орхих",
+   "example": "x/2 + 1 = 5 → x + 1 = 10 гэх (зөв нь x + 2 = 10, x = 8)",
+   "why": "Тэгшитгэлийн бүх гишүүнийг үржүүлэх ёстойг анзаардаггүй.",
+   "fix": "Хоёр талыг хаалтанд хийж: 2(x/2 + 1) = 2 · 5 гэж бичүүлнэ.",
+   "en": "Multiplies only one term by the common denominator.",
+   "src": "https://map.mathshell.org/lessons.php?unit=9215&collection=8"
+  }
+ ],
+ "slope": [
+  {
+   "wrong": "Налалт ба өндрийг андуурах",
+   "example": "Графикийн дээд хэсэгт байгаа шулууныг илүү их налалттай гэх",
+   "why": "Цэгийн өндөр (y утга) ба өөрчлөлтийн хурдыг ялгадаггүй.",
+   "fix": "Ижил налалттай, өөр өндөрт байгаа хоёр зэрэгцээ шулууныг харьцуулуулна.",
+   "en": "Slope/height confusion.",
+   "src": "https://alibali.psych.wisc.edu/wp-content/uploads/sites/371/2018/02/HattikudurPratherAsquithAlibaliKnuthNathan2012.pdf"
+  },
+  {
+   "wrong": "Налалтыг буруу дарааллаар бодох",
+   "example": "(2, 7) ба (5, 1) цэгийн налалтыг (7 − 1)/(2 − 5)-ын оронд (7 − 1)/(5 − 2) = 2 гэх (зөв нь −2)",
+   "why": "Хүртвэр, хуваарьт цэгүүдийг ижил дарааллаар авах ёстойг анзаардаггүй.",
+   "fix": "Зургаар шулуун буурч байгааг харж, налалт сөрөг байх ёстойг шалгуулна.",
+   "en": "Mixes point order in the slope formula.",
+   "src": "https://map.mathshell.org/lessons.php?unit=8215&collection=8",
+   "draft": true
+  },
+  {
+   "wrong": "Тэнхлэгийн хуваарийг үл тоох",
+   "example": "Хуваарь өөр хоёр график дээр илүү эгц харагдсан шулууныг налалт нь их гэх",
+   "why": "Налалтыг нүдээр үнэлдэг.",
+   "fix": "Налалтыг координатаар тоогоор бодуулна.",
+   "en": "Judges slope visually, ignoring scale.",
+   "src": "https://map.mathshell.org/lessons.php?unit=8230&collection=8"
+  }
+ ],
+ "quad-fn": [
+  {
+   "wrong": "Оройн хэлбэрээс оройн координатын тэмдгийг буруу унших",
+   "example": "y = (x − 3)² + 1-ийн орой (−3, 1) гэх (зөв нь (3, 1))",
+   "why": "Хаалт доторх тоог шууд координат гэж уншдаг.",
+   "fix": "x = 3 үед хаалт 0 болж, y хамгийн бага болдгийг орлуулж шалгуулна.",
+   "en": "Misreads the vertex from vertex form.",
+   "src": "https://map.mathshell.org/lessons.php?unit=9245&collection=8"
+  },
+  {
+   "wrong": "a-ийн нөлөөг урвуугаар ойлгох",
+   "example": "y = 3x²-ийг y = x²-ээс өргөн парабол гэх (зөв нь нарийн)",
+   "why": "Коэффициент их бол «том, өргөн» гэж төсөөлдөг.",
+   "fix": "x = 1, 2 үед хоёр функцийн утгыг хүснэгтээр харьцуулуулна.",
+   "en": "Thinks larger |a| makes the parabola wider.",
+   "src": "https://map.mathshell.org/lessons.php?unit=9245&collection=8",
+   "draft": true
+  }
+ ],
+ "pct-app": [
+  {
+   "wrong": "Анхны үнийг олохдоо шинэ үнийн процентыг нэмэх",
+   "example": "20% хямдарсны дараа 8 000₮ бол анхны үнэ 8 000 × 1.2 = 9 600₮ гэх (зөв нь 8 000 : 0.8 = 10 000₮)",
+   "why": "Хямдралыг шинэ үнээс тооцдог гэж боддог.",
+   "fix": "Олсон анхны үнээс 20%-ийг хасаж 8 000₮ гарах эсэхийг шалгуулна.",
+   "en": "Reverse-percentage error.",
+   "src": "https://nepjol.info/index.php/ccrj/article/view/88177"
+  },
+  {
+   "wrong": "Нийлмэл хүүг энгийн хүү шиг тооцох",
+   "example": "100 000₮-ийг жилийн 10% нийлмэл хүүтэй 2 жил хадгалахад 120 000₮ гэх (зөв нь 121 000₮)",
+   "why": "Жил бүр ижил хэмжээ нэмэгдэнэ гэж (шугаман) боддог.",
+   "fix": "Жил бүрийн дүнг хүснэгтээр бодуулж, хоёр дахь жилийн хүү 11 000₮ гэдгийг харуулна.",
+   "en": "Assumes simple interest when interest compounds.",
+   "src": "https://map.mathshell.org/lessons.php?unit=9240&collection=8"
+  },
+  {
+   "wrong": "Дараалсан процентуудыг нэмэх, хасах",
+   "example": "Үнэ 25%-иар өсөөд 20%-иар буурвал 5% өссөн гэх (зөв нь 1.25 × 0.8 = 1, өөрчлөгдөөгүй)",
+   "why": "Процентуудын суурь өөр гэдгийг анзаардаггүй.",
+   "fix": "Өөрчлөлт бүрийг үржигдэхүүнээр бичиж үржүүлүүлнэ.",
+   "en": "Adds/subtracts successive percentages.",
+   "src": "https://map.mathshell.org/lessons.php?unit=7100&collection=8"
+  }
+ ],
+ "inv-prop": [
+  {
+   "wrong": "Урвуу пропорцыг шууд пропорц гэж үзэх",
+   "example": "4 ажилчин ажлыг 6 хоногт хийдэг бол 8 ажилчин 12 хоногт хийнэ гэх (зөв нь 3 хоног)",
+   "why": "«Нэг нь ихсэвэл нөгөө нь ихсэнэ» гэсэн загварыг бүх нөхцөлд хэрэглэдэг.",
+   "fix": "«Хүн олон бол ажил хурдан дуусах уу?» гэж утгыг ярилцаж, үржвэр (4 × 6 = 24) тогтмолыг олуулна.",
+   "en": "Treats an inverse proportion as direct.",
+   "src": "https://map.mathshell.org/lessons.php?unit=7215&collection=8"
+  },
+  {
+   "wrong": "Урвуу пропорцыг нэмэх аргаар бодох",
+   "example": "3 ажилчин 8 хоногт хийдэг ажлыг 4 ажилчин 7 хоногт хийнэ гэх (зөв нь 24 : 4 = 6 хоног)",
+   "why": "«1 хүн нэмэгдвэл 1 хоног хасагдана» гэж боддог.",
+   "fix": "Нийт ажлыг «хүн-хоног»-оор (3 × 8 = 24) илэрхийлүүлнэ.",
+   "en": "Additive reasoning in inverse proportion.",
+   "src": "https://map.mathshell.org/lessons.php?unit=7215&collection=8",
+   "draft": true
+  }
+ ],
+ "neg-pow": [
+  {
+   "wrong": "Сөрөг илтгэгчийг сөрөг тоо гэж ойлгох",
+   "example": "2⁻³ = −8 гэх (зөв нь 1/8)",
+   "why": "Илтгэгчийн хасах тэмдгийг тооны тэмдэг гэж уншдаг.",
+   "fix": "2³, 2², 2¹, 2⁰ гэх хүснэгтийг үргэлжлүүлэн 2-т хуваах хэв маягийг харуулна.",
+   "en": "Reads a negative exponent as a negative number.",
+   "src": "https://map.mathshell.org/lessons.php?unit=8110&collection=8"
+  },
+  {
+   "wrong": "Тэг илтгэгчтэй зэргийг 0 гэх",
+   "example": "5⁰ = 0 гэх (зөв нь 1)",
+   "why": "a⁰ ба 0ᵃ-г андуурдаг, «0 удаа үржүүлбэл юу ч үгүй» гэж боддог.",
+   "fix": "5³ : 5³ = 5⁰ ба 125 : 125 = 1 гэдгийг зэрэгцүүлнэ.",
+   "en": "Believes a⁰ = 0.",
+   "src": "https://map.mathshell.org/lessons.php?unit=8110&collection=8"
+  },
+  {
+   "wrong": "Бутархай илтгэгчийг хуваах үйлдэл гэх",
+   "example": "8^(1/3) = 8/3 гэх (зөв нь ∛8 = 2)",
+   "why": "Илтгэгчийг үржигдэхүүн гэж үздэг алдаа бутархай илтгэгчид үргэлжилдэг.",
+   "fix": "(8^(1/3))³ = 8 байх ёстойг ашиглан шалгуулна.",
+   "en": "Misinterprets fractional exponents.",
+   "src": "https://journal.unpas.ac.id/index.php/pendas/article/view/33260"
+  }
+ ],
+ "rational": [
+  {
+   "wrong": "Үелэх аравтын бутархайг рационал биш гэх",
+   "example": "0.333...-ыг бутархайгаар бичиж болохгүй гэх (зөв нь 1/3)",
+   "why": "Төгсгөлгүй цифрийг иррационалын шинж гэж үздэг.",
+   "fix": "x = 0.333..., 10x − x = 3 гэж бодуулж 1/3 гаргуулна.",
+   "en": "Thinks repeating decimals are not rational.",
+   "src": "https://map.mathshell.org/lessons.php?unit=9105&collection=8"
+  },
+  {
+   "wrong": "Бүхэл тоог рационал биш гэх",
+   "example": "−4-ийг рационал тоо биш гэх (зөв нь −4/1)",
+   "why": "Рационал тоо гэхээр зөвхөн бутархай хэлбэрийг төсөөлдөг.",
+   "fix": "Бүхэл тоо бүрийг хуваарь нь 1 бутархайгаар бичүүлнэ.",
+   "en": "Does not recognise integers as rational.",
+   "src": "https://map.mathshell.org/lessons.php?unit=9105&collection=8"
+  },
+  {
+   "wrong": "Бутархай хэлбэртэй бүх тоог рационал гэх",
+   "example": "√2/2-ыг рационал гэх",
+   "why": "Тодорхойлолтын «бүхэл тоонуудын харьцаа» гэсэн нөхцөлийг мартдаг.",
+   "fix": "Хүртвэр, хуваарь бүхэл тоо эсэхийг шалгуулна.",
+   "en": "Assumes any fraction is rational.",
+   "src": "https://map.mathshell.org/lessons.php?unit=9105&collection=8"
+  }
+ ],
+ "quad-eq": [
+  {
+   "wrong": "Хувьсагчид хувааж язгуур алдах",
+   "example": "x² = 3x → x = 3 гэх (зөв нь x = 0 эсвэл x = 3)",
+   "why": "x-д хуваахад x = 0 тохиолдол алга болдгийг анзаардаггүй.",
+   "fix": "x² − 3x = 0, x(x − 3) = 0 гэж үржигдэхүүнд задлуулна.",
+   "en": "Divides by x and loses the root x = 0.",
+   "src": "https://map.mathshell.org/lessons.php?unit=9210&collection=8",
+   "draft": true
+  },
+  {
+   "wrong": "Зөвхөн эерэг язгуурыг авах",
+   "example": "x² = 49 → x = 7 гэх (зөв нь x = ±7)",
+   "why": "Язгуур авахдаа зөвхөн арифметик (эерэг) утгыг санадаг.",
+   "fix": "(−7)² = 49 гэдгийг шалгуулна.",
+   "en": "Takes only the positive square root.",
+   "src": "https://arxiv.org/html/2509.19357v2"
+  },
+  {
+   "wrong": "Үржигдэхүүнд задрахгүй бол шийдгүй гэх",
+   "example": "x² + 8x + 13 = 0-ийг шийдгүй гэх (зөв нь x = −4 ± √3)",
+   "why": "Задлах аргыг цорын ганц арга гэж боддог.",
+   "fix": "Дискриминант D = 64 − 52 = 12 > 0 гэдгийг бодуулж, томьёогоор шийдүүлнэ.",
+   "en": "Assumes a non-factorable quadratic has no solutions.",
+   "src": "https://map.mathshell.org/lessons.php?unit=9210&collection=8"
+  },
+  {
+   "wrong": "Тэг биш тоотой үед үржвэрийн тэгийн чанарыг хэрэглэх",
+   "example": "(x − 2)(x − 3) = 6 → x − 2 = 6 эсвэл x − 3 = 6 гэх (зөв нь x = 0 эсвэл x = 5)",
+   "why": "Үржвэр 0 үед л хүчинтэй дүрмийг ерөнхийлдөг.",
+   "fix": "Эхлээд нэг талыг 0 болгож (x² − 5x = 0) дараа нь задлуулна.",
+   "en": "Misapplies the zero-product property.",
+   "src": "https://ojs.unm.ac.id/icsat/article/download/39061/18368"
+  }
+ ],
+ "exp-eq": [
+  {
+   "wrong": "Илтгэгч тэгшитгэлийг хуваахаар бодох",
+   "example": "2ˣ = 8 → x = 8 : 2 = 4 гэх (зөв нь x = 3)",
+   "why": "Зэргийг үржвэр гэж ойлгодог.",
+   "fix": "2ˣ = 2³ гэж ижил суурьтай болгож илтгэгчийг тэнцүүлүүлнэ.",
+   "en": "Treats an exponential equation as a product.",
+   "src": "https://journal.unpas.ac.id/index.php/pendas/article/view/33260",
+   "draft": true
+  },
+  {
+   "wrong": "Ижил суурьт оруулахгүйгээр илтгэгчийг тэнцүүлэх",
+   "example": "4ˣ = 8 → x = 2 гэх (зөв нь 2²ˣ = 2³, x = 3/2)",
+   "why": "Суурь өөр үед илтгэгчийг шууд харьцуулж болохгүйг анзаардаггүй.",
+   "fix": "Хариуг орлуулж шалгуулна: 4² = 16 ≠ 8.",
+   "en": "Compares exponents without a common base.",
+   "src": "https://journal.unpas.ac.id/index.php/pendas/article/view/33260",
+   "draft": true
+  }
+ ],
+ "sci": [
+  {
+   "wrong": "Стандарт дүрсийн 1 ≤ a < 10 нөхцөлийг зөрчих",
+   "example": "40 000 000 = 40 × 10⁶ гэх (зөв нь 4 × 10⁷)",
+   "why": "Утга нь зөв тул хэлбэрийн шаардлагыг ач холбогдолгүй гэж боддог.",
+   "fix": "Стандарт дүрсийн тодорхойлолтыг сануулж, a-г шалгах алхам нэмнэ.",
+   "en": "Ignores the 1 ≤ a < 10 rule.",
+   "src": "https://map.mathshell.org/lessons.php?unit=8100&collection=8"
+  },
+  {
+   "wrong": "Сөрөг илтгэгчтэй тоог аравтын бутархай болгохдоо алдах",
+   "example": "1 × 10⁻² = 0.001 гэх (зөв нь 0.01)",
+   "why": "Илтгэгчийг «тэгийн тоо» гэж тоолдог.",
+   "fix": "10⁻¹ = 0.1, 10⁻² = 0.01 гэх хүснэгт бөглүүлнэ.",
+   "en": "Miscounts places for negative powers of ten.",
+   "src": "https://map.mathshell.org/lessons.php?unit=8100&collection=8"
+  },
+  {
+   "wrong": "Сөрөг илтгэгчтэй тоог буруу харьцуулах",
+   "example": "8 × 10⁻⁴ > 1 × 10⁻² гэх (зөв нь 0.0008 < 0.01)",
+   "why": "Зөвхөн a-г (8 > 1) хардаг, илтгэгчийг анхаардаггүй.",
+   "fix": "Хоёуланг аравтын бутархайгаар бичүүлж харьцуулуулна.",
+   "en": "Compares standard-form numbers by the coefficient only.",
+   "src": "https://map.mathshell.org/lessons.php?unit=8100&collection=8"
+  }
+ ],
+ "real": [
+  {
+   "wrong": "Төгсгөлгүй аравтын бутархай бүрийг иррационал гэх",
+   "example": "0.121212...-ыг иррационал гэх (зөв нь 12/99 = 4/33)",
+   "why": "Иррационалын тодорхойлолтоос «үелэхгүй» гэсэн нөхцөлийг мартдаг.",
+   "fix": "Үелэх бутархайг энгийн бутархай болгох аргыг үзүүлнэ.",
+   "en": "Thinks every non-terminating decimal is irrational.",
+   "src": "https://map.mathshell.org/lessons.php?unit=9105&collection=8"
+  },
+  {
+   "wrong": "Тооцоолуурын хариугаар рационал гэж дүгнэх",
+   "example": "π ≈ 3.14 тул π рационал гэх",
+   "why": "Ойролцоо утга ба яг утгыг ялгадаггүй; тооцоолуурын дэлгэцэд итгэдэг.",
+   "fix": "Ойролцоо утга нь яг тоо биш гэдгийг ярилцаж, тодорхойлолтоор шалгуулна.",
+   "en": "Relies on calculator decimals to judge rationality.",
+   "src": "https://emis.univie.ac.at/proceedings/PME28/RR/RR082_Zazkis.pdf"
+  },
+  {
+   "wrong": "Иррационал тоо агуулсан илэрхийлэл заавал иррационал гэх",
+   "example": "(5 + √5)(5 − √5)-ыг иррационал гэх (зөв нь 25 − 5 = 20)",
+   "why": "Илэрхийллийг хялбарчлахгүйгээр харагдах байдлаар нь дүгнэдэг.",
+   "fix": "Хаалтыг задлуулж утгыг олуулна.",
+   "en": "Assumes expressions containing radicals are irrational.",
+   "src": "https://map.mathshell.org/lessons.php?unit=9105&collection=8"
+  }
+ ],
+ "power-fn": [
+  {
+   "wrong": "x² ≥ x үргэлж биелнэ гэх",
+   "example": "0.5² > 0.5 гэх (зөв нь 0.25 < 0.5)",
+   "why": "Зэрэгт дэвшүүлэхэд үргэлж ихэсдэг гэсэн натурал тооны туршлагаа ерөнхийлдөг.",
+   "fix": "y = x ба y = x²-ийн графикийг (0; 1) завсарт харьцуулуулна.",
+   "en": "Thinks squaring always increases a number.",
+   "src": "https://pasithee.library.upatras.gr/ejupUNESCOchair/article/view/3210",
+   "draft": true
+  },
+  {
+   "wrong": "Сондгой зэргийн функцийг y тэнхлэгт тэгш хэмтэй гэх",
+   "example": "y = x³-ийн график y тэнхлэгт тэгш хэмтэй гэх (зөв нь эхийн цэгт тэгш хэмтэй)",
+   "why": "y = x²-ийн хэлбэрийг бүх зэрэгт функцэд ерөнхийлдөг.",
+   "fix": "f(−2) = −8, f(2) = 8-ыг бодуулж харьцуулуулна.",
+   "en": "Overgeneralises the shape of y = x² to odd powers.",
+   "src": "https://map.mathshell.org/lessons.php?unit=9260&collection=8",
+   "draft": true
+  }
+ ],
+ "exp-fn": [
+  {
+   "wrong": "Илтгэгч өсөлтийг шугаман гэж бодох",
+   "example": "Жилд 8% өсөх хадгаламж жил бүр ижил дүнгээр өснө гэх",
+   "why": "Нэмэх загвар илүү танил тул үржих загварыг шугаман болгодог.",
+   "fix": "Жил бүрийн дүнг хүснэгтээр бодуулж, өсөлт нэмэгдэж байгааг харуулна.",
+   "en": "Treats exponential growth as linear.",
+   "src": "https://map.mathshell.org/lessons.php?unit=9240&collection=8"
+  },
+  {
+   "wrong": "Илтгэгч ба квадрат функцийг андуурах",
+   "example": "y = 2ˣ ба y = x² ижил хурдтай өснө гэх (x = 10 үед 1024 ба 100)",
+   "why": "Хоёр муруй хоёулаа «хурдан өсдөг» тул ялгадаггүй.",
+   "fix": "x = 1-ээс 10 хүртэл хоёр функцийн утгыг хүснэгтээр харьцуулуулна.",
+   "en": "Confuses exponential and quadratic growth.",
+   "src": "https://scholars.unh.edu/honors/902"
+  },
+  {
+   "wrong": "Илтгэгч өсөлтийн хэмжээг дутуу үнэлэх",
+   "example": "0.1 мм зузаан цаасыг 20 удаа нугалахад хэдхэн см болно гэх (зөв нь 0.1 × 2²⁰ мм ≈ 105 м)",
+   "why": "Нүдээр төсөөлөхдөө шугаман сэтгэлгээнд шилждэг.",
+   "fix": "Нугалалт бүрийн зузааныг хүснэгтээр бодуулна.",
+   "en": "Underestimates exponential growth (paper-folding task).",
+   "src": "https://arxiv.org/pdf/1009.5524"
+  }
+ ],
+ "matrix": [
+  {
+   "wrong": "Матрицын үржвэрийг байр сэлгэнэ гэж бодох",
+   "example": "A = [[1, 2], [0, 1]], B = [[1, 0], [1, 1]] үед AB = BA гэх (AB = [[3, 2], [1, 1]], BA = [[1, 2], [1, 3]])",
+   "why": "Тооны үржвэрийн байр сэлгэх чанарыг матрицад шилжүүлдэг.",
+   "fix": "Хоёр үржвэрийг бодуулж харьцуулуулна.",
+   "en": "Assumes matrix multiplication is commutative.",
+   "src": "https://www.thecorestandards.org/Math/Content/HSN/VM/"
+  },
+  {
+   "wrong": "Матрицыг харгалзах элементээр нь үржүүлэх",
+   "example": "[[1, 2], [3, 4]] · [[1, 0], [0, 1]] = [[1, 0], [0, 4]] гэх (зөв нь [[1, 2], [3, 4]])",
+   "why": "Нэмэх дүрмийг (элемент тус бүр) үржих үйлдэлд хэрэглэдэг.",
+   "fix": "Нэгж матрицаар үржүүлэхэд матриц өөрчлөгдөхгүй байх ёстойг жишээгээр харуулна.",
+   "en": "Multiplies matrices entry by entry.",
+   "src": "https://www.thecorestandards.org/Math/Content/HSN/VM/",
+   "draft": true
+  }
+ ],
+ "det": [
+  {
+   "wrong": "det(kA) = k · det(A) гэх",
+   "example": "det A = 3 бол 2×2 матрицад det(2A) = 6 гэх (зөв нь 2² · 3 = 12)",
+   "why": "Матриц ба тодорхойлогчийг андуурдаг; тоо мөр бүрт үржигддэгийг анзаардаггүй.",
+   "fix": "[[1, 0], [0, 3]] гэх энгийн матрицаар бодуулж шалгуулна.",
+   "en": "Believes det(kA) = k det(A).",
+   "src": "https://arxiv.org/pdf/2411.03332"
+  },
+  {
+   "wrong": "Нийлбэрийн тодорхойлогчийг тодорхойлогчдын нийлбэр гэх",
+   "example": "A = B = E (нэгж) үед det(A + B) = 1 + 1 = 2 гэх (зөв нь det(2E) = 4)",
+   "why": "Шугаман чанарыг тодорхойлогчид ерөнхийлдөг.",
+   "fix": "Жижиг жишээгээр хоёр талыг тоогоор бодуулна.",
+   "en": "Assumes det(A + B) = det A + det B.",
+   "src": "https://arxiv.org/pdf/2411.03332",
+   "draft": true
+  },
+  {
+   "wrong": "2×2 урвуу матрицад тэмдэг солих алхмыг орхих",
+   "example": "A = [[2, 1], [5, 3]] (det A = 1) үед A⁻¹ = [[3, 1], [5, 2]] гэх (зөв нь [[3, −1], [−5, 2]])",
+   "why": "Томьёог цээжилсэн боловч алхмуудыг дутуу санадаг.",
+   "fix": "A · A⁻¹ = E эсэхийг үржүүлж шалгуулна.",
+   "en": "Forgets the sign changes in the 2×2 inverse.",
+   "src": "https://ojs.unpkediri.ac.id/index.php/matematika/article/view/22258",
+   "draft": true
+  }
+ ],
+ "quad-ineq": [
+  {
+   "wrong": "Квадрат тэнцэтгэл бишийг тэгшитгэл шиг бодоод язгуураар хариулах",
+   "example": "x² − 5x + 6 < 0-ийн шийд x = 2, x = 3 гэх (зөв нь 2 < x < 3)",
+   "why": "Квадрат тэгшитгэлийн аргыг тэнцэтгэл бишид шууд шилжүүлдэг.",
+   "fix": "Парабол зуруулж, тэнхлэгээс доош байх хэсгийг олуулна.",
+   "en": "Carries the equation method over and stops at the roots.",
+   "src": "https://repository.nie.edu.sg/handle/10497/19551"
+  },
+  {
+   "wrong": "x² < 9-ийг x < 3 гэж хялбарчлах",
+   "example": "x² < 9 → x < 3 гэх (зөв нь −3 < x < 3)",
+   "why": "Сөрөг язгуурыг орхидог.",
+   "fix": "x = −5-ыг орлуулж: 25 < 9 биелэхгүйг харуулна.",
+   "en": "Ignores the negative boundary.",
+   "src": "https://repository.nie.edu.sg/handle/10497/19551",
+   "draft": true
+  },
+  {
+   "wrong": "Язгууруудын дотор, гадна талыг андуурах",
+   "example": "x² − 4 > 0-ийн шийд −2 < x < 2 гэх (зөв нь x < −2 эсвэл x > 2)",
+   "why": "Тэмдгийн хүснэгт эсвэл графикийг ашиглахгүй таамагладаг.",
+   "fix": "Завсар бүрээс нэг туршилтын утга (x = 0, x = 3) орлуулж шалгуулна.",
+   "en": "Chooses the wrong region between/outside the roots.",
+   "src": "https://repository.nie.edu.sg/handle/10497/19551",
+   "draft": true
+  }
+ ],
+ "gp": [
+  {
+   "wrong": "Ерөнхий гишүүнд qⁿ⁻¹-ийн оронд qⁿ хэрэглэх",
+   "example": "b₁ = 2, q = 3 үед b₄ = 2 · 3⁴ = 162 гэх (зөв нь 2 · 3³ = 54)",
+   "why": "Эхний гишүүнээс 4 дэх хүртэл 3 удаа үржүүлдгийг анзаардаггүй.",
+   "fix": "b₁, b₂, b₃-ыг томьёогоор бодуулж шалгуулна.",
+   "en": "Uses qⁿ instead of qⁿ⁻¹.",
+   "src": "https://mr-mathematics.com/higher-tier-sequences/"
+  },
+  {
+   "wrong": "b₁ · q-г эхлээд үржүүлээд зэрэг дэвшүүлэх",
+   "example": "b₄ = (2 · 3)³ = 216 гэх (зөв нь 54)",
+   "why": "Үйлдлийн дарааллыг (зэрэг эхэлнэ) мартдаг.",
+   "fix": "2 · 3³ ба (2 · 3)³-ыг тус тусад нь бодуулна.",
+   "en": "Raises b₁q to the power instead of q only.",
+   "src": "https://mr-mathematics.com/higher-tier-sequences/",
+   "draft": true
+  }
+ ],
+ "binomial-th": [
+  {
+   "wrong": "(a + b)ⁿ = aⁿ + bⁿ гэх",
+   "example": "(x + 2)³ = x³ + 8 гэх (зөв нь x³ + 6x² + 12x + 8)",
+   "why": "Зэргийг нийлбэрийн гишүүн бүрт тараадаг (хуурамч шугаман чанар).",
+   "fix": "x = 1 орлуулж: 27 ≠ 9 гэдгийг харуулна.",
+   "en": "Applies 'powers obey linearity'.",
+   "src": "https://openlearning.aalto.fi/question/type/stack/doc/doc.php/CAS/Buggy_rules.md"
+  },
+  {
+   "wrong": "Гишүүний зөвхөн нэг хэсгийг зэрэгт дэвшүүлэх эсвэл тэмдэг алдах",
+   "example": "(1 − 2x)⁶-ийн x³-тай гишүүнийг 20 · 2x³ = 40x³ эсвэл 160x³ гэх (зөв нь 20 · (−2x)³ = −160x³)",
+   "why": "Коэффициент ба тэмдгийг хаалтгүйгээр бичдэг.",
+   "fix": "Гишүүн бүрийг C(n, k) · (−2x)ᵏ гэж хаалттай бичүүлнэ.",
+   "en": "Raises only part of the term to the power / drops the sign.",
+   "src": "https://mei.org.uk/files/sow/08-binomial-expansion.pdf"
+  },
+  {
+   "wrong": "Гишүүний дугаар ба k-г андуурах",
+   "example": "(a + b)⁶-ийн 4 дэх гишүүнд C(6, 4) хэрэглэх (зөв нь C(6, 3))",
+   "why": "k нь 0-ээс эхэлдэг тул (k + 1) дэх гишүүн гэдгийг мартдаг.",
+   "fix": "Эхний гишүүн k = 0 гэдгийг хүснэгтээр бичүүлнэ.",
+   "en": "Off-by-one between term number and k.",
+   "src": "https://www.revisiondojo.com/blog/ib-maths-aa-binomial-theorem-common-mistakes"
+  }
+ ],
+ "fn-props": [
+  {
+   "wrong": "Урвуу функцийг 1/f гэж ойлгох",
+   "example": "f(x) = 2x + 1 үед f⁻¹(x) = 1/(2x + 1) гэх (зөв нь (x − 1)/2)",
+   "why": "−1 зэрэгтэй тэмдэглэгээг урвуу тоо (1/x) гэж уншдаг.",
+   "fix": "f(f⁻¹(x)) = x эсэхийг шалгуулна.",
+   "en": "Reads f⁻¹ as the reciprocal 1/f.",
+   "src": "https://www.ejmste.com/article/pre-service-teachers-knowledge-of-identifying-and-clearing-pupils-misconceptions-about-inverse-and-9378",
+   "draft": true
+  },
+  {
+   "wrong": "Урвуу функцийн язгуурын тэмдгийг үл тоох",
+   "example": "f(x) = x², x ≤ 0 үед f⁻¹(x) = √x гэх (зөв нь −√x)",
+   "why": "Язгуур авахад эерэг утгыг автоматаар сонгодог.",
+   "fix": "f⁻¹-ийн утгын муж f-ийн тодорхойлогдох мужтай таарах ёстойг шалгуулна.",
+   "en": "Defaults to the positive root, ignoring the domain restriction.",
+   "src": "https://arxiv.org/html/2509.19357v2"
+  },
+  {
+   "wrong": "Тэгш/сондгой функцийг зэргийн тэгш, сондгойгоор шийдэх",
+   "example": "f(x) = x² + x-ийг тэгш функц гэх (зөв нь аль нь ч биш)",
+   "why": "Тэгш функцийг «x² агуулсан» гэж ойлгодог.",
+   "fix": "f(−x)-ийг бодуулж f(x) ба −f(x)-тэй харьцуулуулна.",
+   "en": "Decides parity by spotting even powers.",
+   "src": "https://doi.org/10.3102/00346543060001001",
+   "draft": true
+  }
+ ],
+ "lin-sys-mat": [
+  {
+   "wrong": "AX = B-ээс X = BA⁻¹ гэх",
+   "example": "X-ийг олохдоо B · A⁻¹-ийг бодох (зөв нь X = A⁻¹B)",
+   "why": "Матрицын үржвэр байр сэлгэдэггүйг анзаардаггүй.",
+   "fix": "AX = B-ийн хоёр талыг зүүн талаас нь A⁻¹-ээр үржүүлэх алхмыг бичүүлнэ.",
+   "en": "Multiplies by the inverse on the wrong side.",
+   "src": "https://www.thecorestandards.org/Math/Content/HSN/VM/",
+   "draft": true
+  },
+  {
+   "wrong": "Хувьсагчдыг эгнээгээр нь эрэмбэлэхгүй матриц бичих",
+   "example": "2x + y = 5, y − x = 1 системийн хоёр дахь мөрийг [1, −1 | 1] гэх (зөв нь [−1, 1 | 1])",
+   "why": "Тэгшитгэлийн бичигдсэн дарааллаар коэффициентийг хуулдаг.",
+   "fix": "Эхлээд бүх тэгшитгэлийг x, y дарааллаар дахин бичүүлнэ.",
+   "en": "Misaligns variables when forming the coefficient matrix.",
+   "src": "https://ojs.unpkediri.ac.id/index.php/matematika/article/view/22258",
+   "draft": true
+  }
+ ],
+ "poly-div": [
+  {
+   "wrong": "Безугийн теоремд буруу тэмдэгтэй утга орлуулах",
+   "example": "P(x) = x² + 2x + 3-ыг (x − 1)-д хуваахад үлдэгдэл P(−1) = 2 гэх (зөв нь P(1) = 6)",
+   "why": "(x − a) дахь «−a»-г шууд орлуулдаг.",
+   "fix": "x − 1 = 0 тэгшитгэлийг бодуулж орлуулах утгыг олуулна.",
+   "en": "Substitutes −a instead of a in the remainder theorem.",
+   "src": "https://journal.hcmue.edu.vn/index.php/hcmuejos/article/view/2616",
+   "draft": true
+  },
+  {
+   "wrong": "Хуваахдаа дутуу зэргийн гишүүнд 0 тавихгүй",
+   "example": "x³ + 4-ийг (x − 2)-т хуваахдаа 0x², 0x-ийг орхиж эгнээ алдах (зөв нь x² + 2x + 4, үлдэгдэл 12)",
+   "why": "Багана бүр нэг зэрэгтэй тохирох ёстойг анзаардаггүй.",
+   "fix": "Эхлээд x³ + 0x² + 0x + 4 гэж бүрэн бичүүлнэ.",
+   "en": "Omits zero placeholders in long division.",
+   "src": "https://journal.hcmue.edu.vn/index.php/hcmuejos/article/view/2616",
+   "draft": true
+  },
+  {
+   "wrong": "Язгуураас үржигдэхүүн бичихэд тэмдэг андуурах",
+   "example": "Язгуур 3, −2, −5 бол (x + 3)(x − 2)(x − 5) гэх (зөв нь (x − 3)(x + 2)(x + 5))",
+   "why": "x = 3 үед 0 болох хаалт нь (x − 3) гэдгийг шалгадаггүй.",
+   "fix": "Язгуур бүрийг хаалтад орлуулж 0 болох эсэхийг шалгуулна.",
+   "en": "Sign errors between roots and factors.",
+   "src": "https://map.mathshell.org/lessons.php?unit=9270&collection=8"
+  }
+ ],
+ "complex": [
+  {
+   "wrong": "√a · √b = √(ab) дүрмийг сөрөг тоонд хэрэглэх",
+   "example": "√(−4) · √(−9) = √36 = 6 гэх (зөв нь 2i · 3i = −6)",
+   "why": "Эерэг тооны язгуурын дүрмийг сөрөг тоонд шилжүүлдэг.",
+   "fix": "Эхлээд √(−4) = 2i, √(−9) = 3i гэж бичүүлээд үржүүлнэ.",
+   "en": "Applies √a·√b = √(ab) to negative radicands.",
+   "src": "https://journal.uob.edu.bh/handle/123456789/2811"
+  },
+  {
+   "wrong": "i-ийн зэргийг буруу тооцох",
+   "example": "i⁶ = 1 гэх (зөв нь i⁴ · i² = −1)",
+   "why": "i² = −1 ба i⁴ = 1-ийн мөчлөгийг ашигладаггүй.",
+   "fix": "i, i², i³, i⁴-ийн мөчлөгийг хүснэгтээр бичүүлж, илтгэгчийг 4-т хуваах үлдэгдлээр олуулна.",
+   "en": "Simplifies powers of i incorrectly.",
+   "src": "https://journal.uob.edu.bh/handle/123456789/2811",
+   "draft": true
+  },
+  {
+   "wrong": "Комплекс тоог хуваахдаа хэсэг тус бүрээр нь хуваах",
+   "example": "(1 + i)/(1 − i) = 1/1 + i/(−i) = 0 гэх (зөв нь i)",
+   "why": "Бодит тооны бутархайг хуваах дүрмийг буруу ерөнхийлдөг.",
+   "fix": "Хүртвэр, хуваарийг хосмог тоо (1 + i)-ээр үржүүлэх аргыг алхамчлан үзүүлнэ.",
+   "en": "Divides complex numbers part by part.",
+   "src": "https://journal.uob.edu.bh/handle/123456789/2811",
+   "draft": true
+  }
+ ],
+ "induction": [
+  {
+   "wrong": "Индукцийн алхам хангалттай, суурь алхмыг шалгах шаардлагагүй гэх",
+   "example": "1 + 2 + ... + n = n(n + 1)/2 + 1 гэдэгт индукцийн алхам биелдэг тул үнэн гэх (n = 1 үед 1 ≠ 2)",
+   "why": "Аргыг процедур гэж цээжилсэн, хоёр алхмын үүргийг ойлгоогүй.",
+   "fix": "Суурь алхам биелэхгүй үед дүгнэлт худал болдог энэ жишээг ярилцуулна.",
+   "en": "Thinks the inductive step alone proves the claim.",
+   "src": "https://www.atlantis-press.com/article/125972964.pdf",
+   "draft": true
+  },
+  {
+   "wrong": "P(k + 1)-ийг батлах оронд таамаглал болгон ашиглах",
+   "example": "Батлах ёстой P(k + 1) тэнцэтгэлийг шууд «үнэн гэж үзье» гээд хоёр талыг хувиргах",
+   "why": "P(k + 1)-ийг бичих, юуг таамаглаж юуг батлахыг ялгахад хэцүү байдаг.",
+   "fix": "Таамаглал P(k) ба зорилго P(k + 1)-ийг тус тусад нь хайрцагт бичүүлнэ.",
+   "en": "Assumes what must be proved (P(k + 1)).",
+   "src": "https://www.atlantis-press.com/article/125972964.pdf"
+  },
+  {
+   "wrong": "n нь юуг илэрхийлж байгааг ойлгохгүй, үргэлж n = 1-ээс эхлэх",
+   "example": "n ≥ 4 үед 2ⁿ ≥ n²-ийг батлахад n = 1-ээс эхлэх",
+   "why": "n-ийн утга ба нөхцөлийг ойлгоогүй, загвар хуулдаг.",
+   "fix": "Нөхцөл дэх хамгийн бага n-ийг эхлээд тодорхойлуулна.",
+   "en": "Misunderstands n and always starts the base case at n = 1.",
+   "src": "https://doaj.org/article/63526624807d4a41b7afd4805e417af0"
+  }
+ ],
+ "log": [
+  {
+   "wrong": "lg(a + b) = lg a + lg b гэх",
+   "example": "lg(10 + 10) = lg 10 + lg 10 = 2 гэх (зөв нь lg 20 ≈ 1.30)",
+   "why": "Алгебрын дүрмийг (хуваарилах) логарифмд хэт ерөнхийлдөг.",
+   "fix": "lg(ab) = lg a + lg b гэдгийг харьцуулж, тооцоолуураар хоёр талыг шалгуулна.",
+   "en": "Over-generalises: log(a + b) = log a + log b.",
+   "src": "https://math.nie.edu.sg/ame/matheduc/journal/v8_2/v82_53.aspx"
+  },
+  {
+   "wrong": "Логарифмуудын харьцааг харьцааны логарифм гэх",
+   "example": "lg 100 / lg 10 = lg 10 = 1 гэх (зөв нь 2 / 1 = 2)",
+   "why": "lg a − lg b = lg(a/b) дүрмийг харьцаатай андуурдаг.",
+   "fix": "Хоёр илэрхийллийг тоогоор бодуулж харьцуулуулна.",
+   "en": "Confuses log a / log b with log(a/b).",
+   "src": "https://math.nie.edu.sg/ame/matheduc/journal/v8_2/v82_53.aspx"
+  },
+  {
+   "wrong": "Логарифмыг хуваах үйлдэл гэж ойлгох",
+   "example": "log₂ 8 = 8 : 2 = 4 гэх (зөв нь 3, учир нь 2³ = 8)",
+   "why": "Логарифмын тодорхойлолтыг (зэргийн илтгэгч) ойлгоогүй.",
+   "fix": "«2-ыг хэдэн зэрэгт дэвшүүлбэл 8 болох вэ?» гэж асуулгаар бодуулна.",
+   "en": "Treats log as division.",
+   "src": "https://math.nie.edu.sg/ame/matheduc/journal/v8_2/v82_53.aspx",
+   "draft": true
+  }
+ ],
+ "rat-fn": [
+  {
+   "wrong": "График хэвтээ асимптотыг хэзээ ч огтлохгүй гэх",
+   "example": "y = x/(x² + 1) нь y = 0 асимптотоо огтлохгүй гэх (x = 0 үед y = 0 тул огтолно)",
+   "why": "Босоо асимптотын шинжийг хэвтээ асимптотод шилжүүлдэг.",
+   "fix": "y = 0 тэгшитгэлийг бодуулж огтлолцлын цэгийг олуулна.",
+   "en": "Believes graphs never cross horizontal asymptotes.",
+   "src": "https://www.coolmath.com/algebra/23-graphing-rational-functions/05-graphing-rational-functions-all-parts-03"
+  },
+  {
+   "wrong": "Хүртвэрийн тэгийг босоо асимптот гэх",
+   "example": "y = (x − 1)/(x + 3)-ийн босоо асимптот x = 1 гэх (зөв нь x = −3)",
+   "why": "Хүртвэр ба хуваарийн үүргийг андуурдаг.",
+   "fix": "x = −3 ба x = 1 үед функцийн утга юу болохыг бодуулна.",
+   "en": "Puts the vertical asymptote at a zero of the numerator.",
+   "src": "https://doaj.org/article/c42d6588973448a080a19ab0e61048bd"
+  },
+  {
+   "wrong": "Нүх (хасагдсан цэг)-ийг асимптот гэж үзэх",
+   "example": "y = (x² − 4)/(x − 2)-д x = 2 босоо асимптот гэх (зөв нь x = 2 үед нүхтэй y = x + 2 шулуун)",
+   "why": "Хуваарь 0 болох бүх цэгийг асимптот гэж боддог.",
+   "fix": "Эхлээд хураагаад (x + 2) үлдэх эсэхийг шалгуулна.",
+   "en": "Confuses a removable hole with an asymptote.",
+   "src": "https://doaj.org/article/c42d6588973448a080a19ab0e61048bd"
+  }
+ ]
+}

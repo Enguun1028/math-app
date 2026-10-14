@@ -1,0 +1,1577 @@
+{
+ "_note": "Misconceptions for strands geo, meas, stat, calc (fan-out stream MISCONCEPTIONS, 2026-10-14). Each item: wrong (what the student thinks), example (own numbers, recomputed), why, fix, en, src. The general pattern is taken from the cited source; Mongolian wording, examples and fixes are our own summaries. Items with \"draft\": true are standard classroom errors that the cited source supports only in general (or by a practitioner page, not research) - check before using in the app. For quiz distractors use the wrong answer in \"example\".",
+ "b-shapes": [
+  {
+   "wrong": "Квадратыг тэгш өнцөгт биш гэж үздэг.",
+   "example": "«Квадрат тэгш өнцөгт мөн үү?» гэхэд «Үгүй, квадрат өөр дүрс» гэж хариулна.",
+   "why": "Дүрсийг шинж чанараар биш, харагдах байдлаар (загвар зургаар) нь танидаг.",
+   "fix": "Тэгш өнцөгтийн шинжүүдийг (4 тэгш өнцөг, эсрэг талууд тэнцүү) жагсааж, квадрат бүгдийг нь хангаж байгааг шалгуулна.",
+   "en": "Thinks a square is not a rectangle (prototype thinking).",
+   "src": "https://en.wikipedia.org/wiki/Van_Hiele_model"
+  },
+  {
+   "wrong": "Эргүүлсэн квадратыг «ромб» эсвэл өөр дүрс гэж үздэг.",
+   "example": "Үзүүрээрээ доош харсан квадратыг «энэ квадрат биш, ромб» гэнэ.",
+   "why": "Сурах бичгийн ихэнх зураг нэг ижил байрлалтай (суурь нь хэвтээ) байдаг.",
+   "fix": "Нэг дүрсийг олон янзаар эргүүлж зурж, талын урт ба өнцөг өөрчлөгдөөгүйг хэмжүүлнэ.",
+   "en": "Fails to recognise a shape when it is rotated (non-prototypical orientation).",
+   "src": "https://www.mic.ul.ie/sites/default/files/uploads/146/2015%20APMC_HouriganLeavy_RealShape_Polygons2D.pdf"
+  },
+  {
+   "wrong": "Гурвалжныг зөвхөн «суурь нь доор, орой нь дээр» байвал гурвалжин гэж үздэг.",
+   "example": "Нарийн, урт, эсвэл хөрвөсөн гурвалжныг «гурвалжин биш» гэнэ.",
+   "why": "Хүүхэд зөвхөн тэгш талт буюу адил хажуут загвар гурвалжин л их хардаг.",
+   "fix": "3 шулуун тал, 3 оройтой бол ямар ч хэлбэртэй байсан гурвалжин гэдгийг олон жишээ, эсрэг жишээгээр харуулна.",
+   "en": "Only accepts the \"standard\" upright triangle as a triangle.",
+   "src": "https://nctm.confex.com/nctm/2016AM/webprogram/Handout/Session38652/NCTM_Final_Activities%20that%20Combat%20Shape%20Misunderstandings_San%20Fran_2016.pdf"
+  }
+ ],
+ "b-sym": [
+  {
+   "wrong": "Тэгш өнцөгтийн диагонал тэгш хэмийн тэнхлэг гэж үздэг.",
+   "example": "3 × 5 тэгш өнцөгтийг диагоналаар нь нугалахад хоёр хэсэг давхцана гэж хэлнэ.",
+   "why": "Диагональ тэгш хэмийн тэнхлэг үргэлж оройгоор дайрдаг гэж санадаг.",
+   "fix": "Цаас нугалуулж, хоёр хэсэг давхцахгүйг өөрөөр нь шалгуулна.",
+   "en": "Thinks a rectangle's diagonal is a line of symmetry.",
+   "src": "https://www.cazoommaths.com/maths-worksheets/geometry-worksheets/reflection/"
+  },
+  {
+   "wrong": "Налуу тольны шулуунд тусгахдаа торын шугамын дагуу тоолдог.",
+   "example": "Налуу шулуунаас 2 нүд зайтай цэгийг хэвтээ чиглэлд 2 нүд шилжүүлж тавина.",
+   "why": "Зайг тольны шулуунд перпендикуляр биш, торын дагуу хэмждэг.",
+   "fix": "Цэг бүрээс тольны шулуунд перпендикуляр татаж, хоёр талд ижил зай авахыг харуулна.",
+   "en": "Counts along grid lines instead of perpendicular to a diagonal mirror line.",
+   "src": "https://www.cazoommaths.com/maths-worksheets/geometry-worksheets/reflection/"
+  },
+  {
+   "wrong": "Харахад тэгш хэмтэй мэт байвал тусгал зөв гэж үздэг.",
+   "example": "Тольны нэг талд 2 нүд, нөгөө талд 4 нүд байхад «тусгал болсон» гэнэ.",
+   "why": "Дүрсийн ерөнхий хэлбэрийг харж, цэг бүрийн зайг шалгадаггүй.",
+   "fix": "Орой бүрийн тольноос алсыг тоолж хоёр талд тэнцүү эсэхийг шалгуулна.",
+   "en": "Accepts an image that only looks symmetric as a reflection.",
+   "src": "https://www.thenational.academy/pupils/lessons/reflecting-in-a-given-diagonal-line-part-1-c4w32t/video"
+  }
+ ],
+ "b-grid": [
+  {
+   "wrong": "Координатын хосыг (x, y) биш (y, x) дарааллаар уншдаг.",
+   "example": "(2, 5) цэгийг баруун тийш 5, дээш 2 алхаж тэмдэглэнэ.",
+   "why": "Хоёр тооны аль нь хэвтээ, аль нь босоо болохыг дүрэм болгон тогтоогоогүй.",
+   "fix": "«Эхлээд хэвтээ (x), дараа нь босоо (y)» гэж алхам алхмаар хөдлүүлж давтуулна.",
+   "en": "Plots coordinate pairs in reversed order.",
+   "src": "https://groups.google.com/g/mathfuture/c/0tGezsiflZM/m/Ga0k6Q1fTSYJ?hl=en",
+   "draft": true
+  },
+  {
+   "wrong": "Цэгийг нүдний дотор тавьдаг (шугамын огтлолцол дээр биш).",
+   "example": "(3, 2) цэгийг 3 ба 4-ийн хоорондох нүдний голд тавина.",
+   "why": "Тоолох үед нүднүүдийг тоолж, шугамуудыг тоолдоггүй.",
+   "fix": "Координат нь шугамын огтлолцол дээр байдгийг тоон шулуунтай холбож харуулна.",
+   "en": "Places points in grid squares rather than at line intersections.",
+   "src": "https://groups.google.com/g/mathfuture/c/0tGezsiflZM/m/Ga0k6Q1fTSYJ?hl=en",
+   "draft": true
+  }
+ ],
+ "b-units": [
+  {
+   "wrong": "Шугамаар хэмжихдээ 0-ээс биш 1-ээс эхэлдэг.",
+   "example": "1-ээс 6 хүртэл үргэлжлэх харандааг «6 см» гэнэ; жинхэнэ урт нь 5 см.",
+   "why": "Тоолохдоо 1-ээс эхэлдэг дадлаа шугам дээр шууд хэрэглэдэг.",
+   "fix": "Шугамын хуваарь хоорондох «нэгж зай»-г тоолуулж, эхлэл цэгийг 0 гэж ойлгуулна.",
+   "en": "Starts measuring at 1 instead of 0 on a ruler.",
+   "src": "https://academia.library.upatras.gr/mje/article/download/5550/5199"
+  },
+  {
+   "wrong": "Зураасуудыг (тэмдгийг) тоолж, хоорондох зайг тоолдоггүй.",
+   "example": "2-оос 5 хүртэл 4 зураас байгаа тул «4 см» гэнэ; зөв нь 3 см.",
+   "why": "Урт нь зай гэдгийг биш, тоо тоолох гэж ойлгодог.",
+   "fix": "Нэгж хэсгүүдийг (жишээ нь шоо) шугам дээр тавьж зайг тоолуулна.",
+   "en": "Counts tick marks instead of unit intervals.",
+   "src": "https://repositorio.ipl.pt/bitstreams/bb202cc4-92cb-4f95-b6d4-f65fbbe26a8b/download"
+  },
+  {
+   "wrong": "Зүйлийн төгсгөлийн тоог л уншдаг.",
+   "example": "3-аас 8 хүртэлх зүйлийг «8 см» гэнэ; зөв нь 5 см.",
+   "why": "Эхлэл цэгийг тооцохгүй, төгсгөлийн тоог хариу гэж үздэг.",
+   "fix": "Эхлэл 0 биш үед хасах аргаар (8 − 3 = 5) эсвэл нэгжүүдийг тоолж шалгуулна.",
+   "en": "Reads the number at the end point regardless of the start.",
+   "src": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11278360/"
+  }
+ ],
+ "b-time": [
+  {
+   "wrong": "1.5 цагийг 1 цаг 50 минут гэж уншдаг.",
+   "example": "90 минут = 1.5 цаг гэж олоод «1 цаг 50 минут» гэнэ; зөв нь 1 цаг 30 минут.",
+   "why": "Цаг 60-аар, аравтын бутархай 10-аар хуваагддагийг хольдог.",
+   "fix": "0.5 цаг = цагийн хагас = 30 минут гэж тоон шулуун дээр харуулна.",
+   "en": "Reads 1.5 hours as 1 h 50 min (base-60 vs decimal).",
+   "src": "https://www.cazoommaths.com/maths-worksheets/year-8-maths-worksheets/year-8-converting-between-units-of-time-worksheets/"
+  },
+  {
+   "wrong": "Хугацааны зөрүүг аравтын тоо шиг хасдаг.",
+   "example": "9:50-аас 10:15 хүртэл: 10.15 − 9.50 = 0.65 → «65 минут»; зөв нь 25 минут.",
+   "why": "Цаг ба минутыг нэг тоо гэж үзээд 100-гаар зээлдэг.",
+   "fix": "9:50 → 10:00 (10 мин) → 10:15 (15 мин) гэж алхамаар нэмж тоолуулна.",
+   "en": "Subtracts clock times like decimals.",
+   "src": "https://www.cazoommaths.com/maths-worksheets/year-8-maths-worksheets/year-8-converting-between-units-of-time-worksheets/",
+   "draft": true
+  }
+ ],
+ "b-data": [
+  {
+   "wrong": "Зурган диаграммд дүрс бүрийг 1 гэж тоолж, тайлбарыг (түлхүүрийг) үл тоодог.",
+   "example": "1 зураг = 2 сурагч гэсэн диаграммд 4 зураг байхад «4 сурагч» гэнэ; зөв нь 8.",
+   "why": "Диаграммын түлхүүрийг уншдаггүй.",
+   "fix": "Эхлээд түлхүүрийг чангаар уншуулж, дараа нь тоолуулна.",
+   "en": "Ignores the key of a pictogram (counts symbols as 1 each).",
+   "src": "https://research-portal.uu.nl/en/publications/conceptual-difficulties-when-interpreting-histograms-a-review/",
+   "draft": true
+  },
+  {
+   "wrong": "Баганат диаграммын тэнхлэгийн алхмыг үргэлж 1 гэж боддог.",
+   "example": "Тэнхлэг 0, 5, 10 гэж явсан байхад 3-р шугам хүрсэн баганыг «3» гэнэ; зөв нь 15.",
+   "why": "Хуваарийн тоонуудыг уншихгүйгээр шугам тоолдог.",
+   "fix": "Тэнхлэгийн хуваарийг эхлээд уншиж, нэг шугам хэдтэй тэнцэхийг асууна.",
+   "en": "Assumes a bar-chart scale goes up in ones.",
+   "src": "https://research-portal.uu.nl/en/publications/conceptual-difficulties-when-interpreting-histograms-a-review/",
+   "draft": true
+  }
+ ],
+ "b-angle": [
+  {
+   "wrong": "Өнцгийн хэмжээ талуудын уртаас хамаарна гэж үздэг.",
+   "example": "Урт талтай 30° өнцгийг богино талтай 45° өнцгөөс «том» гэнэ.",
+   "why": "Өнцгийг «эргэлтийн хэмжээ» биш, зурсан зургийн хэмжээ гэж ойлгодог.",
+   "fix": "Нэг өнцгийн талуудыг уртасгаж/богиносгож, өнцөг өөрчлөгдөхгүйг харуулна.",
+   "en": "Judges angle size by the length of the arms.",
+   "src": "https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2020.568388/epub"
+  },
+  {
+   "wrong": "Өнцгийг тэмдэглэсэн нумын радиус том бол өнцөг том гэж үздэг.",
+   "example": "Том нумаар тэмдэглэсэн 40° өнцгийг жижиг нумтай 60° өнцгөөс том гэнэ.",
+   "why": "Нумыг өнцгийн хэмжээ гэж буруу ойлгодог.",
+   "fix": "Хоёр өнцгийг давхарлаж, нээлтийг шууд харьцуулуулна.",
+   "en": "Thinks a bigger arc marking means a bigger angle.",
+   "src": "https://ijres.net/index.php/ijres/article/view/210/pdf"
+  },
+  {
+   "wrong": "Нэг тал нь харагдахгүй үед өнцөг байгааг танихгүй.",
+   "example": "Онгойсон хаалга, налуу замыг өнцөг гэж үздэггүй.",
+   "why": "Өнцгийг хоёр тал нь зурагдсан зураг гэж л ойлгодог.",
+   "fix": "Хаалга, хайч, цагийн зүүг өнцөг болгон эргүүлж харуулна.",
+   "en": "Struggles to see angles when one arm is not visible.",
+   "src": "https://merga.net.au/wp-content/uploads/DOCS/common/Uploaded%20files/Annual%20Conference%20Proceedings/1996%20Annual%20Conference%20Proceedings/RP_Mitchelmore_White_1996.pdf"
+  }
+ ],
+ "b-area": [
+  {
+   "wrong": "Талбайн оронд периметрийг (захын нүдийг) тоолдог.",
+   "example": "3 × 4 тэгш өнцөгтийн захын нүднүүдийг тоолж «10» гэнэ; талбай нь 12 нүд.",
+   "why": "Периметр ба талбайг ялгадаггүй.",
+   "fix": "Талбайг «бүрхэх», периметрийг «хүрээлэх» гэж өнгөөр ялгаж будуулна.",
+   "en": "Counts border squares (perimeter-like) instead of area.",
+   "src": "https://www.ncetm.org.uk/features/teaching-perimeter-and-area-in-year-7-using-ncetm-checkpoints/"
+  },
+  {
+   "wrong": "Хагас нүднүүдийг бүхэл гэж тоолдог эсвэл бүр орхидог.",
+   "example": "Гурвалжныг бүрхсэн 6 бүтэн, 4 хагас нүдийг «10» эсвэл «6» гэнэ; зөв нь 8.",
+   "why": "Хагас нүдийг хосолж нийлүүлэх санааг мэддэггүй.",
+   "fix": "Хоёр хагасыг нийлүүлж нэг бүтэн болгохыг зургаар харуулна.",
+   "en": "Mishandles part-squares when counting area.",
+   "src": "https://avesis.metu.edu.tr/yayin/b1b0cdda-c3ac-4d7c-bdf8-3a846339a0c2/a-study-on-sixth-grade-students-misconceptions-and-errors-in-spatial-measurement-length-area-and-volume",
+   "draft": true
+  }
+ ],
+ "b-chance": [
+  {
+   "wrong": "«Магадлал багатай» ба «боломжгүй»-г ижил гэж үздэг.",
+   "example": "Шоо хаяхад 6 буух нь «боломжгүй» гэнэ (жинхэнэдээ боломжтой, магадлал 1/6).",
+   "why": "Хүлээгээгүй үр дүнг боломжгүй гэж ярианы хэлээр нэрлэдэг.",
+   "fix": "«Хэзээ ч болохгүй», «болж магадгүй», «заавал болно» гэсэн хуваарь дээр байрлуулна.",
+   "en": "Confuses \"unlikely\" with \"impossible\".",
+   "src": "https://fpce.uc.pt/iase-web/documents/papers/icots5/Topic10a.pdf",
+   "draft": true
+  },
+  {
+   "wrong": "Шоонд 6 буух нь бусдаасаа хэцүү гэж үздэг.",
+   "example": "«6 ховор буудаг, 3 амархан буудаг» гэнэ.",
+   "why": "Тоглоомд 6 хэрэгтэй үед удаан хүлээсэн туршлагаасаа дүгнэдэг.",
+   "fix": "Шоог 60 удаа хаяж, тоо бүр ойролцоогоор 10 удаа буухыг тоолуулна.",
+   "en": "Believes some die faces (like 6) are harder to roll.",
+   "src": "https://fpce.uc.pt/iase-web/documents/papers/icots5/Topic10a.pdf"
+  }
+ ],
+ "b-vol": [
+  {
+   "wrong": "Зөвхөн харагдаж буй шоонуудыг тоолдог.",
+   "example": "2 × 2 × 2 шоон байгууламжийн харагдах 7 шоог тоолж «7» гэнэ; зөв нь 8.",
+   "why": "Ар талд нуугдсан шоог тооцдоггүй.",
+   "fix": "Байгууламжийг давхарга давхаргаар задлан тоолуулна.",
+   "en": "Counts only the visible cubes.",
+   "src": "https://toknowpress.net/submission/index.php/ijmkl/article/view/167"
+  },
+  {
+   "wrong": "Шооны оронд нүүрнүүдийг (талбайг) тоолдог.",
+   "example": "2 × 2 × 2 шоог «24» гэнэ (6 нүүр × 4 дөрвөлжин); эзэлхүүн нь 8.",
+   "why": "Гадаргуу ба эзэлхүүнийг хольдог.",
+   "fix": "Гадаргууг «боох цаас», эзэлхүүнийг «дотор нь багтах шоо» гэж ялгаж харуулна.",
+   "en": "Counts faces (surface) instead of cubes (volume).",
+   "src": "https://toknowpress.net/submission/index.php/ijmkl/article/view/167"
+  }
+ ],
+ "tri": [
+  {
+   "wrong": "Гурвалжны өнцгүүдийн нийлбэрийн дүрмийг буруу хэрэглэдэг.",
+   "example": "50° ба 60° өнцөгтэй гурвалжны 3-р өнцгийг 360° − 110° = 250° гэнэ; зөв нь 70°.",
+   "why": "Дөрвөн өнцөгтийн 360°-ийг гурвалжинтай хольдог.",
+   "fix": "Гурвалжны 3 өнцгийг тасдаж нийлүүлэхэд шулуун өнцөг (180°) болохыг харуулна.",
+   "en": "Misapplies the triangle angle-sum (e.g. uses 360°).",
+   "src": "https://ecommons.aku.edu/etd_pk_ied_med/300"
+  },
+  {
+   "wrong": "Хурц ба мохоо өнцгийг хольдог.",
+   "example": "120°-ийг «хурц өнцөг» гэнэ.",
+   "why": "Нэрийг утгатай нь холбоогүй цээжилдэг.",
+   "fix": "90°-тай харьцуулах «буланд» тест хэрэглүүлнэ: буланд багтвал хурц.",
+   "en": "Confuses acute and obtuse angles.",
+   "src": "https://ecommons.aku.edu/etd_pk_ied_med/300"
+  },
+  {
+   "wrong": "Ямар ч гурван урттай хэрчмээр гурвалжин байгуулж болно гэж үздэг.",
+   "example": "2 см, 3 см, 7 см-ээр гурвалжин хийнэ гэнэ; 2 + 3 = 5 < 7 тул боломжгүй.",
+   "why": "Гурвалжны тэнцэтгэл бишийг туршиж үзээгүй.",
+   "fix": "Саваагаар байгуулж үзүүлж, хоёр богино талын нийлбэр урт талаас их байх ёстойг олуулна.",
+   "en": "Ignores the triangle inequality.",
+   "src": "https://ecommons.aku.edu/etd_pk_ied_med/300",
+   "draft": true
+  }
+ ],
+ "transform": [
+  {
+   "wrong": "Тусгахдаа дүрсийг бүхлээр нь хуулж тавьдаг (орой бүрийг биш).",
+   "example": "Налуу тольд тусгахдаа дүрсийг зөвхөн хажуу тийш шилжүүлнэ.",
+   "why": "Тусгал ба зөөлтийг хольдог.",
+   "fix": "Орой бүрийг тусад нь тусгаад, дараа нь холбохыг заана.",
+   "en": "Reflects the whole shape at once instead of vertex by vertex.",
+   "src": "https://www.cazoommaths.com/maths-worksheets/geometry-worksheets/reflection/"
+  },
+  {
+   "wrong": "Эргүүлэлтийн төвийг үл тоож, дүрсийг өөрийнхөө дээр эргүүлдэг.",
+   "example": "(0, 0) төвтэй 90° эргүүлэлтэд дүрсийг байрандаа эргүүлнэ.",
+   "why": "Эргүүлэлтэд төв, өнцөг, чиглэл гурвуулаа хэрэгтэйг мартдаг.",
+   "fix": "Мөшгих цаас ашиглан төвийг харандаагаар дарж эргүүлүүлнэ.",
+   "en": "Ignores the centre of rotation.",
+   "src": "https://www.cazoommaths.com/maths-worksheets/geometry-worksheets/reflection/",
+   "draft": true
+  },
+  {
+   "wrong": "Цагийн зүүний дагуу ба эсрэг чиглэлийг хольдог.",
+   "example": "90° цагийн зүүний эсрэг эргүүлэхийг цагийн зүүний дагуу эргүүлнэ.",
+   "why": "Чиглэлийн нэрийг бодит хөдөлгөөнтэй холбоогүй.",
+   "fix": "Цагийн зураг дээр зүүг хөдөлгөж чиглэлийг шалгуулна.",
+   "en": "Mixes up clockwise and anticlockwise.",
+   "src": "https://www.cazoommaths.com/maths-worksheets/geometry-worksheets/reflection/",
+   "draft": true
+  }
+ ],
+ "solids": [
+  {
+   "wrong": "Ямар ч 6 квадратыг нийлүүлсэн дэлгээс шоо болно гэж үздэг.",
+   "example": "Нэг эгнээнд 6 квадрат бүхий дэлгээсийг шоо болно гэнэ.",
+   "why": "Нүүрний тоог л шалгаж, нугалахад давхцахыг төсөөлдөггүй.",
+   "fix": "Цаасаар хайчилж нугалуулан шалгаж, шооны 11 дэлгээсийг судлуулна.",
+   "en": "Thinks any 6 joined squares fold into a cube.",
+   "src": "https://ejournal.unesa.ac.id/index.php/mathedunesa/article/view/23427/21421"
+  },
+  {
+   "wrong": "Биетийн зөвхөн харагдах нүүрийг тоолдог.",
+   "example": "Тэгш өнцөгт параллелепипедийн зурган дээр «3 нүүртэй» гэнэ; 6 нүүртэй.",
+   "why": "Хавтгай зураг дээр нуугдсан хэсгийг төсөөлдөггүй.",
+   "fix": "Бодит биет эргүүлж, тасархай шугамаар нуугдсан ирмэгийг зуруулна.",
+   "en": "Counts only visible faces of a solid.",
+   "src": "https://toknowpress.net/submission/index.php/ijmkl/article/view/167"
+  },
+  {
+   "wrong": "Хавтгай дүрс ба биетийг хольдог.",
+   "example": "Шоог «квадрат», бөмбөрцгийг «тойрог» гэж нэрлэнэ.",
+   "why": "2 хэмжээст ба 3 хэмжээст ойлголтыг ялгаагүй.",
+   "fix": "Биетийн нүүрийг цаасан дээр мөрөөр нь буулгаж, «нүүр нь квадрат, биет нь шоо» гэж ялгана.",
+   "en": "Treats 2-D shapes and 3-D objects as the same.",
+   "src": "https://toknowpress.net/submission/index.php/ijmkl/article/view/167"
+  }
+ ],
+ "units": [
+  {
+   "wrong": "Талбайн нэгжийг уртын нэгж шиг хувиргадаг.",
+   "example": "1 м² = 100 см² гэнэ; зөв нь 1 м² = 100 × 100 = 10 000 см².",
+   "why": "Урт 100 дахин өсөхөд талбай хоёр чиглэлд өсдөгийг тооцдоггүй.",
+   "fix": "1 м × 1 м квадратыг 100 × 100 жижиг квадратаар хуваасан зургаар харуулна.",
+   "en": "Uses the length factor (100) for area units instead of 10 000.",
+   "src": "https://stem.org.uk/system/files/elibrary-resources/2022/03/How_I_teach_maths_in_Science_-_Clegg__Collins.pdf"
+  },
+  {
+   "wrong": "Жижиг нэгжээс том нэгж рүү шилжихэд үржүүлдэг.",
+   "example": "250 см-ийг м болгоход 250 × 100 = 25 000 м гэнэ; зөв нь 2.5 м.",
+   "why": "Үржүүлэх эсвэл хуваахыг утгаар биш цээжээр сонгодог.",
+   "fix": "«Том нэгжид тоо цөөрнө» гэж хариугаа үнэмшилтэй эсэхээр шалгуулна.",
+   "en": "Multiplies instead of divides when converting to a larger unit.",
+   "src": "https://avesis.metu.edu.tr/yayin/b1b0cdda-c3ac-4d7c-bdf8-3a846339a0c2/a-study-on-sixth-grade-students-misconceptions-and-errors-in-spatial-measurement-length-area-and-volume",
+   "draft": true
+  },
+  {
+   "wrong": "1-ээс бага тоог хувиргахад тоо өсөхгүй гэж боддог.",
+   "example": "0.4 км-ийг м болгоход «0.004 м» гэнэ; зөв нь 400 м.",
+   "why": "Аравтын бутархайтай үед үржүүлэхэд тоо багасна гэж андуурдаг.",
+   "fix": "Аравтын таслалыг шилжүүлэх хүснэгтээр харуулж, хариуг шалгуулна.",
+   "en": "Expects numbers below 1 not to grow when converted.",
+   "src": "https://stem.org.uk/system/files/elibrary-resources/2022/03/How_I_teach_maths_in_Science_-_Clegg__Collins.pdf"
+  }
+ ],
+ "time": [
+  {
+   "wrong": "Аравтын бутархай цагийг минут гэж уншдаг.",
+   "example": "2.25 цагийг 2 цаг 25 минут гэнэ; зөв нь 2 цаг 15 минут (0.25 × 60 = 15).",
+   "why": "Цаг 60-тын системтэйг аравтын системтэй хольдог.",
+   "fix": "Бутархай хэсгийг 60-аар үржүүлж минут болгохыг заана.",
+   "en": "Reads decimal hours as minutes (2.25 h = 2 h 25 min).",
+   "src": "https://www.cazoommaths.com/maths-worksheets/year-8-maths-worksheets/year-8-converting-between-units-of-time-worksheets/"
+  },
+  {
+   "wrong": "Цагийн бүсийн зөрүүг буруу чиглэлд нэмж/хасдаг.",
+   "example": "А хотод 12:00 үед, 7 цагаар хоцорсон Б хотод 19:00 гэнэ; зөв нь 05:00.",
+   "why": "Аль бүс түрүүлж, аль нь хоцорч байгааг тодорхойлдоггүй.",
+   "fix": "Дэлхийн зураг дээр нар зүүнээс мандаж буйг харуулж, «зүүн тийш — цаг түрүүлнэ» гэж тайлбарлана.",
+   "en": "Adds instead of subtracts a time-zone difference.",
+   "src": "https://www.cazoommaths.com/maths-worksheets/year-8-maths-worksheets/year-8-converting-between-units-of-time-worksheets/",
+   "draft": true
+  }
+ ],
+ "perim-area": [
+  {
+   "wrong": "Периметр ба талбайг хольдог.",
+   "example": "4 см × 3 см тэгш өнцөгтийн талбайг 14 см гэнэ (периметр); зөв нь 12 см².",
+   "why": "Хоёр томьёог утгагүй цээжилсэн.",
+   "fix": "Периметрийг утсаар хүрээлж, талбайг нэгж дөрвөлжнөөр бүрхүүлж ялгана.",
+   "en": "Confuses perimeter and area.",
+   "src": "https://www.ncetm.org.uk/features/teaching-perimeter-and-area-in-year-7-using-ncetm-checkpoints/"
+  },
+  {
+   "wrong": "Периметр тэнцүү бол талбай тэнцүү гэж үздэг.",
+   "example": "1 × 5 ба 2 × 4 тэгш өнцөгтийн периметр 12, 12 тул талбай тэнцүү гэнэ; талбай нь 5 ба 8.",
+   "why": "Нэг хэмжигдэхүүн нөгөөгөө тодорхойлно гэж боддог.",
+   "fix": "12 см утсаар өөр өөр тэгш өнцөгт хийлгэж талбайг харьцуулуулна.",
+   "en": "Thinks equal perimeter means equal area.",
+   "src": "https://www.insidemathematics.org/sites/default/files/materials/pizza%20crusts.pdf"
+  },
+  {
+   "wrong": "Талбайн нэгжийг см² биш см гэж бичдэг.",
+   "example": "5 см × 2 см тэгш өнцөгтийн талбай «10 см» гэнэ.",
+   "why": "Нэгж нь хэмжиж буй зүйлээ илэрхийлдгийг ойлгоогүй.",
+   "fix": "Талбай = нэгж квадратын тоо гэж нэгж квадратын зургаар харуулна.",
+   "en": "Writes area units as cm instead of cm².",
+   "src": "https://avesis.metu.edu.tr/yayin/b1b0cdda-c3ac-4d7c-bdf8-3a846339a0c2/a-study-on-sixth-grade-students-misconceptions-and-errors-in-spatial-measurement-length-area-and-volume",
+   "draft": true
+  }
+ ],
+ "vol-surf": [
+  {
+   "wrong": "Гадаргуун талбай ба эзэлхүүнийг хольдог.",
+   "example": "2 × 3 × 4 хайрцагны эзэлхүүнийг 52 гэнэ (гадаргуу); эзэлхүүн 24 см³, гадаргуу 52 см².",
+   "why": "Томьёог утгагүйгээр цээжилсэн.",
+   "fix": "Хайрцгийг цаасаар боож (гадаргуу), шоогоор дүүргэж (эзэлхүүн) ялгана.",
+   "en": "Confuses surface area with volume.",
+   "src": "https://toknowpress.net/submission/index.php/ijmkl/article/view/167"
+  },
+  {
+   "wrong": "Гадаргуун талбайд зөвхөн харагдах 3 нүүрийг нэмдэг.",
+   "example": "2 × 3 × 4 хайрцагны гадаргууг 6 + 8 + 12 = 26 гэнэ; зөв нь 2 × 26 = 52 см².",
+   "why": "Нуугдсан нүүрнүүдийг тооцдоггүй.",
+   "fix": "Дэлгээс зуруулж 6 нүүрийг бүгдийг нь тоолуулна.",
+   "en": "Adds only the three visible faces.",
+   "src": "https://toknowpress.net/submission/index.php/ijmkl/article/view/167"
+  },
+  {
+   "wrong": "Бүх хэмжээг 2 дахин ихэсгэхэд эзэлхүүн 2 дахин ихэснэ гэж боддог.",
+   "example": "1 × 1 × 1 шоо → 2 × 2 × 2: «эзэлхүүн 2» гэнэ; зөв нь 8.",
+   "why": "Урт ба эзэлхүүний өсөлтийг ижил гэж үздэг.",
+   "fix": "Жижиг шоонуудаар 2 × 2 × 2 шоо босгож тоолуулна.",
+   "en": "Thinks doubling all lengths doubles volume.",
+   "src": "https://mr-mathematics.com/?p=33972"
+  }
+ ],
+ "charts": [
+  {
+   "wrong": "Гистограм ба баганат диаграммыг ялгадаггүй.",
+   "example": "Гистограмын хэвтээ тэнхлэгийг ангилал гэж уншиж, багануудын дарааллыг сольж болно гэнэ.",
+   "why": "Хоёулаа «багана» тул ижил гэж үздэг.",
+   "fix": "Баганат диаграмм ангиллыг, гистограм тоон завсрыг харуулдгийг хос жишээгээр харьцуулна.",
+   "en": "Confuses histograms with bar charts.",
+   "src": "https://scholarworks.gvsu.edu/fsdg/1227"
+  },
+  {
+   "wrong": "Баганын өндрийн ялгааг л харж дүгнэдэг.",
+   "example": "Хамгийн өндөр багана = хамгийн их утга гэж уншина (давтамжийг утга гэж андуурна).",
+   "why": "Тэнхлэг юуг илэрхийлж буйг уншдаггүй.",
+   "fix": "Тэнхлэгийн нэрийг эхлээд уншуулж «өндөр нь юуг хэлж байна?» гэж асууна.",
+   "en": "Reads bar heights without checking what the axes mean.",
+   "src": "https://research-portal.uu.nl/en/publications/conceptual-difficulties-when-interpreting-histograms-a-review/"
+  },
+  {
+   "wrong": "Шугаман графикийг ангиллын өгөгдөлд ашигладаг.",
+   "example": "Дуртай жимсний тоог шугаман графикаар холбож зурна.",
+   "why": "График бүр ижил зориулалттай гэж боддог.",
+   "fix": "Цаг хугацааны өөрчлөлтөд шугаман, ангилалд баганат диаграмм хэрэглэхийг жишээгээр сонгуулна.",
+   "en": "Uses line graphs for categorical data.",
+   "src": "https://scholarworks.gvsu.edu/fsdg/1227",
+   "draft": true
+  }
+ ],
+ "average": [
+  {
+   "wrong": "Медианыг эрэмбэлэхгүйгээр олдог.",
+   "example": "3, 8, 1, 5, 9-ийн медианыг «1» гэнэ; эрэмбэлбэл 1, 3, 5, 8, 9 → медиан 5.",
+   "why": "Медианыг «жагсаалтын голын тоо» гэж л цээжилсэн.",
+   "fix": "Эхлээд өсөхөөр эрэмбэлэх алхмыг заавал бичүүлнэ.",
+   "en": "Finds the median without ordering the data.",
+   "src": "https://open.metu.edu.tr/handle/11511/24256"
+  },
+  {
+   "wrong": "Моодын оронд давтамжийг бичдэг.",
+   "example": "2, 4, 4, 4, 7-ийн моодыг «3» гэнэ (4 гурван удаа); зөв нь 4.",
+   "why": "Утга ба давтамжийг ялгадаггүй.",
+   "fix": "Давтамжийн хүснэгт зуруулж «утга» ба «хэдэн удаа» баганыг ялгана.",
+   "en": "Gives the frequency instead of the modal value.",
+   "src": "https://open.metu.edu.tr/handle/11511/24256"
+  },
+  {
+   "wrong": "Арифметик дундаж ба медианыг хольдог.",
+   "example": "1, 2, 3, 4, 100-ийн дунджийг «3» гэнэ; дундаж нь 110 / 5 = 22, медиан нь 3.",
+   "why": "Хоёр ойлголтын тодорхойлолтыг хольж цээжилсэн.",
+   "fix": "Нэг өгөгдөл дээр хоёуланг нь бодуулж, онцгой утга дунджийг их хөдөлгөдгийг харуулна.",
+   "en": "Mixes up mean and median.",
+   "src": "https://skolporten.se/forskning/avhandling/mean-median-and-mode-in-school-years-4-6-a-study-about-aspects-of-statistical-literacy"
+  }
+ ],
+ "counting": [
+  {
+   "wrong": "Үржүүлэх ёстой үед нэмдэг.",
+   "example": "3 цамц, 4 өмд → «7 хувилбар» гэнэ; зөв нь 3 × 4 = 12.",
+   "why": "Үржүүлэх зарчмын «бүх хослол» санааг ойлгоогүй.",
+   "fix": "Модны схем зуруулж бүх хослолыг тоолуулна.",
+   "en": "Adds instead of multiplying choices.",
+   "src": "https://www.stat.auckland.ac.nz/~iase/publications/assessbk/chapter18.pdf"
+  },
+  {
+   "wrong": "Жагсаахдаа давхардуулж эсвэл орхиж тоолдог.",
+   "example": "A, B, C-ээс 2-ыг сонгоход AB, BA-г тусад нь тоолж «6» гэнэ (дараалал хамаагүй бол 3).",
+   "why": "Системтэй жагсаах арга хэрэглэдэггүй.",
+   "fix": "Цагаан толгойн дарааллаар системтэй жагсаахыг заана.",
+   "en": "Double-counts or misses cases when listing.",
+   "src": "https://www.ugr.es/~batanero/pages/ARTICULOS/Implicitmodel.htm"
+  }
+ ],
+ "angle": [
+  {
+   "wrong": "Хэмжигчийн буруу хуваарийг уншдаг.",
+   "example": "40° өнцгийг хэмжигчийн гадна хуваариас «140°» гэж уншина.",
+   "why": "Аль 0-ээс эхэлж байгааг шалгадаггүй.",
+   "fix": "Эхлээд хурц/мохоо гэж таамаглаад, дараа нь хэмжиж хариуг шалгуулна.",
+   "en": "Reads the wrong scale on a protractor.",
+   "src": "https://scimath.editorialpark.com/download/the-mistakes-and-the-misconceptions-of-the-eight-grade-students-on-the-subject-of-angles-9387.pdf",
+   "draft": true
+  },
+  {
+   "wrong": "Өнцгийн хэмжээ талуудын уртаас хамаарна гэж үздэг.",
+   "example": "Урт талтай 50° өнцгийг богино талтай 70° өнцгөөс том гэнэ.",
+   "why": "Өнцгийг эргэлт биш, зургийн хэмжээ гэж ойлгодог.",
+   "fix": "Динамик геометрт талуудыг уртасгаж өнцөг өөрчлөгдөхгүйг харуулна.",
+   "en": "Thinks angle size depends on arm length.",
+   "src": "https://ijres.net/index.php/ijres/article/view/210/pdf"
+  },
+  {
+   "wrong": "Зурган дээр харагдаж буйгаар өнцгийг дүгнэдэг.",
+   "example": "Тэгш өнцөг шиг харагдах 85° өнцгийг «90°» гэж тооцоонд хэрэглэнэ.",
+   "why": "Шинж чанараас илүү зургийн харагдах байдалд итгэдэг.",
+   "fix": "«Тэмдэглээгүй бол тэгш өнцөг гэж бүү үз» дүрмийг давтуулна.",
+   "en": "Judges angles by appearance rather than given facts.",
+   "src": "https://scimath.editorialpark.com/download/the-mistakes-and-the-misconceptions-of-the-eight-grade-students-on-the-subject-of-angles-9387.pdf"
+  }
+ ],
+ "polygon": [
+  {
+   "wrong": "Квадратыг тэгш өнцөгт, ромб биш гэж үздэг.",
+   "example": "«Квадрат ромб мөн үү?» → «Үгүй».",
+   "why": "Дөрвөн өнцөгтүүдийг тусдаа бүлэг гэж үзэж, шинж чанарын хамаарлыг хардаггүй.",
+   "fix": "Шинж чанарын хүснэгт (тал, өнцөг, диагональ) бөглүүлж, Венн диаграммаар ангилуулна.",
+   "en": "Does not see square as a special rectangle or rhombus (class inclusion).",
+   "src": "https://nctm.confex.com/nctm/2016AM/webprogram/Handout/Session38652/NCTM_Final_Activities%20that%20Combat%20Shape%20Misunderstandings_San%20Fran_2016.pdf"
+  },
+  {
+   "wrong": "Олон өнцөгтийн дотоод өнцгийн нийлбэрийг n × 180° гэдэг.",
+   "example": "Таван өнцөгтийн нийлбэрийг 5 × 180° = 900° гэнэ; зөв нь (5 − 2) × 180° = 540°.",
+   "why": "Олон өнцөгтийг гурвалжинд хуваах санааг ойлгоогүй.",
+   "fix": "Нэг оройгоос диагональ татаж гурвалжнуудыг тоолуулна.",
+   "en": "Uses n × 180° for the interior angle sum.",
+   "src": "https://ecommons.aku.edu/etd_pk_ied_med/300",
+   "draft": true
+  },
+  {
+   "wrong": "Бүх тал тэнцүү бол зөв олон өнцөгт гэж үздэг.",
+   "example": "Ромбыг «зөв дөрвөн өнцөгт» гэнэ; өнцгүүд нь тэнцүү биш.",
+   "why": "Зөв олон өнцөгтөд өнцгүүд ч бас тэнцүү байх ёстойг мартдаг.",
+   "fix": "Ромб ба квадратыг харьцуулж хоёр нөхцөлийг шалгуулна.",
+   "en": "Thinks equal sides alone make a polygon regular.",
+   "src": "https://en.wikipedia.org/wiki/Van_Hiele_model",
+   "draft": true
+  }
+ ],
+ "circle": [
+  {
+   "wrong": "Радиус ба диаметрийг хольдог.",
+   "example": "Диаметр 10 см тойргийн радиусыг 20 см гэнэ; зөв нь 5 см.",
+   "why": "Нэрийг утгатай нь холбоогүй.",
+   "fix": "Тойрог дээр хоёуланг нь зуруулж, d = 2r гэдгийг хэмжиж шалгуулна.",
+   "en": "Confuses radius and diameter.",
+   "src": "https://www.doe.virginia.gov/home/showpublisheddocument/63593/638893727138800000"
+  },
+  {
+   "wrong": "π-г 3.14 гэдэг цээжилсэн тоо гэж л ойлгодог.",
+   "example": "«π яг 3.14» гэнэ; π нь тойргийн урт ба диаметрийн харьцаа, ≈ 3.14.",
+   "why": "π-ийн утгыг ойлголтгүй цээжилсэн.",
+   "fix": "Хэд хэдэн дугуй зүйлийн тойрог ба диаметрийг хэмжиж харьцааг олуулна.",
+   "en": "Knows digits of π but not that it is circumference ÷ diameter.",
+   "src": "https://www.doe.virginia.gov/home/showpublisheddocument/63593/638893727138800000"
+  }
+ ],
+ "data": [
+  {
+   "wrong": "Жижиг түүвэр бүх олонлогийг төлөөлнө гэж үздэг.",
+   "example": "Ангийн 5 сурагчаас асуугаад «сургуулийн 80% нь хөлбөмбөгт дуртай» гэнэ.",
+   "why": "Түүврийн хэмжээ ба санамсаргүй байдлын ач холбогдлыг ойлгоогүй.",
+   "fix": "Өөр өөр 5 хүний түүвэр авахад үр дүн хэр их хэлбэлзэхийг туршуулна.",
+   "en": "Thinks a small sample always represents the population.",
+   "src": "https://test.bibliotecas.unl.edu.ar/vufind/Record/oai:bibliotecavirtual.unl.edu.ar:article-9624/Details"
+  },
+  {
+   "wrong": "Хялбар түүврийг (найз нөхөд) шударга гэж үздэг.",
+   "example": "Сагсан бөмбөгийн багаас асуугаад «сурагчдын дундаж өндөр 180 см» гэнэ.",
+   "why": "Хазайлттай түүвэр гэдэг ойлголтгүй.",
+   "fix": "Түүвэр хэнийг орхиж байгааг асууж, санамсаргүй сонголт хийлгэнэ.",
+   "en": "Accepts convenience samples as unbiased.",
+   "src": "https://test.bibliotecas.unl.edu.ar/vufind/Record/oai:bibliotecavirtual.unl.edu.ar:article-9624/Details",
+   "draft": true
+  }
+ ],
+ "prob": [
+  {
+   "wrong": "Бүх үр дүн адил магадлалтай гэж үздэг (тэнцүү магадлалын хазайлт).",
+   "example": "Хоёр шоо хаяхад нийлбэр 7 ба 12 адил магадлалтай гэнэ; P(7) = 6/36, P(12) = 1/36.",
+   "why": "Үр дүн «зүгээр л тохиолддог» гэж үзэж, хэдэн аргаар гарахыг тоолдоггүй.",
+   "fix": "6 × 6 хүснэгт зуруулж нийлбэр бүрийг тоолуулна.",
+   "en": "Equiprobability bias: thinks all outcomes are equally likely.",
+   "src": "https://www.causeweb.org/cause/node/7577"
+  },
+  {
+   "wrong": "Олон удаа сүлд буусан бол дараа нь тоо буух ёстой гэж үздэг.",
+   "example": "5 удаа дараалан сүлд буусны дараа «одоо тоо буух магадлал их» гэнэ; 1/2 хэвээр.",
+   "why": "Богино дараалал ч гэсэн «тэнцвэртэй» байх ёстой гэж үздэг (төлөөлөх эвристик).",
+   "fix": "Зоос санах ойгүй гэдгийг ярилцаж, олон туршилтын өгөгдлийг харуулна.",
+   "en": "Gambler's fallacy / representativeness.",
+   "src": "https://www.causeweb.org/cause/node/7577"
+  },
+  {
+   "wrong": "Холимог дарааллыг илүү магадлалтай гэж үздэг.",
+   "example": "СТСТТС нь СССССС-ээс илүү магадлалтай гэнэ; хоёулаа (1/2)⁶ = 1/64.",
+   "why": "Санамсаргүй харагдах нь илүү магадлалтай гэж үздэг.",
+   "fix": "Тодорхой дараалал бүрийн магадлалыг үржүүлж тооцуулна.",
+   "en": "Thinks \"random-looking\" sequences are more likely.",
+   "src": "https://www.causeweb.org/cause/node/7577"
+  }
+ ],
+ "parallel": [
+  {
+   "wrong": "Шулуунууд параллель биш байсан ч хөндлөн/харгалзах өнцгүүд тэнцүү гэж үздэг.",
+   "example": "Параллель биш хоёр шулууныг огтлогч огтлоход 70° ба 70° гэж тэнцүүлнэ.",
+   "why": "Нөхцөлийг (параллель) мартаж, дүрмийг л хэрэглэдэг.",
+   "fix": "Параллель биш шулуунуудад өнцгийг хэмжүүлж ялгааг харуулна.",
+   "en": "Uses equal-angle rules when lines are not parallel.",
+   "src": "https://jurnal.unimor.ac.id/JPM/article/view/9591"
+  },
+  {
+   "wrong": "Хөндлөн ба харгалзах өнцгийг хольдог.",
+   "example": "Дотоод нэг талын өнцгийг (нийлбэр 180°) тэнцүү гэж 65° = 65° гэнэ; зөв нь 115°.",
+   "why": "Өнцгийн хосын нэрийг байрлалтай нь холбоогүй.",
+   "fix": "Өнгөөр будаж «Z», «F», «C» хэлбэрүүдийг танихыг заана.",
+   "en": "Confuses alternate, corresponding and co-interior angles.",
+   "src": "https://jurnal.unimor.ac.id/JPM/article/view/9591"
+  }
+ ],
+ "proof": [
+  {
+   "wrong": "Хэдэн жишээ шалгасан нь батлалт гэж үздэг.",
+   "example": "3 гурвалжны өнцгийг хэмжээд «бүх гурвалжинд 180°» батлагдлаа гэнэ.",
+   "why": "Туршлагын баталгаа ба логик батлалтыг ялгадаггүй.",
+   "fix": "Олон жишээнд үнэн боловч ерөнхийдөө худал жишээ үзүүлж, ерөнхий үндэслэл шаардлагатайг харуулна.",
+   "en": "Treats checking examples as a proof (empirical argument).",
+   "src": "https://nctm.org/Publications/Journal-for-Research-in-Mathematics-Education/2000/Vol31/Issue4/A-Study-of-Proof-Conceptions-in-Algebra"
+  },
+  {
+   "wrong": "Зургаас харагдаж буйг үндэслэл болгодог.",
+   "example": "«Зураг дээр тэнцүү харагдаж байгаа тул AB = CD» гэнэ.",
+   "why": "Зураг нь зөвхөн жишээ гэдгийг ойлгодоггүй.",
+   "fix": "Мэдэгдэж буй нөхцөл, теоремоос л алхам бүрийг үндэслэхийг шаардана.",
+   "en": "Uses the appearance of the diagram as a reason.",
+   "src": "https://discovery-pp.ucl.ac.uk/1515637/1/Kuchemann2009Fromempirical%28Chapter%29.pdf"
+  }
+ ],
+ "construct": [
+  {
+   "wrong": "Байгуулалтын явцад гортигийн нээлтийг өөрчилдөг.",
+   "example": "Хэрчмийн дундаж перпендикуляр татахдаа хоёр төгсгөлөөс өөр радиустай нум татна.",
+   "why": "Яагаад тэнцүү радиус хэрэгтэйг ойлгоогүй.",
+   "fix": "Тэнцүү радиус нь тэнцүү зайг баталгаажуулдгийг тайлбарлана.",
+   "en": "Changes the compass width mid-construction.",
+   "src": "https://curriculum.illustrativemathematics.org/HS/teachers/2/7/2/index.html",
+   "draft": true
+  },
+  {
+   "wrong": "Байгуулахын оронд хэмжигч, шугамны хуваариар хэмждэг.",
+   "example": "Өнцгийн биссектрисыг хэмжигчээр 2-т хувааж зурна.",
+   "why": "Байгуулалт ба хэмжилтийн ялгааг ойлгоогүй.",
+   "fix": "Зөвхөн гортиг, хуваарьгүй шугам ашиглах дүрмийг тайлбарлана.",
+   "en": "Measures instead of constructing.",
+   "src": "https://curriculum.illustrativemathematics.org/HS/teachers/2/7/2/index.html",
+   "draft": true
+  }
+ ],
+ "congruent": [
+  {
+   "wrong": "Гурван өнцөг тэнцүү бол гурвалжнууд тэнцүү гэж үздэг (AAA).",
+   "example": "Өнцөг нь 50°, 60°, 70° боловч нэг нь нөгөөгөөсөө 2 дахин том хоёр гурвалжныг тэнцүү гэнэ; тэд зөвхөн төсөөтэй.",
+   "why": "Тэнцүү ба төсөөтэй ойлголтыг хольдог.",
+   "fix": "Ижил өнцөгтэй, өөр хэмжээтэй хоёр гурвалжин зуруулж харьцуулна.",
+   "en": "Thinks AAA proves congruence (it only proves similarity).",
+   "src": "https://udspace.udel.edu/items/d9ce5bc7-cda2-44b0-b8af-4184289c2fd4"
+  },
+  {
+   "wrong": "Хоёр тал ба тэдгээрийн хоорондох биш өнцөг (SSA) хангалттай гэж үздэг.",
+   "example": "AB = 5, BC = 4, ∠A = 40° өгөгдөхөд хоёр өөр гурвалжин байж болно.",
+   "why": "Өнцөг талуудын хооронд байх ёстойг мартдаг.",
+   "fix": "Гортигоор SSA нөхцөлөөр хоёр өөр гурвалжин байгуулуулна.",
+   "en": "Accepts SSA as a congruence test.",
+   "src": "https://udspace.udel.edu/items/d9ce5bc7-cda2-44b0-b8af-4184289c2fd4"
+  },
+  {
+   "wrong": "Оройнуудын харгалзааг буруу бичдэг.",
+   "example": "△ABC = △DEF гэхдээ A ба E-г харгалзуулна.",
+   "why": "Тэмдэглэгээнд оройн дараалал утгатай гэдгийг мэддэггүй.",
+   "fix": "Харгалзах тал, өнцгийг ижил өнгөөр тэмдэглүүлнэ.",
+   "en": "Writes vertex correspondences in the wrong order.",
+   "src": "https://udspace.udel.edu/items/d9ce5bc7-cda2-44b0-b8af-4184289c2fd4",
+   "draft": true
+  }
+ ],
+ "circle-meas": [
+  {
+   "wrong": "Тойргийн урт ба дугуйн талбайн томьёог хольдог.",
+   "example": "r = 3 см үед тойргийн уртыг π · 3² ≈ 28.26 гэнэ; зөв нь 2π · 3 ≈ 18.84 см.",
+   "why": "Хоёр томьёог утгагүй цээжилсэн.",
+   "fix": "Урт нь нэгжгүй см, талбай нь см² гэдгийг нэгжээр нь шалгуулна.",
+   "en": "Confuses circumference and area formulas.",
+   "src": "https://www.doe.virginia.gov/home/showpublisheddocument/63593/638893727138800000"
+  },
+  {
+   "wrong": "Радиусын оронд диаметрийг квадрат зэрэгт дэвшүүлдэг.",
+   "example": "d = 12 см үед S = π · 12² ≈ 452.16 гэнэ; зөв нь π · 6² ≈ 113.04 см².",
+   "why": "Өгөгдсөн тоог шууд томьёонд орлуулдаг.",
+   "fix": "Эхлээд r-ийг тусад нь бичүүлэх дадал суулгана.",
+   "en": "Squares the diameter instead of the radius.",
+   "src": "https://podcast.mrbartonmaths.com/question-week-11-area-circle/"
+  },
+  {
+   "wrong": "r²-ийг 2r гэж боддог.",
+   "example": "r = 12 үед r² = 24 гэнэ; зөв нь 144.",
+   "why": "Квадрат зэрэг ба 2-оор үржүүлэхийг хольдог.",
+   "fix": "12² = 12 × 12 гэж задлан бичүүлнэ.",
+   "en": "Computes r² as 2r.",
+   "src": "https://podcast.mrbartonmaths.com/question-week-11-area-circle/"
+  }
+ ],
+ "grouped": [
+  {
+   "wrong": "Гистограмын баганын өндрийн ялгааг л харж тархалтыг дүгнэдэг.",
+   "example": "Баганууд нь жигд биш өндөртэй гистограмыг «их хэлбэлзэлтэй» гэнэ.",
+   "why": "Хэлбэлзлийг хэвтээ тэнхлэгийн утгаар биш, баганын өндрөөр хардаг.",
+   "fix": "Хэлбэлзэл хэвтээ тэнхлэгийн дагуу хэр өргөн тархсанаас хамаарахыг харуулна.",
+   "en": "Judges spread by unevenness of bar heights.",
+   "src": "https://jse.amstat.org/v16n2/cooper.pdf"
+  },
+  {
+   "wrong": "Бүлэглэсэн өгөгдлийн дунджийг завсрын төгсгөлийн утгаар олдог.",
+   "example": "10–20 завсарт 15 биш 20-ыг авна.",
+   "why": "Завсрын дунд утгыг төлөөлөгч болгох санааг ойлгоогүй.",
+   "fix": "Завсар доторх утгууд жигд тархсан гэж үзээд дунд цэгийг ашиглахыг тайлбарлана.",
+   "en": "Uses class end points instead of midpoints to estimate the mean.",
+   "src": "https://research-portal.uu.nl/en/publications/conceptual-difficulties-when-interpreting-histograms-a-review/",
+   "draft": true
+  },
+  {
+   "wrong": "Гистограмыг баганат диаграмм шиг ангиллын өгөгдөл гэж уншдаг.",
+   "example": "Завсар бүрийг тусдаа ангилал гэж үзэж, дарааллыг сольж болно гэнэ.",
+   "why": "Тоон тэнхлэг үргэлжилсэн гэдгийг ойлгодоггүй.",
+   "fix": "Завсрын хил залгаа, багана хооронд зай байхгүйг онцолно.",
+   "en": "Reads a histogram like a categorical bar chart.",
+   "src": "https://www.causeweb.org/cause/node/9557"
+  }
+ ],
+ "rel-freq": [
+  {
+   "wrong": "Цөөн туршилтын харьцангуй давтамжийг яг магадлал гэж үздэг.",
+   "example": "10 удаа шоо хаяад 6 нь 2 удаа буусан тул P(6) = 0.2 гэнэ; онолын магадлал 1/6 ≈ 0.17.",
+   "why": "Туршилтын тоо их байх тусам давтамж тогтворждогийг мэддэггүй.",
+   "fix": "Анги бүхэлдээ нийт 600 удаа хаяж давтамж 1/6 руу ойртохыг харуулна.",
+   "en": "Treats relative frequency from few trials as the exact probability.",
+   "src": "https://fpce.uc.pt/iase-web/documents/papers/icots5/Topic10a.pdf",
+   "draft": true
+  },
+  {
+   "wrong": "Давтамжийг нийт тоонд хуваахаа мартдаг.",
+   "example": "50 туршилтаас 12 удаа улаан гарсныг харьцангуй давтамж 12 гэнэ; зөв нь 12/50 = 0.24.",
+   "why": "Давтамж ба харьцангуй давтамжийг ялгадаггүй.",
+   "fix": "Харьцангуй давтамжийн нийлбэр 1 болохыг шалгуулна.",
+   "en": "Gives the count instead of count ÷ total.",
+   "src": "https://fpce.uc.pt/iase-web/documents/papers/icots5/Topic10a.pdf",
+   "draft": true
+  }
+ ],
+ "similar": [
+  {
+   "wrong": "Томруулахдаа тал бүрт ижил тоо нэмдэг (нэмэх стратеги).",
+   "example": "4 × 6 тэгш өнцөгтийн 4 талыг 6 болгоход нөгөөг 8 гэнэ; масштаб 1.5 тул 6 × 1.5 = 9.",
+   "why": "Харьцааг үржвэрээр биш ялгавраар хардаг.",
+   "fix": "Хоёр хувилбарыг зурж, 6 × 8 дүрс сунжирсан харагдахыг харьцуулуулна.",
+   "en": "Additive strategy instead of multiplicative scaling.",
+   "src": "https://www.cambridgemaths.org/Images/espresso_36_developing_concepts_of_ratio.pdf"
+  },
+  {
+   "wrong": "Ижил өнцөгтэй дүрсүүдийг төсөөтэй гэж үргэлж үздэг.",
+   "example": "Бүх тэгш өнцөгт (бүх өнцөг 90°) төсөөтэй гэнэ; 2 × 3 ба 2 × 6 төсөөтэй биш.",
+   "why": "Гурвалжны AA шинжийг бусад олон өнцөгтөд ерөнхийлдөг.",
+   "fix": "Талуудын харьцааг тооцож шалгуулна.",
+   "en": "Thinks equal angles alone make any polygons similar.",
+   "src": "https://udspace.udel.edu/items/d9ce5bc7-cda2-44b0-b8af-4184289c2fd4",
+   "draft": true
+  }
+ ],
+ "pyth": [
+  {
+   "wrong": "Пифагорын теоремыг тэгш өнцөгт биш гурвалжинд хэрэглэдэг.",
+   "example": "4, 5, 7 талтай гурвалжинд 4² + 5² = 7² гэж үзнэ; 16 + 25 = 41 ≠ 49.",
+   "why": "Теоремын нөхцөлийг (тэгш өнцөг) анхаардаггүй.",
+   "fix": "Эхлээд «тэгш өнцөг хаана байна?» гэж тэмдэглүүлдэг дадал суулгана.",
+   "en": "Applies Pythagoras to non-right triangles.",
+   "src": "https://journal.unpas.ac.id/index.php/pendas/article/view/33291"
+  },
+  {
+   "wrong": "Гипотенузыг буруу тодорхойлдог.",
+   "example": "Катет 5, гипотенуз 13 үед нөгөө катетыг √(5² + 13²) ≈ 13.93 гэнэ; зөв нь √(169 − 25) = 12.",
+   "why": "Үл мэдэгдэх тал үргэлж гипотенуз гэж үздэг.",
+   "fix": "Тэгш өнцгийн эсрэг талыг гипотенуз гэж будуулж, дараа нь томьёо бичүүлнэ.",
+   "en": "Assumes the unknown side is always the hypotenuse.",
+   "src": "https://ejournal.radenintan.ac.id/index.php/al-jabar/article/download/30110/10451/98586"
+  },
+  {
+   "wrong": "Язгуур гаргахаа мартдаг.",
+   "example": "3 ба 4 катеттэй үед гипотенузыг 25 гэнэ; зөв нь √25 = 5.",
+   "why": "c² ба c-г ялгадаггүй.",
+   "fix": "Хариу хамгийн урт тал байх ёстой ч «25» хэт урт гэдгийг шалгуулна.",
+   "en": "Forgets to take the square root.",
+   "src": "https://ejournal.radenintan.ac.id/index.php/al-jabar/article/download/30110/10451/98586"
+  }
+ ],
+ "tri-lines": [
+  {
+   "wrong": "Медиан, биссектрис, өндрийг хольдог.",
+   "example": "Талын дундажтай холбосон хэрчмийг «өндөр» гэнэ.",
+   "why": "Нэрийг тодорхойлох шинжтэй нь холбоогүй.",
+   "fix": "Нэг гурвалжинд гурвууланг нь өөр өнгөөр байгуулж, ялгаатай шинжийг хэлүүлнэ.",
+   "en": "Confuses median, angle bisector and altitude.",
+   "src": "https://ecommons.aku.edu/etd_pk_ied_med/300",
+   "draft": true
+  },
+  {
+   "wrong": "Өндөр үргэлж гурвалжны дотор, босоо байна гэж үздэг.",
+   "example": "Мохоо өнцөгт гурвалжны өндрийг гадна талд татаж болохгүй гэнэ.",
+   "why": "Загвар зургийн нөлөө (суурь хэвтээ, өндөр босоо).",
+   "fix": "Мохоо өнцөгт гурвалжинд талын үргэлжлэл рүү перпендикуляр татуулна.",
+   "en": "Thinks altitudes are always inside and vertical.",
+   "src": "https://www.mic.ul.ie/sites/default/files/uploads/146/2015%20APMC_HouriganLeavy_RealShape_Polygons2D.pdf",
+   "draft": true
+  }
+ ],
+ "circle-angles": [
+  {
+   "wrong": "Багтсан өнцөг төвийн өнцөгтэй тэнцүү гэж үздэг.",
+   "example": "Нэг нумд тулсан төвийн өнцөг 100° үед багтсан өнцгийг 100° гэнэ; зөв нь 50°.",
+   "why": "Хоёр өнцгийн хамаарлыг нээж судлаагүй, нэрийг нь хольдог.",
+   "fix": "Динамик геометрт оройг хөдөлгөж багтсан өнцөг тогтмол, төвийнхний хагас болохыг харуулна.",
+   "en": "Thinks an inscribed angle equals the central angle.",
+   "src": "https://um.edu.mt/library/oar/handle/123456789/8831"
+  },
+  {
+   "wrong": "Теоремын нөхцөлийг шалгахгүй хэрэглэдэг.",
+   "example": "Хөвч диаметр биш байхад багтсан өнцгийг 90° гэнэ.",
+   "why": "Теорем бүр ямар нөхцөлд үнэн болохыг анхаардаггүй.",
+   "fix": "Теорем бүрийн нөхцөлийг зургаар тэмдэглүүлсний дараа хэрэглүүлнэ.",
+   "en": "Applies circle theorems without checking conditions.",
+   "src": "https://curriculum.illustrativemathematics.org/HS/teachers/2/7/2/index.html"
+  }
+ ],
+ "chord-tangent": [
+  {
+   "wrong": "Шүргэгч ба радиус перпендикуляр гэдгийг ашигладаггүй.",
+   "example": "Шүргэлтийн цэгт радиус ба шүргэгчийн хоорондох өнцгийг «45°» гэж тооцно.",
+   "why": "Шүргэгчийн шинж чанарыг цээжилсэн боловч зураг дээр танихгүй.",
+   "fix": "Зураг бүрт шүргэлтийн цэгийг олж тэгш өнцгийн тэмдэг тавиулна.",
+   "en": "Does not use radius ⊥ tangent.",
+   "src": "https://um.edu.mt/library/oar/handle/123456789/8831",
+   "draft": true
+  },
+  {
+   "wrong": "Шүргэгч ба огтлогчийг хольдог.",
+   "example": "Тойргийг хоёр цэгт огтолж буй шулууныг «шүргэгч» гэнэ.",
+   "why": "Хоёр ойлголтын тодорхойлолтыг ялгадаггүй.",
+   "fix": "Шулууныг тойрог руу шилжүүлж огтлолцлын цэгийн тоог (2, 1, 0) тоолуулна.",
+   "en": "Confuses tangents and secants.",
+   "src": "https://curriculum.illustrativemathematics.org/HS/teachers/2/7/2/index.html",
+   "draft": true
+  }
+ ],
+ "coord-geo": [
+  {
+   "wrong": "Налалтыг «хэвтээ / босоо» гэж урвуу олдог.",
+   "example": "(1, 2) ба (3, 8)-ыг дайрсан шулууны налалтыг 2/6 = 1/3 гэнэ; зөв нь 6/2 = 3.",
+   "why": "Налалтын томьёоны дарааллыг ойлгоогүй, цээжилсэн.",
+   "fix": "«Нэг нэгж баруун тийш явахад хэд дээшлэх вэ?» гэж утгаар нь асууна.",
+   "en": "Computes run over rise instead of rise over run.",
+   "src": "https://www.ejmste.com/download/investigating-seventh-grade-students-slope-preconceptions-11417.pdf"
+  },
+  {
+   "wrong": "Координатын ялгаврыг өөр өөр дарааллаар хасдаг.",
+   "example": "(1, 2), (3, 8): (8 − 2) / (1 − 3) = −3 гэнэ; зөв нь 3.",
+   "why": "Хоёр цэгийн дарааллыг тогтвортой барьдаггүй.",
+   "fix": "Цэгүүдийг 1, 2 гэж дугаарлаж, ижил дарааллаар хасуулна.",
+   "en": "Subtracts coordinates in inconsistent order.",
+   "src": "https://podcast.mrbartonmaths.com/?p=1465"
+  },
+  {
+   "wrong": "Налалтыг шулууны урт эсвэл өндөр гэж ойлгодог.",
+   "example": "Урт шулуун «илүү налуу» гэнэ.",
+   "why": "Налалтыг өөрчлөлтийн харьцаа гэж биш, харагдах хэмжээ гэж ойлгодог.",
+   "fix": "Ижил налалттай өөр урттай хэрчмүүдийг харьцуулуулна.",
+   "en": "Thinks slope is a length or height.",
+   "src": "https://www.ejmste.com/download/investigating-seventh-grade-students-slope-preconceptions-11417.pdf"
+  }
+ ],
+ "bearing": [
+  {
+   "wrong": "Азимутыг цагийн зүүний эсрэг эсвэл зүүнээс хэмждэг.",
+   "example": "Зүүн хойд чиглэлийг координатын хавтгай шиг зүүнээс хэмжиж 045° биш «135°» гэх мэт буруу өнцөг гаргана.",
+   "why": "Координатын хавтгайн өнцөг хэмжих дадлаа хэрэглэдэг.",
+   "fix": "Хойд зүг зааж, цагийн зүүний дагуу эргүүлэх дасгалыг бодитоор хийлгэнэ.",
+   "en": "Measures bearings anticlockwise or from east.",
+   "src": "https://mathsgenie.co.uk/blog/why-bearings-confuse-gcse-students"
+  },
+  {
+   "wrong": "Гурван оронтой бичдэггүй.",
+   "example": "45° гэж бичнэ; зөв нь 045°.",
+   "why": "Тэмдэглэгээний дүрмийг ач холбогдолгүй гэж үздэг.",
+   "fix": "Үргэлж 3 оронтой бичих дүрмийг шалгах жагсаалтад оруулна.",
+   "en": "Omits three-figure notation.",
+   "src": "https://mathsgenie.co.uk/blog/why-bearings-confuse-gcse-students"
+  },
+  {
+   "wrong": "Олон алхамтай бодлогод шинэ цэгээс хойд зүгийг дахин татдаггүй.",
+   "example": "B-ээс C руу азимутыг A-ийн хойд зүгээс хэмжинэ.",
+   "why": "Хойд шулууныг цэг бүрт шинээр татах шаардлагатайг мартдаг.",
+   "fix": "Цэг бүрт хойд сум зуруулж байж хэмжүүлнэ.",
+   "en": "Does not redraw north at each new point.",
+   "src": "https://mathsgenie.co.uk/blog/why-bearings-confuse-gcse-students"
+  }
+ ],
+ "sim-ratio": [
+  {
+   "wrong": "Талбайн масштабыг уртынхтай ижил гэж үздэг.",
+   "example": "Масштаб 2 үед 10 см² дүрсийн талбайг 20 см² гэнэ; зөв нь 10 × 2² = 40 см².",
+   "why": "Талбай хоёр хэмжээст гэдгийг тооцдоггүй.",
+   "fix": "Тор дээр 2 дахин томруулж нүд тоолуулна.",
+   "en": "Uses the length scale factor for area.",
+   "src": "https://mr-mathematics.com/?p=33972"
+  },
+  {
+   "wrong": "Эзэлхүүний масштабыг k² эсвэл k гэж авдаг.",
+   "example": "Масштаб 3 үед 5 см³ биетийн эзэлхүүнийг 15 эсвэл 45 гэнэ; зөв нь 5 × 3³ = 135 см³.",
+   "why": "Урт, талбай, эзэлхүүний масштабыг ялгадаггүй.",
+   "fix": "k, k², k³ гэсэн хүснэгтийг шоогоор барьж шалгуулна.",
+   "en": "Uses k or k² instead of k³ for volume.",
+   "src": "https://mr-mathematics.com/?p=33972"
+  },
+  {
+   "wrong": "Талбайн масштабаас уртыг олохдоо язгуур гаргадаггүй.",
+   "example": "Талбайн харьцаа 9 үед уртын харьцааг 9 гэнэ; зөв нь √9 = 3.",
+   "why": "Урвуу алхмыг ойлгоогүй.",
+   "fix": "k → k² → k³ сумыг хоёр чиглэлд бичүүлнэ.",
+   "en": "Uses the area factor to find lengths.",
+   "src": "https://mr-mathematics.com/?p=33972"
+  }
+ ],
+ "speed": [
+  {
+   "wrong": "Дундаж хурдыг хурднуудын арифметик дунджаар олдог.",
+   "example": "60 км замыг 60 км/ц, буцахдаа 30 км/ц-аар явбал «45 км/ц» гэнэ; 120 км / 3 цаг = 40 км/ц.",
+   "why": "Хугацаа өөр байгааг тооцдоггүй.",
+   "fix": "Нийт зам ÷ нийт хугацаа гэж хүснэгтээр бодуулна.",
+   "en": "Averages speeds arithmetically when times differ.",
+   "src": "https://www.phys-l.org/archives/2011/9_2011/msg00260.html"
+  },
+  {
+   "wrong": "Агшин зуурын ба дундаж хурдыг ялгадаггүй.",
+   "example": "«Дундаж хурд 50 км/ц байсан тул бүх замд 50 км/ц-аар явсан» гэнэ.",
+   "why": "Дундаж хурд нь бүх хугацааны тэгш хурд гэж үздэг.",
+   "fix": "Зам–хугацааны график дээр налалт өөрчлөгдөж байгааг харуулна.",
+   "en": "Does not distinguish average and instantaneous speed.",
+   "src": "https://spark.iop.org/many-pupils-do-not-clearly-distinguish-ideas-instantaneous-and-average-speed"
+  },
+  {
+   "wrong": "Нэгжийг хувиргахгүй хольж бодно.",
+   "example": "90 км/ц-аар 30 минут явсныг 90 × 30 = 2700 км гэнэ; зөв нь 90 × 0.5 = 45 км.",
+   "why": "Минутыг цаг болгохоо мартдаг.",
+   "fix": "Тооцоо бүрт нэгжийг хамт бичүүлнэ.",
+   "en": "Mixes units (minutes with km/h).",
+   "src": "https://www.cazoommaths.com/maths-worksheets/year-8-maths-worksheets/year-8-converting-between-units-of-time-worksheets/",
+   "draft": true
+  }
+ ],
+ "prob-rules": [
+  {
+   "wrong": "Үл нийцэх биш үзэгдлийн магадлалыг давхцлыг хасалгүй нэмдэг.",
+   "example": "Хөзрөөс улаан эсвэл зураг: 26/52 + 12/52 = 38/52 гэнэ; зөв нь 26/52 + 12/52 − 6/52 = 32/52.",
+   "why": "Давхцаж буй үр дүнг хоёр удаа тоолдгийг анзаардаггүй.",
+   "fix": "Венн диаграммаар огтлолцлыг харуулна.",
+   "en": "Adds probabilities of overlapping events without subtracting the overlap.",
+   "src": "https://www.stat.auckland.ac.nz/~iase/publications/assessbk/chapter18.pdf",
+   "draft": true
+  },
+  {
+   "wrong": "Магадлал 1-ээс их гарсныг анзаардаггүй.",
+   "example": "P(A) = 0.7, P(B) = 0.6 үед P(A эсвэл B) = 1.3 гэнэ.",
+   "why": "Магадлал 0-ээс 1-ийн хооронд байх ёстойг шалгадаггүй.",
+   "fix": "Хариу бүрийг 0 ≤ P ≤ 1 гэж шалгах дадал суулгана.",
+   "en": "Accepts a probability greater than 1.",
+   "src": "https://www.stat.auckland.ac.nz/~iase/publications/assessbk/chapter18.pdf",
+   "draft": true
+  }
+ ],
+ "cross-sec": [
+  {
+   "wrong": "Шооны огтлол зөвхөн квадрат эсвэл тэгш өнцөгт байна гэж үздэг.",
+   "example": "Шоог гурвалжин эсвэл зургаан өнцөгт хэлбэрээр огтлох боломжгүй гэнэ.",
+   "why": "Зөвхөн нүүртэй параллель огтлолыг төсөөлдөг.",
+   "fix": "Шавар/хөөсөн шоо огтлох эсвэл 3D программ ашиглуулна.",
+   "en": "Thinks a cube's cross-sections can only be squares or rectangles.",
+   "src": "https://toknowpress.net/submission/index.php/ijmkl/article/view/167",
+   "draft": true
+  },
+  {
+   "wrong": "Налуу огтлолын хэмжээг нүүрийн хэмжээтэй ижил гэж үздэг.",
+   "example": "Цилиндрийг налуу огтлоход огтлол тойрог гэнэ; зууван (эллипс) болно.",
+   "why": "Огтлолын хавтгайн налалтын нөлөөг төсөөлдөггүй.",
+   "fix": "Хиам эсвэл лууван налуу огтолж харуулна.",
+   "en": "Assumes oblique sections match the face shape.",
+   "src": "https://toknowpress.net/submission/index.php/ijmkl/article/view/167",
+   "draft": true
+  }
+ ],
+ "trig-right": [
+  {
+   "wrong": "Эсрэг ба налсан катетыг буруу сонгодог.",
+   "example": "α өнцгийн хувьд sin α = налсан / гипотенуз гэж бичнэ.",
+   "why": "Эсрэг/налсан нь аль өнцгөөс харж байгаагаас хамаардгийг мартдаг.",
+   "fix": "Өнцгийг тэмдэглээд, түүний эсрэг талыг эхлээд будуулна.",
+   "en": "Picks the wrong sides (opposite vs adjacent).",
+   "src": "https://epistem.ie/wp-content/uploads/2022/08/Trigonometry-Teacher-CPD-Slides.pdf"
+  },
+  {
+   "wrong": "Өнцөг олохдоо урвуу функц хэрэглэхгүй.",
+   "example": "sin α = 0.5 үед α = sin 0.5 ≈ 0.48 гэнэ; зөв нь α = 30°.",
+   "why": "Тригонометр функц ба түүний урвууг хольдог.",
+   "fix": "«Өнцөг өгвөл sin, харьцаа өгвөл arcsin» гэж хүснэгтээр ялгана.",
+   "en": "Uses sin instead of inverse sin to find an angle.",
+   "src": "https://tasks.illustrativemathematics.org/blueprints/G/4/6.html"
+  },
+  {
+   "wrong": "Харьцаа гурвалжны хэмжээнээс хамаарна гэж үздэг.",
+   "example": "Том гурвалжинд sin 30° илүү их гэнэ.",
+   "why": "Харьцаа нь өнцгийн шинж гэдгийг төсөөтэй гурвалжинтай холбоогүй.",
+   "fix": "Ижил өнцөгтэй өөр хэмжээний гурвалжнуудад харьцааг тооцуулна.",
+   "en": "Thinks trig ratios depend on triangle size.",
+   "src": "https://tasks.illustrativemathematics.org/blueprints/G/4/6.html"
+  }
+ ],
+ "vector": [
+  {
+   "wrong": "Векторын хасалтыг нэмэлттэй хольдог.",
+   "example": "a − b-г зурахдаа b-г эргүүлэлгүй a-ийн үзүүрт залгана.",
+   "why": "−b нь эсрэг чиглэлтэй вектор гэдгийг ашигладаггүй.",
+   "fix": "a − b = a + (−b) гэж бичүүлж, −b-г тусад нь зуруулна.",
+   "en": "Confuses vector subtraction with addition.",
+   "src": "https://journals.helsinki.fi/lumat/article/download/2993/2471/12440"
+  },
+  {
+   "wrong": "Векторын уртыг тоо шиг нэмдэг.",
+   "example": "|a| = 3, |b| = 4, a ⊥ b үед |a + b| = 7 гэнэ; зөв нь √(9 + 16) = 5.",
+   "why": "Векторыг чиглэлгүй тоо гэж үздэг.",
+   "fix": "Сум зурж, гурвалжны дүрмээр уртыг хэмжүүлнэ.",
+   "en": "Adds vector magnitudes as scalars.",
+   "src": "https://journals.helsinki.fi/lumat/article/download/2993/2471/12440"
+  },
+  {
+   "wrong": "Векторуудыг үзүүрээс үзүүрт залгадаг.",
+   "example": "a + b-г зурахдаа хоёр векторын үзүүрийг нийлүүлнэ.",
+   "why": "Гурвалжны дүрэмд «эхлэлийг үзүүрт» залгахыг ойлгоогүй.",
+   "fix": "Шилжилт гэж тайлбарлан: эхлээд a, дараа нь тэр цэгээс b алхана.",
+   "en": "Joins vectors tip-to-tip instead of tip-to-tail.",
+   "src": "https://events.saip.org.za/event/86/attachments/2181/2888/SAIP2016_349.pdf"
+  }
+ ],
+ "sector": [
+  {
+   "wrong": "Нумын уртыг олохдоо талбайн томьёо хэрэглэдэг.",
+   "example": "r = 6, 60° үед нумын уртыг (60/360) · π · 6² ≈ 18.84 гэнэ; зөв нь (60/360) · 2π · 6 ≈ 6.28.",
+   "why": "Тойргийн урт ба дугуйн талбайн томьёог хольдог.",
+   "fix": "Эхлээд «урт уу, талбай уу?» гэж нэгжээр шийдүүлнэ.",
+   "en": "Uses the area formula for arc length.",
+   "src": "https://www.doe.virginia.gov/home/showpublisheddocument/63593/638893727138800000",
+   "draft": true
+  },
+  {
+   "wrong": "Өнцгийн хувийг тооцохгүй бүтэн тойргийг ашигладаг.",
+   "example": "r = 6, 90° секторын талбайг π · 36 ≈ 113.04 гэнэ; зөв нь 113.04 / 4 = 28.26.",
+   "why": "Сектор бол бүтэн дугуйн хэсэг гэдгийг тооцдоггүй.",
+   "fix": "«Хэдэн хувь вэ?» гэж θ/360 хэсгийг зургаар харуулна.",
+   "en": "Forgets the θ/360 fraction.",
+   "src": "https://www.doe.virginia.gov/home/showpublisheddocument/63593/638893727138800000",
+   "draft": true
+  }
+ ],
+ "scatter": [
+  {
+   "wrong": "Корреляц байгаа бол нэг нь нөгөөгийн шалтгаан гэж үздэг.",
+   "example": "Зайрмагны борлуулалт ба живэх осол хамт өсдөг тул «зайрмаг осол үүсгэдэг» гэнэ.",
+   "why": "Хамаарлыг шалтгаантай холбох (шалтгааны ойлголт).",
+   "fix": "Гуравдагч хүчин зүйл (халуун цаг агаар)-ийг олуулж ярилцана.",
+   "en": "Thinks correlation implies causation.",
+   "src": "https://ensciencias.uab.cat/article/view/v13-n2-estepa-batanero"
+  },
+  {
+   "wrong": "Цэгүүд яг нэг шулуун дээр байхгүй бол хамааралгүй гэж үздэг.",
+   "example": "Өндөр ба жингийн тархсан цэгүүдэд «хамаарал байхгүй» гэнэ.",
+   "why": "Хамаарлыг детерминист (нэг утганд нэг утга) гэж ойлгодог.",
+   "fix": "Ерөнхий чиг хандлагыг тайлбарлаж, хүч сул/хүчтэй хамаарлын жишээ харуулна.",
+   "en": "Deterministic view: no exact line means no association.",
+   "src": "https://ensciencias.uab.cat/article/view/v13-n2-estepa-batanero"
+  },
+  {
+   "wrong": "Сөрөг корреляцыг «хамааралгүй» гэж үздэг.",
+   "example": "Нэг өсөхөд нөгөө буурдаг өгөгдлийг хамааралгүй гэнэ.",
+   "why": "Хамаарлыг зөвхөн нэг чиглэлд (эерэг) гэж ойлгодог.",
+   "fix": "Эерэг, сөрөг, хамааралгүй гурван цэгэн диаграммыг харьцуулуулна.",
+   "en": "Treats negative correlation as no correlation.",
+   "src": "https://ensciencias.uab.cat/article/view/v13-n2-estepa-batanero"
+  }
+ ],
+ "tree": [
+  {
+   "wrong": "Модны схемийн салаан дээрх магадлалыг үржүүлэхийн оронд нэмдэг.",
+   "example": "Хоёр удаа зоос шидэхэд хоёулаа сүлд: 1/2 + 1/2 = 1 гэнэ; зөв нь 1/2 × 1/2 = 1/4.",
+   "why": "Хэзээ нэмж, хэзээ үржүүлэхийг ялгадаггүй.",
+   "fix": "«Ба» → салаагаар үржүүлнэ, «эсвэл» → төгсгөлүүдийг нэмнэ гэж зураг дээр харуулна.",
+   "en": "Adds along branches instead of multiplying.",
+   "src": "https://researchspace.auckland.ac.nz/handle/2292/32596",
+   "draft": true
+  },
+  {
+   "wrong": "Буцааж тавихгүй үед хоёр дахь магадлалыг өөрчилдөггүй.",
+   "example": "5 улаан, 3 цэнхэр бөмбөгөөс хоёр улаан: 5/8 × 5/8 гэнэ; зөв нь 5/8 × 4/7 = 20/56 = 5/14.",
+   "why": "Эхний сонголтын дараа нийт тоо өөрчлөгдсөнийг тооцдоггүй.",
+   "fix": "Бөмбөгийг бодитоор гаргаж, үлдсэнийг тоолуулна.",
+   "en": "Ignores \"without replacement\" in the second stage.",
+   "src": "https://researchspace.auckland.ac.nz/handle/2292/32596",
+   "draft": true
+  }
+ ],
+ "tangent-slope": [
+  {
+   "wrong": "Шүргэгч муруйг зөвхөн нэг цэгт л огтлох ёстой гэж үздэг.",
+   "example": "y = x³-ийн (1, 1) цэгт татсан шүргэгч муруйг өөр цэгт огтолж байгаа тул «шүргэгч биш» гэнэ.",
+   "why": "Тойргийн шүргэгчийн санааг бүх муруйд ерөнхийлдөг.",
+   "fix": "Шүргэгч бол тухайн цэгийн ойролцоо муруйтай хамгийн ойр шулуун гэдгийг томруулж харуулна.",
+   "en": "Thinks a tangent may touch the curve only once.",
+   "src": "https://scindeks-clanci.ceon.rs/data/pdf/3042-2469/2025/3042-24692501005A.pdf"
+  },
+  {
+   "wrong": "Огтлогчийн налалт ба шүргэгчийн налалтыг ялгадаггүй.",
+   "example": "y = x² дээр x = 1 ба x = 3-ыг холбосон шулууны налалт 4-ийг x = 1 дээрх налалт гэнэ; зөв нь 2.",
+   "why": "Дундаж ба агшин зуурын өөрчлөлтийн хурдыг хольдог.",
+   "fix": "Хоёр дахь цэгийг ойртуулахад налалт 2 руу ойртохыг хүснэгтээр харуулна.",
+   "en": "Confuses secant (average) slope with tangent slope.",
+   "src": "https://scindeks-clanci.ceon.rs/data/pdf/3042-2469/2025/3042-24692501005A.pdf"
+  }
+ ],
+ "locus": [
+  {
+   "wrong": "Байршлыг цэг эсвэл хэсэг гэж олоод бүх цэгийн олонлог гэж үздэггүй.",
+   "example": "A цэгээс 3 см зайтай цэгүүдийг 4 цэг тэмдэглээд дуусгана; зөв нь тойрог.",
+   "why": "Нөхцөлийг хангах бүх цэгийг төсөөлөхгүй.",
+   "fix": "Олон цэг тэмдэглүүлж хэлбэр гарч ирэхийг ажиглуулна.",
+   "en": "Marks a few points instead of the whole set.",
+   "src": "https://curriculum.illustrativemathematics.org/HS/teachers/2/7/2/index.html",
+   "draft": true
+  },
+  {
+   "wrong": "Хоёр цэгээс тэнцүү зайтай цэгүүдийг хэрчмийн дундаж цэг гэж л үздэг.",
+   "example": "A ба B-ээс тэнцүү зайтай цэг зөвхөн AB-ийн дундаж гэнэ; зөв нь дундаж перпендикуляр шулуун.",
+   "why": "Хэрчим дээрх цэгүүдээр л хязгаарладаг.",
+   "fix": "Хэрчмээс гадуур тэнцүү зайтай цэг олуулна.",
+   "en": "Thinks only the midpoint is equidistant from two points.",
+   "src": "https://curriculum.illustrativemathematics.org/HS/teachers/2/7/2/index.html",
+   "draft": true
+  }
+ ],
+ "trig-tri": [
+  {
+   "wrong": "Косинусын теоремд үйлдлийн дарааллыг алддаг.",
+   "example": "b = 5, c = 7, A = 60°: (25 + 49 − 70) · 0.5 = 2 гэнэ; зөв нь 74 − 35 = 39, a ≈ 6.24.",
+   "why": "2bc cos A-г хасахын өмнө үржүүлэхээ мартдаг.",
+   "fix": "2bc cos A-г тусад нь бодоод хасуулна.",
+   "en": "Order-of-operations error in the cosine rule.",
+   "src": "https://epistem.ie/wp-content/uploads/2022/08/Trigonometry-Teacher-CPD-Slides.pdf",
+   "draft": true
+  },
+  {
+   "wrong": "Синусын теоремоор өнцөг олоход хоёр шийд (мохоо өнцөг) байж болохыг мартдаг.",
+   "example": "sin B = 0.5 үед зөвхөн B = 30° гэнэ; B = 150° ч бас боломжтой эсэхийг шалгах хэрэгтэй.",
+   "why": "Тооны машин зөвхөн хурц өнцөг өгдөг.",
+   "fix": "sin θ = sin(180° − θ)-г нэгж тойргоор харуулна.",
+   "en": "Misses the ambiguous (obtuse) case of the sine rule.",
+   "src": "https://epistem.ie/wp-content/uploads/2022/08/Trigonometry-Teacher-CPD-Slides.pdf",
+   "draft": true
+  }
+ ],
+ "dot": [
+  {
+   "wrong": "Скаляр үржвэрийн хариуг вектор гэж үздэг.",
+   "example": "(1, 2) · (3, 4) = (3, 8) гэнэ; зөв нь 3 + 8 = 11.",
+   "why": "Тооны үржвэрийг координат бүрээр хийгээд нэмэхээ мартдаг.",
+   "fix": "Хариу тоо гэдгийг ажлын утга (хүч × зам) жишээгээр холбоно.",
+   "en": "Thinks the dot product is a vector.",
+   "src": "https://journals.helsinki.fi/lumat/article/download/2993/2471/12440",
+   "draft": true
+  },
+  {
+   "wrong": "Скаляр үржвэр 0 бол нэг вектор 0 гэж үздэг.",
+   "example": "(2, 1) · (−1, 2) = 0 тул «аль нэг нь тэг вектор» гэнэ; тэд перпендикуляр.",
+   "why": "Тооны үржвэрийн тэгийн дүрмийг векторт хэрэглэдэг.",
+   "fix": "a · b = |a||b|cos θ-оос cos 90° = 0 гэдгийг харуулна.",
+   "en": "Thinks a·b = 0 means one vector is zero.",
+   "src": "https://journals.helsinki.fi/lumat/article/download/2993/2471/12440",
+   "draft": true
+  }
+ ],
+ "mat-transform": [
+  {
+   "wrong": "Матрицын үржвэрийг солих чанартай гэж үздэг (AB = BA).",
+   "example": "Эхлээд тусгаад дараа нь эргүүлэх нь эхлээд эргүүлээд тусгахтай адил гэнэ.",
+   "why": "Тооны үржвэрийн солих чанарыг матрицад шилжүүлдэг.",
+   "fix": "Нэг гурвалжинд хоёр дарааллаар хувиргалт хийж үр дүнг харьцуулуулна.",
+   "en": "Assumes matrix multiplication (composition) is commutative.",
+   "src": "https://abstractmath.org/MM/MMDysfunctional.htm"
+  },
+  {
+   "wrong": "BA-д аль хувиргалт түрүүлж хийгдэхийг буруу уншдаг.",
+   "example": "BA·x-д A-г сүүлд хийнэ гэнэ; зөв нь эхлээд A, дараа нь B.",
+   "why": "Зүүнээс баруун тийш уншдаг дадал.",
+   "fix": "B(A(x)) гэж функц шиг бичүүлнэ.",
+   "en": "Reads the order of composed transformations wrongly.",
+   "src": "https://scholarworks.umt.edu/mathcolloquia/388",
+   "draft": true
+  }
+ ],
+ "spread": [
+  {
+   "wrong": "Баганын өндрийн ялгааг хэлбэлзэл гэж үздэг.",
+   "example": "Баганууд нь жигд өндөртэй гистограмыг «хэлбэлзэлгүй» гэнэ.",
+   "why": "Хэлбэлзэл нь утгууд дунджаас хэр хол байгааг хэмждэгийг ойлгоогүй.",
+   "fix": "Утгуудыг дунджаас холдуулахад стандарт хазайлт өсөхийг туршуулна.",
+   "en": "Treats bar-height variation as data variability.",
+   "src": "https://serc.carleton.edu/introgeo/cooperative/examples/14046.html"
+  },
+  {
+   "wrong": "Далайц тэнцүү бол хэлбэлзэл тэнцүү гэж үздэг.",
+   "example": "1, 5, 5, 5, 9 ба 1, 1, 5, 9, 9 хоёулаа далайц 8 тул тэнцүү хэлбэлзэлтэй гэнэ; 2-р нь илүү тархсан.",
+   "why": "Зөвхөн хамгийн их, бага утгыг хардаг.",
+   "fix": "Хоёр өгөгдлийн стандарт хазайлтыг тооцож харьцуулуулна.",
+   "en": "Thinks equal range means equal spread.",
+   "src": "https://jse.amstat.org/v16n2/cooper.pdf"
+  },
+  {
+   "wrong": "Стандарт хазайлтыг томьёогоор л тооцоолж утгыг тайлбарлаж чаддаггүй.",
+   "example": "σ = 0 гарахад «алдаа гарлаа» гэнэ; бүх утга тэнцүү бол σ = 0.",
+   "why": "Ойлголтоос илүү алгоритм цээжилдэг.",
+   "fix": "Хэлбэлзэл ихтэй, багатай өгөгдлийг σ тооцохоос өмнө таамаглуулна.",
+   "en": "Can compute SD but cannot interpret it.",
+   "src": "https://iase-web.org/ojs/SERJ/article/download/525/394/2404"
+  }
+ ],
+ "perm-comb": [
+  {
+   "wrong": "Дараалал чухал эсэхийг буруу шийддэг.",
+   "example": "10 хүнээс 3 хүний баг сонгохыг 10 · 9 · 8 = 720 гэнэ; зөв нь 720 / 3! = 120.",
+   "why": "Сэлгэмэл ба хэсэглэлийн ялгааг жишээгээр шалгадаггүй.",
+   "fix": "«ABC ба BAC ижил үү?» гэж асууж шийдүүлнэ.",
+   "en": "Uses permutations when order does not matter.",
+   "src": "https://link.springer.com/article/10.1007/s42330-022-00228-z"
+  },
+  {
+   "wrong": "Давталттай/давталтгүй нөхцөлийг хольдог.",
+   "example": "3 оронтой код (0–9, давтаж болно)-ыг 10 · 9 · 8 = 720 гэнэ; зөв нь 10³ = 1000.",
+   "why": "Бодлогын нөхцөлийг загварт хөрвүүлэхдээ алддаг.",
+   "fix": "Нөхцөлийг «дараалал? давталт?» гэж хоёр асуултаар задлуулна.",
+   "en": "Confuses with/without repetition.",
+   "src": "https://www.ugr.es/~batanero/pages/ARTICULOS/Implicitmodel.htm"
+  }
+ ],
+ "deriv": [
+  {
+   "wrong": "Давхар функцийн уламжлалд гинжин дүрмийг мартдаг.",
+   "example": "((3x + 1)²)′ = 2(3x + 1) гэнэ; зөв нь 2(3x + 1) · 3 = 6(3x + 1).",
+   "why": "Дотоод функцийн уламжлалыг үржүүлэхээ мартдаг.",
+   "fix": "Гадна ба дотоод функцийг тусад нь бичүүлж байж уламжлал авна.",
+   "en": "Forgets the chain rule.",
+   "src": "https://ejournal.umm.ac.id/index.php/MEJ/article/view/33081"
+  },
+  {
+   "wrong": "Уламжлалыг нэг цэг дэх шүргэгч шулуун гэж үздэг (функц гэж биш).",
+   "example": "f′(x)-ыг «шүргэгч шулууны тэгшитгэл» гэнэ.",
+   "why": "Цэг дээрх утга ба уламжлал функцийг ялгадаггүй.",
+   "fix": "f′(1), f′(2), f′(3)-г тооцуулж f′ нь функц гэдгийг харуулна.",
+   "en": "Treats the derivative as a tangent line rather than a function.",
+   "src": "https://scindeks-clanci.ceon.rs/data/pdf/3042-2469/2025/3042-24692501005A.pdf"
+  },
+  {
+   "wrong": "Тригонометр функцийн уламжлалын томьёо градуст ч үнэн гэж үздэг.",
+   "example": "(sin x)′ = cos x-г x градусаар хэрэглэнэ.",
+   "why": "Радиан нэгжийн ач холбогдлыг ойлгоогүй.",
+   "fix": "sin x / x-ийн хязгаар зөвхөн радианд 1 болохыг тооцоолж харуулна.",
+   "en": "Thinks trig derivative rules hold in degrees.",
+   "src": "https://arxiv.org/pdf/2503.01525"
+  }
+ ],
+ "deriv-app": [
+  {
+   "wrong": "f′(x) = 0 бол заавал максимум эсвэл минимум гэж үздэг.",
+   "example": "f(x) = x³, f′(0) = 0 тул x = 0-д экстремум гэнэ; энэ нь хэвтээ гулзайлтын цэг.",
+   "why": "Тэмдгийн өөрчлөлтийг шалгадаггүй.",
+   "fix": "f′-ийн тэмдгийн хүснэгт байгуулуулна.",
+   "en": "Assumes every stationary point is an extremum.",
+   "src": "https://wrap.warwick.ac.uk/id/eprint/507",
+   "draft": true
+  },
+  {
+   "wrong": "Хязгаарлагдмал завсарт төгсгөлийн цэгүүдийг шалгадаггүй.",
+   "example": "[0, 3] дээр f(x) = x² − 2x-ийн хамгийн их утгыг f(1) = −1 гэж хайна; зөв нь f(3) = 3.",
+   "why": "Экстремумыг зөвхөн f′ = 0 цэгээс хайдаг.",
+   "fix": "Шалгах жагсаалтаар (критик цэгүүд + төгсгөлүүд) шалгуулна.",
+   "en": "Forgets endpoints when finding a global maximum.",
+   "src": "https://wrap.warwick.ac.uk/id/eprint/507",
+   "draft": true
+  }
+ ],
+ "integral": [
+  {
+   "wrong": "Тодорхой бус интегралд + C-г мартдаг.",
+   "example": "∫2x dx = x² гэнэ; зөв нь x² + C.",
+   "why": "Уламжлал нь ижил олон функц байдгийг ойлгоогүй.",
+   "fix": "x², x² + 5, x² − 3-ын уламжлалыг харьцуулуулна.",
+   "en": "Omits the constant of integration.",
+   "src": "https://dx.doi.org/10.1007/BF00410540",
+   "draft": true
+  },
+  {
+   "wrong": "Зэргийн интегралд зэрэгт хуваахаа мартдаг.",
+   "example": "∫x² dx = x³ + C гэнэ; зөв нь x³/3 + C.",
+   "why": "Уламжлалын дүрмийг урвуугаар буруу хэрэглэдэг.",
+   "fix": "Хариуны уламжлалыг авч шалгах дадал суулгана.",
+   "en": "Forgets to divide by the new power.",
+   "src": "https://dx.doi.org/10.1007/BF00410540",
+   "draft": true
+  }
+ ],
+ "def-int": [
+  {
+   "wrong": "Тодорхой интеграл үргэлж эерэг талбай гэж үздэг.",
+   "example": "−1-ээс 0 хүртэлх x-ийн интегралыг «1/2» гэнэ; утга нь −1/2 (хэсэг тэнхлэгээс доор).",
+   "why": "Интегралыг зөвхөн геометрийн талбай гэж ойлгодог.",
+   "fix": "Тэнхлэгээс доорх хэсэг сөрөг утга өгдгийг графикаар харуулна.",
+   "en": "Thinks a definite integral is always a positive area.",
+   "src": "https://arxiv.org/pdf/1903.03806"
+  },
+  {
+   "wrong": "Интегралыг ойролцоо утга гэж үздэг.",
+   "example": "«Интеграл бол тэгш өнцөгтүүдийн нийлбэр тул ойролцоо хариу» гэнэ.",
+   "why": "Риманы нийлбэрийн хязгаар яг утга гэдгийг ойлгоогүй.",
+   "fix": "Тэгш өнцөгтүүдийг нарийсгахад нийлбэр нэг тоо руу ойртохыг хүснэгтээр харуулна.",
+   "en": "Sees the integral as an approximation, not an exact limit.",
+   "src": "https://dx.doi.org/10.1007/BF00410540"
+  },
+  {
+   "wrong": "«Интеграл = талбай» гэж хэлж чадах боловч зохих графикийг сонгож чаддаггүй.",
+   "example": "∫₁³ f(x) dx-д x = 0-ээс эхэлсэн талбайг сонгоно.",
+   "why": "Хязгаарын утгыг графиктай холбодоггүй.",
+   "fix": "Графикт хязгаарын шулуунуудыг зуруулж талбайг будуулна.",
+   "en": "Cannot match an integral to the correct region.",
+   "src": "https://web.phys.ksu.edu/reese/papers/2011/nguyen-prstper-area-under-curve.pdf"
+  }
+ ],
+ "space-coord": [
+  {
+   "wrong": "Огторгуйн цэгийг хавтгайн цэг шиг 2 координатаар зурдаг.",
+   "example": "(2, 3, 4) цэгийг (2, 3) дээр тавиад z-г үл тоомсорлоно.",
+   "why": "z тэнхлэгийн хэтийн зургийг уншиж дадаагүй.",
+   "fix": "Өрөөний буланг эх болгон бодит хэмжилт хийлгэнэ.",
+   "en": "Ignores the z-coordinate when plotting.",
+   "src": "https://toknowpress.net/submission/index.php/ijmkl/article/view/167",
+   "draft": true
+  },
+  {
+   "wrong": "Огторгуйн хоёр цэгийн зайг 2 хэмжээст томьёогоор олдог.",
+   "example": "(0,0,0)-(1,2,2) зайг √(1 + 4) = √5 гэнэ; зөв нь √(1 + 4 + 4) = 3.",
+   "why": "z-ийн ялгаврыг мартдаг.",
+   "fix": "Пифагорын теоремыг хоёр удаа хэрэглэж томьёог гаргуулна.",
+   "en": "Uses the 2-D distance formula in 3-D.",
+   "src": "https://ejournal.radenintan.ac.id/index.php/al-jabar/article/download/30110/10451/98586",
+   "draft": true
+  }
+ ],
+ "radian": [
+  {
+   "wrong": "Радианыг нэгжгүй тоо гэж ойлгодоггүй / π-г 180 гэж үздэг.",
+   "example": "sin π-г тооны машинд «sin 180» гэж оруулахдаа π = 180 гэж ойлгоно; π рад = 180°, харин π ≈ 3.14.",
+   "why": "Радианыг нумын урт/радиус гэсэн харьцаа гэж ойлгоогүй.",
+   "fix": "Утсаар радиусын уртыг нум дээр тавьж 1 радианыг харуулна.",
+   "en": "Thinks π equals 180 rather than π rad = 180°.",
+   "src": "https://researchgate.net/profile/Kevin-Moore-19/publication/253952512_Making_sense_by_measuring_arcs_A_teaching_experiment_in_angle_measure/links/56a0fa1908ae24f62701e1bd/Making-sense-by-measuring-arcs-A-teaching-experiment-in-angle-measure.pdf"
+  },
+  {
+   "wrong": "Тооны машины горимыг (DEG/RAD) шалгадаггүй.",
+   "example": "sin 30-ыг RAD горимд бодоод −0.99 гэнэ; градусаар sin 30° = 0.5.",
+   "why": "Нэгж солигдохоор хариу өөрчлөгддөгийг мэддэггүй.",
+   "fix": "Бодлого бүрийн өмнө нэгжийг тэмдэглүүлнэ.",
+   "en": "Uses the wrong calculator mode.",
+   "src": "https://sites.unipa.it/grim/QRDM_Orhun_20_2010.pdf",
+   "draft": true
+  }
+ ],
+ "trig-fn": [
+  {
+   "wrong": "sin(a + b) = sin a + sin b гэж үздэг.",
+   "example": "sin(30° + 60°) = 0.5 + 0.87 ≈ 1.37 гэнэ; зөв нь sin 90° = 1.",
+   "why": "Хаалт задлах дүрмийг функцэд хэрэглэдэг.",
+   "fix": "Тоон жишээгээр шалгуулж, нийлбэрийн томьёог гаргуулна.",
+   "en": "Treats sine as linear: sin(a+b) = sin a + sin b.",
+   "src": "https://sites.unipa.it/grim/AOrhun.PDF",
+   "draft": true
+  },
+  {
+   "wrong": "Синус, косинусыг гурвалжны харьцаа гэж л ойлгож 90°-аас их өнцөгт хэрэглэж чаддаггүй.",
+   "example": "sin 150° байхгүй гэнэ; sin 150° = 0.5.",
+   "why": "Нэгж тойргийн тодорхойлолтыг гурвалжнаас тусад нь сурсан.",
+   "fix": "Нэгж тойрог дээр цэгийн y координатыг sin гэж харуулна.",
+   "en": "Cannot extend trig beyond right-triangle ratios.",
+   "src": "https://sites.unipa.it/grim/AOrhun.PDF"
+  }
+ ],
+ "space-vec": [
+  {
+   "wrong": "Огторгуйн векторын уртыг координатуудын нийлбэрээр олдог.",
+   "example": "(1, 2, 2)-ын уртыг 5 гэнэ; зөв нь √(1 + 4 + 4) = 3.",
+   "why": "Уртыг Пифагорын теоремоор олдгийг мартдаг.",
+   "fix": "Хайрцгийн диагоналийн зургаар томьёог гаргуулна.",
+   "en": "Adds components to get a magnitude.",
+   "src": "https://journals.helsinki.fi/lumat/article/download/2993/2471/12440",
+   "draft": true
+  },
+  {
+   "wrong": "Векторын уртын тэмдэглэгээг (|a|) вектор гэж ойлгодог.",
+   "example": "|a|-г (3, 4) гэж бичнэ; зөв нь 5.",
+   "why": "Тэмдэглэгээний утгыг ялгадаггүй.",
+   "fix": "Вектор ба түүний урт хоёрыг хажуу хажуугаар бичүүлнэ.",
+   "en": "Confuses |a| (a number) with the vector a.",
+   "src": "https://journals.helsinki.fi/lumat/article/download/2993/2471/12440",
+   "draft": true
+  }
+ ],
+ "cond-prob": [
+  {
+   "wrong": "P(A | B) ба P(B | A)-г ижил гэж үздэг (урвуугийн андуурал).",
+   "example": "«Улаан тууралттай бол улаан бурхан туссан магадлал» = «улаан бурхантай бол тууралт гарах магадлал» гэнэ.",
+   "why": "Нөхцөл ба үзэгдлийг ялгаж хардаггүй.",
+   "fix": "Хоёр талт хүснэгтээр хоёр харьцааг тус тусад нь тооцуулна.",
+   "en": "Confusion of the inverse: P(A|B) = P(B|A).",
+   "src": "https://www.stat.auckland.ac.nz/~iase/publications/icots2/Falk.pdf"
+  },
+  {
+   "wrong": "Нөхцөлт магадлалыг шалтгаан-үр дагавар гэж үздэг.",
+   "example": "«Хоёр дахь бөмбөг улаан байсан нь эхнийх улаан байх магадлалд нөлөөлөхгүй» гэнэ.",
+   "why": "Цаг хугацааны дарааллаар л нөлөөлнө гэж боддог.",
+   "fix": "Хойноос урагш нөхцөлт магадлалын жишээг хүснэгтээр бодуулна.",
+   "en": "Treats conditioning as causal / time-ordered only.",
+   "src": "https://fpce.uc.pt/iase-web/documents/papers/icme11/ICME11_TSG13_02P_diaz_batanero.pdf"
+  },
+  {
+   "wrong": "Нөхцөлт магадлалд нийт тоог хуваарь болгодог.",
+   "example": "100 хүний 30 нь эмэгтэй, 12 нь эмэгтэй тамирчин: P(тамирчин | эмэгтэй) = 12/100 гэнэ; зөв нь 12/30 = 0.4.",
+   "why": "Нөхцөл нь түүврийн орон зайг багасгадгийг ойлгоогүй.",
+   "fix": "Хүснэгтийн тухайн мөрийг л тусгаарлан харуулна.",
+   "en": "Divides by the whole total instead of the condition.",
+   "src": "https://researchspace.auckland.ac.nz/handle/2292/32596",
+   "draft": true
+  }
+ ],
+ "series": [
+  {
+   "wrong": "Гишүүд 0 руу тэмүүлбэл цуваа нийлнэ гэж үздэг.",
+   "example": "1 + 1/2 + 1/3 + …-ийг нийлнэ гэнэ; гармоник цуваа сарнина.",
+   "why": "Гишүүдийн тухай ба нийлбэрийн тухай бодлыг хольдог.",
+   "fix": "Хэсгийн нийлбэрүүдийг хүснэгтээр тооцуулж өсөлт зогсохгүйг харуулна.",
+   "en": "Thinks terms tending to 0 guarantees convergence.",
+   "src": "https://pythagoras.org.za/index.php/pythagoras/article/view/567/834",
+   "draft": true
+  },
+  {
+   "wrong": "Хязгааргүй олон эерэг тоог нэмбэл заавал хязгааргүй гэж үздэг.",
+   "example": "1/2 + 1/4 + 1/8 + …-ийг «хязгааргүй» гэнэ; нийлбэр нь 1.",
+   "why": "Хязгааргүй процесс ба хязгаарын утгыг ялгадаггүй.",
+   "fix": "Квадратыг хагаслан будаж нийлбэр 1 болохыг харуулна.",
+   "en": "Thinks any infinite sum of positives is infinite.",
+   "src": "https://pythagoras.org.za/index.php/pythagoras/article/view/567/834",
+   "draft": true
+  },
+  {
+   "wrong": "Σ тэмдэглэгээний индексийг буруу уншдаг.",
+   "example": "Σ (k = 1-ээс 4) 2k-г 2 · 4 = 8 гэнэ; зөв нь 2 + 4 + 6 + 8 = 20.",
+   "why": "Σ нь нийлбэр, k нь гүйх хувьсагч гэдгийг ойлгоогүй.",
+   "fix": "Гишүүдийг задлан бичүүлсний дараа нэмүүлнэ.",
+   "en": "Misreads sigma notation.",
+   "src": "https://pythagoras.org.za/index.php/pythagoras/article/view/567/834",
+   "draft": true
+  }
+ ],
+ "diff-eq": [
+  {
+   "wrong": "Дифференциал тэгшитгэлийн шийдийг тоо гэж үздэг.",
+   "example": "y′ = 2y-ийн шийдийг «y = 0» эсвэл «y = 2» гэх мэт тоогоор хайна; шийд нь функц y = Ce^{2x}.",
+   "why": "Алгебрын тэгшитгэлийн «шийд нь тоо» гэсэн дадлыг шилжүүлдэг.",
+   "fix": "Шийдийг тэгшитгэлд орлуулж шалгаж, функц гэдгийг харуулна.",
+   "en": "Expects a number, not a function, as the solution.",
+   "src": "https://maa.org/node/121581"
+  },
+  {
+   "wrong": "Тогтмол C-г мартаж, ганц шийд гэж үздэг.",
+   "example": "y′ = 3-ын шийдийг y = 3x гэнэ; бүх шийд y = 3x + C.",
+   "why": "Анхны нөхцөлийн үүргийг ойлгоогүй.",
+   "fix": "Өөр өөр C-тэй муруйнуудын бүлгийг зурж харуулна.",
+   "en": "Forgets the family of solutions (+C).",
+   "src": "https://portfolio.erau.edu/en/publications/knowing-solutions-to-differential-equations-with-rate-of-change-a/",
+   "draft": true
+  }
+ ],
+ "rand-var": [
+  {
+   "wrong": "Математик дундаж (хүлээлт) нь гарч болох утга байх ёстой гэж үздэг.",
+   "example": "Шооны хүлээлт 3.5 гэхэд «3.5 буухгүй тул алдаатай» гэнэ.",
+   "why": "Хүлээлтийг «хамгийн их гарах утга» гэж ойлгодог.",
+   "fix": "Олон удаагийн дундаж 3.5 рүү ойртохыг загварчлалаар харуулна.",
+   "en": "Thinks the expected value must be a possible outcome.",
+   "src": "https://doaj.org/article/455d599e1ae740e6894b5c110017d055",
+   "draft": true
+  },
+  {
+   "wrong": "Санамсаргүй хувьсагчийн утга бүр адил магадлалтай гэж үздэг.",
+   "example": "Хоёр зоосон дахь сүлдний тоо 0, 1, 2 тус бүр 1/3 гэнэ; зөв нь 1/4, 1/2, 1/4.",
+   "why": "Тэнцүү магадлалын хазайлт.",
+   "fix": "Үр дүнгийн огторгуйг (СС, СТ, ТС, ТТ) бүрэн жагсаалгана.",
+   "en": "Equiprobability bias in a distribution.",
+   "src": "https://doaj.org/article/455d599e1ae740e6894b5c110017d055"
+  }
+ ],
+ "binom-dist": [
+  {
+   "wrong": "Түүврийн хэлбэлзлийг дутуу тооцдог (үр дүн яг дунджаар гарна гэж үздэг).",
+   "example": "10 удаа зоос шидэхэд «яг 5 сүлд буух ёстой» гэнэ; P(X = 5) = 252/1024 ≈ 0.25 л.",
+   "why": "Хүлээгдэх утга ба бодит үр дүнг ялгадаггүй.",
+   "fix": "Олон бүлэг 10 шидэлт хийж үр дүнгийн тархалтыг зуруулна.",
+   "en": "Underestimates sampling variability.",
+   "src": "https://doaj.org/article/455d599e1ae740e6894b5c110017d055"
+  },
+  {
+   "wrong": "Бином нөхцөлийг шалгахгүй хэрэглэдэг.",
+   "example": "Буцааж тавихгүйгээр сонгох (магадлал өөрчлөгдөх) бодлогод бином томьёо хэрэглэнэ.",
+   "why": "Туршилтууд хамааралгүй, p тогтмол байх нөхцөлийг мартдаг.",
+   "fix": "Бодлого бүрт 4 нөхцөлийг (n тогтмол, 2 үр дүн, p тогтмол, хамааралгүй) шалгуулна.",
+   "en": "Uses the binomial model when trials are not independent.",
+   "src": "https://doaj.org/article/455d599e1ae740e6894b5c110017d055",
+   "draft": true
+  }
+ ],
+ "normal": [
+  {
+   "wrong": "Хонх хэлбэртэй бүх тархалтыг хэвийн тархалт гэж үздэг.",
+   "example": "Тэгш хэмтэй ямар ч гистограмд 68–95–99.7 дүрмийг хэрэглэнэ.",
+   "why": "Хэвийн тархалтын шинжүүдийг тусад нь мэдэх боловч нэгтгэж чаддаггүй.",
+   "fix": "Өгөгдөл хэвийн тархалттай ойролцоо эсэхийг шалгах алхмыг заана.",
+   "en": "Treats any bell-shaped/symmetric data as normal.",
+   "src": "https://www.stat.auckland.ac.nz/~iase/publications/dissertations/01.tauber.pdf",
+   "draft": true
+  },
+  {
+   "wrong": "Тасралтгүй хувьсагчийн нэг цэгийн магадлал тэг биш гэж үздэг.",
+   "example": "P(X = 170) = муруйн 170 дээрх өндөр гэнэ; тасралтгүй үед P(X = 170) = 0.",
+   "why": "Магадлал муруйн доорх талбай гэдгийг ойлгоогүй.",
+   "fix": "Завсрын талбайг будаж, завсар нарийсахад талбай 0 руу ойртохыг харуулна.",
+   "en": "Reads the density height as a probability.",
+   "src": "https://link.springer.com/content/pdf/10.1007/1-4020-2278-6_11.pdf",
+   "draft": true
+  }
+ ],
+ "geo-prob": [
+  {
+   "wrong": "Магадлалыг уртын/талбайн харьцаа биш, тоогоор тоолж олохыг оролддог.",
+   "example": "Самбарын төвийн тойрог (r = 1) ба нийт тойрог (r = 2): «1 бүс / 2 бүс = 1/2» гэнэ; зөв нь π·1² / π·2² = 1/4.",
+   "why": "Сонгодог (тоолох) магадлалыг шилжүүлж хэрэглэдэг.",
+   "fix": "Хэмжээний харьцаа (урт, талбай)-аар магадлал олдгийг зургаар тайлбарлана.",
+   "en": "Counts regions instead of using area ratios.",
+   "src": "https://fpce.uc.pt/iase-web/documents/papers/icots5/Topic10a.pdf",
+   "draft": true
+  },
+  {
+   "wrong": "Радиусын харьцааг талбайн харьцаа гэж үздэг.",
+   "example": "Дээрх жишээнд 1/2 гэнэ (радиусын харьцаа); зөв нь (1/2)² = 1/4.",
+   "why": "Талбай радиусын квадратаар өсдөгийг мартдаг.",
+   "fix": "Хоёр тойргийн талбайг бодуулж харьцуулна.",
+   "en": "Uses the radius ratio instead of the area ratio.",
+   "src": "https://mr-mathematics.com/?p=33972",
+   "draft": true
+  }
+ ]
+}

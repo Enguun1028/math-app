@@ -1,0 +1,143 @@
+id | grade | strand | name (Mongolian) | English | has textbook content
+b-equal | 1 | alg | Тэнцүүгийн тэмдэг ба үл мэдэгдэх тоо | The = sign and missing numbers | no
+b-pattern | 1 | alg | Хэв маяг ба тоон дараалал | Patterns | no
+b-model | 1 | alg | Бодлогыг зургаар загварчлах | Modelling word problems with bars | no
+b-shapes | 1 | geo | Дүрс ба биет | Shapes and solids | no
+b-sym | 1 | geo | Тэгш хэм, зөөх, эргүүлэх | Symmetry, sliding, turning | no
+b-grid | 1 | geo | Тор ба байршил | Grids and position | no
+b-units | 1 | meas | Урт, жин, багтаамж | Length, mass, capacity | no
+b-time | 1 | meas | Цаг хугацаа ба мөнгө | Time and money | no
+b-place | 1 | num | Тоо ба оронгийн утга | Place value | no
+b-numline | 1 | num | Тоон шулуун | Number line | no
+b-add | 1 | num | Нэмэх ба хасах | Adding and subtracting | no
+b-props | 1 | num | Үйлдлийн чанар | Properties of operations | no
+b-data | 1 | stat | Ангилах ба зурган диаграмм | Sorting and pictograms | no
+b-angle | 2 | geo | Өнцөг гэж юу вэ | What an angle is | no
+b-mul | 2 | num | Үржих ба хуваах | Multiplying and dividing | no
+b-rem | 2 | num | Үлдэгдэлтэй хуваах | Division with remainder | no
+b-order | 2 | num | Үйлдлийн дараалал | Order of operations | no
+b-round | 2 | num | Тоймлох | Rounding | no
+b-frac | 2 | num | Хэсэг ба бүхэл | Parts of a whole | no
+b-area | 3 | meas | Талбайг дөрвөлжнөөр тоолох | Area by counting squares | no
+b-neg | 3 | num | Тэгээс бага тоо | Numbers below zero | no
+b-chance | 3 | stat | Боломжтой ба боломжгүй | Possible and impossible | no
+b-vol | 4 | meas | Эзэлхүүнийг шоогоор тоолох | Volume by counting cubes | no
+b-dec | 4 | num | Аравны нэг, зууны нэг | Tenths and hundredths | no
+coord | 5 | alg | Координатын хавтгай | Coordinate plane | yes
+tri | 5 | geo | Гурвалжин | Triangles | yes
+transform | 5 | geo | Хувиргалт: тэгш хэм, зөөлт, эргүүлэлт | Transformations | yes
+solids | 5 | geo | Биет ба дэлгээс | Solids and nets | yes
+units | 5 | meas | Хэмжих нэгж ба хувиргалт | Units and conversion | yes
+time | 5 | meas | Хугацаа ба цагийн бүс | Time and time zones | yes
+perim-area | 5 | meas | Периметр ба талбай | Perimeter and area | yes
+vol-surf | 5 | meas | Гадаргуун талбай ба эзэлхүүн | Surface area and volume | yes
+divis | 5 | num | Хуваагдах чанар | Divisibility | yes
+gcd | 5 | num | ХИЕХ ба ХБЕХ | GCD and LCM | yes
+frac | 5 | num | Энгийн бутархай | Fractions | yes
+frac-add | 5 | num | Бутархай нэмэх, хасах | Adding fractions | yes
+dec | 5 | num | Аравтын бутархай | Decimals | yes
+round | 5 | num | Тоймлох ба нарийвчлал | Rounding and accuracy | yes
+pct | 5 | num | Процент | Percent | yes
+ratio | 5 | num | Харьцаа | Ratio | yes
+int | 5 | num | Сөрөг тоо ба бүхэл тоо | Negative numbers and integers | yes
+charts | 5 | stat | Диаграмм ба график | Charts and graphs | yes
+average | 5 | stat | Дундаж, медиан, моод | Mean, median, mode | yes
+counting | 5 | stat | Тоолох зарчим | Counting principles | yes
+expr | 6 | alg | Алгебрын илэрхийлэл | Algebraic expressions | yes
+lin-eq | 6 | alg | Шугаман тэгшитгэл | Linear equations | yes
+seq | 6 | alg | Дараалал | Sequences | yes
+func | 6 | alg | Функц | Function | yes
+direct | 6 | alg | Шууд пропорциональ хамаарал | Direct proportion graph | yes
+angle | 6 | geo | Өнцөг ба шулуун | Angles and lines | yes
+polygon | 6 | geo | Дөрвөн өнцөгт ба олон өнцөгт | Quadrilaterals and polygons | yes
+circle | 6 | geo | Тойрог ба дугуй | Circle | yes
+prime | 6 | num | Анхны тоо ба задаргаа | Primes and factorisation | yes
+frac-mul | 6 | num | Бутархай үржих, хуваах | Multiplying fractions | yes
+frac-dec | 6 | num | Бутархай, аравтын, процент хувиргах | Fraction ↔ decimal ↔ percent | yes
+prop | 6 | num | Пропорц | Proportion | yes
+pow | 6 | num | Зэрэг | Powers | yes
+root | 6 | num | Квадрат ба куб язгуур | Square and cube roots | yes
+sets | 6 | num | Олонлог ба Эйлер-Веннийн диаграмм | Sets and Venn diagrams | yes
+data | 6 | stat | Өгөгдөл ба түүвэр | Data and sampling | yes
+prob | 6 | stat | Магадлал | Probability | yes
+poly | 7 | alg | Нэг ба олон гишүүнт | Monomials and polynomials | yes
+ap | 7 | alg | Арифметик прогресс | Arithmetic progression | yes
+linear | 7 | alg | Шугаман функц | Linear function | yes
+parallel | 7 | geo | Параллель шулуун ба огтлогч | Parallel lines and transversals | yes
+proof | 7 | geo | Батлах | Proof | yes
+construct | 7 | geo | Гортиг, шугамаар байгуулах | Compass constructions | yes
+congruent | 7 | geo | Тэнцүү гурвалжин | Congruent triangles | yes
+circle-meas | 7 | meas | Тойргийн урт ба дугуйн талбай | Circumference and circle area | yes
+int-ops | 7 | num | Бүхэл тоон үйлдэл | Operations with integers | yes
+abs | 7 | num | Модуль | Absolute value | yes
+grouped | 7 | stat | Бүлэглэсэн өгөгдөл ба гистограм | Grouped data and histograms | yes
+rel-freq | 7 | stat | Харьцангуй давтамж | Relative frequency | yes
+special-prod | 8 | alg | Товчилсон үржвэрийн томьёо | Special products | yes
+factor | 8 | alg | Үржигдэхүүн болгон задлах | Factoring | yes
+alg-frac | 8 | alg | Алгебрын бутархай | Algebraic fractions | yes
+formula | 8 | alg | Томьёо хувиргах | Rearranging formulas | yes
+system | 8 | alg | Тэгшитгэлийн систем | Systems of equations | yes
+ineq | 8 | alg | Тэнцэтгэл биш | Inequalities | yes
+rat-eq | 8 | alg | Рационал тэгшитгэл | Rational equations | yes
+slope | 8 | alg | Налалт | Slope | yes
+quad-fn | 8 | alg | Квадрат функц | Quadratic function | yes
+similar | 8 | geo | Төсөөтэй дүрс ба гомотет | Similarity and enlargement | yes
+pyth | 8 | geo | Пифагорын теорем | Pythagorean theorem | yes
+tri-lines | 8 | geo | Медиан, биссектрис, өндөр | Medians, bisectors, altitudes | yes
+circle-angles | 8 | geo | Төвийн ба багтсан өнцөг | Central and inscribed angles | yes
+chord-tangent | 8 | geo | Хөвч, шүргэгч, огтлогч | Chords and tangents | yes
+coord-geo | 8 | geo | Координатын геометр | Coordinate geometry | yes
+bearing | 8 | geo | Азимут | Bearings | yes
+sim-ratio | 8 | meas | Төсөөтэй дүрсийн талбай, эзэлхүүн | Area and volume of similar shapes | yes
+speed | 8 | meas | Хурд, зам, хугацаа | Speed, distance, time | yes
+pct-app | 8 | num | Процентын хэрэглээ: хүү, хямдрал, татвар | Percent in life | yes
+inv-prop | 8 | num | Урвуу пропорц | Inverse proportion | yes
+neg-pow | 8 | num | Сөрөг ба бутархай илтгэгч | Negative and rational exponents | yes
+rational | 8 | num | Рационал тоо | Rational numbers | yes
+prob-rules | 8 | stat | Магадлалын нэмэх дүрэм | Addition rule | yes
+quad-eq | 9 | alg | Квадрат тэгшитгэл | Quadratic equations | yes
+exp-eq | 9 | alg | Илтгэгч тэгшитгэл | Exponential equations | yes
+cross-sec | 9 | geo | Биетийн огтлол | Cross-sections | yes
+trig-right | 9 | geo | Тэгш өнцөгт гурвалжны sin, cos, tg | Right-triangle trigonometry | yes
+vector | 9 | geo | Вектор | Vectors | yes
+sector | 9 | meas | Нум ба сектор | Arcs and sectors | yes
+sci | 9 | num | Тооны стандарт дүрс | Standard form | yes
+real | 9 | num | Иррационал ба бодит тоо | Irrational and real numbers | yes
+scatter | 9 | stat | Цэгэн диаграмм ба корреляц | Scatter plots and correlation | yes
+tree | 9 | stat | Нийлмэл үзэгдэл ба модны схем | Combined events and tree diagrams | yes
+power-fn | 10 | alg | Зэрэгт функц | Power functions | yes
+exp-fn | 10 | alg | Илтгэгч функц | Exponential function | yes
+matrix | 10 | alg | Матриц | Matrices | yes
+det | 10 | alg | Тодорхойлогч ба урвуу матриц | Determinant and inverse | yes
+tangent-slope | 10 | calc | Муруйн шүргэгчийн налалт | Slope of a curve | yes
+locus | 10 | geo | Цэгийн геометр байр | Locus | yes
+trig-tri | 10 | geo | Синус, косинусын теорем | Sine and cosine rules | yes
+dot | 10 | geo | Скаляр үржвэр | Dot product | yes
+mat-transform | 10 | geo | Хувиргалтын матриц | Transformation matrices | yes
+spread | 10 | stat | Далайц, квартил, стандарт хазайлт | Range, quartiles, standard deviation | yes
+perm-comb | 10 | stat | Сэлгэмэл ба хэсэглэл | Permutations and combinations | yes
+quad-ineq | 11 | alg | Квадрат тэнцэтгэл биш | Quadratic inequalities | yes
+gp | 11 | alg | Геометр прогресс | Geometric progression | yes
+binomial-th | 11 | alg | Ньютоны бином | Binomial theorem | yes
+fn-props | 11 | alg | Функцийн чанар: өсөх, тэгш, урвуу, давхар | Function properties | yes
+lin-sys-mat | 11 | alg | Матрицаар систем бодох | Solving systems with matrices | yes
+deriv | 11 | calc | Уламжлал | Derivative | yes
+deriv-app | 11 | calc | Уламжлалын хэрэглээ: экстремум, график | Using derivatives | yes
+integral | 11 | calc | Интеграл | Integral | yes
+def-int | 11 | calc | Тодорхой интеграл ба талбай | Definite integral and area | yes
+space-coord | 11 | geo | Огторгуйн координат, шулуун, хавтгай | Coordinates in space | yes
+radian | 11 | geo | Радиан | Radians | yes
+trig-fn | 11 | geo | Тригонометр функц ба адилтгал | Trig functions and identities | yes
+space-vec | 11 | geo | Огторгуйн вектор | Vectors in space | yes
+cond-prob | 11 | stat | Нөхцөлт магадлал | Conditional probability | yes
+poly-div | 12 | alg | Олон гишүүнт хуваах, Безугийн теорем | Polynomial division, remainder theorem | yes
+complex | 12 | alg | Комплекс тоо | Complex numbers | yes
+induction | 12 | alg | Математик индукц | Mathematical induction | no
+log | 12 | alg | Логарифм | Logarithm | yes
+rat-fn | 12 | alg | Рационал функц | Rational functions | yes
+series | 12 | calc | Цуваа ба Σ | Series | yes
+diff-eq | 12 | calc | Дифференциал тэгшитгэл | Differential equations | yes
+rand-var | 12 | stat | Санамсаргүй хувьсагч | Random variables | yes
+binom-dist | 12 | stat | Бином тархалт | Binomial distribution | no
+normal | 12 | stat | Хэвийн тархалт | Normal distribution | no
+geo-prob | 12 | stat | Геометр магадлал | Geometric probability | no
