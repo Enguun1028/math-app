@@ -40,18 +40,18 @@
   const TAB_PAGES = ['m', 'practice', 'search', 'tools', 'me'];
   let tabPage = $derived(TAB_PAGES.includes(page));
   // A sphere opened from the map animates its own circles, so the page itself only fades.
-  let pageIn = $derived({ y: ui.morph ? 0 : 14, duration: ms(ui.morph ? 200 : 280), easing: ease });
-  // Opening or closing a sphere is one long motion, so those layers stay a little longer.
-  let mapOut = $derived({ duration: ms(ui.morph ? 480 : 220) });
-  let pageOut = $derived({ duration: ms(!page && ui.back ? 460 : 160) });
+  let pageIn = $derived({ y: ui.morph ? 0 : 10, duration: ms(ui.morph ? 220 : 260), easing: ease });
+  // Opening or closing a sphere is one long motion, so those layers stay a little longer. Exits are faster than entries.
+  let mapOut = $derived({ duration: ms(ui.morph ? 420 : 180), easing: ease });
+  let pageOut = $derived({ duration: ms(!page && ui.back ? 420 : 180), easing: ease });
 </script>
 
 {#if !page}
-  <div class="layer" in:fade={{ duration: ms(ui.back ? 0 : 260) }} out:fade={mapOut}>
+  <div class="layer" in:fade={{ duration: ms(ui.back ? 0 : 240), easing: ease }} out:fade={mapOut}>
     <MapView />
   </div>
 {:else}
-  <div class="layer" in:fade={{ duration: ms(200) }} out:fade={pageOut}>
+  <div class="layer" in:fade={{ duration: ms(220), easing: ease }} out:fade={pageOut}>
     {#if !tabPage}
       <header class="bar">
         <button class="btn ghost" onclick={back} aria-label="Буцах">‹ Буцах</button>

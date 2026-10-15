@@ -8,7 +8,9 @@ export const route = $state(parse());
 
 addEventListener('hashchange', () => {
   Object.assign(route, parse());
-  scrollTo(0, 0);
+  // The map has its own scroller. Going back to it, the page that fades out keeps its scroll spot,
+  // instead of jumping to the top while it is still visible.
+  if (route.parts.length) scrollTo(0, 0);
 });
 
 export const go = (path) => (location.hash = path);

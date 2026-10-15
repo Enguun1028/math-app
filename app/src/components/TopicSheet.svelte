@@ -21,8 +21,7 @@
   import { topicState, entryState, markTopic } from '../lib/logic.js';
   import { ui } from '../lib/ui.svelte.js';
   import { fade } from 'svelte/transition';
-  import { cubicOut } from 'svelte/easing';
-  import { ms } from '../lib/motion.js';
+  import { ms, ease } from '../lib/motion.js';
 
   let isOpen = $derived(!!(ui.topic && topics[ui.topic]));
   let lastT;
@@ -134,10 +133,12 @@
   // and the title box pops and glows once in the strand colour.
   const arrive = () => {
     const dir = ui.slide ?? 0; ui.slide = 0;
-    return { duration: ms(dir ? 300 : 140), easing: cubicOut, css: (k) => `opacity:${k}; transform: translateX(${(1 - k) * 36 * dir}px)` };
+    return { duration: ms(dir ? 280 : 160), easing: ease, css: (k) => `opacity:${k}; transform: translateX(${(1 - k) * 32 * dir}px)` };
   };
   // Opening: the panel grows out of the middle and fades in, like a sphere opening on the map.
-  const grow = (node) => ({ duration: ms(320), easing: cubicOut, css: (k) => `opacity:${k}; transform: scale(${0.94 + 0.06 * k}); border-radius:${(1 - k) * 40 + 0}px` });
+  // Closing runs the same motion back, faster. Only transform and opacity move, so it stays on the GPU.
+  const grow = () => ({ duration: ms(300), easing: ease, css: (k) => `opacity:${k}; transform: scale(${0.95 + 0.05 * k})` });
+  const shrink = () => ({ duration: ms(190), easing: ease, css: (k, u) => `opacity:${k}; transform: scale(${1 - 0.03 * u})` });
 </script>
 
 <svelte:window onkeydown={(ev) => ev.key === 'Escape' && close()} />
@@ -147,12 +148,13 @@
 {/snippet}
 
 {#if isOpen}
-  <div class="scrim" onclick={close} role="presentation" transition:fade={{ duration: ms(200) }}></div>
-  <div class="topic" bind:this={scroller} ontouchstart={tstart} ontouchmove={tmove} role="dialog" aria-label={t.name} style:--c={strands[t.strand].color} in:grow out:fade={{ duration: ms(160) }}>
+  <div class="scrim" onclick={close} role="presentation" in:fade={{ duration: ms(240) }} out:fade={{ duration: ms(190) }}></div>
+  <div class="topic" bind:this={scroller} ontouchstart={tstart} ontouchmove={tmove} role="dialog" aria-label={t.name} style:--c={strands[t.strand].color} in:grow out:shrink>
     <div class="inner">
       <div class="bar">
+        <!-- Same spot and look as "‹ Буцах" on the other pages (owner, 2026-10-16): leaving is always top left. -->
+        <button class="btn ghost" aria-label="Буцах" onclick={close}>‹ Буцах</button>
         <span class="small muted">{t.grades.length ? t.grades[0] + '-р анги' : 'Суурь · 1–4-р анги'}</span>
-        <button class="x" aria-label="Хаах" onclick={close}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" /></svg></button>
       </div>
 
       <TopicStrip id={t.id} />
@@ -328,18 +330,18 @@
   .inner { max-width: 560px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; position: relative; }
   .body { display: grid; grid-template-columns: minmax(0, 1fr); gap: 18px; }
 
-  /* Top bar stays on screen, so × is always one tap away. */
+  /* Top bar stays on screen, so "‹ Буцах" is always one tap away, in the same spot as on every other page. */
   .bar {
     position: sticky; top: 0; z-index: 4; display: flex; justify-content: space-between; align-items: center;
-    margin: 0 -16px; padding: calc(env(safe-area-inset-top, 0px) + 8px) 16px 6px; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(10px);
+    margin: 0 -16px; padding: calc(env(safe-area-inset-top, 0px) + 8px) 16px 6px 8px; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(10px);
+    /* Lines "‹ Буцах" up with the page top bar (a 560px column, 8px in) on any screen width. */
+    padding-left: calc(max(0px, (100vw - 560px) / 2) + 8px - max(0px, (100vw - 592px) / 2));
   }
   .bar span { font-weight: 700; }
-  .x { width: 42px; height: 42px; flex: none; border: 1px solid var(--line); border-radius: 50%; background: var(--surface-solid); color: var(--ink); display: grid; place-items: center; }
-  .x svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2.6; stroke-linecap: round; }
 
   /* Title box */
   .title { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 12px; border-radius: 18px; border: 1.5px solid color-mix(in srgb, var(--c) 60%, var(--line)); background: color-mix(in srgb, var(--c) 8%, var(--surface-solid)); }
-  .title.pop { animation: pop 0.7s ease-out; }
+  .title.pop { animation: pop 0.6s cubic-bezier(0.23, 1, 0.32, 1); }
   @keyframes pop { 0% { transform: scale(0.96); box-shadow: 0 0 0 0 transparent; } 35% { transform: scale(1.02); box-shadow: 0 0 0 2px var(--c), 0 0 30px color-mix(in srgb, var(--c) 60%, transparent); } 100% { transform: scale(1); box-shadow: 0 0 0 0 transparent; } }
   .tt { min-width: 0; display: grid; gap: 2px; }
   h2 { font-size: 1.25rem; margin: 0; text-wrap: balance; overflow-wrap: anywhere; }
@@ -352,7 +354,7 @@
 
   /* Quick-jump row: sticks under the top bar while scrolling. */
   .jump {
-    position: sticky; top: calc(env(safe-area-inset-top, 0px) + 56px); z-index: 3; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none;
+    position: sticky; top: calc(env(safe-area-inset-top, 0px) + 58px); z-index: 3; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none;
     margin: -6px -16px 0; padding: 6px 16px; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(10px);
   }
   .jump::-webkit-scrollbar { display: none; }

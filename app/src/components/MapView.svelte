@@ -13,7 +13,7 @@
   import { sphereState, nextTopic, levelChecked, checkLeft, entryState } from '../lib/logic.js';
   import { progress, save } from '../lib/progress.svelte.js';
   import { ui } from '../lib/ui.svelte.js';
-  import { go } from '../lib/router.svelte.js';
+  import { go, route } from '../lib/router.svelte.js';
   import { ms, ease, reduced } from '../lib/motion.js';
 
   let W = $state(400);
@@ -110,6 +110,14 @@
     }
     go('/s/' + id);
   }
+  // Back before the map finished leaving: the same map comes back, so undo the leaving state (else it stays invisible
+  // and the spheres stop opening).
+  $effect(() => {
+    if (!route.parts.length && opening) {
+      opening = false;
+      mapEl.classList.remove('leaving');
+    }
+  });
 
   onMount(() => {
     const resize = () => {
@@ -280,7 +288,7 @@
 </div>
 
 <style>
-  .map { position: fixed; inset: 0; overflow: hidden; transition: opacity 0.45s ease-out; }
+  .map { position: fixed; inset: 0; overflow: hidden; transition: opacity 0.42s cubic-bezier(0.23, 1, 0.32, 1); }
   /* Soft fades behind the top and bottom controls, so map labels slide under them instead of clashing. */
   .map::before, .map::after { content: ''; position: fixed; left: 0; right: 0; z-index: 4; pointer-events: none; }
   .map::before { top: 0; height: 90px; background: linear-gradient(var(--bg) 35%, transparent); }

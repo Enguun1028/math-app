@@ -9,9 +9,8 @@
   import { topicState, sphereState, readiness, sphereKnown } from '../lib/logic.js';
   import { ui } from '../lib/ui.svelte.js';
   import { onMount, onDestroy } from 'svelte';
-  import { reduced } from '../lib/motion.js';
+  import { reduced, easeMove, CURVE_MOVE } from '../lib/motion.js';
   import { route } from '../lib/router.svelte.js';
-  import { cubicInOut } from 'svelte/easing';
 
   let { id } = $props();
   let s = $derived(sphereById[id]);
@@ -80,7 +79,7 @@
     mini.getBoundingClientRect(); // apply the start positions before the glide begins
     requestAnimationFrame(() => {
       for (const el of els) {
-        el.style.transition = 'transform 600ms cubic-bezier(0.22, 0.8, 0.24, 1)';
+        el.style.transition = `transform 560ms ${CURVE_MOVE}`;
         el.style.transform = '';
       }
       setTimeout(() => (morphing = false), 380);
@@ -106,8 +105,8 @@
       moves.push({ el, dx: (r0.x - sx) / ctm.a, dy: (r0.y - sy) / ctm.d, sc: r0.r / (RAD.NODE * ctm.a) });
     }
     return {
-      duration: 460,
-      easing: cubicInOut,
+      duration: 440,
+      easing: easeMove,
       tick: (t) => {
         const p = 1 - t;
         for (const m of moves) m.el.style.transform = `translate(${m.dx * p}px, ${m.dy * p}px) scale(${1 + (m.sc - 1) * p})`;
@@ -367,7 +366,7 @@
 
 <style>
   /* While dots glide in, everything else waits, then fades in. */
-  .page > :not(.pan), .e, .n, .ok, .halo, .strand, .border, .ring { transition: opacity 0.35s ease-out, transform 0.35s ease-out; }
+  .page > :not(.pan), .e, .n, .ok, .halo, .strand, .border, .ring { transition: opacity 0.32s cubic-bezier(0.23, 1, 0.32, 1), transform 0.32s cubic-bezier(0.23, 1, 0.32, 1); }
   .page.morphing > :not(.pan) { opacity: 0; transform: translateY(8px); }
   .page.morphing :is(.e, .n, .ok, .halo, .strand, .border, .ring) { opacity: 0; }
   .head { padding: 12px 0 8px; display: grid; gap: 6px; justify-items: start; }
