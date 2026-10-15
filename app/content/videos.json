@@ -1,3 +1,825 @@
 {
-  "_note": "Video explanations. Key = where it shows: 'topic:<concept id>' (topic view), 'entry:<lesson id>' (lesson page 1), 'idea:<answer id>' (answer page). Value = { type: youtube | facebook | instagram | file, src, title?, vertical? }. youtube src = video id; facebook src = full video URL; instagram src = reel id; file src = path under app/public, e.g. videos/nemeh.mp4. Empty keys show 'Видео тайлбар удахгүй нэмэгдэнэ'."
+ "_note": "Video explanations. Key = where it shows: 'topic:<concept id>' (topic view), 'entry:<lesson id>' (lesson page 1), 'idea:<answer id>' (answer page). Value = { type: youtube | facebook | instagram | file, src, title?, vertical? }. youtube src = video id; facebook src = full video URL; instagram src = reel id; file src = path under app/public, e.g. videos/nemeh.mp4. Empty keys show 'Видео тайлбар удахгүй нэмэгдэнэ'.",
+ "topic:b-place": {
+  "type": "youtube",
+  "src": "xYWZQh55JhI",
+  "title": "Тооны оронгийн утгыг олох",
+  "draft": true
+ },
+ "topic:b-numline": {
+  "type": "youtube",
+  "src": "r9jVzGDj0tQ",
+  "title": "Тоо гэж юу вэ? Тоо ба тоон шулуун",
+  "draft": true
+ },
+ "topic:b-add": {
+  "type": "youtube",
+  "src": "Dxt-Jf2ZY8Y",
+  "title": "Олон оронтой тооны нэмэх үйлдлийг орны нэмэгдэхүүнээр задалж гүйцэтгэх",
+  "draft": true
+ },
+ "topic:b-mul": {
+  "type": "youtube",
+  "src": "8blF1-hX5_E",
+  "title": "Хоёр оронтой тоог хоёр оронтой тоогоор  үржүүлэх",
+  "draft": true
+ },
+ "topic:b-rem": {
+  "type": "youtube",
+  "src": "RSR9kLoRh7g",
+  "title": "Үлдэгдэлтэй гарах урт хуваах жишээ",
+  "draft": true
+ },
+ "topic:b-props": {
+  "type": "youtube",
+  "src": "ZceLEVGwV-o",
+  "title": "Нэмэгдэхүүний байр солих чанар",
+  "draft": true
+ },
+ "topic:b-order": {
+  "type": "youtube",
+  "src": "hShZ9NUTbLc",
+  "title": "Математик хэл: Үйлдлийн дараалал",
+  "draft": true
+ },
+ "topic:b-equal": {
+  "type": "youtube",
+  "src": "xCyQWG-UIxw",
+  "title": "Тэнцүүгийн тэмдэг",
+  "draft": true
+ },
+ "topic:b-round": {
+  "type": "youtube",
+  "src": "PX4hbmR2n7w",
+  "title": "Тоог аравт зуут мянгатаар тоймлох",
+  "draft": true
+ },
+ "topic:b-frac": {
+  "type": "youtube",
+  "src": "gWGdiWcF4jc",
+  "title": "Энгийн бутархай буюу fraction гэж юу вэ?",
+  "draft": true
+ },
+ "topic:b-neg": {
+  "type": "youtube",
+  "src": "p2F8OGZqGCM",
+  "title": "Сөрөг тооны тухай удиртгал",
+  "draft": true
+ },
+ "topic:b-dec": {
+  "type": "youtube",
+  "src": "fFW1LY-96LE",
+  "title": "Аравны тоонуудыг хасах үед тооны орныг ойлгох",
+  "draft": true
+ },
+ "topic:b-pattern": {
+  "type": "youtube",
+  "src": "R8TQ0v4faTc",
+  "title": "Тооны зүй тогтол: дарааллын гишүүдийн хамаарлыг дүрслэх",
+  "draft": true
+ },
+ "topic:b-units": {
+  "type": "youtube",
+  "src": "Q7cmdfpZqTk",
+  "title": "Зайн метрийн нэгжийг хөрвүүлэх: километр, метр, сентиметр",
+  "draft": true
+ },
+ "topic:b-time": {
+  "type": "youtube",
+  "src": "zvUdNi5ux3g",
+  "title": "Цаг хэд болж байгааг хэлэх жишээ 1",
+  "draft": true
+ },
+ "topic:b-shapes": {
+  "type": "youtube",
+  "src": "XRZaCWiPBYk",
+  "title": "\"ДҮРС БҮХНЭЭР БҮТЭЭЕ\" ББ МАТ 5",
+  "draft": true
+ },
+ "topic:b-angle": {
+  "type": "youtube",
+  "src": "q483dCj5qEM",
+  "title": "Хурц, тэгш, мохоо өнцөг",
+  "draft": true
+ },
+ "topic:b-sym": {
+  "type": "youtube",
+  "src": "7nGwnKs7TgU",
+  "title": "Тэгш хэмийн тэнхлэг",
+  "draft": true
+ },
+ "topic:b-area": {
+  "type": "youtube",
+  "src": "-G-VJK8EC6I",
+  "title": "Периметр ба талбайн үндсэн ойлголт",
+  "draft": true
+ },
+ "topic:b-vol": {
+  "type": "youtube",
+  "src": "SQxEJDAzpos",
+  "title": "Эзлэхүүнийг нэгж кубын тусламжтайгаар хэмжих",
+  "draft": true
+ },
+ "topic:b-data": {
+  "type": "youtube",
+  "src": "gEVnbNF66Vs",
+  "title": "Зурган болон баганан график байгуулах дасгал жишээ 2",
+  "draft": true
+ },
+ "topic:b-chance": {
+  "type": "youtube",
+  "src": "58xnOn8kRuY",
+  "title": "Туршилт ба магадлал - Математикийн лаборатори",
+  "draft": true
+ },
+ "topic:divis": {
+  "type": "youtube",
+  "src": "cY0uinMstzo",
+  "title": "Тооны хуваагдах шинж",
+  "draft": true
+ },
+ "topic:prime": {
+  "type": "youtube",
+  "src": "puUWZ95RIc0",
+  "title": "Анхны тоо гэж юу вэ? Яагаад анхны гэж?",
+  "draft": true
+ },
+ "topic:gcd": {
+  "type": "youtube",
+  "src": "R9mu0_ZjTV0",
+  "title": "ХИЕХ буюу Хамгийн Их Ерөнхий Хуваагч",
+  "draft": true
+ },
+ "topic:frac": {
+  "type": "youtube",
+  "src": "gWGdiWcF4jc",
+  "title": "Энгийн бутархай буюу fraction гэж юу вэ?",
+  "draft": true
+ },
+ "topic:frac-add": {
+  "type": "youtube",
+  "src": "Jp-bsDfX5HU",
+  "title": "Энгийн бутархайг нэмэх хасах",
+  "draft": true
+ },
+ "topic:frac-mul": {
+  "type": "youtube",
+  "src": "F7-uMOMlbZQ",
+  "title": "Энгийн бутархайг үржих хуваах үйлдэл",
+  "draft": true
+ },
+ "topic:dec": {
+  "type": "youtube",
+  "src": "cicT5Dctues",
+  "title": "Аравтын бутархай гэж юу вэ?",
+  "draft": true
+ },
+ "topic:frac-dec": {
+  "type": "youtube",
+  "src": "SvBcMicIIoA",
+  "title": "Тоо: Энгийн бутархай ба аравтын бутархай",
+  "draft": true
+ },
+ "topic:round": {
+  "type": "youtube",
+  "src": "qJlH_fw7Ohs",
+  "title": "Тоог тоймлох - Тоймлолтын арга, нарийвчлал",
+  "draft": true
+ },
+ "topic:pct": {
+  "type": "youtube",
+  "src": "T1QkOJ-JMBY",
+  "title": "Процент гэж юу вэ? Нэг зуун тэнцүү хуваавал хэдтэй нь тэнцүү вэ?",
+  "draft": true
+ },
+ "topic:pct-app": {
+  "type": "youtube",
+  "src": "27_zFfczk-w",
+  "title": "Процентийн бодлого бодох",
+  "draft": true
+ },
+ "topic:ratio": {
+  "type": "youtube",
+  "src": "pjIjYbDrmaY",
+  "title": "Харьцаа гэж юу вэ?",
+  "draft": true
+ },
+ "topic:prop": {
+  "type": "youtube",
+  "src": "mHoBv6HK4-I",
+  "title": "тэнцүү харьцаа ба пропорц",
+  "draft": true
+ },
+ "topic:inv-prop": {
+  "type": "youtube",
+  "src": "xA8ifq7mRBw",
+  "title": "Математик VI анги. ШУУД БА УРВУУ ПРОПОРЦИОНАЛ ХАМААРАЛ",
+  "draft": true
+ },
+ "topic:int": {
+  "type": "youtube",
+  "src": "m_Se7Yp6ZN8",
+  "title": "Сөрөг тоо ба тоон шулууны жишээ",
+  "draft": true
+ },
+ "topic:int-ops": {
+  "type": "youtube",
+  "src": "3GJYwDgyvuU",
+  "title": "Бүхэл тооны хасах үйлдэл",
+  "draft": true
+ },
+ "topic:abs": {
+  "type": "youtube",
+  "src": "MJ68KpqWaWw",
+  "title": "Модуль буюу тооны абсольют утга гэж юу вэ?",
+  "draft": true
+ },
+ "topic:pow": {
+  "type": "youtube",
+  "src": "4V8yiuq8PTg",
+  "title": "Зэрэг гэж юу вэ?",
+  "draft": true
+ },
+ "topic:neg-pow": {
+  "type": "youtube",
+  "src": "sP-X9MT2CNI",
+  "title": "Тооны сөрөг зэрэг",
+  "draft": true
+ },
+ "topic:sci": {
+  "type": "youtube",
+  "src": "uLEkTerbePc",
+  "title": "Математик: Тоог стандарт хэлбэрээр бичих",
+  "draft": true
+ },
+ "topic:root": {
+  "type": "youtube",
+  "src": "YitGe9XWiW4",
+  "title": "Квадрат язгуурын тухай ойлголт",
+  "draft": true
+ },
+ "topic:rational": {
+  "type": "youtube",
+  "src": "NrI-QwiFjoE",
+  "title": "Рациональ тоонуудыг эрэмбэлэх",
+  "draft": true
+ },
+ "topic:real": {
+  "type": "youtube",
+  "src": "CPccv1YSadU",
+  "title": "Иррационал тоо гэж юу вэ?",
+  "draft": true
+ },
+ "topic:sets": {
+  "type": "youtube",
+  "src": "zCJXCS5gcus",
+  "title": "Set notation and Venn diagram (олонлог ба Эйлер Веннийн диаграмм)",
+  "draft": true
+ },
+ "topic:expr": {
+  "type": "youtube",
+  "src": "N9jSB0lbScg",
+  "title": "Алгебр гэж юу вэ?",
+  "draft": true
+ },
+ "topic:poly": {
+  "type": "youtube",
+  "src": "WUGDIakr-_Q",
+  "title": "Нэг гишүүнт",
+  "draft": true
+ },
+ "topic:special-prod": {
+  "type": "youtube",
+  "src": "IqIk0koq4ZI",
+  "title": "Нийлбэрийн квадратын томьёо",
+  "draft": true
+ },
+ "topic:factor": {
+  "type": "youtube",
+  "src": "7L7rMerwiIs",
+  "title": "Үржигдэхүүн болгон задлах",
+  "draft": true
+ },
+ "topic:alg-frac": {
+  "type": "youtube",
+  "src": "A4VOSplHA5o",
+  "title": "8 р анги Алгебрийн бутархайн нэмэх ба хасах",
+  "draft": true
+ },
+ "topic:lin-eq": {
+  "type": "youtube",
+  "src": "whrBjlBkecY",
+  "title": "Тэгшитгэл гэж юу вэ?",
+  "draft": true
+ },
+ "topic:system": {
+  "type": "youtube",
+  "src": "Ql3gcKKjf1o",
+  "title": "Систем тэгшитгэл гэж юу вэ? хэрхэн бодох вэ?",
+  "draft": true
+ },
+ "topic:ineq": {
+  "type": "youtube",
+  "src": "s-j5q1lttl8",
+  "title": "Тэнцэтгэл биш гэж юу вэ?",
+  "draft": true
+ },
+ "topic:quad-eq": {
+  "type": "youtube",
+  "src": "0DL9u71r_UA",
+  "title": "Квадрат тэгшитгэлийн томьёо гэж юу вэ?",
+  "draft": true
+ },
+ "topic:quad-ineq": {
+  "type": "youtube",
+  "src": "-Z3m0GTYM10",
+  "title": "Математик цуврал №6. Квадрат тэнцэтгэл бишийг графикаар олох",
+  "draft": true
+ },
+ "topic:rat-eq": {
+  "type": "youtube",
+  "src": "SxcDw_Koc-s",
+  "title": "Рационалль тэгшитгэл",
+  "draft": true
+ },
+ "topic:exp-eq": {
+  "type": "youtube",
+  "src": "mQeyJ01wf9A",
+  "title": "Илтгэгч тэгшитгэл.Жишээ 1 бодлого",
+  "draft": true
+ },
+ "topic:poly-div": {
+  "type": "youtube",
+  "src": "HsNk1wdyapU",
+  "title": "Безугийн теорем",
+  "draft": true
+ },
+ "topic:complex": {
+  "type": "youtube",
+  "src": "-QSD8HwekUQ",
+  "title": "Комплекс тоо гэж юу вэ? Математик цуврал № 29",
+  "draft": true
+ },
+ "topic:seq": {
+  "type": "youtube",
+  "src": "UhMHruO-UXA",
+  "title": "Дараалал гэж юу вэ? Прогресс гэж юу вэ?",
+  "draft": true
+ },
+ "topic:ap": {
+  "type": "youtube",
+  "src": "jENey_Sb_5c",
+  "title": "Арифметик дараалал гэж юу вэ?",
+  "draft": true
+ },
+ "topic:gp": {
+  "type": "youtube",
+  "src": "-JIeJSMNv38",
+  "title": "Геометр дараалал буюу геометр прогресс гэж юу вэ?",
+  "draft": true
+ },
+ "topic:binomial-th": {
+  "type": "youtube",
+  "src": "ydf1sEAHwWU",
+  "title": "Суртлаа давт №123 | Биномын задаргаа-1",
+  "draft": true
+ },
+ "topic:induction": {
+  "type": "youtube",
+  "src": "qjDjqKrYh9w",
+  "title": "Математик индукцийн арга",
+  "draft": true
+ },
+ "topic:coord": {
+  "type": "youtube",
+  "src": "zFvEtIoM_wM",
+  "title": "Координатын хавтгай",
+  "draft": true
+ },
+ "topic:func": {
+  "type": "youtube",
+  "src": "uSZFq7zCPxg",
+  "title": "Функц гэж юу вэ? Түүний тэмдэглэгээ- Byambaa Avirmed",
+  "draft": true
+ },
+ "topic:direct": {
+  "type": "youtube",
+  "src": "xA8ifq7mRBw",
+  "title": "Математик VI анги. ШУУД БА УРВУУ ПРОПОРЦИОНАЛ ХАМААРАЛ",
+  "draft": true
+ },
+ "topic:linear": {
+  "type": "youtube",
+  "src": "J0S1mfHYmRc",
+  "title": "Шугаман функцийг таних",
+  "draft": true
+ },
+ "topic:slope": {
+  "type": "youtube",
+  "src": "a0R0m_qPnRg",
+  "title": "Шулууны налалт , 2 цэгийг дайрсан шулууны тэгшитгэл - Ч.Буянчимэг",
+  "draft": true
+ },
+ "topic:quad-fn": {
+  "type": "youtube",
+  "src": "2IC4fF8P2gM",
+  "title": "Суртлаа давт №26 Квадрат функцийн график байгуулах арга 1",
+  "draft": true
+ },
+ "topic:fn-props": {
+  "type": "youtube",
+  "src": "GM1GFFuJRoY",
+  "title": "Урвуу функц гэж юу вэ? - Byambaa Avirmed",
+  "draft": true
+ },
+ "topic:power-fn": {
+  "type": "youtube",
+  "src": "IB5Khgpnbvo",
+  "title": "ЗЭРЭГТ ФУНКЦИЙН ГРАФИК",
+  "draft": true
+ },
+ "topic:exp-fn": {
+  "type": "youtube",
+  "src": "9MlsI2je-ok",
+  "title": "Илтгэгч ба логарифм функцийн урвуу",
+  "draft": true
+ },
+ "topic:log": {
+  "type": "youtube",
+  "src": "u_dH6ehcKmg",
+  "title": "Логарифм",
+  "draft": true
+ },
+ "topic:rat-fn": {
+  "type": "youtube",
+  "src": "6SlmIb8ryz8",
+  "title": "12 анги математик, Рациональ функц, Багш З.Аюурзана",
+  "draft": true
+ },
+ "topic:matrix": {
+  "type": "youtube",
+  "src": "p_D6Gj-C_7U",
+  "title": "Матрицийн тухай ойлголт. Математик цуврал № 22",
+  "draft": true
+ },
+ "topic:det": {
+  "type": "youtube",
+  "src": "IL9FhN1BNjA",
+  "title": "Матрицийн тодорхойлогч. № 26",
+  "draft": true
+ },
+ "topic:lin-sys-mat": {
+  "type": "youtube",
+  "src": "14r8k3iQz10",
+  "title": "Тэгшитгэлийн систем бодох крамерийн дүрэм",
+  "draft": true
+ },
+ "topic:angle": {
+  "type": "youtube",
+  "src": "Vyb5e0Mau_A",
+  "title": "Хамар өнцөг",
+  "draft": true
+ },
+ "topic:parallel": {
+  "type": "youtube",
+  "src": "_DuedK-w7UM",
+  "title": "Параллель шулуунууд ба тэдгээрийг  огтлогч  шулуунаар үүсэх өнцгүүд",
+  "draft": true
+ },
+ "topic:tri": {
+  "type": "youtube",
+  "src": "HpmQqbsR_FU",
+  "title": "Өнцгийг нь ашиглан гурвалжныг ангилах",
+  "draft": true
+ },
+ "topic:polygon": {
+  "type": "youtube",
+  "src": "3m14iwVTQEI",
+  "title": "Гурвалжин ба дөрвөн өнцөгтийн дотоод өнцөг тооцоолох",
+  "draft": true
+ },
+ "topic:proof": {
+  "type": "youtube",
+  "src": "TqsroAfpPpc",
+  "title": "Босоо өнцгүүд тэнцүү гэдгийн баталгаа",
+  "draft": true
+ },
+ "topic:construct": {
+  "type": "youtube",
+  "src": "4swN8ZL8Vrw",
+  "title": "Гортиг, шугам ашиглан өнцгийн биссектрисийг байгуулах",
+  "draft": true
+ },
+ "topic:congruent": {
+  "type": "youtube",
+  "src": "LpUNJn_QTF4",
+  "title": "Тэнцүү гурвалжин",
+  "draft": true
+ },
+ "topic:transform": {
+  "type": "youtube",
+  "src": "fZyAHzQstM0",
+  "title": "Тэгш хэм, Параллель зөөлт, Эргүүлэлт Давтлага хичээл",
+  "draft": true
+ },
+ "topic:similar": {
+  "type": "youtube",
+  "src": "iWvFubO6W8M",
+  "title": "Төсөөтэй гурвалжин",
+  "draft": true
+ },
+ "topic:pyth": {
+  "type": "youtube",
+  "src": "E-qtGfc2HNM",
+  "title": "Пифагорын теорем",
+  "draft": true
+ },
+ "topic:tri-lines": {
+  "type": "youtube",
+  "src": "z2X5_dnPSuM",
+  "title": "Гурвалжны өндөр медиан биссектрис",
+  "draft": true
+ },
+ "topic:circle": {
+  "type": "youtube",
+  "src": "m0z0uX1FZK0",
+  "title": "Тойрог ба дугуй",
+  "draft": true
+ },
+ "topic:circle-angles": {
+  "type": "youtube",
+  "src": "cA4glULlz6w",
+  "title": "16-Төв өнцөг ба тойрогт багтсан өнцөг",
+  "draft": true
+ },
+ "topic:chord-tangent": {
+  "type": "youtube",
+  "src": "WjEjbNzxTog",
+  "title": "Тойргийн хөвч, шүргэгч, огтлогч",
+  "draft": true
+ },
+ "topic:solids": {
+  "type": "youtube",
+  "src": "K-CGKifaSmc",
+  "title": "биетийн дэлгээс",
+  "draft": true
+ },
+ "topic:cross-sec": {
+  "type": "youtube",
+  "src": "cIE7HaZNCAg",
+  "title": "10-р анги ОГТОРГУЙН БИЕТИЙН ХАВТГАЙ ОГТЛОЛ",
+  "draft": true
+ },
+ "topic:locus": {
+  "type": "youtube",
+  "src": "Uny50n_nig4",
+  "title": "Тойрог, цэгийн геометр байр - ЭХ1.2.",
+  "draft": true
+ },
+ "topic:coord-geo": {
+  "type": "youtube",
+  "src": "FlrApc6HoO8",
+  "title": "Хэрчмийн дундаж цэг",
+  "draft": true
+ },
+ "topic:space-coord": {
+  "type": "youtube",
+  "src": "AG99_pyemyQ",
+  "title": "Огторгуйн координатын систем",
+  "draft": true
+ },
+ "topic:trig-right": {
+  "type": "youtube",
+  "src": "4UUsLG1wBbk",
+  "title": "Тэгш өнцөгт гурвалжны тригнометрийн харьцаа - Бямбаа | Byambaa",
+  "draft": true
+ },
+ "topic:trig-tri": {
+  "type": "youtube",
+  "src": "H39TF5o44z4",
+  "title": "Косинусын теорем, синусын теоремийн хэрэглээ (#8x100 танхимын анги)",
+  "draft": true
+ },
+ "topic:radian": {
+  "type": "youtube",
+  "src": "KiIcme6Gz8w",
+  "title": "Radian (Радиан өнцөг гэж юу вэ)",
+  "draft": true
+ },
+ "topic:trig-fn": {
+  "type": "youtube",
+  "src": "cH0uoWl16GY",
+  "title": "Тригонометрийн функцүүд",
+  "draft": true
+ },
+ "topic:vector": {
+  "type": "youtube",
+  "src": "j1ThWws6YUM",
+  "title": "Суртлаа давт №75 Вектор дээрх үйлдлүүд",
+  "draft": true
+ },
+ "topic:dot": {
+  "type": "youtube",
+  "src": "NEZSzUOWziY",
+  "title": "Суртлаа давт №76 | Скаляр үржвэр-1",
+  "draft": true
+ },
+ "topic:space-vec": {
+  "type": "youtube",
+  "src": "Y_XzU4WOc7g",
+  "title": "Огторгуй дахь векторын координат",
+  "draft": true
+ },
+ "topic:mat-transform": {
+  "type": "youtube",
+  "src": "S1TOyj98wCw",
+  "title": "Хувиргалтын матриц",
+  "draft": true
+ },
+ "topic:units": {
+  "type": "youtube",
+  "src": "P5y-Cg_RvNw",
+  "title": "Нэгжийн шилжүүлэг (жишээ)",
+  "draft": true
+ },
+ "topic:time": {
+  "type": "youtube",
+  "src": "HahawQb8E6Q",
+  "title": "Хугацааг хэмжих нэгжүүдийг хөрвүүлэх",
+  "draft": true
+ },
+ "topic:perim-area": {
+  "type": "youtube",
+  "src": "-G-VJK8EC6I",
+  "title": "Периметр ба талбайн үндсэн ойлголт",
+  "draft": true
+ },
+ "topic:circle-meas": {
+  "type": "youtube",
+  "src": "pz6GZeEXhb8",
+  "title": "Тойргийн хүрээний уртыг олох - Бямбаа | Byambaa | Онлайн хичээл",
+  "draft": true
+ },
+ "topic:sector": {
+  "type": "youtube",
+  "src": "az-pHIs0ed8",
+  "title": "Нумын урт",
+  "draft": true
+ },
+ "topic:vol-surf": {
+  "type": "youtube",
+  "src": "Qwsw3Dmz2c4",
+  "title": "Тэгш өнцөгт параллелепипедийн доторх эзлэхүүнийг олох",
+  "draft": true
+ },
+ "topic:sim-ratio": {
+  "type": "youtube",
+  "src": "wB8Fv898TQA",
+  "title": "Математик 8-р анги \" Төсөөтэй дүрсүүдийн талбай ба периметр харьцуулах\" II хэсэг",
+  "draft": true
+ },
+ "topic:speed": {
+  "type": "youtube",
+  "src": "RHE-BgEUVLU",
+  "title": "Өгүүлбэртэй бодлого - Урсгалын хурд",
+  "draft": true
+ },
+ "topic:charts": {
+  "type": "youtube",
+  "src": "ZOYCfIlOFec",
+  "title": "Дугуй диаграмыг унших (дугуй график)",
+  "draft": true
+ },
+ "topic:grouped": {
+  "type": "youtube",
+  "src": "tcsazO0Jj7I",
+  "title": "Бүлэглэсэн өгөгдөл буюу grouped data гэж юу вэ?- Byambaa Avirmed",
+  "draft": true
+ },
+ "topic:average": {
+  "type": "youtube",
+  "src": "xgEC9McWEuY",
+  "title": "Арифметик дундаж гэж юу вэ? Хэрхэн олох вэ? - Byambaa Avirmed",
+  "draft": true
+ },
+ "topic:spread": {
+  "type": "youtube",
+  "src": "K6vJ-As689w",
+  "title": "Далайц гэж юу вэ? Далайцыг хэрхэн олох вэ? - Byambaa Avirmed",
+  "draft": true
+ },
+ "topic:scatter": {
+  "type": "youtube",
+  "src": "u0USHmzbm94",
+  "title": "Цэгэн диаграмм, Хандлагын шулуун, Корреляц",
+  "draft": true
+ },
+ "topic:prob": {
+  "type": "youtube",
+  "src": "58xnOn8kRuY",
+  "title": "Туршилт ба магадлал - Математикийн лаборатори",
+  "draft": true
+ },
+ "topic:rel-freq": {
+  "type": "youtube",
+  "src": "F4bGbQc9F9E",
+  "title": "Туршилтын магадлал",
+  "draft": true
+ },
+ "topic:prob-rules": {
+  "type": "youtube",
+  "src": "cwxn1jBMdWQ",
+  "title": "Магадлал дээрх үйлдлүүд | Суртлаа давт №851",
+  "draft": true
+ },
+ "topic:tree": {
+  "type": "youtube",
+  "src": "3Yumky89CLU",
+  "title": "Модон диаграмм ашиглан тоолох",
+  "draft": true
+ },
+ "topic:cond-prob": {
+  "type": "youtube",
+  "src": "XPk6wrH2jzU",
+  "title": "\"Нөхцөлт магадлал\" Бодлого №1",
+  "draft": true
+ },
+ "topic:counting": {
+  "type": "youtube",
+  "src": "fcChpGjEcRQ",
+  "title": "Үржвэрийн аргаар боломж тоолох",
+  "draft": true
+ },
+ "topic:perm-comb": {
+  "type": "youtube",
+  "src": "feWxchYLMZg",
+  "title": "Факториал",
+  "draft": true
+ },
+ "topic:rand-var": {
+  "type": "youtube",
+  "src": "Ockqhu4e8BQ",
+  "title": "Дискрет санамсаргүй хувьсагч  12 анги",
+  "draft": true
+ },
+ "topic:binom-dist": {
+  "type": "youtube",
+  "src": "Vnkb5wmQv1o",
+  "title": "Бином тархалт | Суртлаа давт №148",
+  "draft": true
+ },
+ "topic:normal": {
+  "type": "youtube",
+  "src": "MomKKY0mdAg",
+  "title": "Хэвийн тархалтын магадлал",
+  "draft": true
+ },
+ "topic:geo-prob": {
+  "type": "youtube",
+  "src": "aPqrtGojmMY",
+  "title": "Суртлаа давт №242 | Геометр магадлал",
+  "draft": true
+ },
+ "topic:tangent-slope": {
+  "type": "youtube",
+  "src": "978GhDI3-ng",
+  "title": "iMath.mn | Шүргэгчийн тэгшитгэл",
+  "draft": true
+ },
+ "topic:deriv": {
+  "type": "youtube",
+  "src": "yrjX_wuZ9iw",
+  "title": "Уламжлал",
+  "draft": true
+ },
+ "topic:deriv-app": {
+  "type": "youtube",
+  "src": "SMHTcBwsxRM",
+  "title": "iMath.mn | Функцийн өсч, буурах завсар",
+  "draft": true
+ },
+ "topic:integral": {
+  "type": "youtube",
+  "src": "JHpZxHLylwM",
+  "title": "Математик 11-р анги \"Интеграл\" I хэсэг",
+  "draft": true
+ },
+ "topic:def-int": {
+  "type": "youtube",
+  "src": "OUUSSs_m5g4",
+  "title": "Тодорхой интеграл - Дүсийн талбай",
+  "draft": true
+ },
+ "topic:series": {
+  "type": "youtube",
+  "src": "jGtDcQyY-xQ",
+  "title": "Нийлбэрийн тэмдэглэгээ гэж юу вэ? Хэрхэн ашиглах вэ? Sigma",
+  "draft": true
+ },
+ "topic:diff-eq": {
+  "type": "youtube",
+  "src": "BfqGfqJrvcE",
+  "title": "Хялбар дифференциал тэгшитгэлийн бодолт",
+  "draft": true
+ }
 }

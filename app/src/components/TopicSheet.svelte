@@ -7,6 +7,7 @@
   import RichText from './RichText.svelte';
   import Visual from './Visual.svelte';
   import VideoSlot from './VideoSlot.svelte';
+  import Quiz from './Quiz.svelte';
   import ColumnCalc from './ColumnCalc.svelte';
   import FractionOps from './tools/FractionOps.svelte';
   import NumberOps from './tools/NumberOps.svelte';
@@ -14,6 +15,7 @@
   import { topics, topicUnlocks, topicEntries, entries, strands, links, stripLinks } from '../lib/content.js';
   import { ideas } from '../lib/ideas.js';
   import topicContent from '../../content/topic-content.json';
+  import topicContentExtra from '../../content/topic-content-extra.json';
   import { topicState, entryState, markTopic } from '../lib/logic.js';
   import { ui } from '../lib/ui.svelte.js';
   import { go, route } from '../lib/router.svelte.js';
@@ -48,7 +50,24 @@
   const SUP = { 0: '⁰', 1: '¹', 2: '²', 3: '³', 4: '⁴', n: 'ⁿ', x: 'ˣ' };
   const pretty = (f) => f.replace(/\^(\w)/g, (_, c) => SUP[c] ?? '^' + c).replace(/\*/g, '·').replace(/=/g, ' = ').replace(/\+/g, ' + ');
   // Written content from the official textbooks: definition, formulas, rules, method, worked examples.
-  let tc = $derived(t ? topicContent[t.id] ?? null : null);
+  // Grade 1–4 basics and the grade 12 elective topics come from the research fan-out (draft).
+  let tc = $derived(t ? topicContent[t.id] ?? topicContentExtra[t.id] ?? null : null);
+  // Research fan-out extras (draft, 2026-10-15): practice questions, common mistakes, real-life uses,
+  // more videos, interactives and the ЭЕШ weight. One small file per topic, fetched when the topic opens.
+  let extra = $state(null);
+  let practice = $state('off'); // off | on | done
+  let score = $state(0);
+  let round = $state(0);
+  $effect(() => {
+    const id = t?.id;
+    extra = null; practice = 'off';
+    if (!id) return;
+    let live = true;
+    fetch(`extras/${id}.json`).then((r) => (r.ok ? r.json() : null)).then((d) => { if (live) extra = d; }).catch(() => {});
+    return () => { live = false; };
+  });
+  const LEVEL = { 1: 'Хялбар', 2: 'Дунд', 3: 'Хүнд' };
+  const KIND = { phet: 'PhET', geogebra: 'GeoGebra', 'geogebra-book': 'GeoGebra', task: 'Даалгавар' };
   let shown = $state({});
   $effect(() => { t?.id; shown = {}; });
   let formulas = $derived(t ? [...new Set([...(tc?.formulas ?? []), ...(tc ? [] : [t.formula]), ...(ideas[t.id]?.formulas ?? []).slice(1).map(pretty)].filter(Boolean))] : []);
@@ -118,9 +137,10 @@
       <div class="hero">
         <span class="orb" class:base={t.base}>{#if t.formula}<RichText text={t.formula} />{:else}<i class="sd"></i>{/if}</span>
         <div class="titlerow">
-          <h2>{t.name}</h2>
+          <h2>{t.name}{#if tc?.elective}<span class="badge">Сонгон судлах</span>{/if}</h2>
           <button class="know" class:on={known} aria-pressed={known} onclick={() => markTopic(t.id, !known)}><span class="box">{#if known}✓{/if}</span>Мэднэ</button>
         </div>
+        {#if extra?.esh}<p class="esh small">ЭЕШ 2021–2025: {extra.esh.n} бодлого, нийт {extra.esh.pts} оноо</p>{/if}
         {#if tc?.def}<p class="lead def"><RichText text={tc.def} /></p>{:else if t.text}<p class="lead">{t.text}</p>{/if}
       </div>
 
@@ -165,6 +185,60 @@
           <p class="empty small muted">Энэ сэдвийн жишээ, томьёо удахгүй нэмэгдэнэ.</p>
         {/if}
       </section>
+
+      <!-- Research fan-out extras: all draft until the owner or a teacher checks them. -->
+      {#if extra?.q?.length && !t.base}
+        <section class="box">
+          <h3>Дасгал <span class="draft">ноорог</span></h3>
+          {#if practice === 'off'}
+            <p class="small muted">{extra.q.length} бодлого: {[...new Set(extra.q.map((q) => LEVEL[q.level]))].join(', ').toLowerCase()}. Буруу сонголт бүр түгээмэл нэг алдааг илрүүлнэ.</p>
+            <button class="exbtn" onclick={() => (practice = 'on')}>Дасгал ажиллах →</button>
+          {:else if practice === 'on'}
+            {#key round}<Quiz questions={extra.q} ondone={(s) => { score = s; practice = 'done'; }} />{/key}
+          {:else}
+            <p>Та эхний оролдлогоор {Math.round(score * extra.q.length)} / {extra.q.length} бодлогыг зөв бодлоо.</p>
+            <button class="exbtn" onclick={() => { round += 1; practice = 'on'; }}>Дахин ажиллах →</button>
+          {/if}
+        </section>
+      {/if}
+      {#if extra?.mis?.length}
+        <section class="box">
+          <h3>Түгээмэл алдаа <span class="draft">ноорог</span></h3>
+          {#each extra.mis as m}
+            <details class="mis">
+              <summary><RichText text={m.wrong} /></summary>
+              {#if m.example}<p><span class="mlabel">Жишээ:</span> <RichText text={m.example} /></p>{/if}
+              {#if m.why}<p><span class="mlabel">Яагаад:</span> <RichText text={m.why} /></p>{/if}
+              {#if m.fix}<p><span class="mlabel">Засах арга:</span> <RichText text={m.fix} /></p>{/if}
+              {#if m.src}<a class="src small" href={m.src} target="_blank" rel="noopener noreferrer">Эх сурвалж ↗</a>{/if}
+            </details>
+          {/each}
+        </section>
+      {/if}
+      {#if extra?.rw?.length}
+        <section class="box">
+          <h3>Энэ юунд хэрэгтэй вэ? <span class="draft">ноорог</span></h3>
+          {#each extra.rw as u}
+            <div class="rw">
+              <strong>{u.title}</strong>
+              <p><RichText text={u.text} /></p>
+              {#if u.mini}<p class="small muted"><RichText text={u.mini} /></p>{/if}
+              {#if u.src}<a class="src small" href={u.src} target="_blank" rel="noopener noreferrer">Эх сурвалж ↗</a>{/if}
+            </div>
+          {/each}
+        </section>
+      {/if}
+      {#if extra?.v?.length || extra?.it?.length}
+        <section class="box">
+          <h3>Бусад материал <span class="draft">ноорог</span></h3>
+          {#each extra.it ?? [] as x}
+            <a class="link" href={x.url} target="_blank" rel="noopener noreferrer"><span class="k">{KIND[x.k] ?? x.k}</span>{x.n}{#if x.mn}<span class="small muted">{' · монгол хэлээр'}</span>{/if}{' ↗'}</a>
+          {/each}
+          {#each extra.v ?? [] as v}
+            <a class="link" href={v.url} target="_blank" rel="noopener noreferrer"><span class="k">Видео</span>{v.t}<span class="small muted">{` · ${v.ch}${v.min ? ` · ${Math.round(v.min)} мин` : ''}`}</span>{' ↗'}</a>
+          {/each}
+        </section>
+      {/if}
 
       <!-- study materials -->
       <section class="mats">
@@ -303,5 +377,18 @@
   .rc { border: 1px solid var(--line); background: transparent; color: var(--ink); border-radius: 999px; padding: 6px 12px; font-size: 0.85rem; font-weight: 600; }
   .rc em { font-style: normal; color: var(--muted); font-weight: 500; }
   .rc .g { margin-left: 6px; color: var(--muted); font-size: 0.75rem; }
+  .badge { display: inline-block; vertical-align: middle; margin-left: 8px; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--sun); color: var(--sun); font-size: 0.7rem; font-weight: 700; letter-spacing: 0; }
+  .esh { margin: 0; color: var(--sun); font-weight: 700; }
+  .box { display: grid; gap: 10px; padding: 14px; border-radius: 18px; border: 1px solid var(--line); background: rgba(13, 19, 32, 0.7); }
+  .box h3 { font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--c); margin: 0; display: flex; align-items: center; gap: 8px; }
+  .draft { padding: 1px 7px; border-radius: 999px; border: 1px dashed var(--muted); color: var(--muted); font-size: 0.65rem; letter-spacing: 0.04em; text-transform: none; font-weight: 600; }
+  .mis { padding: 10px 12px; border-radius: 12px; background: rgba(5, 7, 13, 0.6); border: 1px solid var(--line); }
+  .mis summary { font-weight: 700; cursor: pointer; }
+  .mis p { margin: 8px 0 0; }
+  .rw { display: grid; gap: 4px; padding: 10px 12px; border-radius: 12px; background: rgba(5, 7, 13, 0.6); border: 1px solid var(--line); }
+  .rw p { margin: 0; }
+  .src { color: var(--sky); justify-self: start; }
+  .link { display: block; padding: 10px 12px; border-radius: 12px; border: 1px solid var(--line); color: var(--ink); text-decoration: none; font-size: 0.92rem; }
+  .link .k { display: inline-block; margin-right: 8px; padding: 1px 7px; border-radius: 6px; background: color-mix(in srgb, var(--c) 18%, transparent); color: var(--c); font-size: 0.72rem; font-weight: 800; }
   .maplink { justify-self: center; min-height: 44px; border: 0; background: none; color: var(--sky); font-weight: 700; }
 </style>

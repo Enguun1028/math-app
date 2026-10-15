@@ -7,13 +7,15 @@
   // Check mode (finding the starting point): one try, no reveal, and "Мэдэхгүй байна" instead of guessing.
   import RichText from './RichText.svelte';
 
-  // questions: [{ q, choices, answer, why, hint?, entry? }]
+  // questions: [{ q, choices, answer, why, hint?, traps?, entry? }]
+  // traps: { choice index: the mistake that choice catches }, shown as the hint after that wrong choice.
   // help(q) -> { label, href } | null: where to go when a question shows a gap.
   let { questions, ondone, bar = true, mode = 'learn', help = null } = $props();
 
   let i = $state(0);
   let tried = $state([]); // wrong choices tapped on this question
   let state = $state('ask'); // ask | hint | right | shown
+  let hint = $state('');
   let results = $state([]);
   let finished = $state(false);
   let cur = $derived(questions[i]);
@@ -34,7 +36,8 @@
     } else {
       tried.push(k);
       if (firstTry) results.push(false);
-      state = firstTry && cur.hint ? 'hint' : 'shown';
+      hint = cur.traps?.[k] ?? cur.hint;
+      state = firstTry && hint ? 'hint' : 'shown';
     }
   }
 
@@ -85,7 +88,7 @@
         {#if state === 'hint'}
           <div class="fb hint" aria-live="polite">
             <strong>Бараг. Нэг санаа:</strong>
-            <p><RichText text={cur.hint} /></p>
+            <p><RichText text={hint} /></p>
             <p class="small muted">Дахин нэг сонгоод үз.</p>
           </div>
         {:else if state === 'right'}

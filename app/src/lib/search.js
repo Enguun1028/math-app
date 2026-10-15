@@ -1,6 +1,8 @@
 // Search that forgives Latin spelling, typos and whole questions.
 import { entries, topics, stripLinks } from './content.js';
 import { ideas } from './ideas.js';
+// Extra search words per topic: Latin spellings, typos, English and Russian names (research fan-out, draft).
+import extraAliases from '../../content/search-aliases.json';
 import { operatorsIn, looksLikeMath } from './mathfmt.js';
 
 const LATIN = [
@@ -43,7 +45,7 @@ const words = (s) => fold(s).split(/[^\p{L}\p{N}%=+×÷−-]+/u).filter(Boolean)
 const letters = (list) => list.filter((w) => /\p{L}/u.test(w));
 // Map topics and dictionary entries are searched together. Keys: "t:<id>" and "e:<id>".
 const index = [
-  ...Object.values(topics).map((t) => ({ key: 't:' + t.id, title: words(t.name), aliases: (ideas[t.id]?.aliases ?? []).flatMap(words), body: letters(words(t.text)) })),
+  ...Object.values(topics).map((t) => ({ key: 't:' + t.id, title: words(t.name), aliases: [...(ideas[t.id]?.aliases ?? []), ...(extraAliases[t.id] ?? [])].flatMap(words), body: letters(words(t.text)) })),
   // Extra, smaller ideas from content/concepts.json.
   ...Object.values(ideas).filter((i) => !i.topic).map((i) => ({ key: 'i:' + i.id, title: words(i.name), aliases: i.aliases.flatMap(words), body: letters(words(i.def ?? '')) })),
   ...Object.values(entries).map((e) => ({

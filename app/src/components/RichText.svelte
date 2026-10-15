@@ -10,7 +10,8 @@
 
   // A Mongolian suffix after a fraction (3/8-ийг) stays on the same line as it.
   // A comma next to a fraction is only a decimal comma when a digit is on its other side ("4/12, 3/12" is a list).
-  const FRAC_RE = /(?<!\d)(?<!\d,)(\d+)\/(\d+)(?!\d)(?!,\d)(-[^\s.,:;!?)]+)?/g;
+  // Decimals on top or bottom (24.5/57.6) are stacked whole too.
+  const FRAC_RE = /(?<![\d.])(?<!\d,)(\d+(?:\.\d+)?)\/(\d+(?:\.\d+)?)(?![\d])(?!,\d)(?!\.\d)(-[^\s.,:;!?)]+)?/g;
 
   // \frac{a + b}{c} from the topic content: any text on top and bottom, also stacked.
   const TEX_RE = /\\frac\{([^{}]*)\}\{([^{}]*)\}/g;
