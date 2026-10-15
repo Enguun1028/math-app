@@ -1,4 +1,4 @@
-# Математикийн аялал (Math Journey)
+# матемап (Math Map)
 
 A free, phone-first web app that helps Mongolian teenagers who have fallen behind in school math find the exact topic that is blocking them, and climb back from there.
 
@@ -46,7 +46,9 @@ There are no accounts. Progress is stored only on the student's own device.
 
 I built this with an AI coding assistant (Claude Code), and I want to be clear about who did what.
 
-**My part:** the idea and the reason for it; deciding who the app is for; directing the research and choosing what to act on; the product and design decisions (the journey map, the start check, the dictionary-inside-a-map idea, the wording and tone in Mongolian); reviewing every screen; and testing the app on my phone and turning what I found into fixes.
+**My part:** I came up with the idea and the reason for it, from my own crowded classroom and my brothers. I decided who the app is for, directed the research and chose what to act on. I made the product and design decisions: the explorable dark map instead of a fixed lesson path (I rejected a lighter, linear design), the start check, the dictionary-inside-a-map search, the two-colour fraction operations tool, letting fractions go past one whole, and the Instagram-style bottom bar. I set the rules for how math and language must look: fractions always stacked, never written with a slash, and polite Mongolian instead of curt commands. I test every change on my iPhone and turn what I find into fixes.
+
+None of this came from one prompt. Each concept went through many rounds: I tried it on my phone, said what was wrong, and had it rebuilt until it matched what I had in mind. The commit history shows that process, and I am still continuing it.
 
 **The AI's part:** writing most of the code, collecting and summarising research sources (which I then checked and decided on), and drafting content for me to review.
 
