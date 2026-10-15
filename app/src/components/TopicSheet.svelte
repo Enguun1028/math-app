@@ -123,9 +123,10 @@
   const open = (path) => { pushed = false; ui.topic = null; location.replace('#' + path); };
   // A new topic (from the strip or a chip) starts at the top.
   $effect(() => { t?.id; if (scroller) scroller.scrollTop = 0; });
-  // Swipe down while at the top of the topic.
+  // Pull down on the top bar closes the topic. Only the bar (owner, 2026-10-16): scrolling back up through the card
+  // and pulling further must never close it.
   let y0 = null;
-  const tstart = (e) => { y0 = e.currentTarget.scrollTop <= 0 ? e.touches[0].clientY : null; };
+  const tstart = (e) => { y0 = e.currentTarget.scrollTop <= 0 && e.target.closest('.bar') ? e.touches[0].clientY : null; };
   const tmove = (e) => { if (y0 != null && e.touches[0].clientY - y0 > 110) { y0 = null; close(); } };
   const toTopic = (id) => (ui.topic = id);
   const short = (s, n = 130) => { const p = stripLinks(s || ''); return p.length > n ? p.slice(0, n - 1) + '…' : p; };

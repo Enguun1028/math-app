@@ -1,35 +1,46 @@
 <script>
-  // Earlier and later topics as a game skin picker (owner, 2026-10-16). Three slots: the nearest earlier topic on the left,
-  // the open topic in the centre, the nearest later topic on the right. The row follows the finger 1:1, and colour and size
-  // move with it: the centre greys as it leaves, the incoming topic lights up. On release it eases into place, then the
-  // card switches. No native sideways scrolling, so the card never drifts sideways.
-  // Under the slots, two quiet boxes list every earlier («Мэдвэл зохих») and later («Дараагийн») topic.
+  // Earlier and later topics as a game skin picker (owner, 2026-10-16). The open topic sits in the centre; its nearest
+  // earlier topic to the left and nearest later topic to the right, and one more beyond each, so while sliding the next
+  // one is already in view. Sliding is the phone's own scrolling (same feel and momentum as scrolling the card), one
+  // topic per swipe. Side topics are grey and a little smaller; colour and size move with the slide. When a topic
+  // settles in the centre the strip re-centres on it and, a moment later, the card switches.
   import TopicIcon from './TopicIcon.svelte';
   import { topics, topicUnlocks, whyOf } from '../lib/content.js';
   import { topicState } from '../lib/logic.js';
   import { ui } from '../lib/ui.svelte.js';
-  import { reduced, ms } from '../lib/motion.js';
-  // A side topic that is new after a slide fades in instead of popping.
-  const fadeIn = () => ({ duration: ms(180), css: (k) => `opacity:${k * 0.75}` });
 
   let { id } = $props();
-  // The strip keeps its own centre, so a slide can finish before the heavy card switch starts (no stutter).
+  // The strip keeps its own centre, so a slide can finish before the heavy card switch starts.
   let cur = $state(id);
-  $effect(() => { if (id !== cur && !busy) cur = id; });
   let busy = false;
+  $effect(() => { if (id !== cur && !busy) cur = id; });
+
   // Nearest grade first.
   const grade = (x) => topics[x].grades[0] ?? 0;
-  let left = $derived([...topics[cur].req].sort((a, b) => grade(b) - grade(a)));
-  let right = $derived([...topicUnlocks[cur]].sort((a, b) => grade(a) - grade(b)));
-  // A topic at the end of a chain (51 have no later topic, 12 no earlier one) still slides: the empty side falls back
-  // to the neighbouring topic of the same strand in grade order, shown as «ижил салаа».
-  const order = Object.values(topics).sort((a, b) => (a.grades[0] ?? 0) - (b.grades[0] ?? 0));
-  let strandRow = $derived(order.filter((x) => x.strand === topics[cur].strand).map((x) => x.id));
-  let at = $derived(strandRow.indexOf(cur));
-  let l = $derived(left[0] ?? strandRow[at - 1] ?? null);
-  let r = $derived(right[0] ?? strandRow[at + 1] ?? null);
+  const before = (x) => [...topics[x].req].sort((a, b) => grade(b) - grade(a));
+  const after = (x) => [...topicUnlocks[x]].sort((a, b) => grade(a) - grade(b));
+  // A topic at the end of a chain (51 have no later topic, 12 no earlier one) still has neighbours: the empty side
+  // falls back to the neighbouring topic of the same strand in grade order («ижил салаа»).
+  const order = Object.values(topics).sort((a, b) => grade(a.id) - grade(b.id)).map((t) => t.id);
+  const inStrand = (x, k) => { const row = order.filter((y) => topics[y].strand === topics[x].strand); return row[row.indexOf(x) + k] ?? null; };
+  const leftOf = (x) => (x ? before(x)[0] ?? inStrand(x, -1) : null);
+  const rightOf = (x) => (x ? after(x)[0] ?? inStrand(x, 1) : null);
+
+  let left = $derived(before(cur));
+  let right = $derived(after(cur));
+  let l = $derived(leftOf(cur));
+  let r = $derived(rightOf(cur));
   let lAlt = $derived(!left.length && !!l);
   let rAlt = $derived(!right.length && !!r);
+  // Five slots: two to the left, the centre, two to the right. A topic shows only once.
+  let row = $derived.by(() => {
+    const l2 = leftOf(l), r2 = rightOf(r);
+    const seen = new Set([cur]), out = [];
+    for (const x of [l2, l]) if (x && !seen.has(x)) { seen.add(x); out.push(x); }
+    out.push(cur);
+    for (const x of [r, r2]) if (x && !seen.has(x)) { seen.add(x); out.push(x); }
+    return out;
+  });
   const isKnown = (x) => ['known', 'faded'].includes(topicState(x));
   // Which side's full list is open: 'l', 'r' or false.
   let all = $state(false);
@@ -44,83 +55,55 @@
     return w ? { a: topics[a].name, b: topics[b].name, w } : null;
   });
 
-  // d = how far the row is moved, in slots (−1 … 1). Each slot's look depends on its distance from the centre.
-  let d = $state(0);
-  let wrap;
-  const slotW = () => 120; // one slot = one item width, so the row moves 1:1 with the finger
-  // Only transform and opacity change while sliding (cheap on a phone): the coloured icon fades out, its grey copy in.
-  const look = (i) => {
-    const p = Math.min(Math.abs(i + d), 1.4), n = Math.min(p, 1);
-    return `transform: translate3d(${(i + d) * 100}%, 0, 0) scale(${1 - 0.14 * n}); opacity: ${1 - 0.6 * Math.max(0, p - 1)}; --n: ${n}`;
-  };
-  // Ease d to a target over a short time, then run done().
-  let anim;
-  function ease(to, time, done) {
-    cancelAnimationFrame(anim);
-    const from = d, t0 = performance.now(), T = reduced ? 1 : time;
-    const step = (now) => {
-      const k = Math.min(1, (now - t0) / T), e = 1 - Math.pow(1 - k, 3);
-      d = from + (to - from) * e;
-      if (k < 1) anim = requestAnimationFrame(step); else done?.();
-    };
-    anim = requestAnimationFrame(step);
+  let strip;
+  const mid = (el) => el.offsetLeft + el.offsetWidth / 2;
+  // Look by distance from the centre: only transform and opacity change (cheap). Written straight to the elements.
+  function shade() {
+    if (!strip) return;
+    const c = strip.scrollLeft + strip.clientWidth / 2;
+    for (const el of strip.children) {
+      const p = Math.min(Math.abs(mid(el) - c) / el.offsetWidth, 2), n = Math.min(p, 1);
+      el.style.transform = `scale(${1 - 0.14 * n})`;
+      el.style.opacity = 1 - 0.55 * Math.max(0, p - 1);
+      el.style.setProperty('--n', n);
+    }
   }
-  // dir 1 = the left topic comes to the centre, −1 = the right one.
-  function go(to, dir) {
-    if (!to) return ease(0, 220);
-    busy = true;
-    ease(dir, 260, () => {
-      // Same frame: the strip re-centres on the new topic; the moving items keep their elements, so nothing jumps.
-      move = { from: cur, to }; cur = to; d = 0;
-      // Two frames later the card switches, after the strip has painted.
-      requestAnimationFrame(() => requestAnimationFrame(() => { ui.topic = to; busy = false; }));
-    });
-  }
-  // Swipe: follows the finger; only a clearly sideways move counts, vertical scrolling stays with the page.
-  let pending = 0, queued = false;
-  let x0 = null, y0 = 0, lock = null, lastX = 0, lastT = 0, vel = 0;
-  const start = (e) => { cancelAnimationFrame(anim); x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; lock = null; lastX = x0; lastT = performance.now(); vel = 0; };
-  const drag = (e) => {
-    if (x0 == null) return;
-    const mx = e.touches[0].clientX - x0, my = e.touches[0].clientY - y0;
-    if (!lock && Math.abs(mx) + Math.abs(my) > 8) lock = Math.abs(mx) > Math.abs(my) ? 'x' : 'y';
-    if (lock !== 'x') return;
-    e.preventDefault();
-    const now = performance.now(), cx = e.touches[0].clientX;
-    vel = Math.abs(cx - lastX) / Math.max(1, now - lastT); lastX = cx; lastT = now;
-    let v = mx / slotW();
-    // Resist past an empty side.
-    if ((v > 0 && !l) || (v < 0 && !r)) v *= 0.25;
-    pending = Math.max(-1, Math.min(1, v));
-    if (!queued) { queued = true; requestAnimationFrame(() => { queued = false; if (x0 != null) d = pending; }); }
-  };
-  const end = () => {
-    if (x0 == null) return;
-    if (lock === 'x') d = pending;
-    // A fling: the finger was still moving fast (over 0.3 px per ms) in its last 100 ms.
-    const fast = vel > 0.3 && performance.now() - lastT < 100;
-    x0 = null;
-    if (lock !== 'x') return;
-    if ((d > 0.33 || (fast && d > 0.08)) && l) go(l, 1);
-    else if ((d < -0.33 || (fast && d < -0.08)) && r) go(r, -1);
-    else ease(0, 220);
-  };
-  // Touchmove must be non-passive to stop the page while sliding sideways.
+  const centre = (el, behavior = 'instant') => strip.scrollTo({ left: mid(el) - strip.clientWidth / 2, behavior });
+  // Each new row opens centred on its topic, before the screen paints.
   $effect(() => {
-    if (!wrap) return;
-    wrap.addEventListener('touchmove', drag, { passive: false });
-    return () => wrap.removeEventListener('touchmove', drag);
+    row;
+    const el = strip?.querySelector(`[data-id="${cur}"]`);
+    if (el) { centre(el); shade(); }
   });
+
+  // When the scroll has settled on another topic, re-centre on it, then switch the card two frames later.
+  let raf, timer, touching = false;
+  function switchTo(to) {
+    busy = true;
+    move = { from: cur, to }; cur = to;
+    requestAnimationFrame(() => requestAnimationFrame(() => { ui.topic = to; busy = false; }));
+  }
+  function settle() {
+    if (touching || !strip) return;
+    const c = strip.scrollLeft + strip.clientWidth / 2;
+    const el = [...strip.children].reduce((a, b) => (Math.abs(mid(b) - c) < Math.abs(mid(a) - c) ? b : a));
+    if (el.dataset.id === cur || Math.abs(mid(el) - c) > 4) return;
+    switchTo(el.dataset.id);
+  }
+  function onscroll() {
+    cancelAnimationFrame(raf); raf = requestAnimationFrame(shade);
+    clearTimeout(timer); timer = setTimeout(settle, 120);
+  }
+  const pick = (x) => { const el = strip.querySelector(`[data-id="${x}"]`); if (el) centre(el, 'smooth'); else switchTo(x); };
 </script>
 
-<div class="picker" bind:this={wrap} ontouchstart={start} ontouchend={end} ontouchcancel={end}>
-  {#each [[-1, l], [0, cur], [1, r]] as [i, x] (x ?? 'none' + i)}
-    {#if x}
-      <button class="it" in:fadeIn style={look(i)} tabindex={i ? 0 : -1} aria-label={i ? (i < 0 ? 'Өмнөх: ' : 'Дараагийн: ') + topics[x].name : undefined} onclick={() => i && go(x, -i)}>
-        <span class="pair"><span class="col"><TopicIcon id={x} size={48} known={isKnown(x)} /></span><span class="gry"><TopicIcon id={x} size={48} known={isKnown(x)} grey /></span></span>
-        <span class="nm">{topics[x].name}</span>
-      </button>
-    {/if}
+<div class="strip" bind:this={strip} {onscroll} onscrollend={settle}
+  ontouchstart={() => (touching = true)} ontouchend={() => { touching = false; clearTimeout(timer); timer = setTimeout(settle, 120); }}>
+  {#each row as x (x)}
+    <button class="it" data-id={x} tabindex={x === cur ? -1 : 0} onclick={() => x !== cur && pick(x)}>
+      <span class="pair"><span class="col"><TopicIcon id={x} size={48} known={isKnown(x)} /></span><span class="gry"><TopicIcon id={x} size={48} known={isKnown(x)} grey /></span></span>
+      <span class="nm">{topics[x].name}</span>
+    </button>
   {/each}
 </div>
 
@@ -138,27 +121,31 @@
   {@const list = all === 'l' ? (left.length ? left : lAlt ? [l] : []) : right.length ? right : rAlt ? [r] : []}
   <div class="full" class:right={all === 'r'}>
     <span class="lbl">{all === 'l' ? 'Мэдвэл зохих' : 'Дараагийн'}</span>
-    {#each list as x}<button class="ch" onclick={() => { const dir = all === 'l' ? 1 : -1; all = false; go(x, dir); }}><b class:ok={isKnown(x)}></b>{topics[x].name}</button>{/each}
+    {#each list as x}<button class="ch" onclick={() => { all = false; pick(x); }}><b class:ok={isKnown(x)}></b>{topics[x].name}</button>{/each}
   </div>
 {/if}
 {#if reason}<p class="why small muted"><b>{reason.a}</b> → <b>{reason.b}</b>: {reason.w}</p>{/if}
 
 <style>
-  .picker { position: relative; height: 104px; overflow: hidden; touch-action: pan-y; margin: 0 -16px; }
+  /* The phone's own sideways scroll, one topic per swipe. Only this row scrolls sideways, never the card. */
+  .strip {
+    position: relative; display: flex; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; scrollbar-width: none;
+    overscroll-behavior-x: contain; -webkit-overflow-scrolling: touch; margin: 0 -16px; padding: 4px calc(50% - 60px) 2px;
+  }
+  .strip::-webkit-scrollbar { display: none; }
   .it {
-    position: absolute; top: 4px; left: calc(50% - 60px); width: 120px; display: grid; justify-items: center; gap: 6px; padding: 4px 6px;
+    flex: none; width: 120px; scroll-snap-align: center; scroll-snap-stop: always; display: grid; justify-items: center; gap: 6px; padding: 4px 6px;
     border: 0; background: none; color: var(--ink); transform-origin: 50% 30%; will-change: transform, opacity;
   }
   .pair { display: grid; }
-  .pair > span { grid-area: 1 / 1; will-change: opacity; }
-  .col { opacity: calc(1 - var(--n, 0)); }
-  .gry { opacity: var(--n, 0); }
-  .nm { opacity: calc(1 - 0.45 * var(--n, 0));
-    font-size: 0.74rem; font-weight: 700; line-height: 1.2; text-align: center; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .pair > span { grid-area: 1 / 1; }
+  .col { opacity: calc(1 - var(--n, 1)); }
+  .gry { opacity: var(--n, 1); }
+  .nm { opacity: calc(1 - 0.45 * var(--n, 1)); font-size: 0.74rem; font-weight: 700; line-height: 1.2; text-align: center; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 
   /* One slim muted line: small grey text, no box, so the title stays the strongest thing. */
   .lists { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: -6px; }
-  .side { display: flex; align-items: center; gap: 4px; min-width: 0; min-height: 28px; padding: 0; border: 0; background: none; color: var(--muted); font-size: 0.72rem; font-weight: 600; opacity: 0.75; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .side { display: flex; align-items: center; gap: 4px; min-width: 0; min-height: 28px; padding: 0; border: 0; background: none; color: var(--muted); font-size: 0.72rem; font-weight: 600; opacity: 0.75; white-space: nowrap; overflow: hidden; }
   .side.next { justify-content: flex-end; }
   .side i { font-style: normal; flex: none; }
   .tx { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
