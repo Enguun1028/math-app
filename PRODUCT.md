@@ -4,21 +4,21 @@
 
 ## Platform
 
-web
+web (installable to the phone home screen)
 
 ## Stack
 
-Static HTML/CSS/JS with no build step. The deployed product must be a single self-contained `index.html` (all data, styles and scripts inline), because it is published by dropping one file onto Netlify. `structure.html` and `data.js` are local working files only and are not deployed.
+Svelte 5 and Vite in `app/`. The build bundles everything into one self-contained `index.html`; per-topic extras (practice, common mistakes, videos) are small JSON files in `app/public/extras/`, fetched when a topic opens. Content lives in JSON under `app/content/`. Hosted on Netlify. No server, no database, no accounts.
 
 ## Users
 
-Primary: Mongolian teenagers who have fallen behind in school math. Their gap is either specific terms and concepts they never learned, or the overall structure: they do not see how topics connect, what depends on what, or where to restart. They use it on their own, mostly on a phone.
+Primary: Mongolian teenagers who have fallen behind in school math, usually in crowded classes where the lesson cannot slow down for them. Their gap is specific earlier topics they never learned, and they cannot see which ones. They use the app alone, mostly on a phone.
 
-Secondary: teachers and tutors who fold the map into their teaching or advice, using it to show a student where they are and what to study next.
+Secondary: teachers, tutors and older siblings who use the map to show a student where they are and what to study next.
 
 ## Product Purpose
 
-A map of school mathematics as a journey. It shows every topic, what each one depends on, and which topics make sense to learn together. The student can find their own gaps and follow a clear path forward.
+A map of all of school mathematics (grades 1-12) plus a search that understands math the way a student types it. The student finds the exact earlier topic that is blocking them and climbs back from there.
 
 Success, in order:
 1. The student catches up to their grade level.
@@ -27,45 +27,51 @@ Success, in order:
 
 ## Positioning
 
-Organized by prerequisite and compatibility, not by school grade. Topics are grouped into journey stops where they genuinely support each other: for example, fractions with ratio, and quadratic equations with parabolas. A student who is behind can see exactly which earlier topic is blocking them, instead of restarting a whole grade.
+Organized by prerequisite, not by school grade or by exam. Existing Mongolian resources are lists of grade lessons or exam drills; none shows a teenager which earlier topic is blocking them. This app does, and it explains topics with concrete school methods (column arithmetic, fraction bars, cubes) rather than long prose.
 
 ## Operating Context
 
 - A student alone on a phone, often with low confidence in math, trying to work out what they missed.
-- A teacher or tutor pointing at the map during a lesson or advice session.
-- Learning itself currently happens elsewhere (school, tutors, books, videos). The map is the plan and the progress record.
+- A teacher, tutor or family member pointing at the map to explain.
+- Weak mobile connections: the app must load fast and work as a single file.
 
 ## Capabilities and Constraints
 
-- Interactive map: 39 topics as spheres, grouped into 8 journey stops, linked by prerequisites. Companion topics are shown as taught together.
-- Each topic has a short explanation, prerequisites, unlocks, and a reason for any companion pairing.
-- Students mark topics as learned. Progress is stored only in that browser (`localStorage`). There are no accounts, and progress does not sync between devices.
-- Topic states: learned, ready (all prerequisites learned), locked (still viewable and markable, since students who are behind may already know some later topics).
-- All interface text is in Mongolian (Cyrillic).
-- Planned, not built: each topic will link to lessons or exercises.
-- Undecided: placement or skip-ahead tests, and a dedicated view or tools for teachers.
-- The topic list and stage order were drafted without review by a Mongolian math teacher. Treat the curriculum structure and Mongolian wording as needing expert review.
+- Explorable dark neon map: 142 topics across grades 1-12, linked by prerequisites; a glowing "next step" guides without forcing a fixed path. Grades 1-4 are read-only basics; lessons start at grade 5.
+- Topic card for every topic: definition, formulas, rules, method, worked examples and textbook source (official 2020 Mongolian textbooks). Plus, as drafts: practice questions with hints, common mistakes, real-life uses, a video and outside interactives, and the topic's ЭЕШ weight.
+- 14 full step-by-step lessons so far (mainly number basics).
+- Start check (level test, grades 4-12) that lights up known areas; a 3-question warm-up after a break instead of a broken streak.
+- "Бүхнийг хай" search: recognises typed formulas (e.g. a²+b²=c² opens the Pythagorean theorem), Mongolian terms, and Russian or Latin spellings.
+- Tool bag: number line, balance scale, fraction bar (including fractions above 1 and two-fraction operations), coordinate plane, column arithmetic.
+- Feedback button on every page (Netlify Forms).
+- Progress stays on the device (`localStorage`); nothing syncs.
+- All interface text is in Mongolian (Cyrillic), polite form (та).
+- Not built yet: HOT TOPICS stories (the owner writes them by hand), more full lessons, teacher view.
 
 ## Brand Commitments
 
-- Name: "Математикийн аялал" (Math Journey).
-- The spheres-on-a-map format is a user-confirmed core of the product. The spheres stay; they are arranged as a pannable journey map.
-- Language: Mongolian throughout.
+- Name: "матемап" (Математикийн газрын зураг). The repo and older docs also use "Математикийн аялал" (Math Journey).
+- The dark neon explorable map is the confirmed core of the product. Ask the owner before any big visual shift.
+- Fractions are always stacked (numerator over denominator), never written with a slash.
+- Mongolian throughout, polite and encouraging.
+- No zoom gestures except on the circular grade map.
 
 ## Evidence on Hand
 
-- Topic data, prerequisites and companion reasons: inline in `index.html` (source copy in `data.js`).
+- Topic content from the official textbooks: `app/content/topic-content.json`.
+- Research and AI-drafted extras: `research/` (fact-checked for math; some facts flagged in `research/fanout/fact-check.md`).
 - No users, testimonials, teacher endorsements, curriculum approvals or outcome data exist yet. Do not fabricate any.
 
 ## Product Principles
 
-1. Show the structure. A student should see why a topic matters and what it unlocks, not just a list of topics.
-2. Meet students where they are. Nothing is hard-locked; a student can mark what they already know and start from their real gap.
-3. Grade level first, exam second, depth third. Early stops serve catching up; the ЭЕШ and deeper math build on top.
-4. Mongolian first. Terms match what students hear in Mongolian classrooms.
-5. Useful to a teacher too. The map must be clear enough to explain with, not only to click through alone.
+1. Show the structure. A student should see why a topic matters and what it unlocks.
+2. Meet students where they are. Nothing is hard-locked; a student starts from their real gap.
+3. Grade level first, exam second, depth third.
+4. Concrete over prose. Use the methods students see in school; never invent lesson content, and mark every AI draft as a draft until a person checks it.
+5. Mongolian first. Terms match what students hear in Mongolian classrooms.
 
 ## Accessibility & Inclusion
 
 - Phone-first, touch-first. It must work well on low-to-mid-range phones and small screens.
-- Students may have low confidence in math. Wording should be encouraging and plain, never shaming about gaps.
+- Students may have low confidence in math. Wrong answers get a hint and another try, are never shown in red, and every question has an "I don't know" button.
+- Every auto-playing animation has pause, restart and step dots.

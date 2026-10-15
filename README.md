@@ -83,7 +83,7 @@ npm run build    # writes dist/index.html
 | `research/` | The research behind the design, with every source linked (`left-behind-brief.md` is the summary) |
 | `docs/` | Design decisions and screenshots |
 | `archive/` | Earlier prototypes, kept to show how the idea evolved |
-| `PRODUCT.md` | The original product definition |
+| `PRODUCT.md` | Product definition: users, purpose, capabilities and rules |
 
 ## License
 
