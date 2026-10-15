@@ -130,6 +130,12 @@
   const tmove = (e) => { if (y0 != null && e.touches[0].clientY - y0 > 110) { y0 = null; close(); } };
   const toTopic = (id) => (ui.topic = id);
   const short = (s, n = 130) => { const p = stripLinks(s || ''); return p.length > n ? p.slice(0, n - 1) + '…' : p; };
+  // A new topic from the strip must be noticed (owner, 2026-10-16): the card slides in from the side it came from,
+  // and the title box pops and glows once in the strand colour.
+  const arrive = () => {
+    const dir = ui.slide ?? 0; ui.slide = 0;
+    return { duration: ms(dir ? 300 : 140), easing: cubicOut, css: (k) => `opacity:${k}; transform: translateX(${(1 - k) * 36 * dir}px)` };
+  };
   // Opening: the panel grows out of the middle and fades in, like a sphere opening on the map.
   const grow = (node) => ({ duration: ms(320), easing: cubicOut, css: (k) => `opacity:${k}; transform: scale(${0.94 + 0.06 * k}); border-radius:${(1 - k) * 40 + 0}px` });
 </script>
@@ -152,8 +158,8 @@
       <TopicStrip id={t.id} />
 
       {#key t.id}
-      <div class="body" in:fade={{ duration: ms(120) }}>
-        <div class="title">
+      <div class="body" in:arrive>
+        <div class="title" class:pop={ms(1)}>
           <TopicIcon id={t.id} size={58} />
           <div class="tt">
             <h2>{t.name}{#if tc?.elective}<span class="badge">Сонгон судлах</span>{/if}</h2>
@@ -333,6 +339,8 @@
 
   /* Title box */
   .title { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 12px; border-radius: 18px; border: 1.5px solid color-mix(in srgb, var(--c) 60%, var(--line)); background: color-mix(in srgb, var(--c) 8%, var(--surface-solid)); }
+  .title.pop { animation: pop 0.7s ease-out; }
+  @keyframes pop { 0% { transform: scale(0.96); box-shadow: 0 0 0 0 transparent; } 35% { transform: scale(1.02); box-shadow: 0 0 0 2px var(--c), 0 0 30px color-mix(in srgb, var(--c) 60%, transparent); } 100% { transform: scale(1); box-shadow: 0 0 0 0 transparent; } }
   .tt { min-width: 0; display: grid; gap: 2px; }
   h2 { font-size: 1.25rem; margin: 0; text-wrap: balance; overflow-wrap: anywhere; }
   .badge { display: inline-block; vertical-align: middle; margin-left: 8px; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--sun); color: var(--sun); font-size: 0.7rem; font-weight: 700; }

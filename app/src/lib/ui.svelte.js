@@ -2,6 +2,7 @@
 export const ui = $state({
   preview: null, // entry id for the quick term preview
   topic: null, // topic id for the topic sheet
+  slide: 0, // 1 / -1: the next topic card slides in from the right / left (set by the topic strip)
   tools: false,
   level: false, // the "Дутагдлаа олъё" sheet
   tool: 'numberline',

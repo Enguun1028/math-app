@@ -80,6 +80,8 @@
   let raf, timer, touching = false;
   function switchTo(to) {
     busy = true;
+    // Which way the new card slides in: from the right when moving to a later topic.
+    ui.slide = row.indexOf(to) > row.indexOf(cur) ? 1 : -1;
     move = { from: cur, to }; cur = to;
     requestAnimationFrame(() => requestAnimationFrame(() => { ui.topic = to; busy = false; }));
   }
@@ -87,7 +89,8 @@
     if (touching || !strip) return;
     const c = strip.scrollLeft + strip.clientWidth / 2;
     const el = [...strip.children].reduce((a, b) => (Math.abs(mid(b) - c) < Math.abs(mid(a) - c) ? b : a));
-    if (el.dataset.id === cur || Math.abs(mid(el) - c) > 4) return;
+    // Whatever topic is nearest the centre once the scroll stops counts, also after a hard fling.
+    if (el.dataset.id === cur) { if (Math.abs(mid(el) - c) > 2) centre(el, 'smooth'); return; }
     switchTo(el.dataset.id);
   }
   function onscroll() {
@@ -98,7 +101,7 @@
 </script>
 
 <div class="strip" bind:this={strip} {onscroll} onscrollend={settle}
-  ontouchstart={() => (touching = true)} ontouchend={() => { touching = false; clearTimeout(timer); timer = setTimeout(settle, 120); }}>
+  ontouchstart={() => (touching = true)} ontouchcancel={() => (touching = false)} ontouchend={() => { touching = false; clearTimeout(timer); timer = setTimeout(settle, 120); }}>
   {#each row as x (x)}
     <button class="it" data-id={x} tabindex={x === cur ? -1 : 0} onclick={() => x !== cur && pick(x)}>
       <span class="pair"><span class="col"><TopicIcon id={x} size={48} known={isKnown(x)} /></span><span class="gry"><TopicIcon id={x} size={48} known={isKnown(x)} grey /></span></span>
@@ -130,7 +133,7 @@
   /* The phone's own sideways scroll, one topic per swipe. Only this row scrolls sideways, never the card. */
   .strip {
     position: relative; display: flex; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; scrollbar-width: none;
-    overscroll-behavior-x: contain; -webkit-overflow-scrolling: touch; margin: 0 -16px; padding: 4px calc(50% - 60px) 2px;
+    overscroll-behavior-x: contain; -webkit-overflow-scrolling: touch; margin: 0 -16px; padding: 4px calc(50% - 44px) 2px; /* % is of the card width; the row is 32px wider, so centre = 50% + 16 − 60 */
   }
   .strip::-webkit-scrollbar { display: none; }
   .it {
