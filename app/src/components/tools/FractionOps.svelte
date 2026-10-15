@@ -3,13 +3,14 @@
   // + and −: the denominators are matched first (each original part is cut into equal slices; thick lines keep
   // the original parts visible), then the slices are put together or taken away, then the answer is simplified.
   // ×: area model. The first fraction cuts a rectangle into columns, the second into rows; the overlap is the answer.
+  // Numerators may be larger than denominators: each whole is its own bar (or its own rectangle in the area model).
   import { fly } from 'svelte/transition';
   import RichText from '../RichText.svelte';
   import FractionPlay from './FractionPlay.svelte';
+  import FractionInput from './FractionInput.svelte';
   import { unlock } from '../../lib/sound.js';
   import { ms, ease } from '../../lib/motion.js';
 
-  const MAXD = 12;
   let A = $state({ n: 1, d: 3 });
   let B = $state({ n: 1, d: 4 });
   let op = $state('+');
@@ -34,48 +35,33 @@
   let rn = $derived(op === '+' ? an + bn : op === '−' ? an - bn : A.n * B.n);
   let rd = $derived(op === '×' ? A.d * B.d : L);
   let g = $derived(gcd(rn, rd) || 1);
-  let bars = $derived(op === '+' ? Math.max(1, Math.ceil((an + bn) / L)) : 1);
+  // Answer bars: one per whole the slices reach.
+  let bars = $derived(Math.max(1, Math.ceil((op === '+' ? an + bn : Math.max(an, bn)) / L)));
+  // ×: how many whole rectangles across (first fraction) and down (second fraction).
+  let wa = $derived(Math.max(1, Math.ceil(A.n / A.d)));
+  let wb = $derived(Math.max(1, Math.ceil(B.n / B.d)));
+  let cols = $derived(A.d * wa);
+  let rws = $derived(B.d * wb);
   const multiples = (d) => Array.from({ length: L / d }, (_, i) => (i + 1) * d);
   const f = (n, d) => (n < 0 ? '−' : '') + `${Math.abs(n)}/${d}`;
 
-  // Editing a fraction: keep 0 ≤ numerator ≤ denominator ≤ 12.
-  function setD(F, d) {
-    F.d = Math.max(1, Math.min(MAXD, Math.round(+d) || 1));
-    F.n = Math.min(F.n, F.d);
-  }
-  function setN(F, n) {
-    F.n = Math.max(0, Math.min(F.d, Math.round(+n) || 0));
-  }
-  // Tapping part i fills up to it; tapping the last filled part empties it.
-  const tap = (F, i) => (F.n = F.n === i + 1 ? i : i + 1);
 </script>
 
 {#snippet editor(F, name, cls)}
   <div class="ed {cls}">
     <span class="name">{name}</span>
-    <div class="bar" style:grid-template-columns="repeat({F.d}, 1fr)">
-      {#each Array(F.d) as _, i}<button class="cell" class:on={i < F.n} aria-label="{i + 1}-р хэсэг" onclick={() => tap(F, i)}></button>{/each}
-    </div>
-    <div class="nums">
-      <label class="num"><span class="small muted">Хүртвэр</span>
-        <span class="step"><button onclick={() => setN(F, F.n - 1)} aria-label="Хүртвэр хасах">−</button>
-        <input type="number" inputmode="numeric" min="0" max={F.d} value={F.n} oninput={(e) => setN(F, e.currentTarget.value)} />
-        <button onclick={() => setN(F, F.n + 1)} aria-label="Хүртвэр нэмэх">+</button></span>
-      </label>
-      <label class="num"><span class="small muted">Хуваарь</span>
-        <span class="step"><button onclick={() => setD(F, F.d - 1)} aria-label="Хуваарь хасах">−</button>
-        <input type="number" inputmode="numeric" min="1" max={MAXD} value={F.d} oninput={(e) => setD(F, e.currentTarget.value)} />
-        <button onclick={() => setD(F, F.d + 1)} aria-label="Хуваарь нэмэх">+</button></span>
-      </label>
-      <span class="big"><RichText text={f(F.n, F.d)} /></span>
-    </div>
+    <FractionInput bind:n={F.n} bind:d={F.d} />
   </div>
 {/snippet}
 
-<!-- A bar cut into d·k slices; thick lines every k slices show the original parts. -->
+<!-- Bars cut into d·k slices (one bar per whole); thick lines every k slices show the original parts. -->
 {#snippet sliced(d, k, filled, cls)}
-  <div class="bar fine" style:grid-template-columns="repeat({d * k}, 1fr)">
-    {#each Array(d * k) as _, i}<span class="cell {cls}" class:on={i < filled} class:edge={i > 0 && i % k === 0}></span>{/each}
+  <div class="wholes">
+    {#each Array(Math.max(1, Math.ceil(filled / (d * k)))) as _, w}
+      <div class="bar fine" style:grid-template-columns="repeat({d * k}, 1fr)">
+        {#each Array(d * k) as _, j}<span class="cell {cls}" class:on={w * d * k + j < filled} class:edge={j > 0 && j % k === 0}></span>{/each}
+      </div>
+    {/each}
   </div>
 {/snippet}
 
@@ -152,31 +138,37 @@
     {:else}
       <section class="stp">
         <h3>1. Эхний бутархай: тэгш өнцөгтийг {A.d} баганад хуваагаад {A.n}-ийг нь будна</h3>
-        <div class="area" style:grid-template-columns="repeat({A.d}, 1fr)" style:grid-template-rows="1fr">
-          {#each Array(A.d) as _, c}<span class="cell solo" class:ina={c < A.n}></span>{/each}
+        {#if wa > 1}<p class="small muted">Нэг тэгш өнцөгт = 1 бүтэн. {A.n} багана багтахгүй тул {wa} тэгш өнцөгтийг хажуу хажууд нь тавина.</p>{/if}
+        <div class="area" style:grid-template-columns="repeat({cols}, 1fr)" style:grid-template-rows="1fr" style:aspect-ratio="{4 * wa} / 3" style:max-width={wa > 1 ? "100%" : "300px"}>
+          {#each Array(cols) as _, c}<span class="cell solo" class:ina={c < A.n} class:ec={c > 0 && c % A.d === 0}></span>{/each}
         </div>
         <p class="cap"><RichText text="Цэнхэр = {f(A.n, A.d)}" /></p>
       </section>
       <section class="stp">
         <h3>2. Хоёр дахь: тэр тэгш өнцөгтийг {B.d} мөрөнд хуваагаад {B.n}-ийг нь будна</h3>
-        <div class="area" style:grid-template-columns="repeat({A.d}, 1fr)" style:grid-template-rows="repeat({B.d}, 1fr)">
-          {#each Array(A.d * B.d) as _, i}<span class="cell solo" class:inb={Math.floor(i / A.d) < B.n}></span>{/each}
+        {#if wb > 1}<p class="small muted">{B.n} мөр багтахгүй тул {wb} тэгш өнцөгтийг доор доор нь тавина.</p>{/if}
+        <div class="area" style:grid-template-columns="repeat({cols}, 1fr)" style:grid-template-rows="repeat({rws}, 1fr)" style:aspect-ratio="{4 * wa} / {3 * wb}" style:max-width={wa > 1 ? "100%" : "300px"}>
+          {#each Array(cols * rws) as _, i}
+            {@const c = i % cols}
+            {@const r = Math.floor(i / cols)}
+            <span class="cell solo" class:inb={r < B.n} class:ec={c > 0 && c % A.d === 0} class:er={r > 0 && r % B.d === 0}></span>
+          {/each}
         </div>
         <p class="cap"><RichText text="Шар = {f(B.n, B.d)}" /></p>
       </section>
       <section class="stp">
         <h3>3. Давхарлана: хоёулаа будагдсан нүд = хариу</h3>
-        <div class="area" style:grid-template-columns="repeat({A.d}, 1fr)" style:grid-template-rows="repeat({B.d}, 1fr)">
-          {#each Array(A.d * B.d) as _, i}
-            {@const c = i % A.d}
-            {@const r = Math.floor(i / A.d)}
-            <span class="cell" class:ina={c < A.n} class:inb={r < B.n} class:both={c < A.n && r < B.n}></span>
+        <div class="area" style:grid-template-columns="repeat({cols}, 1fr)" style:grid-template-rows="repeat({rws}, 1fr)" style:aspect-ratio="{4 * wa} / {3 * wb}" style:max-width={wa > 1 ? "100%" : "300px"}>
+          {#each Array(cols * rws) as _, i}
+            {@const c = i % cols}
+            {@const r = Math.floor(i / cols)}
+            <span class="cell" class:ina={c < A.n} class:inb={r < B.n} class:both={c < A.n && r < B.n} class:ec={c > 0 && c % A.d === 0} class:er={r > 0 && r % B.d === 0}></span>
           {/each}
         </div>
         <p>Ногоон нүд нь цэнхэр ч, шар ч. Тэр нь <b><RichText text="{f(A.n, A.d)}-ийн {f(B.n, B.d)}" /></b> хэсэг: үржих = «-ийн».</p>
         <div class="count">
           <span><b class="g">{rn}</b> ногоон нүд <span class="small muted">({A.n} багана × {B.n} мөр)</span></span>
-          <span><b>{rd}</b> бүх нүд <span class="small muted">({A.d} × {B.d})</span></span>
+          <span><b>{rd}</b> {wa * wb > 1 ? 'нүд нэг тэгш өнцөгтөд (1 бүтэн)' : 'бүх нүд'} <span class="small muted">({A.d} × {B.d})</span></span>
         </div>
         <p class="eq big"><RichText text="{f(A.n, A.d)} × {f(B.n, B.d)} = {f(rn, rd)}" /></p>
       </section>
@@ -215,14 +207,8 @@
   .ed.b { --col: var(--sun); --soft: var(--sun-soft); }
   .name { font-weight: 800; color: var(--col); }
   .bar { display: grid; gap: 3px; height: 46px; }
-  .bar .cell { border-radius: 6px; border: 1.5px solid var(--col); background: transparent; padding: 0; transition: background 0.25s ease, box-shadow 0.25s; }
-  .bar .cell.on { background: var(--col); box-shadow: 0 0 8px color-mix(in srgb, var(--col) 50%, transparent); }
-  .nums { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 12px; }
-  .num { display: grid; gap: 2px; }
-  .step { display: flex; align-items: center; gap: 4px; }
-  .step button { width: 40px; height: 40px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface-solid); color: var(--col); font-size: 1.2rem; font-weight: 800; }
-  .step input { width: 52px; height: 40px; text-align: center; border-radius: 10px; border: 1px solid var(--line); font: 700 1.1rem var(--font); }
-  .big { font-size: 1.5rem; font-weight: 800; margin-left: auto; color: var(--col, var(--ink)); }
+  .bar .cell { padding: 0; transition: background 0.25s ease; }
+  .wholes { display: grid; gap: 6px; }
   .sign { justify-self: center; font: 800 1.6rem var(--font); color: var(--muted); margin: -6px 0; }
 
   .steps { display: grid; gap: 12px; }
@@ -269,4 +255,7 @@
   .area .cell.solo.inb { background: var(--sun); box-shadow: 0 0 8px rgba(255, 204, 102, 0.45); }
   .topic.two { display: grid; gap: 0; padding: 8px 14px; border-radius: 16px; }
   .area .cell.both { background: var(--grass); box-shadow: 0 0 6px rgba(94, 234, 154, 0.5); }
+  /* A wider gap where one whole rectangle meets the next. */
+  .area .cell.ec { margin-left: 6px; }
+  .area .cell.er { margin-top: 6px; }
 </style>

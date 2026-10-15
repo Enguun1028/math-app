@@ -9,6 +9,7 @@
   //   5 now every line meets (green): the slices are all the same size
   //   6 the slices slide into one answer bar: cyan first, yellow after (for −, yellow cancels cyan)
   //   7 the answer
+  // A fraction larger than 1 is drawn as several bars, one per whole.
   import { onDestroy } from 'svelte';
   import RichText from '../RichText.svelte';
   import SvgMath from '../SvgMath.svelte';
@@ -29,14 +30,23 @@
   const rn = plus ? an + bn : an - bn;
   const g = gcd(rn, L) || 1;
   const same = a.d === b.d;
-  const rows = plus ? Math.max(1, Math.ceil((an + bn) / L)) : 1;
+  const rows = Math.max(1, Math.ceil((plus ? an + bn : Math.max(an, bn)) / L));
+  const rowsA = Math.max(1, Math.ceil(an / L));
+  const rowsB = Math.max(1, Math.ceil(bn / L));
 
-  // Picture geometry (SVG units).
-  const X0 = 8, W = 304, BH = 34;
-  const yA = 34, yB = 112, yR = 214;
+  // Picture geometry (SVG units). Each whole is one bar; bars of the same fraction sit RG apart.
+  const X0 = 8, W = 304, BH = 34, RG = 8;
+  const yA = 34;
+  const endA = yA + rowsA * (BH + RG) - RG;
+  const yB = endA + 44;
+  const endB = yB + rowsB * (BH + RG) - RG;
+  const yR = endB + 68;
   const H = yR + rows * (BH + 22) + 14;
   const w = W / L;
   const xAt = (i) => X0 + i * w;
+  // Top-left of slice i in the first or second fraction's own bars.
+  const yInA = (i) => yA + Math.floor(i / L) * (BH + RG);
+  const yInB = (i) => yB + Math.floor(i / L) * (BH + RG);
 
   // Stage 2, "try anyway": the pieces end to end in the answer row, measured in whole bars.
   const vA = a.n / a.d, vB = b.n / b.d;
@@ -49,8 +59,10 @@
   const xEnd = X0 + (tEnd - endRow) * W;
   // Does the end happen to land on a line of either bar?
   const onLine = Math.abs(rn) % ka === 0 || Math.abs(rn) % kb === 0;
-  const ticksA = Array.from({ length: a.d + 1 }, (_, k) => ({ x: X0 + (k * W) / a.d, t: k === 0 ? '0' : k === a.d ? '1' : `${k}/${a.d}` }));
-  const ticksB = Array.from({ length: b.d - 1 }, (_, k) => ({ x: X0 + ((k + 1) * W) / b.d, t: `${k + 1}/${b.d}` }));
+  // Tick labels on the row where the end falls; past the first whole they read as mixed numbers (1 1/3).
+  const lbl = (k, d) => (k === 0 ? `${endRow}` : k === d ? `${endRow + 1}` : `${endRow ? endRow + ' ' : ''}${k}/${d}`);
+  const ticksA = Array.from({ length: a.d + 1 }, (_, k) => ({ x: X0 + (k * W) / a.d, t: lbl(k, a.d) }));
+  const ticksB = Array.from({ length: b.d - 1 }, (_, k) => ({ x: X0 + ((k + 1) * W) / b.d, t: lbl(k + 1, b.d) }));
 
   const multiples = (d) => Array.from({ length: L / d }, (_, i) => (i + 1) * d);
   // A white line of the first bar lands on a line of the second only when k·b.d is a multiple of a.d.
@@ -124,6 +136,11 @@
   const bTarget = (j) => target(plus ? an + j : Math.max(0, an - bn) + j);
   let moved = $derived(phase >= 6);
   let cut = $derived(phase >= 4 || same);
+  // Every bar of both fractions, with how its parts are cut: d parts, each cut into k slices.
+  const bandsAB = [
+    ...Array.from({ length: rowsA }, (_, r) => ({ y: yA + r * (BH + RG), d: a.d, k: ka })),
+    ...Array.from({ length: rowsB }, (_, r) => ({ y: yB + r * (BH + RG), d: b.d, k: kb })),
+  ];
 </script>
 
 <div class="play">
@@ -133,15 +150,15 @@
   <div class="stage">
     <svg viewBox="0 0 320 {H}" role="img" aria-label={CAPTIONS[7]}>
       <!-- frames -->
-      <rect x={X0} y={yA} width={W} height={BH} rx="6" class="frame" />
-      <rect x={X0} y={yB} width={W} height={BH} rx="6" class="frame" />
+      {#each Array(rowsA) as _, r}<rect x={X0} y={yA + r * (BH + RG)} width={W} height={BH} rx="6" class="frame" />{/each}
+      {#each Array(rowsB) as _, r}<rect x={X0} y={yB + r * (BH + RG)} width={W} height={BH} rx="6" class="frame" />{/each}
       {#each Array(rows) as _, r}
         <rect x={X0} y={yR + r * (BH + 22)} width={W} height={BH} rx="6" class="frame res" class:show={phase >= 6 || phase === 2} />
       {/each}
 
       <!-- the sum written as a column: first bar, the sign, second bar, =, the answer -->
-      <text class="op" x={X0 + W / 2} y={(yA + BH + yB) / 2 + 9}>{plus ? '+' : '−'}</text>
-      <text class="op eq" class:show={phase === 2 || phase >= 6} x={X0 + W / 2} y={yB + BH + 30}>=</text>
+      <text class="op" x={X0 + W / 2} y={(endA + yB) / 2 + 9}>{plus ? '+' : '−'}</text>
+      <text class="op eq" class:show={phase === 2 || phase >= 6} x={X0 + W / 2} y={endB + 30}>=</text>
 
       <!-- stage 2: try anyway, end to end, with the line values of both bars -->
       {#if phase === 2}
@@ -166,28 +183,29 @@
 
       <!-- cyan slices (first fraction) -->
       {#each Array(an) as _, i}
-        <rect class="piece a" class:gone={!plus && phase >= 7 && i >= an - bn} x={xAt(i)} y={yA} width={w + 0.4} height={BH}
-          style:transform="translate(0px, {moved ? yR - yA : 0}px)" style:transition-delay="{moved ? i * 0.03 : 0}s" />
+        {@const t = target(i)}
+        <rect class="piece a" class:gone={!plus && phase >= 7 && i >= an - bn} x={xAt(i % L)} y={yInA(i)} width={w + 0.4} height={BH}
+          style:transform="translate(0px, {moved ? t.y - yInA(i) : 0}px)" style:transition-delay="{moved ? Math.min(i, 60) * 0.03 : 0}s" />
       {/each}
       <!-- yellow slices (second fraction) -->
       {#each Array(bn) as _, j}
         {@const t = bTarget(j)}
-        <rect class="piece b" class:gone={!plus && phase >= 7} x={xAt(j)} y={yB} width={w + 0.4} height={BH}
-          style:transform="translate({moved ? t.x - xAt(j) : 0}px, {moved ? t.y - yB : 0}px)" style:transition-delay="{moved ? 0.6 + j * 0.03 : 0}s" />
+        <rect class="piece b" class:gone={!plus && phase >= 7} x={xAt(j % L)} y={yInB(j)} width={w + 0.4} height={BH}
+          style:transform="translate({moved ? t.x - xAt(j % L) : 0}px, {moved ? t.y - yInB(j) : 0}px)" style:transition-delay="{moved ? 0.6 + Math.min(j, 60) * 0.03 : 0}s" />
       {/each}
 
       <!-- thin slice lines, appearing one by one when the parts are cut -->
-      {#each [yA, yB] as y, row}
+      {#each bandsAB as bd}
         {#each Array(L - 1) as _, i}
-          {@const k = row === 0 ? ka : kb}
-          {#if (i + 1) % k !== 0}
-            <line class="thin" class:on={cut} x1={xAt(i + 1)} x2={xAt(i + 1)} y1={y + 2} y2={y + BH - 2} style:transition-delay="{cut && !same ? i * 0.04 : 0}s" />
+          {#if (i + 1) % bd.k !== 0}
+            <line class="thin" class:on={cut} x1={xAt(i + 1)} x2={xAt(i + 1)} y1={bd.y + 2} y2={bd.y + BH - 2} style:transition-delay="{cut && !same ? i * 0.04 : 0}s" />
           {/if}
         {/each}
       {/each}
       <!-- thick white lines: the original parts -->
-      {#each Array(a.d - 1) as _, k}<line class="thick" x1={X0 + ((k + 1) * W) / a.d} x2={X0 + ((k + 1) * W) / a.d} y1={yA} y2={yA + BH} />{/each}
-      {#each Array(b.d - 1) as _, k}<line class="thick" x1={X0 + ((k + 1) * W) / b.d} x2={X0 + ((k + 1) * W) / b.d} y1={yB} y2={yB + BH} />{/each}
+      {#each bandsAB as bd}
+        {#each Array(bd.d - 1) as _, k}<line class="thick" x1={X0 + ((k + 1) * W) / bd.d} x2={X0 + ((k + 1) * W) / bd.d} y1={bd.y} y2={bd.y + BH} />{/each}
+      {/each}
       <!-- answer bar slice lines -->
       {#each Array(rows) as _, r}
         {#each Array(L - 1) as _, i}<line class="thin res" class:on={phase >= 6} x1={xAt(i + 1)} x2={xAt(i + 1)} y1={yR + r * (BH + 22) + 2} y2={yR + r * (BH + 22) + BH - 2} />{/each}
@@ -195,14 +213,14 @@
 
       <!-- stage 1: the first bar's lines dropped onto the second -->
       {#each guidesA as gd}
-        <line class="guide" class:show={phase === 1} class:ok={gd.ok} x1={gd.x} x2={gd.x} y1={yA + BH} y2={yB + BH + 6} />
-        {#if !gd.ok}<text class="x" class:show={phase === 1} x={gd.x} y={yB + BH + 20}>✗</text>{/if}
+        <line class="guide" class:show={phase === 1} class:ok={gd.ok} x1={gd.x} x2={gd.x} y1={endA} y2={endB + 6} />
+        {#if !gd.ok}<text class="x" class:show={phase === 1} x={gd.x} y={endB + 20}>✗</text>{/if}
       {/each}
       <!-- stage 4: every slice line goes straight through both bars -->
       {#each Array(L - 1) as _, i}
-        <line class="match" class:show={phase === 5} x1={xAt(i + 1)} x2={xAt(i + 1)} y1={yA - 4} y2={yB + BH + 4} style:transition-delay="{phase === 5 ? i * 0.02 : 0}s" />
+        <line class="match" class:show={phase === 5} x1={xAt(i + 1)} x2={xAt(i + 1)} y1={yA - 4} y2={endB + 4} style:transition-delay="{phase === 5 ? i * 0.02 : 0}s" />
       {/each}
-      {#if phase === 5}<text class="ok" x={X0 + W - 4} y={yB + BH + 22}>✓</text>{/if}
+      {#if phase === 5}<text class="ok" x={X0 + W - 4} y={endB + 22}>✓</text>{/if}
     </svg>
 
   {#if phase === 3}
@@ -234,7 +252,7 @@
       </button>
     </div>
   </div>
-  {#if phase >= 7 && rn > L && plus}<p class="small muted">1-ээс их: бүтэн {Math.floor(rn / L)} ба {rn % L} хэсэг.</p>{/if}
+  {#if phase >= 7 && rn > L}<p class="small muted">1-ээс их: бүтэн {Math.floor(rn / L)} ба {rn % L} хэсэг.</p>{/if}
   {#if phase >= 7 && rn < 0}<p class="small muted">Хасах хэсэг ({bn}) байгаагаасаа ({an}) их тул хариу сөрөг.</p>{/if}
 </div>
 
