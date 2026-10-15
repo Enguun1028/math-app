@@ -15,6 +15,7 @@
   import { ui } from '../lib/ui.svelte.js';
   import { go, route } from '../lib/router.svelte.js';
   import { ms, ease, reduced } from '../lib/motion.js';
+  import { zoomPlan, zoomLayer, mapOpacity } from '../lib/zoom.js';
 
   let W = $state(400);
   let H = $state(800);
@@ -78,44 +79,35 @@
     return d;
   });
 
-  // Screen position of a world point right now.
-  function toScreen(wx, wy) {
-    const r = svg.getBoundingClientRect();
-    return { x: r.left + ox + wx * k, y: r.top + oy + wy * k };
-  }
   const scrollToWorldY = (wy, at = 0.45, smooth = true) =>
     scroller.scrollTo({ top: svg.offsetTop + oy + wy * k - H * at, behavior: smooth && !reduced ? 'smooth' : 'auto' });
 
-  // ---- opening a sphere: one continuous motion ----
-  // The map swells around the sphere and fades while the sphere's topic circles fly straight out of it
-  // to their places in the sub-map. Coming back runs the same motion in reverse.
+  // ---- opening a sphere: the camera zooms into it (lib/zoom.js) ----
+  // The grade map page runs the zoom once it knows where its own centre sits; here we only note where the sphere is.
   let opening = false;
+  function sphereGeo(id) {
+    const rim = svg.querySelector(`[data-sphere="${id}"] .rim`);
+    if (!rim) return null;
+    const r = rim.getBoundingClientRect();
+    return { x: r.left + r.width / 2, y: r.top + r.height / 2 };
+  }
   function openSphere(id) {
     if (opening) return;
     opening = true;
-    const s = sphereLayout[id];
-    const rects = {};
-    for (const t of sphereById[id].topics) {
-      const L = dotLayout[id + ':' + t];
-      const p = toScreen(L.x, L.y);
-      rects[t] = { ...p, r: DOT_R * k };
-    }
-    const c = toScreen(s.x, s.y);
-    ui.morph = { sphere: id, rects };
-    ui.back = { sphere: id, rects };
+    const geo = { sphere: id, c: sphereGeo(id), rs: sphereLayout[id].ks * k };
+    ui.morph = { ...geo, mapEl };
+    ui.back = geo;
     ui.scrollY = scroller.scrollTop;
-    if (!reduced) {
-      mapEl.style.transformOrigin = `${c.x}px ${c.y}px`;
-      mapEl.classList.add('leaving');
-    }
+    if (!reduced) mapEl.classList.add('zooming');
     go('/s/' + id);
   }
-  // Back before the map finished leaving: the same map comes back, so undo the leaving state (else it stays invisible
+  // Back before the zoom finished: the same map comes back, so undo the zoom (else it stays invisible
   // and the spheres stop opening).
   $effect(() => {
     if (!route.parts.length && opening) {
       opening = false;
-      mapEl.classList.remove('leaving');
+      mapEl.getAnimations().forEach((a) => a.cancel());
+      mapEl.classList.remove('zooming');
     }
   });
 
@@ -143,19 +135,26 @@
       scroller.scrollTop = ui.scrollY ?? 0;
       requestAnimationFrame(() => scrollToWorldY(s.y));
       ui.fly = null;
+      ui.back?.run?.(null);
       ui.back = null;
     } else if (ui.scrollY != null) {
       scroller.scrollTop = ui.scrollY;
-      if (ui.back && !reduced) {
-        // Back from a sphere: the map starts swollen around it and settles while the topics fly home.
-        const c = toScreen(sphereLayout[ui.back.sphere].x, sphereLayout[ui.back.sphere].y);
-        mapEl.style.transformOrigin = `${c.x}px ${c.y}px`;
-        mapEl.classList.add('returning');
-        mapEl.getBoundingClientRect();
-        requestAnimationFrame(() => mapEl.classList.remove('returning'));
+      const b = ui.back;
+      if (b) {
+        // Back from a grade map: the camera zooms out of it, the grade map shrinking into its sphere.
+        const plan = b.measure && zoomPlan(sphereGeo(b.sphere) ?? b.c, b.rs, b.measure());
+        if (plan) {
+          mapEl.classList.add('zooming');
+          zoomLayer(mapEl, plan, { shift: 0, origin: plan.F, opacity: mapOpacity, dir: 'out' }).finished
+            .then((a) => { a.cancel(); mapEl.classList.remove('zooming'); })
+            .catch(() => {});
+        } else if (!reduced) {
+          mapEl.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 240, easing: 'ease-out' });
+        }
+        b.run?.(plan);
       }
-      // Cleared once the page that is closing has read it for its own half of the motion.
-      setTimeout(() => (ui.back = null), 600);
+      // Cleared once the page that is closing has used it for its own half of the motion.
+      setTimeout(() => (ui.back = null), 700);
     } else {
       // First look: scrolled to the sphere with the next step (or the first one).
       const s = sphereLayout[next ? topics[next].sphere : spheres[0].id];
@@ -209,6 +208,7 @@
           <g class="dx" style:animation-duration="{drift[i].dx}s" style:animation-delay="{drift[i].delay}s">
             <g class="dy" style:animation-duration="{drift[i].dy}s" style:animation-delay="{drift[i].delay * 1.3}s">
               <g
+                data-sphere={s.id}
                 class="sphere {st}"
                 class:reveal={ui.reveal && (st === 'known' || st === 'faded')}
                 style:--d="{0.3 + i * 0.28}s"
@@ -288,13 +288,15 @@
 </div>
 
 <style>
-  .map { position: fixed; inset: 0; overflow: hidden; transition: opacity 0.42s cubic-bezier(0.23, 1, 0.32, 1); }
+  .map { position: fixed; inset: 0; overflow: hidden; }
   /* Soft fades behind the top and bottom controls, so map labels slide under them instead of clashing. */
   .map::before, .map::after { content: ''; position: fixed; left: 0; right: 0; z-index: 4; pointer-events: none; }
   .map::before { top: 0; height: 90px; background: linear-gradient(var(--bg) 35%, transparent); }
   .map::after { bottom: 0; height: calc(var(--tabbar-h) + 150px); background: linear-gradient(transparent, var(--bg) 75%); }
-  .map:global(.leaving) { opacity: 0; pointer-events: none; }
-  .map:global(.returning) { opacity: 0; transition: none; }
+  /* While the camera zooms, the buttons and edge fades step aside so only the map moves. */
+  .map::before, .map::after, .stories, .hud-top, .hud-bottom { transition: opacity 0.2s ease-out; }
+  .map:global(.zooming) { pointer-events: none; }
+  .map:global(.zooming)::before, .map:global(.zooming)::after, .map:global(.zooming) :is(.stories, .hud-top, .hud-bottom) { opacity: 0; transition-duration: 0.12s; }
   /* The phone's own scrolling: momentum and rubber band come from the system. */
   .scroller { position: absolute; inset: 0; overflow-x: hidden; overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior-y: contain; }
   .stories { max-width: 560px; margin: 0 auto; padding: calc(env(safe-area-inset-top, 0px) + 62px) 16px 0; position: relative; z-index: 5; }
@@ -375,6 +377,5 @@
 
   @media (prefers-reduced-motion: reduce) {
     .dx, .dy, .pulse, .find { animation: none; }
-    .map { transition: none; }
   }
 </style>

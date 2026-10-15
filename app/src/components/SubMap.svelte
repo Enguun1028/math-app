@@ -9,7 +9,9 @@
   import { topicState, sphereState, readiness, sphereKnown } from '../lib/logic.js';
   import { ui } from '../lib/ui.svelte.js';
   import { onMount, onDestroy } from 'svelte';
-  import { reduced, easeMove, CURVE_MOVE } from '../lib/motion.js';
+  import { reduced } from '../lib/motion.js';
+  import { zoomPlan, zoomLayer, fadeAlong, gradeOpacity, mapOpacity } from '../lib/zoom.js';
+  import TopicIcon from './TopicIcon.svelte';
   import { route } from '../lib/router.svelte.js';
 
   let { id } = $props();
@@ -59,60 +61,54 @@
   // Open the map centred on the grade number.
   let pan = $state();
   let mini = $state();
-  let morphing = $state(false);
+  let camEl = $state();
+  let pageEl = $state();
+  // Opened from the main map: start hidden, then the camera zoom (lib/zoom.js) brings the grade map in.
+  let morphing = $state(!!(ui.morph && ui.morph.sphere === id && !reduced));
+
+  // Where the grade number sits on screen and how many px one grade-map unit is, right now.
+  function measure() {
+    const r = pan.getBoundingClientRect();
+    return { x: r.left + cam.x + S * cam.z, y: r.top + cam.y + S * cam.z, scale: cam.z };
+  }
+  const topBar = () => pageEl?.closest('.layer')?.querySelector(':scope > header.bar');
+  // One zoom step for this page: the camera layer scales about F, the top bar only fades.
+  function zoomHere(plan, dir) {
+    const r = pan.getBoundingClientRect();
+    const bar = topBar();
+    if (bar) fadeAlong(bar, dir, (e) => gradeOpacity(e) ** 2).finished.then((a) => a.cancel()).catch(() => {});
+    return zoomLayer(camEl, plan, { shift: -1, origin: { x: plan.F.x - r.left, y: plan.F.y - r.top }, opacity: gradeOpacity, dir });
+  }
+
   onMount(() => {
-    // Opening animation: each dot starts exactly where it was inside the sphere on the map and glides to its place here.
     const m = ui.morph;
-    setTimeout(() => (ui.morph = null), 700);
-    if (!m || m.sphere !== id || reduced || !mini) return;
-    const ctm = mini.getScreenCTM();
-    if (!ctm) return;
-    morphing = true;
-    const els = [...mini.querySelectorAll('[data-t]')];
-    for (const el of els) {
-      const r0 = m.rects[el.dataset.t], n = nodes[el.dataset.t];
-      if (!r0 || !n) continue;
-      const sx = ctm.a * n.x + ctm.e, sy = ctm.d * n.y + ctm.f;
-      el.style.transformOrigin = `${n.x}px ${n.y}px`;
-      el.style.transform = `translate(${(r0.x - sx) / ctm.a}px, ${(r0.y - sy) / ctm.d}px) scale(${r0.r / (RAD.NODE * ctm.a)})`;
+    // Cleared a frame later: the page's own entry transition still reads it to know it should not fade.
+    requestAnimationFrame(() => (ui.morph = null));
+    if (ui.back && ui.back.sphere === id) {
+      // Going back to the main map runs the same zoom in reverse; the map asks for these when it comes back.
+      ui.back.measure = measure;
+      ui.back.run = (plan) => {
+        morphing = true;
+        if (plan) zoomHere(plan, 'out');
+        else pageEl?.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 200, easing: 'ease-out', fill: 'forwards' });
+      };
     }
-    mini.getBoundingClientRect(); // apply the start positions before the glide begins
+    if (!morphing) return;
+    // Wait one frame so the camera has its real size, then zoom in.
     requestAnimationFrame(() => {
-      for (const el of els) {
-        el.style.transition = `transform 560ms ${CURVE_MOVE}`;
-        el.style.transform = '';
+      const plan = zoomPlan(m.c, m.rs, measure());
+      if (!plan) {
+        m.mapEl.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 200, easing: 'ease-out', fill: 'forwards' });
+        morphing = false;
+        return;
       }
-      setTimeout(() => (morphing = false), 380);
+      zoomLayer(m.mapEl, plan, { shift: 0, origin: plan.F, opacity: mapOpacity, dir: 'in' });
+      zoomHere(plan, 'in').finished.then((a) => { a.cancel(); morphing = false; }).catch(() => {});
     });
   });
 
-  // Left for another page (not the map): nothing will fly home, so forget the open sphere.
+  // Left for another page (not the map): nothing will zoom back, so forget the open sphere.
   onDestroy(() => route.parts.length && (ui.back = null));
-
-  // Going back to the map: the same glide in reverse, each dot flying home into the sphere.
-  function home(node) {
-    const b = ui.back;
-    if (!b || b.sphere !== id || reduced || route.parts.length) return { duration: 0 };
-    const ctm = node.getScreenCTM();
-    if (!ctm) return { duration: 0 };
-    const moves = [];
-    for (const el of node.querySelectorAll('[data-t]')) {
-      const r0 = b.rects[el.dataset.t], n = nodes[el.dataset.t];
-      if (!r0 || !n) continue;
-      const sx = ctm.a * n.x + ctm.e, sy = ctm.d * n.y + ctm.f;
-      el.style.transformOrigin = `${n.x}px ${n.y}px`;
-      el.style.transition = 'none';
-      moves.push({ el, dx: (r0.x - sx) / ctm.a, dy: (r0.y - sy) / ctm.d, sc: r0.r / (RAD.NODE * ctm.a) });
-    }
-    return {
-      duration: 440,
-      easing: easeMove,
-      tick: (t) => {
-        const p = 1 - t;
-        for (const m of moves) m.el.style.transform = `translate(${m.dx * p}px, ${m.dy * p}px) scale(${1 + (m.sc - 1) * p})`;
-      },
-    };
-  }
 
   // ---- camera, like a game map (owner: "normal like clash of clans") ----
   // The map is moved and scaled with one CSS transform, so it stays smooth: drag to move (with momentum),
@@ -256,11 +252,11 @@
 {#if !s}
   <p class="card">Ийм анги олдсонгүй.</p>
 {:else}
-  <div class="page" class:morphing style:--c={sphereLayout[s.id].color}>
+  <div class="page" class:morphing bind:this={pageEl} style:--c={sphereLayout[s.id].color}>
     <header class="head">
       <h1>{s.title}</h1>
       <p class="key small">
-        <span class="k new"></span> шинэ · <span class="k old">↑</span> өмнө үзсэнээ гүнзгийрүүлэх
+        <span class="k new"></span> шинэ · <span class="k old"></span> өмнө үзсэнээ гүнзгийрүүлэх
         <span class="muted">· {fresh} шинэ, {s.topics.length - fresh} гүнзгийрүүлэх</span>
       </p>
       {#if st === 'known' || st === 'faded'}<span class="badge known">Мэднэ</span>{:else if st === 'next'}<span class="badge next">Дараагийн алхам энд байна</span>{/if}
@@ -268,7 +264,9 @@
 
     <div class="panwrap">
     <div class="pan" bind:this={pan} use:camera>
-      <svg bind:this={mini} width={S * 2} height={S * 2} style:transform="translate({cam.x}px, {cam.y}px) scale({cam.z})" viewBox="0 0 {S * 2} {S * 2}" class="mini" out:home|global role="group" aria-label="{s.title}: сэдвүүд">
+      <!-- The camera layer: the zoom from the main map scales this, the pan and pinch move what is inside. -->
+      <div class="cam" bind:this={camEl}>
+      <svg bind:this={mini} width={S * 2} height={S * 2} style:transform="translate({cam.x}px, {cam.y}px) scale({cam.z})" viewBox="0 0 {S * 2} {S * 2}" class="mini" role="group" aria-label="{s.title}: сэдвүүд">
         <defs>
           <radialGradient id="ig-{s.id}" cx="50%" cy="50%" r="50%">
             <stop offset="0%" stop-color={s.color} stop-opacity="0.16" />
@@ -304,21 +302,27 @@
             <circle cx={n.x} cy={n.y} r={RAD.NODE + 10} class="hit" />
             {#if ts === 'next'}<circle cx={n.x} cy={n.y} r={RAD.NODE + 6} class="halo" />{/if}
             {#if ui.topic === t}<circle cx={n.x} cy={n.y} r={RAD.NODE + 6} class="sel" />{/if}
-            {#if nw}
-              <circle cx={n.x} cy={n.y} r={RAD.NODE} class="c new" />
-              <circle cx={n.x} cy={n.y} r="5" class="pip" />
-            {:else}
-              <circle cx={n.x} cy={n.y} r={RAD.NODE} class="c old" />
-              <text x={n.x} y={n.y + 5} class="up">↑</text>
-            {/if}
+            <!-- The topic's icon sits on top of this spot (HTML layer below); a returning topic gets a dashed ring. -->
+            <circle cx={n.x} cy={n.y} r={RAD.NODE + 1} class="c" />
+            {#if !nw}<circle cx={n.x} cy={n.y} r={RAD.NODE + 5} class="old" />{/if}
             {#each twoLines(topics[t].name, 16) as line, j}
-              <text x={n.x} y={n.y + RAD.NODE + 13 + j * 12} class="n">{line}</text>
+              <text x={n.x} y={n.y + RAD.NODE + 16 + j * 12} class="n">{line}</text>
             {/each}
-            {#if ts === 'known' || ts === 'faded'}<text x={n.x + RAD.NODE * 0.8} y={n.y - RAD.NODE * 0.7} class="ok">✓</text>{/if}
             </g>
           </g>
         {/each}
       </svg>
+      <!-- Topic icons (the same icon bank as the topic card), moved by the same camera as the map under them. -->
+      <div class="icons" style:width="{S * 2}px" style:height="{S * 2}px" style:transform="translate({cam.x}px, {cam.y}px) scale({cam.z})" aria-hidden="true">
+        {#each s.topics as t (t)}
+          {@const n = nodes[t]}
+          {@const ts = topicState(t)}
+          <div class="bob ib" data-i={t} class:later={ts === 'later'} style:left="{n.x - RAD.NODE - 1}px" style:top="{n.y - RAD.NODE - 1}px" style:animation-delay="{-((n.x * 7 + n.y * 3) % 900) / 100}s" style:animation-duration="{7 + ((n.x + n.y) % 400) / 100}s">
+            <TopicIcon id={t} size={RAD.NODE * 2 + 2} known={ts === 'known' || ts === 'faded'} />
+          </div>
+        {/each}
+      </div>
+      </div>
       <!-- Slice names: one readable size at every zoom. A name shows while its own spot is on screen and is nudged
            inward when its fixed-size text would stick out past the edge (owner, 2026-10-13). -->
       {#each slabelsPlaced as l (l.strand)}
@@ -366,15 +370,20 @@
 
 <style>
   /* While dots glide in, everything else waits, then fades in. */
-  .page > :not(.pan), .e, .n, .ok, .halo, .strand, .border, .ring { transition: opacity 0.32s cubic-bezier(0.23, 1, 0.32, 1), transform 0.32s cubic-bezier(0.23, 1, 0.32, 1); }
-  .page.morphing > :not(.pan) { opacity: 0; transform: translateY(8px); }
-  .page.morphing :is(.e, .n, .ok, .halo, .strand, .border, .ring) { opacity: 0; }
+  /* While the camera zooms, only the grade map itself shows; the rest fades in after it lands. */
+  .page > :not(.panwrap), .head, .strand, .zoom, .pan { transition: opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1), transform 0.3s cubic-bezier(0.23, 1, 0.32, 1), border-color 0.3s; }
+  .page.morphing > :not(.panwrap), .page.morphing :is(.head, .strand, .zoom) { opacity: 0; transform: translateY(6px); transition-duration: 0.14s; }
+  .page.morphing .pan { border-color: transparent; }
+  .cam { position: absolute; inset: 0; }
+  .icons { position: absolute; left: 0; top: 0; transform-origin: 0 0; pointer-events: none; }
+  .ib { position: absolute; }
+  .ib.later { opacity: 0.6; }
   .head { padding: 12px 0 8px; display: grid; gap: 6px; justify-items: start; }
   h1 { color: var(--c); text-shadow: 0 0 18px color-mix(in srgb, var(--c) 50%, transparent); }
   .key { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
   .k { display: inline-grid; place-items: center; width: 16px; height: 16px; border-radius: 50%; font-size: 10px; font-weight: 800; }
-  .k.new { background: color-mix(in srgb, var(--c) 30%, transparent); border: 2px solid var(--c); }
-  .k.old { border: 1.5px dashed var(--muted); color: var(--muted); }
+  .k.new { border-radius: 5px; background: color-mix(in srgb, var(--c) 30%, transparent); border: 1.5px solid var(--c); }
+  .k.old { border: 1.5px dashed var(--muted); }
   /* Pans both ways with the phone's own scrolling; bleeds to the screen edges. */
   .pan {
     margin: 0 -16px; height: min(68vh, 620px); overflow: hidden; position: relative; touch-action: none; cursor: grab;
@@ -407,19 +416,15 @@
   .grade { fill: var(--c); font-size: 42px; font-weight: 800; text-anchor: middle; }
   .node { cursor: pointer; outline: none; }
   .hit { fill: transparent; }
-  .c.new { fill: color-mix(in srgb, var(--tc) 25%, var(--bg)); stroke: var(--tc); stroke-width: 2; }
-  .c.old { fill: #0b1226; stroke: var(--tc); stroke-width: 1.8; stroke-dasharray: 4 3; }
-  .pip { fill: var(--tc); }
-  .up { fill: var(--tc); font-size: 13px; font-weight: 800; text-anchor: middle; pointer-events: none; }
-  .node:focus-visible .c { stroke-width: 3.5; }
-  .node.known .c { fill: color-mix(in srgb, var(--tc) 40%, var(--bg)); stroke-width: 3; filter: drop-shadow(0 0 6px var(--tc)); }
-  .node.faded .c { stroke: var(--dusk); }
+  .c { fill: var(--bg); stroke: none; }
+  .old { fill: none; stroke: var(--tc); stroke-width: 1.6; stroke-dasharray: 4 3; stroke-opacity: 0.8; }
+  .node:focus-visible .old, .node:focus-visible .c { stroke: var(--sky); stroke-width: 3; }
+  .node.faded .old { stroke: var(--dusk); }
   .node.later { opacity: 0.6; }
   .halo { fill: none; stroke: var(--sun); stroke-width: 3; animation: pulse 2.2s ease-in-out infinite; }
   .sel { fill: none; stroke: var(--sun); stroke-width: 3; }
   @keyframes pulse { 50% { stroke-opacity: 0.25; } }
   .n { fill: var(--ink); font-size: 10px; font-weight: 600; text-anchor: middle; pointer-events: none; paint-order: stroke; stroke: var(--bg); stroke-width: 3px; }
-  .ok { fill: var(--grass); font-size: 13px; font-weight: 800; pointer-events: none; }
   .journey { display: grid; gap: 6px; margin-top: 22px; }
   .journey h2 { margin-bottom: 2px; }
   .journey .chip { background: transparent; color: var(--ink); }

@@ -2,7 +2,8 @@
   import { fade, fly } from 'svelte/transition';
   import { route, back } from './lib/router.svelte.js';
   import { ui } from './lib/ui.svelte.js';
-  import { ms, ease } from './lib/motion.js';
+  import { ms, ease, reduced } from './lib/motion.js';
+  import { ZOOM_IN_MS, ZOOM_OUT_MS } from './lib/zoom.js';
   import MapView from './components/MapView.svelte';
   import SubMap from './components/SubMap.svelte';
   import MathMap from './components/MathMap.svelte';
@@ -39,19 +40,22 @@
   // Tab pages stand on their own; the other pages get a top bar with "‹ Буцах".
   const TAB_PAGES = ['m', 'practice', 'search', 'tools', 'me'];
   let tabPage = $derived(TAB_PAGES.includes(page));
-  // A sphere opened from the map animates its own circles, so the page itself only fades.
-  let pageIn = $derived({ y: ui.morph ? 0 : 10, duration: ms(ui.morph ? 220 : 260), easing: ease });
-  // Opening or closing a sphere is one long motion, so those layers stay a little longer. Exits are faster than entries.
-  let mapOut = $derived({ duration: ms(ui.morph ? 420 : 180), easing: ease });
-  let pageOut = $derived({ duration: ms(!page && ui.back ? 420 : 180), easing: ease });
+  // Opening or closing a grade sphere is one camera zoom (lib/zoom.js) that the map and the grade map run
+  // themselves, so for those the layers neither fade nor slide; they only stay until the zoom is done.
+  let zoomIn = $derived(!!ui.morph && !reduced);
+  let pageIn = $derived({ y: zoomIn ? 0 : 10, duration: ms(zoomIn ? 0 : 260), easing: ease });
+  let mapOut = $derived(zoomIn ? { hold: ZOOM_IN_MS + 120 } : { duration: ms(180), easing: ease });
+  let pageOut = $derived(!page && ui.back && !reduced ? { hold: ZOOM_OUT_MS + 80 } : { duration: ms(180), easing: ease });
+  // Fade, or with { hold } just keep the layer on screen for that long.
+  const leave = (node, p) => (p.hold ? { duration: p.hold } : fade(node, p));
 </script>
 
 {#if !page}
-  <div class="layer" in:fade={{ duration: ms(ui.back ? 0 : 240), easing: ease }} out:fade={mapOut}>
+  <div class="layer" in:fade={{ duration: ms(ui.back ? 0 : 240), easing: ease }} out:leave={mapOut}>
     <MapView />
   </div>
 {:else}
-  <div class="layer" in:fade={{ duration: ms(220), easing: ease }} out:fade={pageOut}>
+  <div class="layer" in:fade={{ duration: ms(zoomIn ? 0 : 220), easing: ease }} out:leave={pageOut}>
     {#if !tabPage}
       <header class="bar">
         <button class="btn ghost" onclick={back} aria-label="Буцах">‹ Буцах</button>

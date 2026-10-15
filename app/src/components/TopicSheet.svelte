@@ -21,7 +21,8 @@
   import { topicState, entryState, markTopic } from '../lib/logic.js';
   import { ui } from '../lib/ui.svelte.js';
   import { fade } from 'svelte/transition';
-  import { ms, ease } from '../lib/motion.js';
+  import { ms, ease, cubicBezier } from '../lib/motion.js';
+  import { ZOOM_EASE } from '../lib/zoom.js';
 
   let isOpen = $derived(!!(ui.topic && topics[ui.topic]));
   let lastT;
@@ -131,14 +132,54 @@
   const short = (s, n = 130) => { const p = stripLinks(s || ''); return p.length > n ? p.slice(0, n - 1) + '…' : p; };
   // A new topic from the strip must be noticed (owner, 2026-10-16): the card slides in from the side it came from,
   // and the title box pops and glows once in the strand colour.
+  // The pop is for a topic change only; on opening, the zoom out of the icon already shows where it came from.
+  let switched = $state(false);
+  let prevId = null;
+  $effect(() => {
+    const id = isOpen ? t.id : null;
+    switched = !!(id && prevId && id !== prevId);
+    prevId = id;
+  });
   const arrive = () => {
     const dir = ui.slide ?? 0; ui.slide = 0;
     return { duration: ms(dir ? 280 : 160), easing: ease, css: (k) => `opacity:${k}; transform: translateX(${(1 - k) * 32 * dir}px)` };
   };
-  // Opening: the panel grows out of the middle and fades in, like a sphere opening on the map.
-  // Closing runs the same motion back, faster. Only transform and opacity move, so it stays on the GPU.
-  const grow = () => ({ duration: ms(300), easing: ease, css: (k) => `opacity:${k}; transform: scale(${0.95 + 0.05 * k})` });
-  const shrink = () => ({ duration: ms(190), easing: ease, css: (k, u) => `opacity:${k}; transform: scale(${1 - 0.03 * u})` });
+  // Opening from a grade map (owner, 2026-10-16): the topic's icon opens up into the card. The card starts clipped
+  // to its own title icon, scaled about the one point that puts that icon exactly on the tapped icon; then the clip
+  // opens to the full screen while the scale grows to 1. Closing runs it back into the icon. Without an icon on
+  // screen (or with the title scrolled away) it grows from the middle instead. Only transform, clip and opacity move.
+  function fromIcon(node, id) {
+    const src = document.querySelector(`.icons [data-i="${id}"]`);
+    const dst = node.querySelector('.title .ic');
+    if (!src || !dst) return null;
+    const a = src.getBoundingClientRect(), b = dst.getBoundingClientRect();
+    if (!a.width || a.bottom < 0 || a.top > innerHeight || a.right < 0 || a.left > innerWidth) return null;
+    if (b.top < 0 || b.bottom > innerHeight) return null;
+    const f = a.width / b.width;
+    if (f > 0.95) return null;
+    const N = { x: a.left + a.width / 2, y: a.top + a.height / 2 }, T = { x: b.left + b.width / 2, y: b.top + b.height / 2 };
+    return {
+      f, x: (N.x - f * T.x) / (1 - f), y: (N.y - f * T.y) / (1 - f),
+      clip: [b.top, innerWidth - b.right, innerHeight - b.bottom, b.left], r: b.width * 0.28,
+    };
+  }
+  // The same camera curve as the map zoom.
+  const camEase = cubicBezier(...ZOOM_EASE.match(/[\d.]+/g).map(Number));
+  const zoomCss = (z) => (k) => {
+    const [t, r, b, l] = z.clip.map((v) => v * (1 - k));
+    return `transform-origin:${z.x}px ${z.y}px; transform: scale(${z.f + (1 - z.f) * k}); clip-path: inset(${t}px ${r}px ${b}px ${l}px round ${z.r * (1 - k)}px)`;
+  };
+  const grow = (node) => {
+    const z = fromIcon(node, t.id);
+    if (z) return { duration: ms(520), easing: camEase, css: zoomCss(z) };
+    return { duration: ms(300), easing: ease, css: (k) => `opacity:${k}; transform: scale(${0.95 + 0.05 * k})` };
+  };
+  const shrink = (node) => {
+    const z = fromIcon(node, t.id);
+    if (z) return { duration: ms(400), easing: camEase, css: zoomCss(z) };
+    return { duration: ms(190), easing: ease, css: (k, u) => `opacity:${k}; transform: scale(${1 - 0.03 * u})` };
+  };
+
 </script>
 
 <svelte:window onkeydown={(ev) => ev.key === 'Escape' && close()} />
@@ -161,7 +202,7 @@
 
       {#key t.id}
       <div class="body" in:arrive>
-        <div class="title" class:pop={ms(1)}>
+        <div class="title" class:pop={ms(1) && switched}>
           <TopicIcon id={t.id} size={58} />
           <div class="tt">
             <h2>{t.name}{#if tc?.elective}<span class="badge">Сонгон судлах</span>{/if}</h2>

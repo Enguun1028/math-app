@@ -4,10 +4,13 @@
   // One toggle for both maps, mounted once in App.svelte, so it stays in the same spot and the highlight
   // slides between the two options instead of jumping (owner: "continuity error ... not smooth").
   import { route } from '../lib/router.svelte.js';
+  import { fade } from 'svelte/transition';
+  import { ms, ease } from '../lib/motion.js';
   let math = $derived(route.parts[0] === 'm');
 </script>
 
-<div class="dock">
+<!-- Fades in and out with the map, so it never pops over a page that is still leaving. -->
+<div class="dock" in:fade|global={{ duration: ms(280), delay: ms(200), easing: ease }} out:fade|global={{ duration: ms(120) }}>
   <div class="toggle" class:math role="group" aria-label="Газрын зураг сонгох">
     <span class="pill" aria-hidden="true"></span>
     <a href="#/" class:on={!math} aria-current={!math ? 'page' : undefined}>Хөтөлбөр</a>

@@ -93,9 +93,10 @@ for (const s of spheres) {
   const x = SWAY * Math.sin(s.index * GOLDEN_ANGLE);
   const y = prev ? prev.y + prev.R + R + GAP_SHORT * (fibWord(s.index) ? PHI : 1) : 0;
   prev = { y, R };
-  sphereLayout[s.id] = { x, y, R, color: s.color };
   const rad = gradeRadial(s.id);
   const k = (R * 0.86) / (rad.rMax + RAD.NODE);
+  // ks: world units per grade-map unit, so the map can zoom a sphere until it is exactly its grade map.
+  sphereLayout[s.id] = { x, y, R, color: s.color, ks: k };
   for (const id of s.topics) {
     const n = rad.nodes[id];
     dotLayout[s.id + ':' + id] = { x: x + n.x * k, y: y + n.y * k, color: strands[topics[id].strand].color };
