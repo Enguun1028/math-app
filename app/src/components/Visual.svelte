@@ -1,5 +1,6 @@
 <script>
   // Main visual of an entry. Also reused by the tool bag.
+  import RichText from './RichText.svelte';
   let { v } = $props();
 
   const W = 320;
@@ -97,7 +98,7 @@
     </div>
     <figcaption class="frac"><span>{v.num}</span><span>{v.den}</span></figcaption>
   {:else}
-    <div class="symbol">{v.text}</div>
+    <div class="symbol"><RichText text={v.text} /></div>
   {/if}
 </figure>
 

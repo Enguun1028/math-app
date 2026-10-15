@@ -63,6 +63,14 @@ sup { font-size: 0.7em; line-height: 0; }
 .frac .n { border-bottom: 0.09em solid currentColor; padding: 0 0.18em 0.04em; }
 .frac .d { padding: 0.04em 0.18em 0; }
 .nowrap { white-space: nowrap; }
+/* Drawn ÷ sign: the font glyph reads as + on phones (owner, 2026-10-13). Bar plus two round dots. */
+.divsign {
+  display: inline-block; position: relative; width: 0.62em; height: 0.72em; margin: 0 0.12em; vertical-align: -0.06em;
+  background:
+    radial-gradient(circle, currentColor 0.075em, transparent 0.09em) 50% 0 / 0.2em 0.2em no-repeat,
+    radial-gradient(circle, currentColor 0.075em, transparent 0.09em) 50% 100% / 0.2em 0.2em no-repeat,
+    linear-gradient(currentColor, currentColor) 50% 50% / 100% 0.085em no-repeat;
+}
 .ovl { text-decoration: overline; }
 
 .wrap { max-width: 560px; margin: 0 auto; padding: 0 16px calc(var(--tabbar-h) + env(safe-area-inset-bottom) + 48px); }

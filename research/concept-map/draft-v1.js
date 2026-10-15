@@ -83,7 +83,7 @@ export const CONCEPTS = [
   ['abs', 'Модуль', 'Absolute value', ['num', 'alg'], 'num', 7, ['7.1а', '12.1а'], 'core'],
   ['pow', 'Зэрэг', 'Powers', ['num', 'alg'], 'num', 6, ['6.1в', '7.1б', '7.2а', '7.5б', '8.1б'], 'core'],
   ['neg-pow', 'Сөрөг ба бутархай илтгэгч', 'Negative and rational exponents', ['num', 'alg'], 'num', 8, ['8.2а', '10.1а', '10.1б', '10.2а'], 'core'],
-  ['sci', 'Тооны стандарт дүрс', 'Standard form', ['num'], 'num', 9, ['9.2а', '10.1в'], 'core'],
+  ['sci', 'Тооны стандарт хэлбэр', 'Standard form', ['num'], 'num', 9, ['9.2а', '10.1в'], 'core'],
   ['root', 'Квадрат ба куб язгуур', 'Square and cube roots', ['num'], 'num', 6, ['6.1в', '7.1б', '9.1б'], 'core'],
   ['rational', 'Рационал тоо', 'Rational numbers', ['num'], 'num', 8, ['8.1а', '8.1в'], 'core'],
   ['real', 'Иррационал ба бодит тоо', 'Irrational and real numbers', ['num'], 'num', 9, ['9.1а', '10.1г'], 'core'],

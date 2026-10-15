@@ -21,7 +21,7 @@
   <div class="sheet" role="dialog" aria-label={e.title} in:fly={sheetIn} out:fly={sheetOut}>
     <div class="grab"></div>
     <p class="small muted">{sphereById[e.sphere]?.title} · {e.type}</p>
-    <h2 class="t">{#if e.symbol}<span class="sym">{e.symbol}</span>{/if}{e.title}</h2>
+    <h2 class="t">{#if e.symbol}<span class="sym"><RichText text={e.symbol} /></span>{/if}{e.title}</h2>
     <p><RichText text={e.definition} /></p>
     <div class="row">
       <button class="btn primary" onclick={() => { const id = e.id; close(); go('/e/' + id); }}>Бүтнээр нь үзэх</button>

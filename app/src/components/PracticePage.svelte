@@ -38,7 +38,7 @@
     <section>
       <h2>Үргэлжлүүлэх</h2>
       {#each going as id}
-        <a class="row" href="#/e/{id}"><span class="sym">{entries[id].symbol ?? '·'}</span><span class="t"><strong>{entries[id].title}</strong><span class="small muted">Эхэлсэн</span></span><span class="go">›</span></a>
+        <a class="row" href="#/e/{id}"><span class="sym"><RichText text={entries[id].symbol ?? '·'} /></span><span class="t"><strong>{entries[id].title}</strong><span class="small muted">Эхэлсэн</span></span><span class="go">›</span></a>
       {/each}
     </section>
   {/if}

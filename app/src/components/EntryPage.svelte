@@ -86,7 +86,7 @@
         {#each PAGES as name, k}<button class:on={pg === k} aria-current={pg === k ? 'page' : undefined} onclick={() => toPage(k)}><span>{k + 1}</span>{name}</button>{/each}
       </nav>
       <h1>
-        {#if e.symbol}<span class="sym">{e.symbol}</span>{/if}
+        {#if e.symbol}<span class="sym"><RichText text={e.symbol} /></span>{/if}
         <span>{e.title}</span>
       </h1>
       {#if st === 'known'}<span class="badge known">✓ Мэднэ</span>{/if}

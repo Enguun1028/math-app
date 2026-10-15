@@ -27,11 +27,18 @@
   function digits(t, out) {
     let last = 0;
     for (const m of t.matchAll(FRAC_RE)) {
-      out.push({ t: t.slice(last, m.index) });
+      signs(t.slice(last, m.index), out);
       out.push({ num: m[1], den: m[2], suf: m[3] || '' });
       last = m.index + m[0].length;
     }
-    out.push({ t: t.slice(last) });
+    signs(t.slice(last), out);
+  }
+  // The ÷ glyph looks like + on small phone fonts (owner, 2026-10-13), so it is drawn: a bar with two clear dots.
+  function signs(t, out) {
+    t.split('÷').forEach((s, k) => {
+      if (k) out.push({ div: true });
+      out.push({ t: s });
+    });
   }
 
   let parts = $derived.by(() => {
@@ -47,4 +54,4 @@
   });
 </script>
 
-{#each parts as p}{#if p.id && entries[p.id]}<button class="term" onclick={() => (ui.preview = p.id)}>{p.t}</button>{:else if p.num}<span class="nowrap"><span class="frac"><span class="vh">{p.num}/{p.den}</span><span class="n" aria-hidden="true">{p.num}</span><span class="d" aria-hidden="true">{p.den}</span></span>{p.suf}</span>{:else}{p.t}{/if}{/each}
+{#each parts as p}{#if p.id && entries[p.id]}<button class="term" onclick={() => (ui.preview = p.id)}>{p.t}</button>{:else if p.num}<span class="nowrap"><span class="frac"><span class="vh">{p.num}/{p.den}</span><span class="n" aria-hidden="true">{p.num}</span><span class="d" aria-hidden="true">{p.den}</span></span>{p.suf}</span>{:else if p.div}<span class="divsign"><span class="vh">÷</span></span>{:else}{p.t}{/if}{/each}

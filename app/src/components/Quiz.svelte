@@ -6,6 +6,7 @@
   //   Only a first-try right answer counts toward "Мэднэ"; wrong answers are amber, never red.
   // Check mode (finding the starting point): one try, no reveal, and "Мэдэхгүй байна" instead of guessing.
   import RichText from './RichText.svelte';
+  import QuizFig from './QuizFig.svelte';
 
   // questions: [{ q, choices, answer, why, hint?, traps?, entry? }]
   // traps: { choice index: the mistake that choice catches }, shown as the hint after that wrong choice.
@@ -70,6 +71,7 @@
     {#key i}
       <div class="body">
         <p class="q"><RichText text={cur.q} /></p>
+        {#if cur.fig}<QuizFig kind={cur.fig} />{/if}
         <div class="choices">
           <!-- "Мэдэхгүй байна" first, above the answers (owner, 2026-10-13): at the bottom, students rarely press it and guess instead. -->
           {#if !done}
