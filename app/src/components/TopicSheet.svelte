@@ -95,7 +95,18 @@
     fx: nFx, ex: hasEx, pr: extra?.q?.length && !t.base, rw: extra?.rw?.length, mis: extra?.mis?.length, more: extra?.v?.length || extra?.it?.length, les: hasMats,
   })[k]) : []);
   let scroller;
-  const jump = (k) => scroller?.querySelector('#sec-' + k)?.scrollIntoView({ behavior: ms(1) ? 'smooth' : 'auto', block: 'start' });
+  // After the scroll lands, the section glows once in its own colour, so it is clear where it landed (owner, 2026-10-16).
+  const jump = (k, ev) => {
+    const el = scroller?.querySelector('#sec-' + k);
+    if (!el) return;
+    el.scrollIntoView({ behavior: ms(1) ? 'smooth' : 'auto', block: 'start' });
+    const c = getComputedStyle(ev.currentTarget).getPropertyValue('--k').trim() || 'var(--sky)';
+    const glow = `0 0 0 2px ${c}, 0 0 26px color-mix(in srgb, ${c} 55%, transparent)`;
+    setTimeout(() => el.animate(
+      [{ boxShadow: '0 0 0 0 transparent', transform: 'scale(1)' }, { boxShadow: glow, transform: 'scale(1.015)', offset: 0.3 }, { boxShadow: '0 0 0 0 transparent', transform: 'scale(1)' }],
+      { duration: ms(1) ? 1100 : 1, easing: 'ease-out' },
+    ), ms(380));
+  };
   // Easy to leave (owner, 2026-10-13): a big × that stays on screen, the phone's Back button, and a swipe down
   // from the top all close the topic. Opening pushes one history entry, so Back closes instead of leaving the page.
   let pushed = false;
@@ -140,7 +151,7 @@
       <TopicStrip id={t.id} />
 
       {#key t.id}
-      <div class="body" in:fade={{ duration: ms(200) }}>
+      <div class="body" in:fade={{ duration: ms(120) }}>
         <div class="title">
           <TopicIcon id={t.id} size={58} />
           <div class="tt">
@@ -153,7 +164,7 @@
 
         {#if jumps.length > 1}
           <nav class="jump" aria-label="Хэсгүүд">
-            {#each jumps as k}<button style:--k={SEC[k][2]} onclick={() => jump(k)}><i>{SEC[k][1]}</i>{SEC[k][0]}</button>{/each}
+            {#each jumps as k}<button style:--k={SEC[k][2]} onclick={(ev) => jump(k, ev)}><i>{SEC[k][1]}</i>{SEC[k][0]}</button>{/each}
           </nav>
         {/if}
 
@@ -303,7 +314,7 @@
 <style>
   .scrim { z-index: 40; }
   .topic {
-    position: fixed; inset: 0; z-index: 41; overflow-y: auto; overscroll-behavior: contain;
+    position: fixed; inset: 0; z-index: 41; overflow-y: auto; overflow-x: hidden; overscroll-behavior: contain;
     background: radial-gradient(90% 45% at 50% 12%, color-mix(in srgb, var(--c) 14%, var(--bg)), var(--bg) 70%);
     padding: 0 16px calc(env(safe-area-inset-bottom, 0px) + 32px);
   }
@@ -349,7 +360,7 @@
   .def .tag { position: absolute; top: -12px; left: 14px; padding: 3px 10px; border-radius: 999px; background: var(--sun); color: #1a1300; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
 
   /* Sections: same dark panel look as the rest of the app; each has its own mark and colour. */
-  .body :global(.sec) { display: grid; gap: 10px; scroll-margin-top: calc(env(safe-area-inset-top, 0px) + 110px); }
+  .body :global(.sec) { display: grid; gap: 10px; border-radius: 16px; scroll-margin-top: calc(env(safe-area-inset-top, 0px) + 110px); }
   .body :global(.sec > h3) { margin: 0; display: flex; align-items: center; gap: 8px; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--k); }
   .body :global(.sec > h3 > i) { font-style: normal; width: 24px; height: 24px; border-radius: 8px; display: grid; place-items: center; letter-spacing: 0; background: color-mix(in srgb, var(--k) 16%, transparent); }
   .body :global(.sec > h3 > span) { color: var(--muted); }
