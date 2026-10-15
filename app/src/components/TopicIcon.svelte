@@ -5,7 +5,7 @@
   import { topics, strands } from '../lib/content.js';
   import icons from '../../content/topic-icons.json';
 
-  let { id, size = 52, known = false } = $props();
+  let { id, size = 52, known = false, grey = false } = $props();
   let t = $derived(topics[id]);
   let g = $derived(icons[id] ?? '•');
   let vec = $derived(g.startsWith('vec:') ? g.slice(4) : null);
@@ -16,7 +16,7 @@
   });
 </script>
 
-<span class="ic" class:base={t?.base} style:--c={strands[t?.strand]?.color} style:--s="{size}px" aria-hidden="true">
+<span class="ic" class:base={t?.base} class:grey style:--c={strands[t?.strand]?.color} style:--s="{size}px" aria-hidden="true">
   <span class="g" style:--k={k}>{#if vec}<span class="vec">{vec}</span>{:else}<RichText text={g} />{/if}</span>
   {#if known}<span class="ok">✓</span>{/if}
 </span>
@@ -30,6 +30,8 @@
     color: color-mix(in srgb, var(--c) 55%, #fff); font-family: var(--math); font-weight: 700; line-height: 1;
     text-shadow: 0 0 10px color-mix(in srgb, var(--c) 60%, transparent);
   }
+  /* Grey copy for the topic strip: it cross-fades with the coloured one, which is cheaper than a moving filter. */
+  .ic.grey { border-color: var(--line); background: var(--surface-solid); box-shadow: none; color: var(--muted); text-shadow: none; }
   .ic.base { border-style: dashed; box-shadow: none; background: var(--surface-solid); }
   .g { white-space: nowrap; display: inline-flex; align-items: center; font-size: calc(var(--s) * var(--k)); }
   .g :global(.frac) { font-size: 0.8em; }
