@@ -13,13 +13,19 @@ A free, phone-first web app that helps Mongolian teenagers who have fallen behin
 
 ## Why I am building it
 
-Classes in Mongolia often have 40 or more students. Topics get skipped in the noise, and teachers rarely have time to help the students who fall behind. The numbers behind that:
+In my class there were 45 students. With that many children, the lesson can't slow down for anyone, including for my questions. The room was loud just from the number of people in it. Even when I understood math well, I often fell behind. In Mongolia this is normal:
 
-- In PISA 2022, Mongolia averaged 425 in math (OECD average 472). Only 49% of 15-year-olds reached the basic level (OECD 69%).
+- Some Ulaanbaatar schools average 48–52 students per class ([UB Post, 2025](https://www.ubpost.mn/a/13558)).
+- The country is about 4,200 teachers short, 2,400 of them in Ulaanbaatar (Ministry of Education figure in a [2025 teacher-education report](https://reteach.mn/storage/outcomes/June2025/1sRyHHwxcs2G8NLivYfU.pdf)).
+- In PISA 2022, Mongolia averaged 425 in math (OECD average 472). Only 49% of 15-year-olds reached the basic level (OECD 69%) ([OECD country note](https://www.oecd.org/en/publications/pisa-2022-results-volume-i-and-ii-country-notes_ed6fbcc5-en/mongolia_a93e1396-en.html)).
 - The average raw math score on the university entrance exam fell from about 26 out of 100 (2020-2023) to 19 in 2025.
 - School closures during COVID lasted from January 2020 to September 2021, mostly with TV lessons. The students who were in grades 1-9 then are today's teenagers.
 
-Research also shows the gap is fixable: a student who is behind is usually missing specific earlier pieces, and once those pieces are supplied, they learn at a normal pace. Existing Mongolian resources are organised by school grade or by exam. None of them shows a teenager *which earlier topic* is blocking them. That is what this app does.
+Once a child falls behind, catching up is close to impossible. Teachers have no time left for one student. And a child can't easily find their own weak spot, or work through textbooks and the internet alone without a guide. My two younger brothers, in grades 6 and 8, are curious and love math and science, and they face the same wall.
+
+I've helped classmates with math for years, and I like explaining. What I learned is that students rarely quit because math is too hard; they quit because the explanation loses them. Research also shows the gap is fixable: a student who is behind is usually missing specific earlier pieces, and once those pieces are supplied, they learn at a normal pace. Existing Mongolian resources are organised by school grade or by exam. None of them shows a teenager *which earlier topic* is blocking them. So I am building two things: a search that understands math the way a student types it, and a map of all of school math that shows exactly where a student stands and what to learn next.
+
+There is a bigger reason too. In Ulaanbaatar, school drives the city: roads are empty in summer and jammed in the school year, families choose apartments by school, and my brother crosses two dangerous roads every day to reach a math tutor. If a student can catch up from home, that is one less trip. I want this app to be a first step toward tools that make learning less dependent on where you live.
 
 ## What it does
 
@@ -49,7 +55,7 @@ Commits made with the assistant are marked `Co-Authored-By: Claude`.
 ## Status
 
 - A pilot release with a small group of students is planned for October 2026.
-- 14 of the topic pages are written so far. The curriculum structure and the Mongolian math terms still need review by a Mongolian math teacher.
+- All 142 topics on the map (grades 1-12) have a topic card with a definition, examples and a textbook source; 14 full step-by-step lessons are written so far. Practice questions, common mistakes and videos are AI-drafted and marked as drafts. The curriculum structure and the Mongolian math terms still need review by a Mongolian math teacher.
 - There are no users or learning results to report yet.
 
 ## Technical overview
