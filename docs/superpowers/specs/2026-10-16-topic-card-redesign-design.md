@@ -1,6 +1,6 @@
 # Topic card redesign (P7)
 
-Date: 2026-10-16. Status: waiting for owner review.
+Date: 2026-10-16. Status: approved and built 2026-10-16.
 File: `app/src/components/TopicSheet.svelte` (plus small new components listed below).
 Owner decisions: vault `01 Decisions.md` → "Topic card redesign".
 
@@ -31,6 +31,14 @@ A student opens a topic and sees at once: what it is, where it sits between earl
 10. **Хэрэглээ, Алдаа, Материал** (draft): each its own compact section, collapsed rows as «Түгээмэл алдаа» is now.
 11. **Хичээл:** lesson cards («Хичээл унших →»), without the duplicated method.
 12. **Холбоотой** chips: unchanged. The blue «Математикийн газрын зураг дээрээс харах →» link is removed.
+
+## Look: matches the app (owner, 2026-10-16)
+
+Every section uses the app's normal dark panel and thin border and differs only by its colour, its mark and one small shape detail:
+Томьёо ƒ (strand colour), Жишээ ✎ (sky, steps on a line with glowing dots), Дасгал ◎ (sun, one filled «Эхлэх» button),
+Хэрэглээ ⌂ (grass, swipe cards), Алдаа ✗ (warn, crossed-out wrong + green ✓ fix), Материал ↗ (sky-deep), Хичээл ▤ (dusk).
+The definition is the one special box: gold-to-strand glowing frame and a «★ Тодорхойлолт» tag. No paper textures or gradient cards.
+The quick-jump buttons carry the same mark and colour as their section.
 
 ## Topic strip (carousel)
 
