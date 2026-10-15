@@ -8,18 +8,24 @@
   import { topics, topicUnlocks, whyOf } from '../lib/content.js';
   import { topicState } from '../lib/logic.js';
   import { ui } from '../lib/ui.svelte.js';
-  import { reduced } from '../lib/motion.js';
+  import { reduced, ms } from '../lib/motion.js';
+  // A side topic that is new after a slide fades in instead of popping.
+  const fadeIn = () => ({ duration: ms(180), css: (k) => `opacity:${k * 0.75}` });
 
   let { id } = $props();
+  // The strip keeps its own centre, so a slide can finish before the heavy card switch starts (no stutter).
+  let cur = $state(id);
+  $effect(() => { if (id !== cur && !busy) cur = id; });
+  let busy = false;
   // Nearest grade first.
   const grade = (x) => topics[x].grades[0] ?? 0;
-  let left = $derived([...topics[id].req].sort((a, b) => grade(b) - grade(a)));
-  let right = $derived([...topicUnlocks[id]].sort((a, b) => grade(a) - grade(b)));
+  let left = $derived([...topics[cur].req].sort((a, b) => grade(b) - grade(a)));
+  let right = $derived([...topicUnlocks[cur]].sort((a, b) => grade(a) - grade(b)));
   // A topic at the end of a chain (51 have no later topic, 12 no earlier one) still slides: the empty side falls back
   // to the neighbouring topic of the same strand in grade order, shown as «ижил салаа».
   const order = Object.values(topics).sort((a, b) => (a.grades[0] ?? 0) - (b.grades[0] ?? 0));
-  let strandRow = $derived(order.filter((x) => x.strand === topics[id].strand).map((x) => x.id));
-  let at = $derived(strandRow.indexOf(id));
+  let strandRow = $derived(order.filter((x) => x.strand === topics[cur].strand).map((x) => x.id));
+  let at = $derived(strandRow.indexOf(cur));
   let l = $derived(left[0] ?? strandRow[at - 1] ?? null);
   let r = $derived(right[0] ?? strandRow[at + 1] ?? null);
   let lAlt = $derived(!left.length && !!l);
@@ -27,13 +33,13 @@
   const isKnown = (x) => ['known', 'faded'].includes(topicState(x));
   // Long lists stay compact: 3 per box, the rest behind «+N».
   let all = $state(false);
-  $effect(() => { id; all = false; });
+  $effect(() => { cur; all = false; });
   const cut = (a) => (all ? a : a.slice(0, 3));
 
   // The link reason after a move, e.g. «ХИЕХ ба ХБЕХ → Бутархай нэмэх: …».
   let move = $state(null);
   let reason = $derived.by(() => {
-    if (!move || move.to !== id) return null;
+    if (!move || move.to !== cur) return null;
     const [a, b] = whyOf(move.from, move.to) ? [move.from, move.to] : [move.to, move.from];
     const w = whyOf(a, b);
     return w ? { a: topics[a].name, b: topics[b].name, w } : null;
@@ -62,7 +68,13 @@
   // dir 1 = the left topic comes to the centre, −1 = the right one.
   function go(to, dir) {
     if (!to) return ease(0, 220);
-    ease(dir, 260, () => { move = { from: id, to }; ui.topic = to; d = 0; });
+    busy = true;
+    ease(dir, 260, () => {
+      // Same frame: the strip re-centres on the new topic; the moving items keep their elements, so nothing jumps.
+      move = { from: cur, to }; cur = to; d = 0;
+      // Two frames later the card switches, after the strip has painted.
+      requestAnimationFrame(() => requestAnimationFrame(() => { ui.topic = to; busy = false; }));
+    });
   }
   // Swipe: follows the finger; only a clearly sideways move counts, vertical scrolling stays with the page.
   let x0 = null, y0 = 0, lock = null, lastX = 0, lastT = 0, vel = 0;
@@ -99,9 +111,9 @@
 </script>
 
 <div class="picker" bind:this={wrap} ontouchstart={start} ontouchend={end} ontouchcancel={end}>
-  {#each [[-1, l], [0, id], [1, r]] as [i, x] (i + ':' + x)}
+  {#each [[-1, l], [0, cur], [1, r]] as [i, x] (x ?? 'none' + i)}
     {#if x}
-      <button class="it" style={look(i)} tabindex={i ? 0 : -1} aria-label={i ? (i < 0 ? 'Өмнөх: ' : 'Дараагийн: ') + topics[x].name : undefined} onclick={() => i && go(x, -i)}>
+      <button class="it" in:fadeIn style={look(i)} tabindex={i ? 0 : -1} aria-label={i ? (i < 0 ? 'Өмнөх: ' : 'Дараагийн: ') + topics[x].name : undefined} onclick={() => i && go(x, -i)}>
         <TopicIcon id={x} size={48} known={isKnown(x)} /><span class="nm">{topics[x].name}</span>
       </button>
     {/if}
