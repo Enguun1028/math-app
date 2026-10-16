@@ -10,6 +10,7 @@ fan-out research (misconceptions, practice questions). The owner or a teacher ch
 
 ## Files
 - `storyboards-g5.json` … `storyboards-g12.json`: one entry per topic id, keyed by the grade the topic starts in.
+- `storyboards-basics.json`: short animations (no lesson, no test) for the 24 read-only grade 1–4 basics.
 - `widgets.md`: the interactive pictures the storyboards need, which already exist in `Visual.svelte` / `tools/`,
   which are new, and how many lessons each one unlocks (build order).
 
