@@ -24,7 +24,7 @@ for (const t of Object.values(topics)) {
   ideas[t.id] = {
     id: t.id, name: t.name, en: t.en, topic: t.id, sphere: t.sphere, formula: t.formula,
     formulas: [t.formula, ...(e.formulas ?? []), ...(tc?.formulas ?? []).map(plainFrac)], from: t.req, def: e.def ?? tc?.def ?? t.text, short: t.text,
-    shown: tc?.formulas ?? [], rules: tc?.rules ?? [], src: tc?.src,
+    shown: tc?.formulas ?? [], extraFormulas: e.formulas ?? [], rules: tc?.rules ?? [], src: tc?.src,
     aliases: e.aliases ?? [], example: e.example ?? tc?.examples?.[0], proof: e.proof ?? w.proof, proofTitle: w.proofTitle,
     history: w.history, uses: e.uses ?? w.uses, lessons: topicEntries[t.id] ?? [],
   };

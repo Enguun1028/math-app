@@ -65,7 +65,7 @@
   const KIND = { phet: 'PhET', geogebra: 'GeoGebra', 'geogebra-book': 'GeoGebra', task: 'Даалгавар' };
   let shown = $state({});
   $effect(() => { t?.id; shown = {}; });
-  let formulas = $derived(t ? [...new Set([...(tc?.formulas ?? []), ...(tc ? [] : [t.formula]), ...(ideas[t.id]?.formulas ?? []).slice(1).map(pretty)].filter(Boolean))] : []);
+  let formulas = $derived(t ? [...new Set([...(tc?.formulas ?? []), ...(tc ? [] : [t.formula]), ...(ideas[t.id]?.extraFormulas ?? []).map(pretty)].filter(Boolean))] : []);
   // An interactive tool for the topics that have one.
   const TOOLS = { frac: 'fraction', 'frac-add': 'fraction', 'frac-mul': 'fraction', 'frac-dec': 'fraction', int: 'number', 'int-ops': 'number', 'b-numline': 'number', 'b-neg': 'number', coord: 'coord', 'coord-geo': 'coord', 'b-grid': 'coord' };
   let tool = $derived(t ? TOOLS[t.id] : null);
@@ -125,7 +125,7 @@
   // Pull down on the top bar closes the topic. Only the bar (owner, 2026-10-16): scrolling back up through the card
   // and pulling further must never close it.
   let y0 = null;
-  const tstart = (e) => { y0 = e.currentTarget.scrollTop <= 0 && e.target.closest('.bar') ? e.touches[0].clientY : null; };
+  const tstart = (e) => { y0 = e.target.closest('.bar') ? e.touches[0].clientY : null; };
   const tmove = (e) => { if (y0 != null && e.touches[0].clientY - y0 > 110) { y0 = null; close(); } };
   const toTopic = (id) => (ui.topic = id);
   const short = (s, n = 130) => { const p = stripLinks(s || ''); return p.length > n ? p.slice(0, n - 1) + '…' : p; };
@@ -149,8 +149,10 @@
 
 {#if isOpen}
   <div class="scrim" onclick={close} role="presentation" in:fade={{ duration: ms(240) }} out:fade={{ duration: ms(190) }}></div>
-  <div class="topic" bind:this={scroller} ontouchstart={tstart} ontouchmove={tmove} role="dialog" aria-label={t.name} style:--c={strands[t.strand].color} in:grow out:shrink>
-    <div class="inner">
+  <!-- Header (bar + topic strip) stays put; only the part below it scrolls (owner, 2026-10-16), so a vertical
+       scroll never moves the strip or blocks its sideways swipe. -->
+  <div class="topic" ontouchstart={tstart} ontouchmove={tmove} role="dialog" aria-label={t.name} style:--c={strands[t.strand].color} in:grow out:shrink>
+    <div class="head"><div class="inner">
       <div class="bar">
         <!-- Same spot and look as "‹ Буцах" on the other pages (owner, 2026-10-16): leaving is always top left. -->
         <button class="btn ghost" aria-label="Буцах" onclick={close}>‹ Буцах</button>
@@ -158,6 +160,8 @@
       </div>
 
       <TopicStrip id={t.id} />
+    </div></div>
+    <div class="scroll" bind:this={scroller}><div class="inner">
 
       {#key t.id}
       <div class="body" in:arrive>
@@ -316,23 +320,28 @@
         {/if}
       </div>
       {/key}
-    </div>
+    </div></div>
   </div>
 {/if}
 
 <style>
   .scrim { z-index: 40; }
   .topic {
-    position: fixed; inset: 0; z-index: 41; overflow-y: auto; overflow-x: hidden; overscroll-behavior: contain;
+    position: fixed; inset: 0; z-index: 41; display: flex; flex-direction: column; overflow: hidden;
     background: radial-gradient(90% 45% at 50% 12%, color-mix(in srgb, var(--c) 14%, var(--bg)), var(--bg) 70%);
-    padding: 0 16px calc(env(safe-area-inset-bottom, 0px) + 32px);
+  }
+  .head { flex: none; position: relative; z-index: 4; padding: 0 16px 8px; border-bottom: 1px solid color-mix(in srgb, var(--line) 60%, transparent); }
+  .head .inner { gap: 6px; }
+  .scroll {
+    flex: 1; min-height: 0; overflow-y: auto; overflow-x: hidden; overscroll-behavior: contain; -webkit-overflow-scrolling: touch;
+    padding: 14px 16px calc(env(safe-area-inset-bottom, 0px) + 32px);
   }
   .inner { max-width: 560px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; position: relative; }
   .body { display: grid; grid-template-columns: minmax(0, 1fr); gap: 18px; }
 
   /* Top bar stays on screen, so "‹ Буцах" is always one tap away, in the same spot as on every other page. */
   .bar {
-    position: sticky; top: 0; z-index: 4; display: flex; justify-content: space-between; align-items: center;
+    display: flex; justify-content: space-between; align-items: center;
     margin: 0 -16px; padding: calc(env(safe-area-inset-top, 0px) + 8px) 16px 6px 8px; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(10px);
     /* Lines "‹ Буцах" up with the page top bar (a 560px column, 8px in) on any screen width. */
     padding-left: calc(max(0px, (100vw - 560px) / 2) + 8px - max(0px, (100vw - 592px) / 2));
@@ -354,8 +363,8 @@
 
   /* Quick-jump row: sticks under the top bar while scrolling. */
   .jump {
-    position: sticky; top: calc(env(safe-area-inset-top, 0px) + 58px); z-index: 3; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none;
-    margin: -6px -16px 0; padding: 6px 16px; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(10px);
+    position: sticky; top: 0; z-index: 3; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none;
+    margin: -6px -16px 0; padding: 6px 16px; background: color-mix(in srgb, var(--bg) 97%, transparent); backdrop-filter: blur(10px);
   }
   .jump::-webkit-scrollbar { display: none; }
   .jump button { flex: none; min-height: 36px; border: 1px solid color-mix(in srgb, var(--k) 45%, var(--line)); background: var(--surface-solid); color: var(--ink); border-radius: 10px; padding: 0 11px; font-weight: 700; font-size: 0.8rem; }
@@ -371,7 +380,7 @@
   .def .tag { position: absolute; top: -12px; left: 14px; padding: 3px 10px; border-radius: 999px; background: var(--sun); color: #1a1300; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
 
   /* Sections: same dark panel look as the rest of the app; each has its own mark and colour. */
-  .body :global(.sec) { display: grid; gap: 10px; border-radius: 16px; scroll-margin-top: calc(env(safe-area-inset-top, 0px) + 110px); }
+  .body :global(.sec) { display: grid; gap: 10px; border-radius: 16px; scroll-margin-top: 56px; }
   .body :global(.sec > h3) { margin: 0; display: flex; align-items: center; gap: 8px; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--k); }
   .body :global(.sec > h3 > i) { font-style: normal; width: 24px; height: 24px; border-radius: 8px; display: grid; place-items: center; letter-spacing: 0; background: color-mix(in srgb, var(--k) 16%, transparent); }
   .body :global(.sec > h3 > span) { color: var(--muted); }
