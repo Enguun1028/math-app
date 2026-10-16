@@ -1,8 +1,8 @@
 <script>
   import { fade, fly } from 'svelte/transition';
-  import { route, back } from './lib/router.svelte.js';
+  import { route, back, leaving } from './lib/router.svelte.js';
   import { ui } from './lib/ui.svelte.js';
-  import { ms, ease, reduced } from './lib/motion.js';
+  import { ms, ease, reduced, lockInput } from './lib/motion.js';
   import { ZOOM_IN_MS, ZOOM_OUT_MS } from './lib/zoom.js';
   import MapView from './components/MapView.svelte';
   import SubMap from './components/SubMap.svelte';
@@ -46,8 +46,20 @@
   let pageIn = $derived({ y: zoomIn ? 0 : 10, duration: ms(zoomIn ? 0 : 260), easing: ease });
   let mapOut = $derived(zoomIn ? { hold: ZOOM_IN_MS + 120 } : { duration: ms(180), easing: ease });
   let pageOut = $derived(!page && ui.back && !reduced ? { hold: ZOOM_OUT_MS + 80 } : { duration: ms(180), easing: ease });
-  // Fade, or with { hold } just keep the layer on screen for that long.
-  const leave = (node, p) => (p.hold ? { duration: p.hold } : fade(node, p));
+  // Fade, or with { hold } just keep the layer on screen for that long. The leaving layer is pinned where it was
+  // (fixed, at its old scroll spot) and ignores touches, so it never pushes the new page down or scrolls with it.
+  const leave = (node, p) => {
+    if (getComputedStyle(node).position !== 'fixed') {
+      Object.assign(node.style, { position: 'fixed', left: '0', right: '0', top: -leaving.y + 'px' });
+    }
+    node.style.pointerEvents = 'none';
+    return p.hold ? { duration: p.hold } : fade(node, p);
+  };
+  // No scrolling while a page change or a zoom runs.
+  $effect(() => {
+    route.parts.join('/');
+    lockInput(zoomIn ? ZOOM_IN_MS + 120 : !page && ui.back ? ZOOM_OUT_MS + 80 : ms(260));
+  });
 </script>
 
 {#if !page}

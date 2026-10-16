@@ -6,7 +6,10 @@ function parse() {
 
 export const route = $state(parse());
 
+// Where the page was scrolled when the route changed: the leaving layer is pinned there (App.svelte).
+export const leaving = { y: 0 };
 addEventListener('hashchange', () => {
+  leaving.y = scrollY;
   Object.assign(route, parse());
   // The map has its own scroller. Going back to it, the page that fades out keeps its scroll spot,
   // instead of jumping to the top while it is still visible.

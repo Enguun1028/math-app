@@ -31,3 +31,21 @@ export const easeMove = cubicBezier(0.32, 0.72, 0, 1); // travel on screen (dots
 export const sheetIn = { y: 60, duration: ms(280), easing: ease, opacity: 0 };
 export const sheetOut = { y: 60, duration: ms(180), easing: ease, opacity: 0 };
 export const scrimFade = { duration: ms(200) };
+
+// Scrolling while a page, zoom or card animation runs made layers lag and overlap (owner, 2026-10-16).
+// lockInput(n) ignores wheel and touch scrolling for n ms and stops running scroll momentum (html.moving);
+// taps still work. Calls that overlap extend the lock.
+let lockUntil = 0;
+let lockTimer = 0;
+const stop = (ev) => { if (performance.now() < lockUntil) ev.preventDefault(); };
+if (typeof addEventListener !== 'undefined') {
+  addEventListener('wheel', stop, { passive: false });
+  addEventListener('touchmove', stop, { passive: false });
+}
+export function lockInput(n) {
+  if (!n || reduced) return;
+  lockUntil = Math.max(lockUntil, performance.now() + n);
+  document.documentElement.classList.add('moving');
+  clearTimeout(lockTimer);
+  lockTimer = setTimeout(() => document.documentElement.classList.remove('moving'), lockUntil - performance.now());
+}

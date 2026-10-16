@@ -169,3 +169,7 @@ input, textarea, select { font-size: 16px; }
   background: none; color: var(--muted); font-size: 1.5rem; display: grid; place-items: center;
 }
 .sheet-close:focus-visible { outline: 3px solid var(--sky); outline-offset: -3px; }
+
+/* While a transition runs (lockInput in lib/motion.js), scroll areas stop, so running momentum cannot drag a
+   layer that is zooming or fading. */
+html.moving .scroller, html.moving .topic .scroll { overflow: hidden !important; }

@@ -21,9 +21,11 @@
   import { topicState, entryState, markTopic } from '../lib/logic.js';
   import { ui } from '../lib/ui.svelte.js';
   import { fade } from 'svelte/transition';
-  import { ms, ease } from '../lib/motion.js';
+  import { ms, ease, lockInput } from '../lib/motion.js';
 
   let isOpen = $derived(!!(ui.topic && topics[ui.topic]));
+  // No scrolling while the card grows or shrinks.
+  $effect(() => { lockInput(isOpen ? ms(300) : ms(190)); });
   let lastT;
   let t = $derived(isOpen ? (lastT = topics[ui.topic]) : lastT);
   let st = $derived(t && topicState(t.id));
