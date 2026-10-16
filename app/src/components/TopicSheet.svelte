@@ -111,6 +111,24 @@
       { duration: ms(1) ? 1100 : 1, easing: 'ease-out' },
     ), ms(380));
   };
+  // Came from search for a lesson or a named formula inside this topic (owner, 2026-10-16): the card opens already
+  // scrolled to that item (instant, while the card grows, so no wait), then the item glows in gold.
+  $effect(() => {
+    const f = ui.focus;
+    if (!isOpen || !f || !scroller) return;
+    let tm = setTimeout(() => {
+      ui.focus = null;
+      const el = scroller.querySelector(`[data-f="${f}"]`);
+      if (!el) return;
+      scroller.scrollTop += el.getBoundingClientRect().top - scroller.getBoundingClientRect().top - scroller.clientHeight / 3;
+      const glow = '0 0 0 2px var(--sun), 0 0 26px color-mix(in srgb, var(--sun) 55%, transparent)';
+      setTimeout(() => el.animate(
+        [{ boxShadow: '0 0 0 0 transparent' }, { boxShadow: glow, offset: 0.2 }, { boxShadow: glow, offset: 0.75 }, { boxShadow: '0 0 0 0 transparent' }],
+        { duration: ms(1) ? 2000 : 1, easing: 'ease-out' },
+      ), ms(350));
+    }, 30);
+    return () => clearTimeout(tm);
+  });
   // Easy to leave (owner, 2026-10-13): a big × that stays on screen, the phone's Back button, and a swipe down
   // from the top all close the topic. Opening pushes one history entry, so Back closes instead of leaving the page.
   let pushed = false;
@@ -290,7 +308,7 @@
             {@render head('les')}
             {#each es as id}
               {@const e = entries[id]}
-              <button class="mat {entryState(id)}" onclick={() => open('/e/' + id)}>
+              <button class="mat {entryState(id)}" data-f={id} onclick={() => open('/e/' + id)}>
                 {#if e.visual}<span class="pic"><Visual v={e.visual} /></span>{/if}
                 <span class="mt"><strong>{e.title}</strong>{#if entryState(id) === 'known'}<span class="ok">✓</span>{/if}</span>
                 <span class="md"><RichText text={short(e.definition)} /></span>
@@ -306,7 +324,7 @@
               </a>
             {/if}
             {#each extras as x}
-              <a class="mat small-mat" href="#/c/{x.id}" onclick={close}>
+              <a class="mat small-mat" data-f={x.id} href="#/c/{x.id}" onclick={close}>
                 <span class="mt"><strong>{x.name}</strong></span>
                 <span class="md"><RichText text={short(x.def, 100)} /></span>
               </a>

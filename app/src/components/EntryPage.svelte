@@ -4,7 +4,8 @@
   //   2 Жишээ: optional elaboration (worked example step by step, practice, real life).
   //   3 Шалгах: the mini test, for students working toward a goal.
   import { tick } from 'svelte';
-  import { entries, unlocks, sphereById, termsIn } from '../lib/content.js';
+  import { entries, unlocks, sphereById, termsIn, topics } from '../lib/content.js';
+  import { ui } from '../lib/ui.svelte.js';
   import { entryState, ENTRY_PASS } from '../lib/logic.js';
   import { markKnown, touch } from '../lib/progress.svelte.js';
   import { route, go } from '../lib/router.svelte.js';
@@ -81,7 +82,11 @@
 {:else}
   <article class="lesson">
     <header class="hero">
-      <a class="crumb" href="#/s/{e.sphere}">{sphereById[e.sphere]?.title}</a>
+      <!-- Where this lesson lives (owner, 2026-10-16): grade › topic. The topic opens its card with this lesson glowing. -->
+      <span class="crumbs">
+        <a class="crumb" href="#/s/{e.sphere}">{topics[e.topic]?.base ? 'Суурь, 1–4-р анги' : sphereById[e.sphere]?.title}</a>
+        {#if topics[e.topic]}<button class="crumb" onclick={() => { ui.focus = e.id; ui.topic = e.topic; }}>{topics[e.topic].name}</button>{/if}
+      </span>
       <nav class="pager" aria-label="Хичээлийн хуудас">
         {#each PAGES as name, k}<button class:on={pg === k} aria-current={pg === k ? 'page' : undefined} onclick={() => toPage(k)}><span>{k + 1}</span>{name}</button>{/each}
       </nav>
@@ -253,7 +258,9 @@
   /* Hero: one big idea, read in two seconds. */
   .hero { display: grid; gap: 10px; justify-items: start; }
   .crumb { color: var(--muted); font-size: 0.85rem; font-weight: 600; text-decoration: none; }
-  .crumb::after { content: ' ›'; }
+  .crumbs { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  button.crumb { border: 0; background: none; padding: 0; font: inherit; font-size: 0.85rem; font-weight: 700; color: var(--sky); }
+  a.crumb::after { content: ' ›'; }
   h1 { display: flex; align-items: center; gap: 12px; text-wrap: balance; }
   .sym {
     display: inline-grid; place-items: center; flex: none; min-width: 52px; height: 52px; padding: 0 8px;

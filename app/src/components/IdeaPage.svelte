@@ -52,6 +52,7 @@
     const tid = i.topic ?? place?.topic;
     ui.fly = tid ? { topic: tid } : { sphere: i.sphere };
     ui.topic = tid ?? null;
+    ui.focus = i.topic ? null : i.id;
     go('/');
   }
 </script>
@@ -77,7 +78,7 @@
         <span class="grade">{gradeLabel(place)}</span>
         <div class="pt">
           <span><span class="muted">Салаа:</span> <b style:color={strands[place.strand].color}>{strands[place.strand].name}</b></span>
-          {#if !place.own}<span><span class="muted">Сэдэв:</span> <button class="tlink" onclick={() => (ui.topic = place.topic)}>{topics[place.topic].name}</button></span>{/if}
+          {#if !place.own}<span><span class="muted">Сэдэв:</span> <button class="tlink" onclick={() => { ui.focus = id; ui.topic = place.topic; }}>{topics[place.topic].name}</button></span>{/if}
           {#if place.grades.length > 1}<span class="small muted">{place.grades.slice(1).join(', ')}-р ангид дахин, гүнзгий үзнэ.</span>{/if}
         </div>
       </section>
@@ -187,7 +188,7 @@
     <div class="row">
       {#if i.lessons.length}<a class="btn sun" href="#/e/{i.lessons.find((l) => entryState(l) !== 'known') ?? i.lessons[0]}">Сурах цаг!</a>{/if}
       {#if i.topic}<button class="btn sun" onclick={() => (ui.topic = i.topic)}>Сэдвийг бүтэн нээх</button>
-      {:else if i.from[0] && ideas[i.from[0]]?.topic}<button class="btn ghost" onclick={() => (ui.topic = i.from[0])}>{ideas[i.from[0]].name} сэдэв</button>{/if}
+      {:else if i.from[0] && ideas[i.from[0]]?.topic}<button class="btn ghost" onclick={() => { ui.focus = id; ui.topic = i.from[0]; }}>{ideas[i.from[0]].name} сэдэв</button>{/if}
       <button class="link" onclick={showOnMap}>Газрын зураг дээр харах →</button>
     </div>
   </article>
