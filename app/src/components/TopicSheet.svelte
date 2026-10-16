@@ -30,7 +30,7 @@
   let known = $derived(st === 'known' || st === 'faded');
   let es = $derived(t ? topicEntries[t.id] : []);
   // A written answer page for this topic (definition, example, proof), from search.
-  let idea = $derived(t && ideas[t.id] && (ideas[t.id].example || ideas[t.id].proof) ? ideas[t.id] : null);
+  let idea = $derived(t && ideas[t.id] && (typeof ideas[t.id].example === 'string' || ideas[t.id].proof) ? ideas[t.id] : null);
   // Smaller ideas that grow out of this topic (they only had a search page before).
   let extras = $derived(t ? Object.values(ideas).filter((i) => !i.topic && i.from.includes(t.id)) : []);
   const REL = {
@@ -289,7 +289,7 @@
               <a class="mat" href="#/c/{idea.id}" onclick={close}>
                 <span class="mt"><strong>Тайлбар</strong></span>
                 <span class="md"><RichText text={short(idea.def, 160)} /></span>
-                {#if idea.example}<span class="md ex">Жишээ: <RichText text={short(idea.example, 110)} /></span>{/if}
+                {#if typeof idea.example === 'string'}<span class="md ex">Жишээ: <RichText text={short(idea.example, 110)} /></span>{/if}
                 <span class="go">Бүтнээр унших{idea.proof ? ' · батлгаа' : ''} →</span>
               </a>
             {/if}
