@@ -4,7 +4,7 @@
   // Never a dead end: with nothing typed or nothing found, it offers places to start.
   import { onMount } from 'svelte';
   import { search, kindOf } from '../lib/search.js';
-  import { ideas, formulaMatches, rootPath } from '../lib/ideas.js';
+  import { ideas, formulaMatches, rootPath, placeOf, gradeLabel } from '../lib/ideas.js';
   import { looksLikeMath, formatMath } from '../lib/mathfmt.js';
   import { progress, save } from '../lib/progress.svelte.js';
   import { ui } from '../lib/ui.svelte.js';
@@ -57,6 +57,8 @@
     if (r.kind === 'entry') go('/e/' + r.id);
     else openIdea(r.id);
   }
+  // Grade of a result, shown on every row (owner, 2026-10-16).
+  const gradeOf = (r) => gradeLabel(placeOf(r.kind === 'entry' ? r.item.topic : r.id));
   const pathText = (id) => rootPath(id).slice(0, -1).slice(-2).map((p) => ideas[p].name).join(' → ');
 </script>
 
@@ -93,6 +95,7 @@
         <span class="small">{found[0].score >= 80 ? 'Энэ бол' : 'Та үүнийг хайж байна уу?'}</span>
         <strong>{top.name}</strong>
         <span class="f"><RichText text={top.formula ?? ''} /></span>
+        <span class="small g">{gradeOf({ id: top.id })}</span>
         {#if pathText(top.id)}<span class="small muted">{pathText(top.id)} → {top.name}</span>{/if}
       </button>
       {#each found.slice(1) as f}
@@ -108,7 +111,7 @@
         <span class="rf"><RichText text={r.kind === 'entry' ? r.item.symbol ?? '·' : ideas[r.id]?.formula ?? '·'} /></span>
         <span class="rt">
           <strong>{r.kind === 'entry' ? r.item.title : ideas[r.id]?.name}</strong>
-          <span class="small muted">{r.kind === 'entry' ? 'Хичээл · ' + r.item.type : (ideas[ideas[r.id]?.from[0]]?.name ?? 'Суурь') + ' → ' + ideas[r.id]?.name}</span>
+          <span class="small muted">{#if gradeOf(r)}<span class="g">{gradeOf(r)}</span>{' · '}{/if}{r.kind === 'entry' ? 'Хичээл · ' + r.item.type : (ideas[ideas[r.id]?.from[0]]?.name ?? 'Суурь') + ' → ' + ideas[r.id]?.name}</span>
         </span>
       </button>
     {/each}
@@ -155,4 +158,5 @@
   .res:hover, .res:focus-visible { background: var(--sky-soft); outline: none; }
   .rf { flex: none; min-width: 52px; max-width: 34%; height: 44px; padding: 0 8px; display: grid; place-items: center; overflow: hidden; border-radius: 12px; background: var(--sky-soft); color: var(--sky); font: 0.9rem var(--math); white-space: nowrap; }
   .rt { display: grid; min-width: 0; }
+  .g { color: var(--sun); font-weight: 700; }
 </style>

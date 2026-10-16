@@ -32,14 +32,13 @@
   let r = $derived(rightOf(cur));
   let lAlt = $derived(!left.length && !!l);
   let rAlt = $derived(!right.length && !!r);
-  // Five slots: two to the left, the centre, two to the right. A topic shows only once.
+  // The whole chain each way, not five slots (owner, 2026-10-16: a hard fling showed empty space past the fifth).
+  // A topic shows only once; a chain stops where it would loop back.
   let row = $derived.by(() => {
-    const l2 = leftOf(l), r2 = rightOf(r);
-    const seen = new Set([cur]), out = [];
-    for (const x of [l2, l]) if (x && !seen.has(x)) { seen.add(x); out.push(x); }
-    out.push(cur);
-    for (const x of [r, r2]) if (x && !seen.has(x)) { seen.add(x); out.push(x); }
-    return out;
+    const seen = new Set([cur]), lefts = [], rights = [];
+    for (let x = l; x && !seen.has(x) && lefts.length < 40; x = leftOf(x)) { seen.add(x); lefts.unshift(x); }
+    for (let x = r; x && !seen.has(x) && rights.length < 40; x = rightOf(x)) { seen.add(x); rights.push(x); }
+    return [...lefts, cur, ...rights];
   });
   const isKnown = (x) => ['known', 'faded'].includes(topicState(x));
   // Which side's full list is open: 'l', 'r' or false.

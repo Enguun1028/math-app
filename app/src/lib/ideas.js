@@ -126,3 +126,15 @@ export function formulaMatches(raw) {
   }
   return found.sort((a, b) => b.score - a.score).slice(0, 4);
 }
+
+// Where an idea sits in the curriculum (owner, 2026-10-16: tell the student plainly which grade it is).
+// A map topic is its own place; a named formula sits in the first map topic it grows out of.
+// grade: first grade 5–12 that teaches it, or 'base' for the grade 1–4 basics.
+export function placeOf(id) {
+  let tid = ideas[id]?.topic;
+  for (let cur = id, seen = new Set(); !tid && cur && ideas[cur] && !seen.has(cur); cur = ideas[cur].from[0]) { seen.add(cur); tid = ideas[cur].topic; }
+  const t = topics[tid];
+  if (!t) return null;
+  return { topic: t.id, own: t.id === id, grades: t.grades, grade: t.grades[0] ?? 'base', strand: t.strand };
+}
+export const gradeLabel = (p) => (!p ? '' : p.grade === 'base' ? 'Суурь, 1–4-р анги' : p.grade + '-р анги');

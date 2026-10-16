@@ -6,8 +6,8 @@
   // Practice for named formulas (draft, 2026-10-16); topics have theirs on the topic card.
   import practiceNamed from '../../content/practice-named.json';
   import Quiz from './Quiz.svelte';
-  import { ideas, rootPath } from '../lib/ideas.js';
-  import { entries, sphereById } from '../lib/content.js';
+  import { ideas, rootPath, placeOf, gradeLabel } from '../lib/ideas.js';
+  import { entries, sphereById, strands, topics } from '../lib/content.js';
   import { sphereLayout } from '../lib/layout.js';
   import { entryState, topicState } from '../lib/logic.js';
   import { formatMath } from '../lib/mathfmt.js';
@@ -22,6 +22,8 @@
   let color = $derived(i?.sphere ? sphereLayout[i.sphere]?.color : 'var(--sky)');
   let alts = $derived((ui.alts ?? []).filter((a) => a !== id && ideas[a]));
   let st = $derived(i?.topic ? topicState(i.topic) : null);
+  // Which grade and strand this is, so the student sees the level of the idea at once (owner, 2026-10-16).
+  let place = $derived(i ? placeOf(id) : null);
   // A named formula without its own video shows the video of the topic it grows out of (not a grade 1–4 basics video,
   // which would be too far off, e.g. place value for binary numbers).
   let vkey = $derived(!i ? '' : i.topic ? 'topic:' + i.topic : videos['idea:' + i.id] ? 'idea:' + i.id : i.from[0] && !i.from[0].startsWith('b-') ? 'topic:' + i.from[0] : 'idea:' + i.id);
@@ -68,6 +70,16 @@
       {#if i.draft}<span class="draft">ноорог</span>{/if}
       {#if st === 'known' || st === 'faded'}<span class="badge known">✓ Мэднэ</span>{/if}
     </header>
+    {#if place}
+      <section class="place" aria-label="Хөтөлбөрт">
+        <span class="grade">{gradeLabel(place)}</span>
+        <div class="pt">
+          <span><span class="muted">Салаа:</span> <b style:color={strands[place.strand].color}>{strands[place.strand].name}</b></span>
+          {#if !place.own}<span><span class="muted">Сэдэв:</span> <button class="tlink" onclick={() => (ui.topic = place.topic)}>{topics[place.topic].name}</button></span>{/if}
+          {#if place.grades.length > 1}<span class="small muted">{place.grades.slice(1).join(', ')}-р ангид дахин, гүнзгий үзнэ.</span>{/if}
+        </div>
+      </section>
+    {/if}
     <VideoSlot key={vkey} title={i.name} />
 
     {#if shown.length || i.rules.length}
@@ -189,6 +201,11 @@
     border: 1px solid color-mix(in srgb, var(--c) 50%, transparent);
   }
   .eyebrow { font-size: 0.85rem; font-weight: 800; color: var(--c); }
+  /* Curriculum place: grade badge, strand, parent topic. */
+  .place { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 16px; border: 1px solid var(--line); background: var(--surface); margin-top: -12px; }
+  .grade { flex: none; padding: 6px 12px; border-radius: 12px; background: var(--c); color: #0a0d16; font-weight: 800; font-size: 0.95rem; }
+  .pt { display: grid; gap: 2px; min-width: 0; font-size: 0.92rem; }
+  .tlink { border: 0; background: none; padding: 0; color: var(--sky); font: inherit; font-weight: 700; text-align: left; }
   .eq { font: 1.8rem var(--math); line-height: 1.3; }
   .def { color: var(--ink); text-wrap: pretty; }
   section, .blk { display: grid; gap: 10px; }

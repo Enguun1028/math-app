@@ -369,9 +369,10 @@
   .know.on { color: var(--grass); border-color: color-mix(in srgb, var(--grass) 55%, transparent); background: var(--grass-soft); }
   .know.on .box { background: var(--grass); border-color: var(--grass); color: #04140a; }
 
-  /* Quick-jump row: sticks under the top bar while scrolling. */
+  /* Quick-jump row: sticks right under the header while scrolling. top = −(scroll padding-top), so no gap shows
+     between the topic strip and this row (owner, 2026-10-16). */
   .jump {
-    position: sticky; top: 0; z-index: 3; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none;
+    position: sticky; top: -14px; z-index: 3; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none;
     margin: -6px -16px 0; padding: 6px 16px; background: color-mix(in srgb, var(--bg) 97%, transparent); backdrop-filter: blur(10px);
   }
   .jump::-webkit-scrollbar { display: none; }
