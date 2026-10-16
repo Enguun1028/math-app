@@ -1,0 +1,115 @@
+{
+  "_note": "Full school trigonometry set (owner, 2026-10-16: 'why isnt there all trigonometry formulas'). Standard identities; Mongolian names and wording are DRAFT until the owner or a teacher checks them. Addition, double angle and the basic identity live in named-geo.json.",
+  "trig-half": {
+    "name": "Хагас өнцгийн томьёо",
+    "en": "Half-angle formulas",
+    "from": ["trig-fn"],
+    "aliases": ["хагас өнцөг", "sin(a/2)", "cos(a/2)", "half angle", "формулы половинного угла"],
+    "formula": "sin²\\frac{α}{2} = \\frac{1 − cos α}{2}",
+    "formulas": ["sin(a/2)^2=(1-cos(a))/2", "cos(a/2)^2=(1+cos(a))/2", "tan(a/2)=sin(a)/(1+cos(a))"],
+    "shown": [
+      "sin²\\frac{α}{2} = \\frac{1 − cos α}{2}",
+      "cos²\\frac{α}{2} = \\frac{1 + cos α}{2}",
+      "tg\\frac{α}{2} = \\frac{sin α}{1 + cos α} = \\frac{1 − cos α}{sin α}"
+    ],
+    "def": "Өнцгийн хагасын синус, косинусыг бүтэн өнцгийн косинусаар илэрхийлнэ. Давхар өнцгийн cos 2α томьёонд α-г \\frac{α}{2}-аар орлуулж гаргана.",
+    "example": {
+      "q": "cos 15°-ийг олно уу.",
+      "steps": [
+        "15° = \\frac{30°}{2} тул cos²15° = \\frac{1 + cos 30°}{2}",
+        "= \\frac{1 + \\frac{√3}{2}}{2} = \\frac{2 + √3}{4}",
+        "15° хурц өнцөг тул cos 15° > 0"
+      ],
+      "a": "cos 15° = \\frac{√(2 + √3)}{2} ≈ 0.966"
+    },
+    "proofTitle": "Хаанаас гарах вэ",
+    "proof": [
+      "cos 2x = 1 − 2sin²x ба cos 2x = 2cos²x − 1 (давхар өнцгийн томьёо).",
+      "x = \\frac{α}{2} гэвэл cos α = 1 − 2sin²\\frac{α}{2}, эндээс sin²\\frac{α}{2} = \\frac{1 − cos α}{2}.",
+      "Мөн cos α = 2cos²\\frac{α}{2} − 1, эндээс cos²\\frac{α}{2} = \\frac{1 + cos α}{2}."
+    ],
+    "draft": true
+  },
+  "trig-reduction": {
+    "name": "Келтрэх томьёо",
+    "en": "Reduction formulas",
+    "from": ["trig-fn"],
+    "aliases": ["келтрэх", "sin(90-a)", "cos(180-a)", "sin(-a)", "reduction formulas", "формулы приведения"],
+    "formula": "sin(90° − α) = cos α",
+    "formulas": ["sin(90-a)=cos(a)", "cos(90-a)=sin(a)", "sin(180-a)=sin(a)", "cos(180-a)=-cos(a)", "sin(-a)=-sin(a)", "cos(-a)=cos(a)"],
+    "shown": [
+      "sin(90° − α) = cos α,  cos(90° − α) = sin α",
+      "sin(180° − α) = sin α,  cos(180° − α) = −cos α",
+      "sin(180° + α) = −sin α,  cos(180° + α) = −cos α",
+      "sin(−α) = −sin α,  cos(−α) = cos α,  tg(−α) = −tg α"
+    ],
+    "rules": [
+      "90° эсвэл 270° дээр функц нэрээ сольно: sin ↔ cos, tg ↔ ctg.",
+      "180° эсвэл 360° дээр функц нэрээ хадгална.",
+      "Тэмдгийг анхны функц тухайн мөчид ямар тэмдэгтэй байхаар тавина (α-г хурц гэж үзээд)."
+    ],
+    "def": "Дурын өнцгийн тригонометр функцийг хурц өнцгийн функцээр илэрхийлэх томьёонууд.",
+    "example": {
+      "q": "cos 150°-ийг олно уу.",
+      "steps": [
+        "150° = 180° − 30°",
+        "cos(180° − 30°) = −cos 30° (180° дээр нэр хадгална; II мөчид cos сөрөг)"
+      ],
+      "a": "−\\frac{√3}{2}"
+    },
+    "draft": true
+  },
+  "trig-sum-product": {
+    "name": "Нийлбэрийг үржвэрт шилжүүлэх томьёо",
+    "en": "Sum-to-product formulas",
+    "from": ["trig-fn"],
+    "aliases": ["sin a + sin b", "cos a + cos b", "нийлбэрийг үржвэрт", "sum to product", "сумма синусов"],
+    "formula": "sin α + sin β = 2 sin\\frac{α + β}{2} cos\\frac{α − β}{2}",
+    "formulas": ["sin(a)+sin(b)=2sin((a+b)/2)cos((a-b)/2)", "sin(a)-sin(b)=2cos((a+b)/2)sin((a-b)/2)", "cos(a)+cos(b)=2cos((a+b)/2)cos((a-b)/2)", "cos(a)-cos(b)=-2sin((a+b)/2)sin((a-b)/2)"],
+    "shown": [
+      "sin α + sin β = 2 sin\\frac{α + β}{2} cos\\frac{α − β}{2}",
+      "sin α − sin β = 2 cos\\frac{α + β}{2} sin\\frac{α − β}{2}",
+      "cos α + cos β = 2 cos\\frac{α + β}{2} cos\\frac{α − β}{2}",
+      "cos α − cos β = −2 sin\\frac{α + β}{2} sin\\frac{α − β}{2}"
+    ],
+    "def": "Хоёр синусын (косинусын) нийлбэр, ялгаврыг үржвэр болгоно. Тэгшитгэл бодох, илэрхийлэл хялбарчлахад хэрэглэнэ.",
+    "example": {
+      "q": "sin 75° + sin 15°-ийг олно уу.",
+      "steps": [
+        "= 2 sin\\frac{75° + 15°}{2} cos\\frac{75° − 15°}{2} = 2 sin 45° cos 30°",
+        "= 2 · \\frac{√2}{2} · \\frac{√3}{2}"
+      ],
+      "a": "\\frac{√6}{2} ≈ 1.225"
+    },
+    "proofTitle": "Хаанаас гарах вэ",
+    "proof": [
+      "sin(x + y) + sin(x − y) = 2 sin x cos y (нийлбэрийн томьёог хоёуланг нь задалж нэмнэ).",
+      "x + y = α, x − y = β гэвэл x = \\frac{α + β}{2}, y = \\frac{α − β}{2}.",
+      "Орлуулахад sin α + sin β = 2 sin\\frac{α + β}{2} cos\\frac{α − β}{2}."
+    ],
+    "draft": true
+  },
+  "trig-product-sum": {
+    "name": "Үржвэрийг нийлбэрт шилжүүлэх томьёо",
+    "en": "Product-to-sum formulas",
+    "from": ["trig-fn"],
+    "aliases": ["sin a cos b", "cos a cos b", "sin a sin b", "үржвэрийг нийлбэрт", "product to sum"],
+    "formula": "sin α cos β = \\frac{1}{2}[sin(α + β) + sin(α − β)]",
+    "formulas": ["sin(a)cos(b)=(sin(a+b)+sin(a-b))/2", "cos(a)cos(b)=(cos(a-b)+cos(a+b))/2", "sin(a)sin(b)=(cos(a-b)-cos(a+b))/2"],
+    "shown": [
+      "sin α cos β = \\frac{1}{2}[sin(α + β) + sin(α − β)]",
+      "cos α cos β = \\frac{1}{2}[cos(α − β) + cos(α + β)]",
+      "sin α sin β = \\frac{1}{2}[cos(α − β) − cos(α + β)]"
+    ],
+    "def": "Хоёр тригонометр функцийн үржвэрийг нийлбэр болгоно. Нийлбэрийн томьёонуудыг хооронд нь нэмж, хасаж гаргана.",
+    "example": {
+      "q": "sin 75° cos 15°-ийг олно уу.",
+      "steps": [
+        "= \\frac{1}{2}[sin 90° + sin 60°]",
+        "= \\frac{1}{2}(1 + \\frac{√3}{2})"
+      ],
+      "a": "\\frac{2 + √3}{4} ≈ 0.933"
+    },
+    "draft": true
+  }
+}

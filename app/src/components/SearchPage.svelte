@@ -49,11 +49,10 @@
     ui.lastQuery = q;
     ui.typed = mathy ? q : null;
     ui.alts = alts;
-    // One place per topic (owner, 2026-10-16): a topic opens its topic card, the same one as from the map;
-    // a named formula opens its parent topic's card on that formula, open and glowing. Closing comes back here.
+    // One place per topic (owner, 2026-10-16): a topic opens its topic card, the same one as from the map.
+    // A named formula has its own page (owner, 2026-10-16). Closing the card comes back here.
     const p = placeOf(id);
-    if (!p) return go('/c/' + id);
-    if (!p.own) ui.focus = id;
+    if (!p?.own) return go('/c/' + id);
     input?.blur();
     ui.topic = p.topic;
   }

@@ -11,7 +11,6 @@
   import TopicIcon from './TopicIcon.svelte';
   import TopicStrip from './TopicStrip.svelte';
   import FormulaSection from './FormulaSection.svelte';
-  import NamedIdea from './NamedIdea.svelte';
   import FractionOps from './tools/FractionOps.svelte';
   import NumberOps from './tools/NumberOps.svelte';
   import CoordTool from './tools/CoordTool.svelte';
@@ -69,9 +68,7 @@
   const LEVEL = { 1: 'Хялбар', 2: 'Дунд', 3: 'Хүнд' };
   const KIND = { phet: 'PhET', geogebra: 'GeoGebra', 'geogebra-book': 'GeoGebra', task: 'Даалгавар' };
   let shown = $state({});
-  // The named formula opened in place, if any.
-  let openX = $state(null);
-  $effect(() => { t?.id; shown = {}; openX = null; });
+  $effect(() => { t?.id; shown = {}; });
   let formulas = $derived(t ? [...new Set([...(tc?.formulas ?? []), ...(tc ? [] : [t.formula]), ...(ideas[t.id]?.extraFormulas ?? []).map(pretty)].filter(Boolean))] : []);
   // An interactive tool for the topics that have one.
   const TOOLS = { frac: 'fraction', 'frac-add': 'fraction', 'frac-mul': 'fraction', 'frac-dec': 'fraction', int: 'number', 'int-ops': 'number', 'b-numline': 'number', 'b-neg': 'number', coord: 'coord', 'coord-geo': 'coord', 'b-grid': 'coord' };
@@ -84,7 +81,7 @@
     const col = e.example?.column;
     return { title: e.title, column: col ? { a: col.a, b: col.b, op: col.op } : null, steps: col ? [] : body.split(/(?<=[.!?])\s+(?=\S)/).filter(Boolean) };
   }));
-  let nFx = $derived(formulas.length + (tc?.rules?.length ?? 0) + (tc?.method?.length ? 1 : 0) + methods.length + (tc?.groups?.length ?? 0));
+  let nFx = $derived(extras.filter((x) => x.formula).length + formulas.length + (tc?.rules?.length ?? 0) + (tc?.method?.length ? 1 : 0) + methods.length + (tc?.groups?.length ?? 0));
   let hasEx = $derived(!!(tc?.examples?.length || tool));
   let hasMats = $derived(!!(es.length || idea || extras.length));
   // Section identity: name, mark and colour. The quick-jump buttons carry the same mark and colour.
@@ -114,16 +111,17 @@
       { duration: ms(1) ? 1100 : 1, easing: 'ease-out' },
     ), ms(380));
   };
-  // Came from search for a lesson or a named formula inside this topic (owner, 2026-10-16): the card opens already
+  // Came from a lesson or a named formula page (owner, 2026-10-16): the card opens already
   // scrolled to that item (instant, while the card grows, so no wait), then the item glows in gold.
   $effect(() => {
     const f = ui.focus;
     if (!isOpen || !f || !scroller) return;
-    if (extras.some((x) => x.id === f)) openX = f;
     let tm = setTimeout(() => {
       ui.focus = null;
       const el = scroller.querySelector(`[data-f="${f}"]`);
       if (!el) return;
+      // A formula row inside a closed group: open the group first.
+      for (let d = el.closest('details'); d; d = d.parentElement?.closest('details')) d.open = true;
       scroller.scrollTop += el.getBoundingClientRect().top - scroller.getBoundingClientRect().top - scroller.clientHeight / 3;
       const glow = '0 0 0 2px var(--sun), 0 0 26px color-mix(in srgb, var(--sun) 55%, transparent)';
       setTimeout(() => el.animate(
@@ -219,7 +217,7 @@
 
         <VideoSlot key={'topic:' + t.id} title={t.name} />
 
-        <FormulaSection {tc} {formulas} {methods} />
+        <FormulaSection {tc} {formulas} {methods} named={extras} onopen={(id) => open('/c/' + id)} />
 
         {#if hasEx}
           <section id="sec-ex" class="sec">
@@ -327,15 +325,11 @@
                 <span class="go">Бүтнээр унших{idea.proof ? ' · батлгаа' : ''} →</span>
               </a>
             {/if}
-            <!-- Named formulas open in place (owner, 2026-10-16), no separate page. -->
             {#each extras as x (x.id)}
-              <div class="mat small-mat" class:open={openX === x.id} data-f={x.id}>
-                <button class="xh" aria-expanded={openX === x.id} onclick={() => (openX = openX === x.id ? null : x.id)}>
-                  <span class="mt"><strong>{x.name}</strong><span class="chev" aria-hidden="true">{openX === x.id ? '▴' : '▾'}</span></span>
-                  {#if openX !== x.id}<span class="md"><RichText text={short(x.def, 100)} /></span>{/if}
-                </button>
-                {#if openX === x.id}<NamedIdea id={x.id} />{/if}
-              </div>
+              <button class="mat small-mat" onclick={() => open('/c/' + x.id)}>
+                <span class="mt"><strong>{x.name}</strong></span>
+                <span class="md"><RichText text={short(x.def, 100)} /></span>
+              </button>
             {/each}
           </section>
         {/if}
@@ -467,9 +461,6 @@
   .go { color: var(--dusk); font-weight: 800; font-size: 0.9rem; }
   .ok { color: var(--grass); }
   .small-mat .mt { font-size: 0.95rem; }
-  .xh { display: grid; gap: 6px; width: 100%; padding: 0; border: 0; background: none; color: inherit; text-align: left; font: inherit; }
-  .chev { color: var(--muted); }
-  .small-mat.open { border-color: color-mix(in srgb, var(--sun) 45%, var(--line)); }
   .empty { text-align: center; padding: 10px; border: 1px dashed var(--line); border-radius: 14px; }
 
   /* Appendix: clearly apart from the main body. */

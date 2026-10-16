@@ -55,12 +55,13 @@ export function rootPath(id) {
 
 // ---- formula shapes ----
 // a²+b²=c², x^2 + y^2 = z^2 and c^2 = a^2 + b^2 all become the same shape: v^2+v^2=v^2.
-const FUNCS = ['sqrt', 'sin', 'cos', 'tan', 'log', 'lim', 'ln'];
+const FUNCS = ['sqrt', 'sin', 'cos', 'tan', 'cot', 'log', 'lim', 'ln'];
 const SUP = { '²': '^2', '³': '^3', 'ⁿ': '^n', '¹': '^1', '⁰': '^0' };
 const SUB = /[₀-₉]/g;
 
 export function shape(raw) {
-  let s = String(raw).toLowerCase()
+  // Mongolian textbooks write tg and ctg for tan and cot.
+  let s = String(raw).toLowerCase().replace(/ctg/g, 'cot').replace(/tg/g, 'tan')
     .replace(/[²³ⁿ¹⁰]/g, (c) => SUP[c]).replace(SUB, '')
     .replace(/[−–]/g, '-').replace(/[×·]/g, '*').replace(/÷/g, '/').replace(/√/g, 'sqrt').replace(/π/g, 'pi')
     .replace(/[°;,]/g, (c) => (c === ';' || c === ',' ? ';' : '')).replace(/\s+/g, '');

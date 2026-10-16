@@ -6,10 +6,12 @@
   import RichText from './RichText.svelte';
   import ColumnCalc from './ColumnCalc.svelte';
 
-  let { tc = null, formulas = [], methods = [] } = $props();
+  // named: the topic's named formulas and theorems (ideas-named.json); each row opens its own page (owner, 2026-10-16).
+  let { tc = null, formulas = [], methods = [], named = [], onopen = () => {} } = $props();
 
+  let namedGroup = $derived(named.filter((x) => x.formula).length ? [{ title: 'Нэртэй томьёо, теорем', items: named.filter((x) => x.formula).map((x) => ({ f: x.formula, name: x.name, page: x.id })) }] : []);
   let groups = $derived.by(() => {
-    if (tc?.groups?.length) return tc.groups;
+    if (tc?.groups?.length) return [...tc.groups, ...namedGroup];
     const g = [];
     if (formulas.length) g.push({ title: 'Томьёо', items: formulas.map((f) => ({ f })) });
     if (tc?.rules?.length) g.push({ title: 'Дүрэм', items: tc.rules.map((r) => ({ f: r, text: true })) });
@@ -17,7 +19,7 @@
     if (tc?.method?.length) how.push({ f: 'Алхам алхмаар', text: true, steps: tc.method });
     for (const m of methods) how.push({ f: m.title, text: true, steps: m.steps, column: m.column });
     if (how.length) g.push({ title: 'Бодох арга', items: how });
-    return g;
+    return [...g, ...namedGroup];
   });
   let total = $derived(groups.reduce((n, x) => n + x.items.length, 0));
   const opens = (x) => x.def || x.steps?.length || x.column;
@@ -31,7 +33,9 @@
         <summary>{g.title}<span class="n">{g.items.length}</span></summary>
         <div class="items">
           {#each g.items as x}
-            {#if opens(x)}
+            {#if x.page}
+              <button class="fx page" data-f={x.page} onclick={() => onopen(x.page)}><span class="nm">{x.name}</span><span class="pf"><RichText text={x.f} /></span></button>
+            {:else if opens(x)}
               <details class="fx">
                 <summary class:text={x.text}>{#if x.name}<span class="nm">{x.name}</span>{/if}<RichText text={x.f} /></summary>
                 <div class="more">
@@ -65,6 +69,9 @@
   .fx[open] > summary::after { content: '−'; }
   .text { font-family: var(--font) !important; font-size: 0.92rem !important; }
   .nm { font-family: var(--font); font-size: 0.8rem; color: var(--muted); font-weight: 700; }
+  .page { display: grid; gap: 2px; width: 100%; padding: 10px 34px 10px 12px; text-align: left; color: var(--ink); position: relative; }
+  .page::after { content: '›'; position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: var(--c); font-weight: 800; font-size: 1.2rem; }
+  .pf { font-family: var(--math); font-size: 1.05rem; overflow-x: auto; white-space: nowrap; }
   .more { padding: 0 12px 10px; display: grid; gap: 8px; font-size: 0.92rem; }
   .more p { margin: 0; }
   .more ol { margin: 0; padding-left: 20px; display: grid; gap: 4px; }
