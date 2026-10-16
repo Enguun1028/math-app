@@ -1,23 +1,40 @@
 // Ideas for search: every map topic, plus extra, smaller ideas from content/concepts.json.
 // Each idea knows where it comes from (from), what it leads to (next), its formulas, and, when written,
 // a definition, an example, a proof and uses. Formula search compares the *shape* of what was typed.
-import extra from '../../content/concepts.json';
+import concepts from '../../content/concepts.json';
+// Named formulas, theorems and rules (Виетийн теорем, Хероны томьёо…): smaller ideas that grow out of a map topic.
+// Research 2026-10-16, draft until the owner or a teacher checks it.
+import named from '../../content/ideas-named.json';
+// Per map topic: why it is true (proof or derivation steps) and where it comes from (history). Draft, 2026-10-16.
+import topicWhy from '../../content/topic-why.json';
+// Textbook content (definition, formulas, worked examples), the same data the topic card shows.
+import topicContent from '../../content/topic-content.json';
+import topicContentExtra from '../../content/topic-content-extra.json';
 import { topics, topicUnlocks, topicEntries, sphereOf } from './content.js';
+
+const extra = { ...named, ...concepts };
+// \frac{a}{b} in textbook formulas becomes (a)/(b) so formula search can compare its shape.
+const plainFrac = (f) => f.replace(/\\frac\{([^{}]*)\}\{([^{}]*)\}/g, '($1)/($2)');
 
 export const ideas = {};
 for (const t of Object.values(topics)) {
   const e = extra[t.id] ?? {};
+  const tc = topicContent[t.id] ?? topicContentExtra[t.id];
+  const w = topicWhy[t.id] ?? {};
   ideas[t.id] = {
-    id: t.id, name: t.name, topic: t.id, sphere: t.sphere, formula: t.formula,
-    formulas: [t.formula, ...(e.formulas ?? [])], from: t.req, def: e.def ?? t.text, short: t.text,
-    aliases: e.aliases ?? [], example: e.example, proof: e.proof, uses: e.uses, lessons: topicEntries[t.id] ?? [],
+    id: t.id, name: t.name, en: t.en, topic: t.id, sphere: t.sphere, formula: t.formula,
+    formulas: [t.formula, ...(e.formulas ?? []), ...(tc?.formulas ?? []).map(plainFrac)], from: t.req, def: e.def ?? tc?.def ?? t.text, short: t.text,
+    shown: tc?.formulas ?? [], rules: tc?.rules ?? [], src: tc?.src,
+    aliases: e.aliases ?? [], example: e.example ?? tc?.examples?.[0], proof: e.proof ?? w.proof, proofTitle: w.proofTitle,
+    history: w.history, uses: e.uses ?? w.uses, lessons: topicEntries[t.id] ?? [],
   };
 }
 for (const [id, e] of Object.entries(extra)) {
   if (id.startsWith('_') || topics[id]) continue;
   ideas[id] = {
-    id, name: e.name, topic: null, sphere: e.sphere, formula: e.formula, formulas: [e.formula, ...(e.formulas ?? [])],
-    from: e.from ?? [], def: e.def, short: e.def, aliases: e.aliases ?? [], example: e.example, proof: e.proof, uses: e.uses, lessons: [],
+    id, name: e.name, en: e.en, topic: null, sphere: e.sphere ?? sphereOf(e.from?.[0])?.id, formula: e.formula, formulas: [e.formula, ...(e.formulas ?? [])],
+    from: e.from ?? [], def: e.def, short: e.def, shown: e.shown ?? [], rules: e.rules ?? [], src: e.src, draft: !!e.draft,
+    aliases: e.aliases ?? [], example: e.example, proof: e.proof, proofTitle: e.proofTitle, history: e.history, uses: e.uses, lessons: [],
   };
 }
 // What each idea leads to: map unlocks plus extra ideas that name it in "from".

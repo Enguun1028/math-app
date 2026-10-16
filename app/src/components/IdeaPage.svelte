@@ -19,6 +19,21 @@
   let alts = $derived((ui.alts ?? []).filter((a) => a !== id && ideas[a]));
   let st = $derived(i?.topic ? topicState(i.topic) : null);
 
+  // Real-life uses from the research fan-out (draft), the same small file the topic card fetches.
+  let rw = $state([]);
+  $effect(() => {
+    const tid = i?.topic ?? i?.from?.[0];
+    rw = [];
+    if (!tid || i?.uses?.length) return;
+    let live = true;
+    fetch(`extras/${tid}.json`).then((r) => (r.ok ? r.json() : null)).then((d) => { if (live && i?.topic) rw = d?.rw ?? []; }).catch(() => {});
+    return () => { live = false; };
+  });
+  let steps = $state(0);
+  $effect(() => { id; steps = 0; });
+  let ex = $derived(i?.example && typeof i.example === 'object' ? i.example : null);
+  let shown = $derived(i ? i.shown.filter((f) => f !== i.formula) : []);
+
   function showOnMap() {
     ui.fly = i.topic ? { topic: i.topic } : { sphere: i.sphere };
     ui.topic = i.topic;
@@ -36,12 +51,34 @@
       <span class="eyebrow">{ui.typed ? 'Энэ бол' : (i.sphere ? sphereById[i.sphere]?.title : 'Ойлголт')}</span>
       <h1>{i.name}</h1>
       {#if i.formula}<p class="eq"><RichText text={i.formula} /></p>{/if}
+      {#if i.en}<span class="en small muted">{i.en}</span>{/if}
       <p class="def"><RichText text={i.def ?? ''} /></p>
+      {#if i.src}<span class="small muted">Эх сурвалж: {i.src}{i.topic ? ' (БСШУЯ, econtent.edu.mn)' : ''}</span>{/if}
+      {#if i.draft}<span class="draft">ноорог</span>{/if}
       {#if st === 'known' || st === 'faded'}<span class="badge known">✓ Мэднэ</span>{/if}
     </header>
-    <VideoSlot key={'idea:' + i.id} title={i.name} />
+    <VideoSlot key={i.topic ? 'topic:' + i.topic : 'idea:' + i.id} title={i.name} />
 
-    {#if i.example}
+    {#if shown.length || i.rules.length}
+      <section class="blk">
+        <h2>Томьёо ба дүрэм</h2>
+        {#each shown as f}<p class="fx"><RichText text={f} /></p>{/each}
+        {#if i.rules.length}<ul class="uses">{#each i.rules.slice(0, 4) as r}<li><RichText text={r} /></li>{/each}</ul>{/if}
+      </section>
+    {/if}
+
+    {#if ex}
+      <section class="blk ex">
+        <h2>Жишээ</h2>
+        <p><RichText text={ex.q} /></p>
+        {#if steps}<ol class="proof">{#each ex.steps.slice(0, steps) as s}<li><RichText text={s} /></li>{/each}</ol>{/if}
+        {#if steps < ex.steps.length}
+          <button class="obtn" onclick={() => (steps += 1)}>{steps ? 'Дараагийн алхам →' : 'Бодож үзэх →'}</button>
+        {:else}
+          <p>Хариу: <strong><RichText text={ex.a} /></strong></p>
+        {/if}
+      </section>
+    {:else if i.example}
       <section class="blk ex"><h2>Жишээ</h2><p><RichText text={i.example} /></p></section>
     {/if}
 
@@ -64,15 +101,24 @@
 
     {#if i.proof?.length}
       <details class="blk">
-        <summary><h2>Яаж батлах вэ</h2><span class="small muted">{i.proof.length} алхам</span></summary>
+        <summary><h2>{i.proofTitle ?? 'Яагаад үнэн бэ'}</h2><span class="small muted">{i.proof.length} алхам · ноорог</span></summary>
         <ol class="proof">{#each i.proof as s}<li><RichText text={s} /></li>{/each}</ol>
       </details>
     {/if}
 
-    {#if i.uses?.length}
+    {#if i.history}
+      <section class="blk hist">
+        <h2>Хаанаас гаралтай вэ <span class="draft">ноорог</span></h2>
+        <p><RichText text={i.history.text} /></p>
+        {#if i.history.src}<a class="src small" href={i.history.src} target="_blank" rel="noopener noreferrer">Эх сурвалж ↗</a>{/if}
+      </section>
+    {/if}
+
+    {#if i.uses?.length || rw.length}
       <section class="blk">
-        <h2>Хаана хэрэглэх вэ</h2>
-        <ul class="uses">{#each i.uses as u}<li>{u}</li>{/each}</ul>
+        <h2>Хаана хэрэглэх вэ <span class="draft">ноорог</span></h2>
+        {#if i.uses?.length}<ul class="uses">{#each i.uses as u}<li><RichText text={u} /></li>{/each}</ul>{/if}
+        {#each rw as u}<div class="rwc"><strong>{u.title}</strong><p><RichText text={u.text} /></p></div>{/each}
       </section>
     {/if}
 
@@ -100,6 +146,8 @@
 
     <div class="row">
       {#if i.lessons.length}<a class="btn sun" href="#/e/{i.lessons.find((l) => entryState(l) !== 'known') ?? i.lessons[0]}">Сурах цаг!</a>{/if}
+      {#if i.topic}<button class="btn sun" onclick={() => (ui.topic = i.topic)}>Сэдвийг бүтэн нээх</button>
+      {:else if i.from[0] && ideas[i.from[0]]?.topic}<button class="btn ghost" onclick={() => (ui.topic = i.from[0])}>{ideas[i.from[0]].name} сэдэв</button>{/if}
       <button class="link" onclick={showOnMap}>Газрын зураг дээр харах →</button>
     </div>
   </article>
@@ -131,6 +179,13 @@
   details summary h2::after { content: ' ›'; color: var(--sky); }
   details[open] summary h2::after { content: ' ⌄'; }
   .proof { margin: 6px 0 0; padding-left: 22px; display: grid; gap: 10px; }
+  .en { margin-top: -6px; }
+  .fx { font: 1.15rem var(--math); line-height: 1.5; }
+  .obtn { justify-self: start; min-height: 40px; padding: 0 14px; border-radius: 12px; border: 1px solid var(--line); background: none; color: var(--sky); font-weight: 700; }
+  .draft { font-size: 0.7rem; font-weight: 700; padding: 2px 8px; border-radius: 999px; border: 1px dashed var(--muted); color: var(--muted); vertical-align: middle; }
+  .src { color: var(--sky); justify-self: start; }
+  .rwc { display: grid; gap: 4px; padding-top: 6px; border-top: 1px solid var(--line); }
+  .rwc p { margin: 0; }
   .uses { margin: 0; padding-left: 20px; display: grid; gap: 6px; }
   .chips a { text-decoration: none; color: var(--ink); }
   .alt { gap: 8px; }
