@@ -11,6 +11,7 @@
   import TopicIcon from './TopicIcon.svelte';
   import TopicStrip from './TopicStrip.svelte';
   import FormulaSection from './FormulaSection.svelte';
+  import NamedIdea from './NamedIdea.svelte';
   import FractionOps from './tools/FractionOps.svelte';
   import NumberOps from './tools/NumberOps.svelte';
   import CoordTool from './tools/CoordTool.svelte';
@@ -68,7 +69,9 @@
   const LEVEL = { 1: 'Хялбар', 2: 'Дунд', 3: 'Хүнд' };
   const KIND = { phet: 'PhET', geogebra: 'GeoGebra', 'geogebra-book': 'GeoGebra', task: 'Даалгавар' };
   let shown = $state({});
-  $effect(() => { t?.id; shown = {}; });
+  // The named formula opened in place, if any.
+  let openX = $state(null);
+  $effect(() => { t?.id; shown = {}; openX = null; });
   let formulas = $derived(t ? [...new Set([...(tc?.formulas ?? []), ...(tc ? [] : [t.formula]), ...(ideas[t.id]?.extraFormulas ?? []).map(pretty)].filter(Boolean))] : []);
   // An interactive tool for the topics that have one.
   const TOOLS = { frac: 'fraction', 'frac-add': 'fraction', 'frac-mul': 'fraction', 'frac-dec': 'fraction', int: 'number', 'int-ops': 'number', 'b-numline': 'number', 'b-neg': 'number', coord: 'coord', 'coord-geo': 'coord', 'b-grid': 'coord' };
@@ -116,6 +119,7 @@
   $effect(() => {
     const f = ui.focus;
     if (!isOpen || !f || !scroller) return;
+    if (extras.some((x) => x.id === f)) openX = f;
     let tm = setTimeout(() => {
       ui.focus = null;
       const el = scroller.querySelector(`[data-f="${f}"]`);
@@ -323,11 +327,15 @@
                 <span class="go">Бүтнээр унших{idea.proof ? ' · батлгаа' : ''} →</span>
               </a>
             {/if}
-            {#each extras as x}
-              <a class="mat small-mat" data-f={x.id} href="#/c/{x.id}" onclick={close}>
-                <span class="mt"><strong>{x.name}</strong></span>
-                <span class="md"><RichText text={short(x.def, 100)} /></span>
-              </a>
+            <!-- Named formulas open in place (owner, 2026-10-16), no separate page. -->
+            {#each extras as x (x.id)}
+              <div class="mat small-mat" class:open={openX === x.id} data-f={x.id}>
+                <button class="xh" aria-expanded={openX === x.id} onclick={() => (openX = openX === x.id ? null : x.id)}>
+                  <span class="mt"><strong>{x.name}</strong><span class="chev" aria-hidden="true">{openX === x.id ? '▴' : '▾'}</span></span>
+                  {#if openX !== x.id}<span class="md"><RichText text={short(x.def, 100)} /></span>{/if}
+                </button>
+                {#if openX === x.id}<NamedIdea id={x.id} />{/if}
+              </div>
             {/each}
           </section>
         {/if}
@@ -459,6 +467,9 @@
   .go { color: var(--dusk); font-weight: 800; font-size: 0.9rem; }
   .ok { color: var(--grass); }
   .small-mat .mt { font-size: 0.95rem; }
+  .xh { display: grid; gap: 6px; width: 100%; padding: 0; border: 0; background: none; color: inherit; text-align: left; font: inherit; }
+  .chev { color: var(--muted); }
+  .small-mat.open { border-color: color-mix(in srgb, var(--sun) 45%, var(--line)); }
   .empty { text-align: center; padding: 10px; border: 1px dashed var(--line); border-radius: 14px; }
 
   /* Appendix: clearly apart from the main body. */

@@ -131,7 +131,8 @@ export function formulaMatches(raw) {
 // A map topic is its own place; a named formula sits in the first map topic it grows out of.
 // grade: first grade 5–12 that teaches it, or 'base' for the grade 1–4 basics.
 export function placeOf(id) {
-  let tid = ideas[id]?.topic;
+  // The first map topic it names in "from" (the topic card lists it there), else up the chain.
+  let tid = ideas[id]?.topic ?? ideas[id]?.from.find((f) => topics[f]);
   for (let cur = id, seen = new Set(); !tid && cur && ideas[cur] && !seen.has(cur); cur = ideas[cur].from[0]) { seen.add(cur); tid = ideas[cur].topic; }
   const t = topics[tid];
   if (!t) return null;
