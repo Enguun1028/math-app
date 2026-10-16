@@ -3,6 +3,9 @@
   // how to prove it, where it is used, what comes next, and other readings of the same formula.
   import VideoSlot from './VideoSlot.svelte';
   import videos from '../../content/videos.json';
+  // Practice for named formulas (draft, 2026-10-16); topics have theirs on the topic card.
+  import practiceNamed from '../../content/practice-named.json';
+  import Quiz from './Quiz.svelte';
   import { ideas, rootPath } from '../lib/ideas.js';
   import { entries, sphereById } from '../lib/content.js';
   import { sphereLayout } from '../lib/layout.js';
@@ -34,7 +37,11 @@
     return () => { live = false; };
   });
   let steps = $state(0);
-  $effect(() => { id; steps = 0; });
+  let qs = $derived(i && !i.topic ? practiceNamed[i.id] ?? [] : []);
+  let practice = $state('off'); // off | on | done
+  let score = $state(0);
+  let round = $state(0);
+  $effect(() => { id; steps = 0; practice = 'off'; });
   let ex = $derived(i?.example && typeof i.example === 'object' ? i.example : null);
   let shown = $derived(i ? i.shown.filter((f) => f !== i.formula) : []);
 
@@ -108,6 +115,21 @@
         <summary><h2>{i.proofTitle ?? 'Яагаад үнэн бэ'}</h2><span class="small muted">{i.proof.length} алхам · ноорог</span></summary>
         <ol class="proof">{#each i.proof as s}<li><RichText text={s} /></li>{/each}</ol>
       </details>
+    {/if}
+
+    {#if qs.length}
+      <section class="blk">
+        <h2>Дасгал <span class="draft">ноорог</span></h2>
+        {#if practice === 'off'}
+          <p class="small muted">{qs.length} бодлого · хялбараас хүнд рүү.</p>
+          <button class="obtn" onclick={() => (practice = 'on')}>Эхлэх →</button>
+        {:else if practice === 'on'}
+          {#key round}<Quiz questions={qs} ondone={(s) => { score = s; practice = 'done'; }} />{/key}
+        {:else}
+          <p>Та эхний оролдлогоор {Math.round(score * qs.length)} / {qs.length} бодлогыг зөв бодлоо.</p>
+          <button class="obtn" onclick={() => { round += 1; practice = 'on'; }}>Дахин ажиллах</button>
+        {/if}
+      </section>
     {/if}
 
     {#if i.history}
