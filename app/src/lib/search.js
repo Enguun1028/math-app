@@ -13,7 +13,7 @@ const LATIN = [
 ];
 
 // Question words carry no topic.
-const STOP = new Set(['гэж', 'гэдэг', 'юу', 'вэ', 'бэ', 'бол', 'яаж', 'хэрхэн', 'нь', 'ямар', 'хэд', 'уу', 'үү', 'юм', 'гэсэн', 'үг']);
+const STOP = new Set(['гэж', 'гэдэг', 'юу', 'вэ', 'бэ', 'бол', 'яаж', 'хэрхэн', 'нь', 'ямар', 'хэд', 'уу', 'үү', 'юм', 'гэсэн', 'үг', 'бодох', 'бодно', 'олох', 'олно', 'тооцох', 'хийх', 'тухай', 'ба', 'болон']);
 
 // Fold letters people swap when typing fast or in Latin: ө/о, ү/у, э/е, ы/и.
 const fold = (s) =>
@@ -73,6 +73,44 @@ function wordScore(q, list, weight, minPrefix = 2) {
 const OP_TOPIC = { '^': 'pow', sqrt: 'root', var: 'expr', eq: 'lin-eq', '÷': 'frac', '%': 'pct', sorog: 'int' };
 const OP_ENTRY = { '+': 'nemeh', '−': 'hasah', sorog: 'sorog-too', '×': 'urjih', '÷': 'huvaah', '=': 'tentsuu', '%': 'protsent', order: 'uildliin-daraalal' };
 
+const SHAPES = [
+  [/^\d+\s*%$/, 'pct'],
+  [/^\d+\s*\/\s*\d+$/, 'frac'],
+  [/^\d+\s+\d+\s*\/\s*\d+$/, 'frac'],
+  [/^\d+[.,]\d+$/, 'dec'],
+  [/^[-−]\d+$/, 'int'],
+  [/^\d{2,}$/, 'b-place'],
+  [/^\d+\s*:\s*\d+$/, 'ratio'],
+  [/^[-−]?\d+(\s*[+−×·:*/-]\s*\(?[-−]?\d+\)?)+$/, 'b-add'],
+  [/(^|[+−×·:*/(-]\s*\(?)[-−]\d/, 'int-ops'],
+];
+const SIGNS = [
+  ['∠', 'angle'], ['△', 'tri'], ['∥', 'parallel'], ['⊥', 'angle'], ['∼', 'similar'], ['∫', 'integral'], ['′', 'deriv'],
+  ["'(x)", 'deriv'], ['Σ', 'series'], ['∑', 'series'], ['σ', 'spread'], ['x̄', 'average'], ['P(', 'prob'], ['∩', 'sets'],
+  ['∪', 'sets'], ['∈', 'sets'], ['∅', 'sets'], ['|x|', 'abs'], ['lim', 'deriv'], ['n!', 'perm-comb'], ['°', 'angle'],
+];
+
+// What kind of equation, inequality or function a typed expression is. Returns [topic id, score] pairs.
+export function kindOf(raw) {
+  const s = raw.toLowerCase().replace(/\s+/g, '').replace(/²/g, '^2').replace(/³/g, '^3').replace(/[−–]/g, '-');
+  if (!/[a-z]/.test(s) || (!/[=<>≤≥]/.test(s) && !/sin|cos|tg|tan|log|ln|lg/.test(s))) return [];
+  const fn = /^(y|f\(x\))=/.test(s);
+  const body = fn ? s.replace(/^(y|f\(x\))=/, '') : s;
+  const vars = new Set((body.replace(/sin|cos|tg|tan|log|ln|sqrt|lg/g, '').match(/[a-z]/g) ?? []));
+  const out = [];
+  const pick = (eq, f, ineq) => out.push([fn ? f : /[<>≤≥]/.test(s) ? ineq : eq, 40]);
+  if (/sin|cos|tg|tan/.test(body)) pick('trig-fn', 'trig-fn', 'trig-fn');
+  else if (/log|ln|lg/.test(body)) pick('log', 'log', 'log');
+  else if (/\d\^\(?[a-z]/.test(body)) pick('exp-eq', 'exp-fn', 'exp-eq');
+  else if (/\/\(?[^=]*[a-z]/.test(body)) pick('rat-eq', 'rat-fn', 'rat-eq');
+  else if (/sqrt|√/.test(body)) pick('root', 'power-fn', 'root');
+  else if (/\^3/.test(body)) pick('poly-div', 'power-fn', 'poly-div');
+  else if (/\^2/.test(body)) pick('quad-eq', 'quad-fn', 'quad-ineq');
+  else if (!fn && vars.size >= 2 && !/[<>≤≥]/.test(s)) out.push(['system', 30], ['linear', 20]);
+  else pick('lin-eq', 'linear', 'ineq');
+  return out;
+}
+
 export function search(raw) {
   const q = raw.trim();
   if (!q) return [];
@@ -89,10 +127,19 @@ export function search(raw) {
     if (/[a-z]/i.test(q.replace(/sqrt/gi, ''))) add('t:' + (/=/.test(q) ? OP_TOPIC.eq : OP_TOPIC.var), 7);
   }
   for (const x of index) if (x.symbol && q === x.symbol) add(x.key, 20);
+  // A whole alias typed as is (n!, b^2-4ac, 0.(3)) wins, even when it has no letters to match.
+  const whole = q.toLowerCase().replace(/\s+/g, '');
+  for (const i of Object.values(ideas)) if (i.aliases.some((a) => a.replace(/\s+/g, '') === whole)) add((i.topic ? 't:' : 'i:') + i.id, 25);
+  // A bare number, fraction, decimal, percent or sign points to the topic that teaches it.
+  for (const [re, id] of SHAPES) if (re.test(q.trim())) add('t:' + id, 30);
+  for (const [sign, id] of SIGNS) if (q.includes(sign)) add('t:' + id, 30);
+  // An equation or function typed in full points to the topic that teaches its kind (x² + 5x + 6 = 0 → квадрат тэгшитгэл).
+  for (const [id, n] of kindOf(q)) add('t:' + id, n);
 
   const variants = new Set([q, translit(q)]);
   for (const v of variants) {
-    const qs = words(v).filter((w) => !STOP.has(w));
+    // Bare numbers (the 1 and 2 of sin x = 1/2) say nothing about the topic once there are letters.
+    const qs = words(v).filter((w) => !STOP.has(w) && !(/^\d+$/.test(w) && /\p{L}/u.test(v)));
     for (const x of index) {
       let s = 0;
       for (const w of qs) s += Math.max(wordScore(w, x.title, 10), wordScore(w, x.aliases, 8), wordScore(w, x.body, 2, 3));

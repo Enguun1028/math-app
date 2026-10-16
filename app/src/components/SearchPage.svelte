@@ -3,7 +3,7 @@
   // a textbook prints it and recognised by its shape (a²+b²=c² → Пифагорын теорем).
   // Never a dead end: with nothing typed or nothing found, it offers places to start.
   import { onMount } from 'svelte';
-  import { search } from '../lib/search.js';
+  import { search, kindOf } from '../lib/search.js';
   import { ideas, formulaMatches, rootPath } from '../lib/ideas.js';
   import { looksLikeMath, formatMath } from '../lib/mathfmt.js';
   import { progress, save } from '../lib/progress.svelte.js';
@@ -13,7 +13,8 @@
 
   let q = $state(ui.lastQuery ?? '');
   let input;
-  let found = $derived(formulaMatches(q));
+  // A weak "did you mean" shape guess is dropped when the expression's kind is clear (x + y = 7 → систем).
+  let found = $derived(formulaMatches(q).filter((f) => f.score >= 80 || !kindOf(q).length));
   let words = $derived(search(q).filter((r) => !found.some((f) => f.id === r.id)));
   let mathy = $derived(looksLikeMath(q) || /\^|²|√|=/.test(q));
 

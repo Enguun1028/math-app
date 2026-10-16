@@ -68,6 +68,8 @@ export function shape(raw) {
   s = s.split('pi').join('#P#');
   s = s.replace(/[a-zα-ω]/g, 'v').replace(/\*/g, '');
   s = s.replace(/#(\d)#/g, (_, i) => FUNCS[i]).replace(/#P#/g, 'pi');
+  // (s)/(t) from a textbook fraction and s/t typed by hand are the same shape.
+  s = s.replace(/\(([v0-9]+)\)/g, '$1');
   return s.split('=').map((side) => terms(side).sort().join('+')).sort().join('=');
 }
 
@@ -89,6 +91,7 @@ function terms(side) {
   return out;
 }
 
+const lit = (f) => String(f).toLowerCase().replace(/\s+/g, '').replace(/²/g, '^2').replace(/³/g, '^3').replace(/[−–]/g, '-').replace(/[·×]/g, '*').replace(/\(([a-z0-9]+)\)/g, '$1');
 const shapes = Object.values(ideas).map((i) => ({ id: i.id, list: i.formulas.filter(Boolean).map(shape) }));
 
 // Ideas whose formula has the same shape as the typed one, best first.
@@ -115,6 +118,10 @@ export function formulaMatches(raw) {
       const j = common / Math.max(qTerms.length, fTerms.length);
       if (j >= 0.6) best = Math.max(best, Math.round(50 * j));
     }
+    // Same shape, same letters too (y = kx + b over ax + b = c): a small bonus breaks the tie.
+    if (best && ideas[id].formulas.some((f) => f && lit(f) === lit(raw))) best += 5;
+    // A named formula (Нийлбэрийн квадрат) beats the topic that only lists it.
+    if (best && !ideas[id].topic) best += 1;
     if (best) found.push({ id, score: best });
   }
   return found.sort((a, b) => b.score - a.score).slice(0, 4);
