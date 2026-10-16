@@ -18,6 +18,8 @@
   import { ideas } from '../lib/ideas.js';
   import topicContent from '../../content/topic-content.json';
   import topicContentExtra from '../../content/topic-content-extra.json';
+  // Mongolian problem bank pages for the topic (integral.mn, link out only). research/resources/README.md
+  import problemLinks from '../../content/problem-links.json';
   import { topicState, entryState, markTopic } from '../lib/logic.js';
   import { ui } from '../lib/ui.svelte.js';
   import { fade } from 'svelte/transition';
@@ -92,8 +94,9 @@
     more: ['Материал', '↗', 'var(--sky-deep)'],
     les: ['Хичээл', '▤', 'var(--dusk)'],
   };
+  let probs = $derived(t ? problemLinks[t.id] ?? [] : []);
   let jumps = $derived(t ? Object.keys(SEC).filter((k) => ({
-    fx: nFx, ex: hasEx, pr: extra?.q?.length && !t.base, rw: extra?.rw?.length, mis: extra?.mis?.length, more: extra?.v?.length || extra?.it?.length, les: hasMats,
+    fx: nFx, ex: hasEx, pr: extra?.q?.length && !t.base, rw: extra?.rw?.length, mis: extra?.mis?.length, more: extra?.v?.length || extra?.it?.length || probs.length, les: hasMats,
   })[k]) : []);
   let scroller;
   // After the scroll lands, the section glows once in its own colour, so it is clear where it landed (owner, 2026-10-16).
@@ -267,13 +270,16 @@
             {/each}
           </section>
         {/if}
-        {#if extra?.v?.length || extra?.it?.length}
+        {#if extra?.v?.length || extra?.it?.length || probs.length}
           <section id="sec-more" class="sec">
             {@render head('more', 'ноорог')}
-            {#each extra.it ?? [] as x}
+            {#each probs as [pid, pname]}
+              <a class="link" href="https://www.integral.mn/problems/topics/{pid}" target="_blank" rel="noopener noreferrer"><span class="k">Бодлого</span>{pname}<span class="small muted">{' · integral.mn, бодолттой'}</span>{' ↗'}</a>
+            {/each}
+            {#each extra?.it ?? [] as x}
               <a class="link" href={x.url} target="_blank" rel="noopener noreferrer"><span class="k">{KIND[x.k] ?? x.k}</span>{x.n}{#if x.mn}<span class="small muted">{' · монгол хэлээр'}</span>{/if}{' ↗'}</a>
             {/each}
-            {#each extra.v ?? [] as v}
+            {#each extra?.v ?? [] as v}
               <a class="link" href={v.url} target="_blank" rel="noopener noreferrer"><span class="k">Видео</span>{v.t}<span class="small muted">{` · ${v.ch}${v.min ? ` · ${Math.round(v.min)} мин` : ''}`}</span>{' ↗'}</a>
             {/each}
           </section>

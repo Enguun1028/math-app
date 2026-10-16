@@ -1,0 +1,901 @@
+{
+ "_note": "Map from app topic id to integral.mn (Монгол Бодлогын Сан, Интеграл-Онлайн ХХК) problem-bank topic pages. Checked 2026-10-16: pages public, 300-570 problems each with solutions. Link out only: copyright 2012-2018 Интеграл-Онлайн ХХК, no reuse licence; ask before copying any problem. The site announced a move to mathminds.club from 2026-01-01 but integral.mn still served pages on 2026-10-16.",
+ "topics": {
+  "divis": [
+   {
+    "id": 27,
+    "name": "Натурал тоо",
+    "url": "https://www.integral.mn/problems/topics/27"
+   }
+  ],
+  "prime": [
+   {
+    "id": 27,
+    "name": "Натурал тоо",
+    "url": "https://www.integral.mn/problems/topics/27"
+   }
+  ],
+  "gcd": [
+   {
+    "id": 27,
+    "name": "Натурал тоо",
+    "url": "https://www.integral.mn/problems/topics/27"
+   }
+  ],
+  "frac": [
+   {
+    "id": 1,
+    "name": "Рационал тоо",
+    "url": "https://www.integral.mn/problems/topics/1"
+   }
+  ],
+  "frac-add": [
+   {
+    "id": 1,
+    "name": "Рационал тоо",
+    "url": "https://www.integral.mn/problems/topics/1"
+   }
+  ],
+  "frac-mul": [
+   {
+    "id": 1,
+    "name": "Рационал тоо",
+    "url": "https://www.integral.mn/problems/topics/1"
+   }
+  ],
+  "dec": [
+   {
+    "id": 1,
+    "name": "Рационал тоо",
+    "url": "https://www.integral.mn/problems/topics/1"
+   }
+  ],
+  "frac-dec": [
+   {
+    "id": 1,
+    "name": "Рационал тоо",
+    "url": "https://www.integral.mn/problems/topics/1"
+   }
+  ],
+  "round": [
+   {
+    "id": 3,
+    "name": "Бодит тоо",
+    "url": "https://www.integral.mn/problems/topics/3"
+   }
+  ],
+  "pct": [
+   {
+    "id": 26,
+    "name": "Өгүүлбэртэй бодлого",
+    "url": "https://www.integral.mn/problems/topics/26"
+   }
+  ],
+  "pct-app": [
+   {
+    "id": 26,
+    "name": "Өгүүлбэртэй бодлого",
+    "url": "https://www.integral.mn/problems/topics/26"
+   }
+  ],
+  "ratio": [
+   {
+    "id": 26,
+    "name": "Өгүүлбэртэй бодлого",
+    "url": "https://www.integral.mn/problems/topics/26"
+   }
+  ],
+  "prop": [
+   {
+    "id": 26,
+    "name": "Өгүүлбэртэй бодлого",
+    "url": "https://www.integral.mn/problems/topics/26"
+   }
+  ],
+  "inv-prop": [
+   {
+    "id": 26,
+    "name": "Өгүүлбэртэй бодлого",
+    "url": "https://www.integral.mn/problems/topics/26"
+   }
+  ],
+  "int": [
+   {
+    "id": 28,
+    "name": "Бүхэл тоо",
+    "url": "https://www.integral.mn/problems/topics/28"
+   }
+  ],
+  "int-ops": [
+   {
+    "id": 28,
+    "name": "Бүхэл тоо",
+    "url": "https://www.integral.mn/problems/topics/28"
+   }
+  ],
+  "abs": [
+   {
+    "id": 3,
+    "name": "Бодит тоо",
+    "url": "https://www.integral.mn/problems/topics/3"
+   }
+  ],
+  "pow": [
+   {
+    "id": 4,
+    "name": "Илтгэгч ба логарифм илэрхийлэл",
+    "url": "https://www.integral.mn/problems/topics/4"
+   }
+  ],
+  "neg-pow": [
+   {
+    "id": 4,
+    "name": "Илтгэгч ба логарифм илэрхийлэл",
+    "url": "https://www.integral.mn/problems/topics/4"
+   }
+  ],
+  "sci": [
+   {
+    "id": 3,
+    "name": "Бодит тоо",
+    "url": "https://www.integral.mn/problems/topics/3"
+   }
+  ],
+  "root": [
+   {
+    "id": 2,
+    "name": "Иррационал тоо",
+    "url": "https://www.integral.mn/problems/topics/2"
+   }
+  ],
+  "rational": [
+   {
+    "id": 1,
+    "name": "Рационал тоо",
+    "url": "https://www.integral.mn/problems/topics/1"
+   }
+  ],
+  "real": [
+   {
+    "id": 3,
+    "name": "Бодит тоо",
+    "url": "https://www.integral.mn/problems/topics/3"
+   },
+   {
+    "id": 2,
+    "name": "Иррационал тоо",
+    "url": "https://www.integral.mn/problems/topics/2"
+   }
+  ],
+  "sets": [
+   {
+    "id": 21,
+    "name": "Олонлог, логик",
+    "url": "https://www.integral.mn/problems/topics/21"
+   }
+  ],
+  "expr": [
+   {
+    "id": 25,
+    "name": "Алгебрийн илэрхийлэл",
+    "url": "https://www.integral.mn/problems/topics/25"
+   }
+  ],
+  "poly": [
+   {
+    "id": 25,
+    "name": "Алгебрийн илэрхийлэл",
+    "url": "https://www.integral.mn/problems/topics/25"
+   }
+  ],
+  "special-prod": [
+   {
+    "id": 25,
+    "name": "Алгебрийн илэрхийлэл",
+    "url": "https://www.integral.mn/problems/topics/25"
+   }
+  ],
+  "factor": [
+   {
+    "id": 25,
+    "name": "Алгебрийн илэрхийлэл",
+    "url": "https://www.integral.mn/problems/topics/25"
+   }
+  ],
+  "alg-frac": [
+   {
+    "id": 25,
+    "name": "Алгебрийн илэрхийлэл",
+    "url": "https://www.integral.mn/problems/topics/25"
+   }
+  ],
+  "formula": [
+   {
+    "id": 25,
+    "name": "Алгебрийн илэрхийлэл",
+    "url": "https://www.integral.mn/problems/topics/25"
+   }
+  ],
+  "lin-eq": [
+   {
+    "id": 7,
+    "name": "Алгебрийн тэгшитгэл",
+    "url": "https://www.integral.mn/problems/topics/7"
+   }
+  ],
+  "system": [
+   {
+    "id": 7,
+    "name": "Алгебрийн тэгшитгэл",
+    "url": "https://www.integral.mn/problems/topics/7"
+   }
+  ],
+  "ineq": [
+   {
+    "id": 8,
+    "name": "Алгебрийн тэнцэтгэл биш",
+    "url": "https://www.integral.mn/problems/topics/8"
+   }
+  ],
+  "quad-eq": [
+   {
+    "id": 7,
+    "name": "Алгебрийн тэгшитгэл",
+    "url": "https://www.integral.mn/problems/topics/7"
+   }
+  ],
+  "quad-ineq": [
+   {
+    "id": 8,
+    "name": "Алгебрийн тэнцэтгэл биш",
+    "url": "https://www.integral.mn/problems/topics/8"
+   }
+  ],
+  "rat-eq": [
+   {
+    "id": 7,
+    "name": "Алгебрийн тэгшитгэл",
+    "url": "https://www.integral.mn/problems/topics/7"
+   }
+  ],
+  "exp-eq": [
+   {
+    "id": 9,
+    "name": "Илтгэгч ба логарифм тэгшитгэл, тэнцэтгэл биш",
+    "url": "https://www.integral.mn/problems/topics/9"
+   }
+  ],
+  "poly-div": [
+   {
+    "id": 25,
+    "name": "Алгебрийн илэрхийлэл",
+    "url": "https://www.integral.mn/problems/topics/25"
+   },
+   {
+    "id": 7,
+    "name": "Алгебрийн тэгшитгэл",
+    "url": "https://www.integral.mn/problems/topics/7"
+   }
+  ],
+  "complex": [
+   {
+    "id": 33,
+    "name": "Комплекс тоо",
+    "url": "https://www.integral.mn/problems/topics/33"
+   }
+  ],
+  "seq": [
+   {
+    "id": 11,
+    "name": "Дараалал ба цуваа",
+    "url": "https://www.integral.mn/problems/topics/11"
+   }
+  ],
+  "ap": [
+   {
+    "id": 11,
+    "name": "Дараалал ба цуваа",
+    "url": "https://www.integral.mn/problems/topics/11"
+   }
+  ],
+  "gp": [
+   {
+    "id": 11,
+    "name": "Дараалал ба цуваа",
+    "url": "https://www.integral.mn/problems/topics/11"
+   }
+  ],
+  "binomial-th": [
+   {
+    "id": 23,
+    "name": "Бином",
+    "url": "https://www.integral.mn/problems/topics/23"
+   }
+  ],
+  "series": [
+   {
+    "id": 11,
+    "name": "Дараалал ба цуваа",
+    "url": "https://www.integral.mn/problems/topics/11"
+   }
+  ],
+  "coord": [
+   {
+    "id": 19,
+    "name": "Вектор, Координатын арга",
+    "url": "https://www.integral.mn/problems/topics/19"
+   }
+  ],
+  "func": [
+   {
+    "id": 6,
+    "name": "Функц",
+    "url": "https://www.integral.mn/problems/topics/6"
+   }
+  ],
+  "direct": [
+   {
+    "id": 6,
+    "name": "Функц",
+    "url": "https://www.integral.mn/problems/topics/6"
+   }
+  ],
+  "linear": [
+   {
+    "id": 6,
+    "name": "Функц",
+    "url": "https://www.integral.mn/problems/topics/6"
+   }
+  ],
+  "slope": [
+   {
+    "id": 6,
+    "name": "Функц",
+    "url": "https://www.integral.mn/problems/topics/6"
+   },
+   {
+    "id": 19,
+    "name": "Вектор, Координатын арга",
+    "url": "https://www.integral.mn/problems/topics/19"
+   }
+  ],
+  "quad-fn": [
+   {
+    "id": 6,
+    "name": "Функц",
+    "url": "https://www.integral.mn/problems/topics/6"
+   }
+  ],
+  "fn-props": [
+   {
+    "id": 6,
+    "name": "Функц",
+    "url": "https://www.integral.mn/problems/topics/6"
+   }
+  ],
+  "power-fn": [
+   {
+    "id": 6,
+    "name": "Функц",
+    "url": "https://www.integral.mn/problems/topics/6"
+   }
+  ],
+  "exp-fn": [
+   {
+    "id": 6,
+    "name": "Функц",
+    "url": "https://www.integral.mn/problems/topics/6"
+   },
+   {
+    "id": 4,
+    "name": "Илтгэгч ба логарифм илэрхийлэл",
+    "url": "https://www.integral.mn/problems/topics/4"
+   }
+  ],
+  "log": [
+   {
+    "id": 4,
+    "name": "Илтгэгч ба логарифм илэрхийлэл",
+    "url": "https://www.integral.mn/problems/topics/4"
+   },
+   {
+    "id": 9,
+    "name": "Илтгэгч ба логарифм тэгшитгэл, тэнцэтгэл биш",
+    "url": "https://www.integral.mn/problems/topics/9"
+   }
+  ],
+  "rat-fn": [
+   {
+    "id": 6,
+    "name": "Функц",
+    "url": "https://www.integral.mn/problems/topics/6"
+   }
+  ],
+  "matrix": [
+   {
+    "id": 32,
+    "name": "Матриц",
+    "url": "https://www.integral.mn/problems/topics/32"
+   }
+  ],
+  "det": [
+   {
+    "id": 32,
+    "name": "Матриц",
+    "url": "https://www.integral.mn/problems/topics/32"
+   }
+  ],
+  "lin-sys-mat": [
+   {
+    "id": 32,
+    "name": "Матриц",
+    "url": "https://www.integral.mn/problems/topics/32"
+   }
+  ],
+  "angle": [
+   {
+    "id": 16,
+    "name": "Олон өнцөгт",
+    "url": "https://www.integral.mn/problems/topics/16"
+   }
+  ],
+  "parallel": [
+   {
+    "id": 16,
+    "name": "Олон өнцөгт",
+    "url": "https://www.integral.mn/problems/topics/16"
+   }
+  ],
+  "tri": [
+   {
+    "id": 15,
+    "name": "Гурвалжин",
+    "url": "https://www.integral.mn/problems/topics/15"
+   }
+  ],
+  "polygon": [
+   {
+    "id": 16,
+    "name": "Олон өнцөгт",
+    "url": "https://www.integral.mn/problems/topics/16"
+   }
+  ],
+  "proof": [
+   {
+    "id": 15,
+    "name": "Гурвалжин",
+    "url": "https://www.integral.mn/problems/topics/15"
+   }
+  ],
+  "construct": [
+   {
+    "id": 15,
+    "name": "Гурвалжин",
+    "url": "https://www.integral.mn/problems/topics/15"
+   }
+  ],
+  "congruent": [
+   {
+    "id": 15,
+    "name": "Гурвалжин",
+    "url": "https://www.integral.mn/problems/topics/15"
+   }
+  ],
+  "transform": [
+   {
+    "id": 18,
+    "name": "Геометр хувиргалт",
+    "url": "https://www.integral.mn/problems/topics/18"
+   }
+  ],
+  "similar": [
+   {
+    "id": 15,
+    "name": "Гурвалжин",
+    "url": "https://www.integral.mn/problems/topics/15"
+   }
+  ],
+  "pyth": [
+   {
+    "id": 15,
+    "name": "Гурвалжин",
+    "url": "https://www.integral.mn/problems/topics/15"
+   }
+  ],
+  "tri-lines": [
+   {
+    "id": 15,
+    "name": "Гурвалжин",
+    "url": "https://www.integral.mn/problems/topics/15"
+   }
+  ],
+  "circle": [
+   {
+    "id": 17,
+    "name": "Тойрог ба дугуй",
+    "url": "https://www.integral.mn/problems/topics/17"
+   }
+  ],
+  "circle-angles": [
+   {
+    "id": 17,
+    "name": "Тойрог ба дугуй",
+    "url": "https://www.integral.mn/problems/topics/17"
+   }
+  ],
+  "chord-tangent": [
+   {
+    "id": 17,
+    "name": "Тойрог ба дугуй",
+    "url": "https://www.integral.mn/problems/topics/17"
+   }
+  ],
+  "solids": [
+   {
+    "id": 20,
+    "name": "Огторгуйн геометр",
+    "url": "https://www.integral.mn/problems/topics/20"
+   }
+  ],
+  "cross-sec": [
+   {
+    "id": 20,
+    "name": "Огторгуйн геометр",
+    "url": "https://www.integral.mn/problems/topics/20"
+   }
+  ],
+  "locus": [
+   {
+    "id": 31,
+    "name": "Цэгийн геометр байр",
+    "url": "https://www.integral.mn/problems/topics/31"
+   }
+  ],
+  "coord-geo": [
+   {
+    "id": 19,
+    "name": "Вектор, Координатын арга",
+    "url": "https://www.integral.mn/problems/topics/19"
+   }
+  ],
+  "space-coord": [
+   {
+    "id": 20,
+    "name": "Огторгуйн геометр",
+    "url": "https://www.integral.mn/problems/topics/20"
+   },
+   {
+    "id": 19,
+    "name": "Вектор, Координатын арга",
+    "url": "https://www.integral.mn/problems/topics/19"
+   }
+  ],
+  "bearing": [
+   {
+    "id": 26,
+    "name": "Өгүүлбэртэй бодлого",
+    "url": "https://www.integral.mn/problems/topics/26"
+   }
+  ],
+  "trig-right": [
+   {
+    "id": 5,
+    "name": "Тригонометр",
+    "url": "https://www.integral.mn/problems/topics/5"
+   },
+   {
+    "id": 15,
+    "name": "Гурвалжин",
+    "url": "https://www.integral.mn/problems/topics/15"
+   }
+  ],
+  "trig-tri": [
+   {
+    "id": 15,
+    "name": "Гурвалжин",
+    "url": "https://www.integral.mn/problems/topics/15"
+   },
+   {
+    "id": 5,
+    "name": "Тригонометр",
+    "url": "https://www.integral.mn/problems/topics/5"
+   }
+  ],
+  "radian": [
+   {
+    "id": 5,
+    "name": "Тригонометр",
+    "url": "https://www.integral.mn/problems/topics/5"
+   }
+  ],
+  "trig-fn": [
+   {
+    "id": 5,
+    "name": "Тригонометр",
+    "url": "https://www.integral.mn/problems/topics/5"
+   },
+   {
+    "id": 10,
+    "name": "Тригонометр тэгшитгэл, тэнцэтгэл биш",
+    "url": "https://www.integral.mn/problems/topics/10"
+   }
+  ],
+  "vector": [
+   {
+    "id": 19,
+    "name": "Вектор, Координатын арга",
+    "url": "https://www.integral.mn/problems/topics/19"
+   }
+  ],
+  "dot": [
+   {
+    "id": 19,
+    "name": "Вектор, Координатын арга",
+    "url": "https://www.integral.mn/problems/topics/19"
+   }
+  ],
+  "space-vec": [
+   {
+    "id": 19,
+    "name": "Вектор, Координатын арга",
+    "url": "https://www.integral.mn/problems/topics/19"
+   },
+   {
+    "id": 20,
+    "name": "Огторгуйн геометр",
+    "url": "https://www.integral.mn/problems/topics/20"
+   }
+  ],
+  "mat-transform": [
+   {
+    "id": 18,
+    "name": "Геометр хувиргалт",
+    "url": "https://www.integral.mn/problems/topics/18"
+   },
+   {
+    "id": 32,
+    "name": "Матриц",
+    "url": "https://www.integral.mn/problems/topics/32"
+   }
+  ],
+  "perim-area": [
+   {
+    "id": 16,
+    "name": "Олон өнцөгт",
+    "url": "https://www.integral.mn/problems/topics/16"
+   }
+  ],
+  "circle-meas": [
+   {
+    "id": 17,
+    "name": "Тойрог ба дугуй",
+    "url": "https://www.integral.mn/problems/topics/17"
+   }
+  ],
+  "sector": [
+   {
+    "id": 17,
+    "name": "Тойрог ба дугуй",
+    "url": "https://www.integral.mn/problems/topics/17"
+   }
+  ],
+  "vol-surf": [
+   {
+    "id": 20,
+    "name": "Огторгуйн геометр",
+    "url": "https://www.integral.mn/problems/topics/20"
+   }
+  ],
+  "sim-ratio": [
+   {
+    "id": 15,
+    "name": "Гурвалжин",
+    "url": "https://www.integral.mn/problems/topics/15"
+   }
+  ],
+  "speed": [
+   {
+    "id": 26,
+    "name": "Өгүүлбэртэй бодлого",
+    "url": "https://www.integral.mn/problems/topics/26"
+   }
+  ],
+  "data": [
+   {
+    "id": 35,
+    "name": "Статистик",
+    "url": "https://www.integral.mn/problems/topics/35"
+   }
+  ],
+  "charts": [
+   {
+    "id": 35,
+    "name": "Статистик",
+    "url": "https://www.integral.mn/problems/topics/35"
+   }
+  ],
+  "grouped": [
+   {
+    "id": 35,
+    "name": "Статистик",
+    "url": "https://www.integral.mn/problems/topics/35"
+   }
+  ],
+  "average": [
+   {
+    "id": 35,
+    "name": "Статистик",
+    "url": "https://www.integral.mn/problems/topics/35"
+   }
+  ],
+  "spread": [
+   {
+    "id": 35,
+    "name": "Статистик",
+    "url": "https://www.integral.mn/problems/topics/35"
+   }
+  ],
+  "scatter": [
+   {
+    "id": 35,
+    "name": "Статистик",
+    "url": "https://www.integral.mn/problems/topics/35"
+   }
+  ],
+  "prob": [
+   {
+    "id": 24,
+    "name": "Магадлал",
+    "url": "https://www.integral.mn/problems/topics/24"
+   }
+  ],
+  "rel-freq": [
+   {
+    "id": 24,
+    "name": "Магадлал",
+    "url": "https://www.integral.mn/problems/topics/24"
+   }
+  ],
+  "prob-rules": [
+   {
+    "id": 24,
+    "name": "Магадлал",
+    "url": "https://www.integral.mn/problems/topics/24"
+   }
+  ],
+  "tree": [
+   {
+    "id": 24,
+    "name": "Магадлал",
+    "url": "https://www.integral.mn/problems/topics/24"
+   }
+  ],
+  "cond-prob": [
+   {
+    "id": 24,
+    "name": "Магадлал",
+    "url": "https://www.integral.mn/problems/topics/24"
+   }
+  ],
+  "counting": [
+   {
+    "id": 22,
+    "name": "Комбинаторик",
+    "url": "https://www.integral.mn/problems/topics/22"
+   }
+  ],
+  "perm-comb": [
+   {
+    "id": 22,
+    "name": "Комбинаторик",
+    "url": "https://www.integral.mn/problems/topics/22"
+   }
+  ],
+  "rand-var": [
+   {
+    "id": 24,
+    "name": "Магадлал",
+    "url": "https://www.integral.mn/problems/topics/24"
+   }
+  ],
+  "binom-dist": [
+   {
+    "id": 24,
+    "name": "Магадлал",
+    "url": "https://www.integral.mn/problems/topics/24"
+   },
+   {
+    "id": 23,
+    "name": "Бином",
+    "url": "https://www.integral.mn/problems/topics/23"
+   }
+  ],
+  "normal": [
+   {
+    "id": 24,
+    "name": "Магадлал",
+    "url": "https://www.integral.mn/problems/topics/24"
+   },
+   {
+    "id": 35,
+    "name": "Статистик",
+    "url": "https://www.integral.mn/problems/topics/35"
+   }
+  ],
+  "geo-prob": [
+   {
+    "id": 24,
+    "name": "Магадлал",
+    "url": "https://www.integral.mn/problems/topics/24"
+   }
+  ],
+  "tangent-slope": [
+   {
+    "id": 13,
+    "name": "Уламжлал",
+    "url": "https://www.integral.mn/problems/topics/13"
+   },
+   {
+    "id": 12,
+    "name": "Хязгаар",
+    "url": "https://www.integral.mn/problems/topics/12"
+   }
+  ],
+  "deriv": [
+   {
+    "id": 13,
+    "name": "Уламжлал",
+    "url": "https://www.integral.mn/problems/topics/13"
+   }
+  ],
+  "deriv-app": [
+   {
+    "id": 13,
+    "name": "Уламжлал",
+    "url": "https://www.integral.mn/problems/topics/13"
+   }
+  ],
+  "integral": [
+   {
+    "id": 14,
+    "name": "Интеграл",
+    "url": "https://www.integral.mn/problems/topics/14"
+   }
+  ],
+  "def-int": [
+   {
+    "id": 14,
+    "name": "Интеграл",
+    "url": "https://www.integral.mn/problems/topics/14"
+   }
+  ],
+  "diff-eq": [
+   {
+    "id": 34,
+    "name": "Дифференциал тэгшитгэл",
+    "url": "https://www.integral.mn/problems/topics/34"
+   }
+  ],
+  "induction": [
+   {
+    "id": 11,
+    "name": "Дараалал ба цуваа",
+    "url": "https://www.integral.mn/problems/topics/11"
+   }
+  ],
+  "units": [
+   {
+    "id": 26,
+    "name": "Өгүүлбэртэй бодлого",
+    "url": "https://www.integral.mn/problems/topics/26"
+   }
+  ],
+  "time": [
+   {
+    "id": 26,
+    "name": "Өгүүлбэртэй бодлого",
+    "url": "https://www.integral.mn/problems/topics/26"
+   }
+  ]
+ }
+}
