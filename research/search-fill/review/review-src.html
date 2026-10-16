@@ -1,0 +1,254 @@
+<title>Ноорог шалгах</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: one narrow reading column like the app's topic card; sticky tab + filter bar; one card per draft. Single dark neon look on purpose (same world as the app). */
+:root {
+  --bg: #070b14; --surface: #0e1524; --line: #1e2a40; --ink: #e8eefc; --muted: #8796b3;
+  --sky: #22d3ee; --sun: #fbbf24; --grass: #34d399; --warn: #fb7185; --violet: #a78bfa;
+  --f-body: "Golos Text", "Segoe UI", system-ui, sans-serif; --f-mono: "JetBrains Mono", ui-monospace, monospace;
+  --f-math: "Cambria Math", "STIX Two Math", "Times New Roman", serif;
+  color-scheme: dark;
+}
+body { background: var(--bg); color: var(--ink); font: 16px/1.55 var(--f-body); }
+.wrap { max-width: 720px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 20px 60px; display: grid; gap: 16px; }
+h1 { margin: 0; font-size: 1.7rem; font-weight: 800; letter-spacing: -0.02em; text-wrap: balance; }
+.lead { margin: 0; color: var(--muted); max-width: 62ch; }
+.progress { display: flex; flex-wrap: wrap; gap: 8px; font-variant-numeric: tabular-nums; }
+.pill { font-size: 0.82rem; font-weight: 600; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); }
+.pill b { color: var(--ink); }
+.pill.ok b { color: var(--grass); } .pill.fix b { color: var(--sun); } .pill.cut b { color: var(--warn); }
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter: blur(10px); padding-block: 10px; display: grid; gap: 8px; border-bottom: 1px solid var(--line); }
+.tabs, .filters { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; }
+.tabs button, .filters button { flex: none; min-height: 40px; padding: 0 14px; border-radius: 12px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); font: 600 0.88rem var(--f-body); cursor: pointer; }
+.tabs button[aria-selected="true"] { border-color: var(--sky); box-shadow: 0 0 0 1px var(--sky) inset; color: var(--sky); }
+.filters button { min-height: 34px; font-size: 0.8rem; color: var(--muted); }
+.filters button[aria-pressed="true"] { color: var(--ink); border-color: var(--violet); }
+.search { min-height: 40px; border-radius: 12px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); padding: 0 12px; font: 0.95rem var(--f-body); width: 100%; }
+.list { display: grid; gap: 14px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 16px; display: grid; gap: 10px; min-width: 0; }
+.card[data-status="ok"] { border-color: color-mix(in srgb, var(--grass) 45%, var(--line)); }
+.card[data-status="fix"] { border-color: color-mix(in srgb, var(--sun) 55%, var(--line)); }
+.card[data-status="cut"] { border-color: color-mix(in srgb, var(--warn) 55%, var(--line)); opacity: 0.8; }
+.head { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+.head h2 { margin: 0; font-size: 1.15rem; font-weight: 700; text-wrap: balance; }
+.id { font: 500 0.72rem var(--f-mono); color: var(--muted); }
+.eq { font: 1.2rem var(--f-math); color: var(--sky); overflow-x: auto; }
+.lbl { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+p { margin: 0; }
+ol, ul { margin: 0; padding-left: 20px; display: grid; gap: 4px; }
+.ex { background: color-mix(in srgb, var(--grass) 9%, var(--surface)); border-radius: 12px; padding: 10px 12px; display: grid; gap: 6px; }
+.hist { border-left: 2px solid var(--violet); padding-left: 10px; display: grid; gap: 4px; }
+a { color: var(--sky); }
+.frames { counter-reset: f; display: grid; gap: 8px; padding: 0; list-style: none; }
+.frames li { display: grid; gap: 2px; padding-left: 30px; position: relative; }
+.frames li::before { counter-increment: f; content: counter(f); position: absolute; left: 0; top: 2px; width: 22px; height: 22px; border-radius: 7px; background: color-mix(in srgb, var(--sky) 16%, transparent); color: var(--sky); font: 700 0.75rem var(--f-mono); display: grid; place-items: center; }
+.frames .show { color: var(--muted); font-size: 0.86rem; }
+.meta { display: grid; gap: 4px; font-size: 0.92rem; }
+.meta b { color: var(--muted); font-weight: 600; }
+.vote { display: flex; flex-wrap: wrap; gap: 8px; padding-top: 6px; border-top: 1px solid var(--line); }
+.vote button { min-height: 40px; padding: 0 14px; border-radius: 12px; border: 1px solid var(--line); background: transparent; color: var(--ink); font: 600 0.88rem var(--f-body); cursor: pointer; }
+.vote button[data-v="ok"][aria-pressed="true"] { background: color-mix(in srgb, var(--grass) 22%, transparent); border-color: var(--grass); }
+.vote button[data-v="fix"][aria-pressed="true"] { background: color-mix(in srgb, var(--sun) 22%, transparent); border-color: var(--sun); }
+.vote button[data-v="cut"][aria-pressed="true"] { background: color-mix(in srgb, var(--warn) 22%, transparent); border-color: var(--warn); }
+textarea { width: 100%; min-height: 64px; border-radius: 12px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); padding: 10px 12px; font: 0.92rem var(--f-body); resize: vertical; }
+.saved { font-size: 0.78rem; color: var(--muted); }
+.note { font-size: 0.85rem; color: var(--muted); padding: 10px 12px; border-radius: 12px; border: 1px dashed var(--line); }
+button:focus-visible, a:focus-visible, textarea:focus-visible, input:focus-visible { outline: 2px solid var(--sky); outline-offset: 2px; }
+.frac { display: inline-flex; flex-direction: column; vertical-align: middle; text-align: center; font-size: 0.85em; line-height: 1.1; margin: 0 2px; }
+.frac > span:first-child { border-bottom: 1px solid currentColor; padding: 0 2px; }
+.more { justify-self: center; }
+@media (prefers-reduced-motion: no-preference) { .card { transition: border-color 0.2s; } }
+</style>
+
+<div class="wrap">
+  <header style="display:grid;gap:8px">
+    <h1>Ноорог шалгах</h1>
+    <p class="lead">2026-10-16-нд Claude бичсэн шинэ агуулга: хайлтын томьёо, теоремууд; сэдэв бүрийн «Яагаад үнэн бэ» ба түүх; 1–12-р ангийн хичээл, хөдөлгөөнт зургийн зураглал. Бүгд ноорог. Зөв бол «Зөв», засах зүйлтэй бол «Засах» дараад тайлбар бичнэ үү. Хариу таны данс дээр хадгалагдана.</p>
+    <div class="progress" id="progress"></div>
+    <p class="note" id="dbnote" hidden></p>
+  </header>
+  <div class="bar">
+    <div class="tabs" role="tablist" id="tabs"></div>
+    <div class="filters" id="filters"></div>
+    <input class="search" id="q" type="search" placeholder="Хайх: нэр, томьёо, id" autocomplete="off">
+  </div>
+  <div class="list" id="list"></div>
+  <button class="tabs more" id="more" hidden style="min-height:44px;padding:0 18px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:600 0.9rem var(--f-body)">Дараагийн 30</button>
+</div>
+
+<script id="data" type="application/json">__DATA__</script>
+<script>
+const DATA = JSON.parse(document.getElementById('data').textContent);
+const KINDS = [
+  { k: 'named', label: 'Томьёо, теорем', items: DATA.named },
+  { k: 'why', label: 'Яагаад ба түүх', items: DATA.why },
+  { k: 'lesson', label: 'Хичээлийн зураглал', items: DATA.lessons },
+];
+const FILTERS = [['all', 'Бүгд'], ['todo', 'Шалгаагүй'], ['fix', 'Засах'], ['cut', 'Хасах'], ['ok', 'Зөв']];
+let tab = 'named', filter = 'todo', query = '', shown = 30;
+const reviews = {};
+let db = null;
+try { tab = localStorage.getItem('rv-tab') || tab; filter = localStorage.getItem('rv-filter') || filter; } catch (e) {}
+
+// \frac{a}{b} → stacked fraction (the app never writes a slash fraction).
+function mathText(s) {
+  const out = document.createDocumentFragment();
+  const re = /\\frac\{([^{}]*)\}\{([^{}]*)\}/g;
+  let at = 0, m;
+  while ((m = re.exec(s))) {
+    if (m.index > at) out.append(s.slice(at, m.index));
+    const f = document.createElement('span'); f.className = 'frac';
+    const a = document.createElement('span'); a.textContent = m[1];
+    const b = document.createElement('span'); b.textContent = m[2];
+    f.append(a, b); out.append(f); at = m.index + m[0].length;
+  }
+  out.append(s.slice(at));
+  return out;
+}
+function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.append(mathText(String(text))); return e; }
+const key = (k, id) => k + '__' + id;
+
+function statusOf(k, id) { return reviews[key(k, id)]?.status || ''; }
+function counts(k) {
+  const items = KINDS.find((x) => x.k === k).items;
+  const c = { all: items.length, ok: 0, fix: 0, cut: 0, todo: 0 };
+  for (const it of items) { const s = statusOf(k, it.id); if (s) c[s]++; else c.todo++; }
+  return c;
+}
+function renderProgress() {
+  const p = document.getElementById('progress'); p.replaceChildren();
+  let all = 0, done = 0;
+  for (const K of KINDS) { const c = counts(K.k); all += c.all; done += c.all - c.todo; }
+  const c = counts(tab);
+  const add = (cls, label, n) => { const s = el('span', 'pill ' + cls); s.append(label + ' '); const b = document.createElement('b'); b.textContent = n; s.append(b); p.append(s); };
+  add('', 'Нийт шалгасан', done + ' / ' + all);
+  add('ok', 'Зөв', c.ok); add('fix', 'Засах', c.fix); add('cut', 'Хасах', c.cut);
+}
+function renderBars() {
+  const t = document.getElementById('tabs'); t.replaceChildren();
+  for (const K of KINDS) {
+    const b = el('button', null, K.label + ' · ' + K.items.length); b.setAttribute('role', 'tab'); b.setAttribute('aria-selected', String(K.k === tab));
+    b.onclick = () => { tab = K.k; shown = 30; try { localStorage.setItem('rv-tab', tab); } catch (e) {} renderAll(); };
+    t.append(b);
+  }
+  const f = document.getElementById('filters'); f.replaceChildren();
+  const c = counts(tab);
+  for (const [k, label] of FILTERS) {
+    const b = el('button', null, label + ' ' + c[k]); b.setAttribute('aria-pressed', String(k === filter));
+    b.onclick = () => { filter = k; shown = 30; try { localStorage.setItem('rv-filter', filter); } catch (e) {} renderAll(); };
+    f.append(b);
+  }
+}
+
+function cardNamed(it) {
+  const c = document.createDocumentFragment();
+  if (it.formula) c.append(el('div', 'eq', it.formula));
+  if (it.from?.length) c.append(el('div', 'id', 'Сэдэв: ' + it.from.join(', ') + (it.en ? ' · ' + it.en : '')));
+  c.append(el('p', null, it.def || ''));
+  if (it.shown?.length) { c.append(el('div', 'lbl', 'Томьёонууд')); const u = el('ul'); it.shown.forEach((s) => u.append(el('li', null, s))); c.append(u); }
+  if (it.example) { const e = el('div', 'ex'); e.append(el('div', 'lbl', 'Жишээ'), el('p', null, it.example.q)); const o = el('ol'); (it.example.steps || []).forEach((s) => o.append(el('li', null, s))); e.append(o, el('p', null, 'Хариу: ' + it.example.a)); c.append(e); }
+  if (it.proof?.length) { c.append(el('div', 'lbl', it.proofTitle || 'Яагаад үнэн бэ')); const o = el('ol'); it.proof.forEach((s) => o.append(el('li', null, s))); c.append(o); }
+  if (it.uses?.length) { c.append(el('div', 'lbl', 'Хэрэглээ')); const u = el('ul'); it.uses.forEach((s) => u.append(el('li', null, s))); c.append(u); }
+  if (it.history) c.append(hist(it.history));
+  if (it.aliases?.length) c.append(el('div', 'id', 'Хайлтын үгс: ' + it.aliases.join(', ')));
+  return c;
+}
+function hist(h) {
+  const d = el('div', 'hist'); d.append(el('div', 'lbl', 'Хаанаас гаралтай вэ'), el('p', null, h.text));
+  if (h.src) { const a = document.createElement('a'); a.href = h.src; a.target = '_blank'; a.rel = 'noopener noreferrer'; a.textContent = 'Эх сурвалж ↗'; d.append(a); }
+  return d;
+}
+function cardWhy(it) {
+  const c = document.createDocumentFragment();
+  if (it.proof?.length) { c.append(el('div', 'lbl', it.proofTitle || 'Яагаад үнэн бэ')); const o = el('ol'); it.proof.forEach((s) => o.append(el('li', null, s))); c.append(o); }
+  if (it.uses?.length) { c.append(el('div', 'lbl', 'Хэрэглээ')); const u = el('ul'); it.uses.forEach((s) => u.append(el('li', null, s))); c.append(u); }
+  if (it.history) c.append(hist(it.history)); else c.append(el('p', 'id', 'Түүхийн тэмдэглэл байхгүй.'));
+  return c;
+}
+function cardLesson(it) {
+  const c = document.createDocumentFragment();
+  if (it.hook) c.append(el('p', null, '❝ ' + it.hook));
+  const m = el('div', 'meta');
+  const row = (b, t) => { if (!t) return; const p = el('p'); const s = document.createElement('b'); s.textContent = b + ': '; p.append(s, mathText(t)); m.append(p); };
+  row('Загвар', it.model); row('Хэрэгсэл', it.widget);
+  c.append(m);
+  const o = el('ol', 'frames');
+  (it.frames || []).forEach((f) => { const li = el('li'); li.append(el('span', 'show', f.show), el('span', null, f.say)); o.append(li); });
+  c.append(el('div', 'lbl', 'Хөдөлгөөнт зургийн алхмууд'), o);
+  const m2 = el('div', 'meta'); c.append(m2);
+  const row2 = (b, t) => { if (!t) return; const p = el('p'); const s = document.createElement('b'); s.textContent = b + ': '; p.append(s, mathText(t)); m2.append(p); };
+  row2('Сурагч хийх', it.try); row2('Эвдэх алдаа', it.trap); row2('Шалгах асуулт', it.check); row2('Ном', it.src);
+  return c;
+}
+
+async function save(k, id, patch, card) {
+  const kk = key(k, id);
+  const next = { ...(reviews[kk] || {}), ...patch, kind: k, item: id, at: new Date().toISOString() };
+  reviews[kk] = next;
+  card.dataset.status = next.status || '';
+  renderProgress(); renderBars();
+  const sv = card.querySelector('.saved');
+  if (!db) { sv.textContent = 'Онлайн хадгалах боломжгүй байна (нэвтэрсэн эсэхээ шалгана уу).'; return; }
+  try { await db.collection('reviews').doc(kk).set(next); sv.textContent = 'Хадгалагдлаа'; }
+  catch (e) { sv.textContent = 'Хадгалж чадсангүй: ' + (e?.message || e?.code || 'алдаа'); }
+}
+
+function card(k, it) {
+  const s = statusOf(k, it.id);
+  const c = el('article', 'card'); c.dataset.status = s;
+  const h = el('div', 'head'); h.append(el('h2', null, it.title), el('span', 'id', it.id)); c.append(h);
+  c.append(k === 'named' ? cardNamed(it) : k === 'why' ? cardWhy(it) : cardLesson(it));
+  const v = el('div', 'vote');
+  for (const [val, label] of [['ok', 'Зөв'], ['fix', 'Засах'], ['cut', 'Хасах']]) {
+    const b = el('button', null, label); b.dataset.v = val; b.setAttribute('aria-pressed', String(s === val));
+    b.onclick = () => { const now = statusOf(k, it.id) === val ? '' : val; v.querySelectorAll('button').forEach((x) => x.setAttribute('aria-pressed', String(x.dataset.v === now))); save(k, it.id, { status: now }, c); };
+    v.append(b);
+  }
+  c.append(v);
+  const ta = document.createElement('textarea'); ta.id = 'n-' + k + '-' + it.id; ta.placeholder = 'Юуг засах вэ? (заавал биш)'; ta.value = reviews[key(k, it.id)]?.note || '';
+  ta.addEventListener('change', () => save(k, it.id, { note: ta.value.trim() }, c));
+  c.append(ta, el('span', 'saved', ''));
+  return c;
+}
+
+function renderList() {
+  const K = KINDS.find((x) => x.k === tab);
+  const q = query.trim().toLowerCase();
+  const items = K.items.filter((it) => {
+    const s = statusOf(tab, it.id);
+    if (filter === 'todo' && s) return false;
+    if (filter !== 'all' && filter !== 'todo' && s !== filter) return false;
+    return !q || (it.title + ' ' + it.id + ' ' + (it.formula || '')).toLowerCase().includes(q);
+  });
+  const list = document.getElementById('list'); list.replaceChildren();
+  if (!items.length) list.append(el('p', 'note', filter === 'todo' ? 'Энэ хэсгийн бүх ноорог шалгагдсан. Баярлалаа!' : 'Ийм зүйл олдсонгүй.'));
+  items.slice(0, shown).forEach((it) => list.append(card(tab, it)));
+  const more = document.getElementById('more'); more.hidden = items.length <= shown;
+}
+function renderAll() { renderProgress(); renderBars(); renderList(); }
+
+document.getElementById('q').addEventListener('input', (e) => { query = e.target.value; shown = 30; renderList(); });
+document.getElementById('more').onclick = () => { shown += 30; renderList(); };
+renderAll();
+
+(async () => {
+  const note = document.getElementById('dbnote');
+  try { db = await window.claude?.use?.('db'); } catch (e) { db = null; }
+  if (!db) { note.hidden = false; note.textContent = 'Хариу хадгалахын тулд claude.ai дээр нэвтэрсэн байх хэрэгтэй. Одоо уншиж болно, гэхдээ хадгалагдахгүй.'; return; }
+  db.collection('reviews').onSnapshot((snap) => {
+    for (const d of snap.docs) reviews[d.id] = d.data();
+    renderProgress(); renderBars();
+    // Update open cards in place (statuses and notes), without rebuilding the list under the viewer.
+    document.querySelectorAll('.card').forEach((c) => {
+      const ta = c.querySelector('textarea'); if (!ta) return;
+      const [, k, ...rest] = ta.id.split('-'); const id = rest.join('-'); const r = reviews[key(k, id)];
+      if (!r) return;
+      c.dataset.status = r.status || '';
+      c.querySelectorAll('.vote button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.v === (r.status || ''))));
+      if (document.activeElement !== ta) ta.value = r.note || '';
+    });
+  }, () => { note.hidden = false; note.textContent = 'Онлайн холболт тасарлаа. Хуудсыг дахин ачаална уу.'; });
+})();
+</script>
