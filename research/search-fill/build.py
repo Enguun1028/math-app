@@ -56,7 +56,7 @@ for path in sorted(glob.glob(os.path.join(here, 'why-*.json'))):
         for t in shown_text(v):
             if SLASH.search(t):
                 problems.append(f'{k}: slash fraction in "{t[:60]}"')
-        why[k] = v
+        why[k] = {**why.get(k, {}), **v}  # later files add fields (e.g. why-history-*.json adds history)
 
 for p in problems:
     print('PROBLEM', p)
