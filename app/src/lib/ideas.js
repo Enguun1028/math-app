@@ -10,6 +10,8 @@ import topicWhy from '../../content/topic-why.json';
 // Textbook content (definition, formulas, worked examples), the same data the topic card shows.
 import topicContent from '../../content/topic-content.json';
 import topicContentExtra from '../../content/topic-content-extra.json';
+// Formula family trees per topic (which named formula comes out of which). Draft, 2026-10-16.
+import families from '../../content/families.json';
 import { topics, topicUnlocks, topicEntries, sphereOf } from './content.js';
 
 const extra = { ...named, ...concepts };
@@ -140,3 +142,52 @@ export function placeOf(id) {
   return { topic: t.id, own: t.id === id, grades: t.grades, grade: t.grades[0] ?? 'base', strand: t.strand };
 }
 export const gradeLabel = (p) => (!p ? '' : p.grade === 'base' ? 'Суурь, 1–4-р анги' : p.grade + '-р анги');
+
+// ---- formula family trees ----
+// Every named idea of a topic in one tree (owner, 2026-10-16: see everything at once, then navigate).
+// content/families.json gives the lines (parent, child; 'root' = the topic); members without a line hang from root.
+// Layout: rows by longest path from root, at most 3 tiles a row; x is a share of the width.
+
+export function familyOf(t) {
+  if (!topics[t]) return null;
+  const fam = families[t] ?? {};
+  // Two ideas with the same name (one from concepts.json, one named) show once: the one the tree names, else the named one.
+  const inEdges = new Set((fam.edges ?? []).flat());
+  const byName = {};
+  for (const i of Object.values(ideas)) {
+    if (i.topic || !i.from.includes(t)) continue;
+    const o = byName[i.name];
+    const score = (x) => (inEdges.has(x.id) ? 2 : 0) + (x.id in named ? 1 : 0);
+    if (!o || score(i) > score(o)) byName[i.name] = i;
+  }
+  // In the order the tree file names them, so siblings sit the way they were written (the sort below is stable).
+  const seen = (fam.edges ?? []).flat();
+  const members = Object.values(byName).sort((a, b) => (seen.indexOf(a.id) + 1 || 999) - (seen.indexOf(b.id) + 1 || 999));
+  if (!members.length) return null;
+  const ids = new Set(members.map((m) => m.id));
+  const edges = (fam.edges ?? []).filter(([a, b]) => (a === 'root' || ids.has(a)) && ids.has(b));
+  for (const m of members) if (!edges.some(([, b]) => b === m.id)) edges.push(['root', m.id]);
+  // Longest path from root, guarded against loops.
+  const depth = { root: 0 };
+  for (let k = 0; k < members.length + 1; k++) for (const [a, b] of edges) if (depth[a] != null && (depth[b] ?? -1) < depth[a] + 1 && depth[a] < members.length) depth[b] = depth[a] + 1;
+  const layers = [];
+  for (const m of members) (layers[depth[m.id] ?? 1] ??= []).push(m.id);
+  const x = { root: 0.5 }, row = { root: 0 }, rows = [];
+  let r = 1;
+  for (const layer of layers.slice(1)) {
+    if (!layer) continue;
+    // Order under the parents, so lines cross as little as possible.
+    const px = (id) => { const ps = edges.filter(([, b]) => b === id).map(([a]) => x[a] ?? 0.5); return ps.reduce((s, v) => s + v, 0) / ps.length; };
+    layer.sort((a, b) => px(a) - px(b));
+    const n = Math.ceil(layer.length / 3), per = Math.ceil(layer.length / n);
+    for (let k = 0; k < layer.length; k += per) {
+      const part = layer.slice(k, k + per);
+      const xs = part.length === 1 ? [0.5] : part.length === 2 ? [0.3, 0.7] : [1 / 6, 0.5, 5 / 6];
+      part.forEach((id, j) => { x[id] = xs[j]; row[id] = r; });
+      rows.push(part);
+      r++;
+    }
+  }
+  const nodes = members.map((m) => ({ id: m.id, label: fam.short?.[m.id] ?? m.name, formula: m.formula ?? '', x: x[m.id], row: row[m.id] }));
+  return { topic: t, nodes, edges, rows: r, x, row };
+}

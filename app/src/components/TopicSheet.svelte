@@ -217,7 +217,7 @@
 
         <VideoSlot key={'topic:' + t.id} title={t.name} />
 
-        <FormulaSection {tc} {formulas} {methods} named={extras} onopen={(id) => open('/c/' + id)} />
+        <FormulaSection {tc} {formulas} {methods} named={extras} topic={t.id} onopen={(id) => open('/c/' + id)} />
 
         {#if hasEx}
           <section id="sec-ex" class="sec">

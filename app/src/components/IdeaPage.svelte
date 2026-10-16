@@ -2,28 +2,45 @@
   // Answer page for one idea (Wolfram-style): how your input was read, what it is, where it comes from,
   // how to prove it, where it is used, what comes next, and other readings of the same formula.
   import VideoSlot from './VideoSlot.svelte';
+  import FormulaTree from './FormulaTree.svelte';
   import videos from '../../content/videos.json';
   // Practice for named formulas (draft, 2026-10-16); topics have theirs on the topic card.
   import practiceNamed from '../../content/practice-named.json';
   import Quiz from './Quiz.svelte';
-  import { ideas, rootPath, placeOf, gradeLabel } from '../lib/ideas.js';
-  import { entries, sphereById, strands, topics } from '../lib/content.js';
+  import { ideas, placeOf, gradeLabel, familyOf } from '../lib/ideas.js';
+  import { entries, strands, topics } from '../lib/content.js';
   import { sphereLayout } from '../lib/layout.js';
   import { entryState, topicState } from '../lib/logic.js';
   import { formatMath } from '../lib/mathfmt.js';
   import { ui } from '../lib/ui.svelte.js';
-  import { go } from '../lib/router.svelte.js';
+  import { go, replace } from '../lib/router.svelte.js';
   import RichText from './RichText.svelte';
 
   let { id } = $props();
   let i = $derived(ideas[id]);
-  let path = $derived(i ? rootPath(id) : []);
-  let others = $derived(i ? i.from.filter((f) => f !== path.at(-2) && ideas[f]) : []);
   let color = $derived(i?.sphere ? sphereLayout[i.sphere]?.color : 'var(--sky)');
   let alts = $derived((ui.alts ?? []).filter((a) => a !== id && ideas[a]));
   let st = $derived(i?.topic ? topicState(i.topic) : null);
   // Which grade and strand this is, so the student sees the level of the idea at once (owner, 2026-10-16).
   let place = $derived(i ? placeOf(id) : null);
+  let fam = $derived(place && familyOf(place.topic));
+  // A tap in the tree opens that formula in place of this one, then the page lands on its details.
+  // The page remounts on every route, so the "land on details" wish rides on ui.
+  let details;
+  function pick(x) { ui.land = x; replace('/c/' + x); }
+  $effect(() => {
+    // Only the page of the tapped formula takes it (the leaving page is still mounted for a moment).
+    if (ui.land !== id || !details) return;
+    ui.land = null;
+    // Waits for the page change motion to end (html.moving locks scrolling), then glides to the details.
+    let n = 0, tm;
+    const go = () => {
+      if (document.documentElement.classList.contains('moving') && n++ < 30) { tm = setTimeout(go, 60); return; }
+      scrollTo({ top: details.getBoundingClientRect().top + scrollY - 70, behavior: 'smooth' });
+    };
+    // No cleanup: clearing ui.land re-runs this effect, which must not cancel the glide.
+    tm = setTimeout(go, 60);
+  });
   // A named formula without its own video shows the video of the topic it grows out of (not a grade 1–4 basics video,
   // which would be too far off, e.g. place value for binary numbers).
   let vkey = $derived(!i ? '' : i.topic ? 'topic:' + i.topic : videos['idea:' + i.id] ? 'idea:' + i.id : i.from[0] && !i.from[0].startsWith('b-') ? 'topic:' + i.from[0] : 'idea:' + i.id);
@@ -64,7 +81,7 @@
     {#if ui.typed}<p class="interp small muted">Таны бичсэн: <span class="m">{@html formatMath(ui.typed)}</span></p>{/if}
 
     <header class="hero">
-      <span class="eyebrow">{ui.typed ? 'Энэ бол' : (i.sphere ? sphereById[i.sphere]?.title : 'Ойлголт')}</span>
+      {#if ui.typed}<span class="eyebrow">Энэ бол</span>{/if}
       <h1>{i.name}</h1>
       {#if i.formula}<p class="eq"><RichText text={i.formula} /></p>{/if}
       {#if i.en}<span class="en small muted">{i.en}</span>{/if}
@@ -73,16 +90,28 @@
       {#if i.draft}<span class="draft">ноорог</span>{/if}
       {#if st === 'known' || st === 'faded'}<span class="badge known">✓ Мэднэ</span>{/if}
     </header>
+    <!-- Where it lives (owner, 2026-10-16): grade › strand › topic in one bar. Grade opens that grade's map, the strand
+         flies the map to the topic, the topic opens its card on this formula. Replaces the grade box, «Хаанаас ирсэн»
+         and the bottom buttons. -->
     {#if place}
-      <section class="place" aria-label="Хөтөлбөрт">
-        <span class="grade">{gradeLabel(place)}</span>
-        <div class="pt">
-          <span><span class="muted">Салаа:</span> <b style:color={strands[place.strand].color}>{strands[place.strand].name}</b></span>
-          {#if !place.own}<span><span class="muted">Сэдэв:</span> <button class="tlink" onclick={() => { ui.focus = id; ui.topic = place.topic; }}>{topics[place.topic].name}</button></span>{/if}
-          {#if place.grades.length > 1}<span class="small muted">{place.grades.slice(1).join(', ')}-р ангид дахин, гүнзгий үзнэ.</span>{/if}
-        </div>
+      <nav class="place" aria-label="Хөтөлбөрт байрлал">
+        <button class="crumb g" onclick={() => (topics[place.topic].sphere ? go('/s/' + topics[place.topic].sphere) : showOnMap())}>{gradeLabel(place)}</button><span class="sep">›</span>
+        <button class="crumb s" style:color={strands[place.strand].color} onclick={showOnMap}>{strands[place.strand].name}</button><span class="sep">›</span>
+        <button class="crumb t" onclick={() => { ui.focus = place.own ? null : id; ui.topic = place.topic; }}>{topics[place.topic].name}</button>
+      </nav>
+      {#if place.grades.length > 1}<p class="again small muted">{place.grades.slice(1).join(', ')}-р ангид дахин, гүнзгий үзнэ.</p>{/if}
+    {/if}
+
+    <!-- The topic's whole formula family at once; a tap opens that formula here (Back skips the formulas in between). -->
+    {#if fam}
+      <section class="blk fam">
+        <h2>Энэ сэдвийн бүх томьёо <span class="draft">ноорог</span></h2>
+        <FormulaTree topic={place.topic} current={place.own ? 'root' : id} onpick={(x) => (x === 'root' ? (ui.topic = place.topic) : x !== id && pick(x))} />
+        <p class="small muted">Шугам: доод томьёо нь дээд томьёоноос гарна.</p>
       </section>
     {/if}
+    <div class="details" bind:this={details}></div>
+
     <VideoSlot key={vkey} title={i.name} />
 
     {#if shown.length || i.rules.length}
@@ -106,23 +135,6 @@
       </section>
     {:else if i.example}
       <section class="blk ex"><h2>Жишээ</h2><p><RichText text={i.example} /></p></section>
-    {/if}
-
-    {#if path.length > 1}
-      <section>
-        <h2>Хаанаас ирсэн</h2>
-        <div class="path">
-          {#each path as p, k}
-            {#if k}<span class="arrow" aria-hidden="true">→</span>{/if}
-            {#if p === id}<span class="here">{ideas[p].name}</span>{:else}<a class="step" href="#/c/{p}">{ideas[p].name}</a>{/if}
-          {/each}
-        </div>
-        {#if others.length}
-          <p class="small muted also">Бас хэрэгтэй:
-            {#each others as o, k}{k ? ', ' : ' '}<a href="#/c/{o}">{ideas[o].name}</a>{/each}
-          </p>
-        {/if}
-      </section>
     {/if}
 
     {#if i.proof?.length}
@@ -185,12 +197,6 @@
       </section>
     {/if}
 
-    <div class="row">
-      {#if i.lessons.length}<a class="btn sun" href="#/e/{i.lessons.find((l) => entryState(l) !== 'known') ?? i.lessons[0]}">Сурах цаг!</a>{/if}
-      {#if i.topic}<button class="btn sun" onclick={() => (ui.topic = i.topic)}>Сэдвийг бүтэн нээх</button>
-      {:else if i.from[0] && ideas[i.from[0]]?.topic}<button class="btn ghost" onclick={() => { ui.focus = id; ui.topic = i.from[0]; }}>{ideas[i.from[0]].name} сэдэв</button>{/if}
-      <button class="link" onclick={showOnMap}>Газрын зураг дээр харах →</button>
-    </div>
   </article>
 {/if}
 
@@ -203,23 +209,22 @@
     background: linear-gradient(160deg, color-mix(in srgb, var(--c) 22%, transparent), rgba(10, 14, 24, 0.6));
     border: 1px solid color-mix(in srgb, var(--c) 50%, transparent);
   }
+  /* Place bar: grade › strand › topic. */
+  .place { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; margin-top: -14px; }
+  .crumb { min-height: 36px; padding: 0 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface-solid); color: var(--ink); font: inherit; font-size: 0.85rem; font-weight: 700; }
+  .crumb.g { background: var(--sun); border-color: var(--sun); color: #1a1300; }
+  .crumb.t { color: var(--sky); }
+  .sep { color: var(--muted); font-weight: 700; }
+  .again { margin: -20px 0 0; }
+  .fam { gap: 12px; }
+  .details { height: 0; margin-top: -26px; }
   .eyebrow { font-size: 0.85rem; font-weight: 800; color: var(--c); }
   /* Curriculum place: grade badge, strand, parent topic. */
-  .place { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 16px; border: 1px solid var(--line); background: var(--surface); margin-top: -12px; }
-  .grade { flex: none; padding: 6px 12px; border-radius: 12px; background: var(--c); color: #0a0d16; font-weight: 800; font-size: 0.95rem; }
-  .pt { display: grid; gap: 2px; min-width: 0; font-size: 0.92rem; }
-  .tlink { border: 0; background: none; padding: 0; color: var(--sky); font: inherit; font-weight: 700; text-align: left; }
   .eq { font: 1.8rem var(--math); line-height: 1.3; }
   .def { color: var(--ink); text-wrap: pretty; }
   section, .blk { display: grid; gap: 10px; }
   .blk { padding: 16px; border-radius: 18px; background: var(--surface); border: 1px solid var(--line); }
   .ex { background: var(--grass-soft); border-color: transparent; }
-  .path { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
-  .step, .here { display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px; border-radius: 999px; font-weight: 700; font-size: 0.92rem; text-decoration: none; }
-  .step { color: var(--ink); border: 1px solid var(--line); }
-  .here { background: var(--c); color: #0a0d16; }
-  .arrow { color: var(--muted); }
-  .also a { color: var(--sky-deep); font-weight: 700; }
   details summary { display: flex; align-items: baseline; justify-content: space-between; cursor: pointer; list-style: none; min-height: 32px; }
   details summary::-webkit-details-marker { display: none; }
   details summary h2::after { content: ' ›'; color: var(--sky); }
@@ -237,7 +242,5 @@
   .alt { gap: 8px; }
   .alt a { padding: 12px 14px; border-radius: 16px; border: 1px dashed color-mix(in srgb, var(--sun) 60%, transparent); color: var(--ink); text-decoration: none; }
   .alt strong { color: var(--sun); }
-  .row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
-  .row a { text-decoration: none; }
   .link { min-height: 44px; border: 0; background: none; padding: 0 8px; color: var(--sky); font-weight: 700; }
 </style>

@@ -5,6 +5,7 @@ Writes:
   app/content/ideas-named.json  named formulas, theorems and rules (Виетийн теорем, Хероны томьёо…):
                                 each one gets its own search answer page (#/c/<id>) and grows out of a map topic.
   app/content/topic-why.json    per map topic: why it is true (proof or derivation) and where it comes from (history).
+  app/content/families.json     per map topic: the tree of its named formulas (which comes out of which).
 
 Checks: valid JSON, no id clashes with map topics, every "from" id exists, no slash fractions in shown text.
 Everything here is DRAFT until the owner or a teacher checks it."""
@@ -79,6 +80,26 @@ for path in sorted(glob.glob(os.path.join(here, 'practice-named-*.json'))):
                         'traps': {str(order.index(int(i))): v for i, v in q.get('traps', {}).items()}})
         practice[k] = out
 
+# Formula family trees per topic (family-trees.json). Every edge end must be the topic ("root") or a member:
+# a named idea or concept whose "from" lists the topic. Members missing from the edges hang from root in the app.
+families = json.load(open(os.path.join(here, 'family-trees.json'), encoding='utf8'))
+members = {}
+for src in (named, concepts):
+    for k, v in src.items():
+        if not k.startswith('_') and k not in topics:
+            for f in v.get('from', []):
+                members.setdefault(f, set()).add(k)
+for t, fam in families.items():
+    if t.startswith('_'):
+        continue
+    if t not in topics:
+        problems.append(f'family-trees.json: unknown topic {t}')
+        continue
+    for a, b in fam.get('edges', []):
+        for x in (a, b):
+            if x != 'root' and x not in members.get(t, set()):
+                problems.append(f'family {t}: {x} is not a member')
+
 for p in problems:
     print('PROBLEM', p)
 with open(os.path.join(app, 'content', 'practice-named.json'), 'w', encoding='utf8') as f:
@@ -87,5 +108,7 @@ with open(os.path.join(app, 'content', 'ideas-named.json'), 'w', encoding='utf8'
     json.dump(named, f, ensure_ascii=False)
 with open(os.path.join(app, 'content', 'topic-why.json'), 'w', encoding='utf8') as f:
     json.dump(why, f, ensure_ascii=False)
+with open(os.path.join(app, 'content', 'families.json'), 'w', encoding='utf8') as f:
+    json.dump(families, f, ensure_ascii=False)
 print(f'named ideas: {len(named) - 1}, topics with why/history: {len(why) - 1}, problems: {len(problems)}')
 sys.exit(1 if problems else 0)

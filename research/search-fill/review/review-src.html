@@ -86,6 +86,7 @@ const KINDS = [
   { k: 'why', label: 'Яагаад ба түүх', items: DATA.why },
   { k: 'lesson', label: 'Хичээлийн зураглал', items: DATA.lessons },
   { k: 'practice', label: 'Дасгал', items: DATA.practice },
+  { k: 'tree', label: 'Мод', items: DATA.trees },
 ];
 const FILTERS = [['all', 'Бүгд'], ['todo', 'Шалгаагүй'], ['fix', 'Засах'], ['cut', 'Хасах'], ['ok', 'Зөв']];
 let tab = 'named', filter = 'todo', query = '', shown = 30;
@@ -182,6 +183,14 @@ function cardPractice(it) {
   c.append(u, el('p', 'id', 'Тайлбар: ' + it.why));
   return c;
 }
+// A topic's formula tree: each line reads «upper → lower» = the lower formula comes out of the upper one.
+function cardTree(it) {
+  const c = document.createDocumentFragment();
+  c.append(el('div', 'lbl', 'Шугамууд (дээд → доод: доод нь дээдээсээ гарна)'));
+  const u = el('ul'); it.lines.forEach(([a, b]) => u.append(el('li', null, a + '  →  ' + b))); c.append(u);
+  if (it.loose.length) c.append(el('p', 'id', 'Сэдвээс шууд: ' + it.loose.join(', ')));
+  return c;
+}
 function cardLesson(it) {
   const c = document.createDocumentFragment();
   if (it.hook) c.append(el('p', null, '❝ ' + it.hook));
@@ -214,7 +223,7 @@ function card(k, it) {
   const s = statusOf(k, it.id);
   const c = el('article', 'card'); c.dataset.status = s;
   const h = el('div', 'head'); h.append(el('h2', null, it.title), el('span', 'id', it.id)); c.append(h);
-  c.append(k === 'named' ? cardNamed(it) : k === 'why' ? cardWhy(it) : k === 'practice' ? cardPractice(it) : cardLesson(it));
+  c.append(k === 'named' ? cardNamed(it) : k === 'why' ? cardWhy(it) : k === 'practice' ? cardPractice(it) : k === 'tree' ? cardTree(it) : cardLesson(it));
   const v = el('div', 'vote');
   for (const [val, label] of [['ok', 'Зөв'], ['fix', 'Засах'], ['cut', 'Хасах']]) {
     const b = el('button', null, label); b.dataset.v = val; b.setAttribute('aria-pressed', String(s === val));

@@ -2,6 +2,7 @@
 export const ui = $state({
   preview: null, // entry id for the quick term preview
   topic: null, // topic id for the topic sheet
+  land: null, // formula id tapped in a formula tree: its answer page scrolls to its details
   focus: null, // idea or lesson id the topic sheet scrolls to and glows once it opens (came from search)
   slide: 0, // 1 / -1: the next topic card slides in from the right / left (set by the topic strip)
   tools: false,
