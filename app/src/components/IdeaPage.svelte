@@ -48,8 +48,10 @@
   let shown = $derived(i ? i.shown.filter((f) => f !== i.formula) : []);
 
   function showOnMap() {
-    ui.fly = i.topic ? { topic: i.topic } : { sphere: i.sphere };
-    ui.topic = i.topic;
+    // A named formula is not on the map itself: fly to the topic it grows out of.
+    const tid = i.topic ?? place?.topic;
+    ui.fly = tid ? { topic: tid } : { sphere: i.sphere };
+    ui.topic = tid ?? null;
     go('/');
   }
 </script>
