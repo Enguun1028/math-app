@@ -32,7 +32,14 @@ for f in sorted(glob.glob('research/lessons/storyboards-*.json')):
         if not k.startswith('_'):
             lessons.append({'id': k, 'title': m[k]['name'] + grade(k), **v})
 lessons.sort(key=lambda x: order[x['id']])
-data = json.dumps({'named': named, 'why': whyl, 'lessons': lessons}, ensure_ascii=False).replace('</', r'<\/')
+practice = []
+for f in sorted(glob.glob('research/search-fill/practice-named-*.json')):
+    for k, qs in json.load(open(f, encoding='utf-8')).items():
+        if not k.startswith('_'):
+            name = next((n['title'] for n in named if n['id'] == k), k)
+            for n, q in enumerate(qs, 1):
+                practice.append({'id': f'{k}-{n}', 'title': name + ' · ' + str(n), 'idea': k, **q})
+data = json.dumps({'named': named, 'why': whyl, 'lessons': lessons, 'practice': practice}, ensure_ascii=False).replace('</', r'<\/')
 src = open(os.path.join(here, 'review-src.html'), encoding='utf-8').read()
 open(sys.argv[1], 'w', encoding='utf-8').write(src.replace('__DATA__', data))
 print(len(named), len(whyl), len(lessons))

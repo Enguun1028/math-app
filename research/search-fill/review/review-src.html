@@ -65,7 +65,7 @@ button:focus-visible, a:focus-visible, textarea:focus-visible, input:focus-visib
 <div class="wrap">
   <header style="display:grid;gap:8px">
     <h1>Ноорог шалгах</h1>
-    <p class="lead">2026-10-16-нд Claude бичсэн шинэ агуулга: хайлтын томьёо, теоремууд; сэдэв бүрийн «Яагаад үнэн бэ» ба түүх; 1–12-р ангийн хичээл, хөдөлгөөнт зургийн зураглал. Бүгд ноорог. Зөв бол «Зөв», засах зүйлтэй бол «Засах» дараад тайлбар бичнэ үү. Хариу таны данс дээр хадгалагдана.</p>
+    <p class="lead">2026-10-16-нд Claude бичсэн шинэ агуулга: хайлтын томьёо, теоремууд; сэдэв бүрийн «Яагаад үнэн бэ» ба түүх; томьёоны дасгал; 1–12-р ангийн хичээл, хөдөлгөөнт зургийн зураглал. Бүгд ноорог. Зөв бол «Зөв», засах зүйлтэй бол «Засах» дараад тайлбар бичнэ үү. Хариу таны данс дээр хадгалагдана.</p>
     <div class="progress" id="progress"></div>
     <p class="note" id="dbnote" hidden></p>
   </header>
@@ -85,6 +85,7 @@ const KINDS = [
   { k: 'named', label: 'Томьёо, теорем', items: DATA.named },
   { k: 'why', label: 'Яагаад ба түүх', items: DATA.why },
   { k: 'lesson', label: 'Хичээлийн зураглал', items: DATA.lessons },
+  { k: 'practice', label: 'Дасгал', items: DATA.practice },
 ];
 const FILTERS = [['all', 'Бүгд'], ['todo', 'Шалгаагүй'], ['fix', 'Засах'], ['cut', 'Хасах'], ['ok', 'Зөв']];
 let tab = 'named', filter = 'todo', query = '', shown = 30;
@@ -167,6 +168,20 @@ function cardWhy(it) {
   if (it.history) c.append(hist(it.history)); else c.append(el('p', 'id', 'Түүхийн тэмдэглэл байхгүй.'));
   return c;
 }
+function cardPractice(it) {
+  const c = document.createDocumentFragment();
+  c.append(el('div', 'id', 'Түвшин ' + it.level + ' · ' + it.idea));
+  c.append(el('p', null, it.q));
+  const u = el('ol');
+  it.choices.forEach((ch, i) => {
+    const li = el('li', null, ch + (i === it.answer ? '  ✓ зөв' : ''));
+    if (i === it.answer) li.style.color = 'var(--grass)';
+    const t = it.traps?.[String(i)]; if (t) li.append(el('div', 'id', 'Алдаа: ' + t));
+    u.append(li);
+  });
+  c.append(u, el('p', 'id', 'Тайлбар: ' + it.why));
+  return c;
+}
 function cardLesson(it) {
   const c = document.createDocumentFragment();
   if (it.hook) c.append(el('p', null, '❝ ' + it.hook));
@@ -199,7 +214,7 @@ function card(k, it) {
   const s = statusOf(k, it.id);
   const c = el('article', 'card'); c.dataset.status = s;
   const h = el('div', 'head'); h.append(el('h2', null, it.title), el('span', 'id', it.id)); c.append(h);
-  c.append(k === 'named' ? cardNamed(it) : k === 'why' ? cardWhy(it) : cardLesson(it));
+  c.append(k === 'named' ? cardNamed(it) : k === 'why' ? cardWhy(it) : k === 'practice' ? cardPractice(it) : cardLesson(it));
   const v = el('div', 'vote');
   for (const [val, label] of [['ok', 'Зөв'], ['fix', 'Засах'], ['cut', 'Хасах']]) {
     const b = el('button', null, label); b.dataset.v = val; b.setAttribute('aria-pressed', String(s === val));
