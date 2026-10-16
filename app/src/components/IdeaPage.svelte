@@ -2,6 +2,7 @@
   // Answer page for one idea (Wolfram-style): how your input was read, what it is, where it comes from,
   // how to prove it, where it is used, what comes next, and other readings of the same formula.
   import VideoSlot from './VideoSlot.svelte';
+  import videos from '../../content/videos.json';
   import { ideas, rootPath } from '../lib/ideas.js';
   import { entries, sphereById } from '../lib/content.js';
   import { sphereLayout } from '../lib/layout.js';
@@ -18,6 +19,9 @@
   let color = $derived(i?.sphere ? sphereLayout[i.sphere]?.color : 'var(--sky)');
   let alts = $derived((ui.alts ?? []).filter((a) => a !== id && ideas[a]));
   let st = $derived(i?.topic ? topicState(i.topic) : null);
+  // A named formula without its own video shows the video of the topic it grows out of (not a grade 1–4 basics video,
+  // which would be too far off, e.g. place value for binary numbers).
+  let vkey = $derived(!i ? '' : i.topic ? 'topic:' + i.topic : videos['idea:' + i.id] ? 'idea:' + i.id : i.from[0] && !i.from[0].startsWith('b-') ? 'topic:' + i.from[0] : 'idea:' + i.id);
 
   // Real-life uses from the research fan-out (draft), the same small file the topic card fetches.
   let rw = $state([]);
@@ -57,7 +61,7 @@
       {#if i.draft}<span class="draft">ноорог</span>{/if}
       {#if st === 'known' || st === 'faded'}<span class="badge known">✓ Мэднэ</span>{/if}
     </header>
-    <VideoSlot key={i.topic ? 'topic:' + i.topic : 'idea:' + i.id} title={i.name} />
+    <VideoSlot key={vkey} title={i.name} />
 
     {#if shown.length || i.rules.length}
       <section class="blk">
