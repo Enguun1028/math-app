@@ -1,6 +1,7 @@
 // Learning logic (Section 3). Thresholds are first guesses, to be set in the spec.
 import { entries, spheres, sphereById, topics, topicEntries } from './content.js';
 import { progress, save } from './progress.svelte.js';
+import { track } from './track.svelte.js';
 import levelTest from '../../content/level-test.json';
 
 export const PASS = 0.65; // "Мэднэ" at roughly 60-70%
@@ -126,6 +127,7 @@ export function readiness(s) {
 }
 
 export function markTopic(id, on = true) {
+  track('topic_marked', { topic: id, known: on });
   progress.topics ??= {};
   if (on) progress.topics[id] = true;
   else delete progress.topics[id];

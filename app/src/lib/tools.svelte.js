@@ -3,6 +3,7 @@
 // (owner, 2026-10-20: the practice tab was replaced by this slot).
 import { ui } from './ui.svelte.js';
 import { go } from './router.svelte.js';
+import { track } from './track.svelte.js';
 
 export const TOOLS = [
   { id: 'graph', name: 'График' },
@@ -26,12 +27,14 @@ const load = () => {
 export const slot = $state({ id: load() });
 
 export function pinTool(id) {
+  track('tool_pinned', { tool: id });
   slot.id = id;
   try { localStorage.setItem(KEY, id); } catch {}
 }
 
 // Open the graph calculator with these lines (from search or a topic card).
 export function openGraph(lines) {
+  track('graph_opened_with', { lines });
   ui.graphSeed = lines;
   ui.tool = 'graph';
   ui.topic = null;

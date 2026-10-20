@@ -2,6 +2,7 @@
   // "Дутагдлаа олъё": explains what the level check does, lets the student pick a goal
   // (and, for a coming test, their grade and the test's topic), then starts or resumes the check.
   import { fly, fade } from 'svelte/transition';
+  import { track } from '../lib/track.svelte.js';
   import { topics, sphereById } from '../lib/content.js';
   import { GOALS } from '../lib/logic.js';
   import { progress, save } from '../lib/progress.svelte.js';
@@ -26,6 +27,7 @@
 
   const close = () => (ui.level = false);
   function setGoal(id) {
+    track('goal_set', { picked: id });
     progress.goal = id;
     progress.goalPicked = true;
     save();
@@ -33,8 +35,10 @@
   function setGrade(g, keep = false) {
     progress.grade = !keep && progress.grade === g ? null : g;
     save();
+    track('grade_set', { picked: progress.grade });
   }
   function setTopic(id) {
+    track('exam_topic_set', { topic: id });
     progress.examTopic = id;
     q = '';
     save();

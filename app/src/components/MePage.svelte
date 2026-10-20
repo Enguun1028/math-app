@@ -54,6 +54,10 @@
         </div>
       {/if}
     </div>
+    <!-- Most users are children: say plainly what is collected and why (owner, 2026-10-20). -->
+    <div class="row col">
+      <span><strong>Нууцлал</strong><span class="small muted">Бид нэр, утас, имэйл зэрэг хувийн мэдээлэл цуглуулдаггүй. Аппыг сайжруулахын тулд нэргүй хэрэглээний мэдээлэл (ямар хуудас нээсэн, асуултад хэрхэн хариулсан, алдаа гарсан эсэх) цуглуулдаг. Энэ мэдээллийг хэнд ч зарахгүй, зар сурталчилгаанд ашиглахгүй.</span></span>
+    </div>
   </section>
 </div>
 

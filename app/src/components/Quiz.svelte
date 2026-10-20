@@ -7,6 +7,8 @@
   // Check mode (finding the starting point): one try, no reveal, and "Мэдэхгүй байна" instead of guessing.
   import RichText from './RichText.svelte';
   import QuizFig from './QuizFig.svelte';
+  import { track } from '../lib/track.svelte.js';
+  import Feedback from './Feedback.svelte';
 
   // questions: [{ q, choices, answer, why, hint?, traps?, entry? }]
   // traps: { choice index: the mistake that choice catches }, shown as the hint after that wrong choice.
@@ -24,8 +26,15 @@
 
   const praise = ['Зөв. Сайн бодлоо.', 'Зөв. Аргаа зөв сонгосон байна.', 'Яг зөв.', 'Зөв. Алхам бүрээ сайн шалгажээ.'];
 
+  // One event per tap: which question, which choice, right or not, and on which try.
+  const answered = (choice, correct) => track('question_answered', {
+    mode, n: i + 1, of: questions.length, choice, correct, attempt: tried.length + 1,
+    concept: cur.concept ?? null, entry: cur.entry ?? null, question: cur.q.slice(0, 120),
+  });
+
   function pick(k) {
     if (state === 'right' || state === 'shown' || tried.includes(k)) return;
+    answered(k, k === cur.answer);
     if (mode === 'check') {
       results.push(k === cur.answer);
       return next();
@@ -43,6 +52,7 @@
   }
 
   function dontKnow() {
+    answered('dont_know', false);
     if (tried.length === 0) results.push(false);
     if (mode === 'check') return next();
     state = 'shown';
@@ -51,6 +61,7 @@
   function next() {
     if (i === questions.length - 1) {
       finished = true;
+      track('quiz_finished', { mode, questions: questions.length, right: results.filter(Boolean).length });
       ondone?.(results.filter(Boolean).length / questions.length, results);
     } else {
       i += 1;
@@ -109,6 +120,8 @@
         {#if done}
           <button class="btn primary next" onclick={next}>{results.length === questions.length ? 'Дүнг харах' : 'Дараагийнх'}</button>
         {/if}
+        <!-- Every question can be reported: the question bank is still a draft (owner, 2026-10-20). -->
+        <Feedback small entry={cur.entry ?? null} question={cur.q} />
       </div>
     {/key}
   </div>

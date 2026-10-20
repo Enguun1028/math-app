@@ -10,6 +10,7 @@
   import { go, replace } from '../lib/router.svelte.js';
   import { ms, ease } from '../lib/motion.js';
   import Quiz from './Quiz.svelte';
+  import { track, setVisitor } from '../lib/track.svelte.js';
   import { SvelteSet } from 'svelte/reactivity';
 
   let grade = $state(startGrade());
@@ -24,6 +25,7 @@
     results.forEach((ok, k) => !ok && missedConcepts.add(questions[k].concept));
     const ok = results.filter(Boolean).length >= LEVEL_PASS;
     (ok ? passed : missed).add(grade);
+    track('level_round', { tested_grade: grade, passed: ok, right: results.filter(Boolean).length, round: round + 1 });
     const next = nextLevelGrade(grade, ok, passed, missed);
     round += 1;
     if (next == null) finish();
@@ -38,8 +40,11 @@
     asking = null;
     level = passed.size ? Math.max(...passed) : LEVEL_MIN - 1;
     applyLevel(level, missedConcepts);
+    track('level_check_finished', { level, rounds: round, missed_concepts: [...missedConcepts] });
+    setVisitor({ level, grade: progress.grade ?? null, goal: progress.goal ?? null });
   }
   function goOn() {
+    track('level_check_continued', { next_grade: asking });
     keepGoing = true;
     grade = asking;
     asking = null;

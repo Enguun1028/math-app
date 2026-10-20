@@ -4,10 +4,11 @@
 # Security headers for every page.
 # The build is one self-contained index.html, so inline scripts and styles are allowed;
 # the only outside sources are Google Fonts and YouTube (privacy-enhanced) video embeds.
+# PostHog visitor tracking goes through /rx on this site (functions/rx); its session replay may use a blob: worker.
 # Facebook/Instagram embeds are supported by VideoSlot but unused, so they are not allowed here;
 # add their origins to frame-src if a video of that type is ever added.
 /*
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob:; media-src 'self' blob:; frame-src https://www.youtube-nocookie.com; connect-src 'self'; manifest-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob:; media-src 'self' blob:; frame-src https://www.youtube-nocookie.com; connect-src 'self'; worker-src 'self' blob:; manifest-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'
   X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin

@@ -16,6 +16,7 @@
   import ColumnCalc from './ColumnCalc.svelte';
   import ColumnPractice from './ColumnPractice.svelte';
   import Feedback from './Feedback.svelte';
+  import { track } from '../lib/track.svelte.js';
 
   const SHOW_MISTAKES = false;
 
@@ -43,6 +44,7 @@
 
   function done(score) {
     result = score;
+    track('lesson_test_finished', { entry: e.id, score, passed: score >= ENTRY_PASS });
     if (score >= ENTRY_PASS) markKnown(e.id);
   }
 

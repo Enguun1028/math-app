@@ -1,36 +1,39 @@
 <script>
-  // "Алдаа мэдэгдэх / Ойлгомжгүй байна": sent through Netlify Forms, no server of our own.
-  let { entry } = $props();
+  // "Алдаа мэдэгдэх / Ойлгомжгүй байна": sent to PostHog as a `problem_reported` event (owner, 2026-10-20),
+  // since Netlify Forms stopped working after the move to Cloudflare. PostHog keeps it and retries offline.
+  // question: the question text when reported from a quiz question; small: the one-link form under a question.
+  import { track } from '../lib/track.svelte.js';
+
+  let { entry = null, question = null, small = false } = $props();
   let kind = $state(null);
   let message = $state('');
-  let status = $state('idle');
+  let sent = $state(false);
 
-  async function send(ev) {
+  function send(ev) {
     ev.preventDefault();
-    status = 'sending';
-    try {
-      const body = new URLSearchParams({ 'form-name': 'feedback', entry, kind, message });
-      const res = await fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body });
-      status = res.ok ? 'sent' : 'error';
-    } catch {
-      status = 'error';
-    }
+    track('problem_reported', { entry, kind, message: message.trim(), question: question?.slice(0, 300) ?? null });
+    sent = true;
   }
 </script>
 
-<section class="fb">
-  {#if status === 'sent'}
+<section class="fb" class:small>
+  {#if sent}
     <p><strong>Баярлалаа.</strong> Бид шалгаад засна.</p>
   {:else if kind}
     <form class="stack" onsubmit={send}>
       <label class="small muted" for="fb-msg">{kind === 'error' ? 'Ямар алдаа байна вэ?' : 'Аль хэсэг нь ойлгомжгүй байна вэ?'}</label>
-      <textarea id="fb-msg" bind:value={message} rows="3" required></textarea>
+      <!-- The box takes the cursor as soon as it opens, so the student can type straight away. -->
+      <textarea id="fb-msg" bind:value={message} rows="3" required {@attach (el) => el.focus()}></textarea>
       <div class="row">
-        <button class="btn primary" disabled={status === 'sending'}>Илгээх</button>
+        <button class="btn primary">Илгээх</button>
         <button type="button" class="btn" onclick={() => (kind = null)}>Болих</button>
       </div>
-      {#if status === 'error'}<p class="small muted">Илгээж чадсангүй. Интернэтээ шалгаад дахин оролдоорой.</p>{/if}
     </form>
+  {:else if small}
+    <div class="row">
+      <button class="link" onclick={() => (kind = 'error')}>Асуулт алдаатай юу?</button>
+      <button class="link" onclick={() => (kind = 'unclear')}>Ойлгомжгүй байна</button>
+    </div>
   {:else}
     <div class="row">
       <button class="btn" onclick={() => (kind = 'error')}>Алдаа мэдэгдэх</button>
@@ -43,4 +46,6 @@
   .row { display: flex; gap: 8px; flex-wrap: wrap; }
   textarea { width: 100%; font: inherit; padding: 10px 12px; border-radius: 12px; border: 1.5px solid var(--line); resize: vertical; }
   textarea:focus { outline: none; border-color: var(--sky); }
+  .small .row { gap: 16px; }
+  .link { padding: 6px 0; background: none; border: 0; font: inherit; font-size: 0.82rem; color: var(--muted); text-decoration: underline; text-underline-offset: 3px; }
 </style>

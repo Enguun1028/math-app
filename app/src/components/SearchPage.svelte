@@ -12,6 +12,7 @@
   import RichText from './RichText.svelte';
   import { readLine } from '../lib/graphexpr.js';
   import { openGraph } from '../lib/tools.svelte.js';
+  import { track } from '../lib/track.svelte.js';
 
   let q = $state(ui.lastQuery ?? '');
   let input;
@@ -36,6 +37,15 @@
 
   onMount(() => setTimeout(() => input?.focus(), 250));
 
+  // What students look for, including searches that find nothing: sent once typing pauses for 1.5 s.
+  $effect(() => {
+    const t = q.trim();
+    if (!t) return;
+    const n = found.length + words.length;
+    const timer = setTimeout(() => track('searched', { query: t, results: n, math: mathy }), 1500);
+    return () => clearTimeout(timer);
+  });
+
   function type(t) {
     const a = input.selectionStart ?? q.length, b = input.selectionEnd ?? q.length;
     q = q.slice(0, a) + t + q.slice(b);
@@ -50,6 +60,7 @@
   }
   function openIdea(id, alts = []) {
     remember();
+    track('search_result_opened', { query: q.trim(), result: id, kind: 'idea' });
     ui.lastQuery = q;
     ui.typed = mathy ? q : null;
     ui.alts = alts;
@@ -62,6 +73,7 @@
   }
   function openWord(r) {
     remember();
+    if (r.kind === 'entry') track('search_result_opened', { query: q.trim(), result: r.id, kind: 'entry' });
     ui.lastQuery = q;
     if (r.kind === 'entry') go('/e/' + r.id);
     else openIdea(r.id);
