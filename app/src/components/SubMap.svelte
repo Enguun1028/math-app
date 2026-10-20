@@ -394,6 +394,7 @@
   /* Pans both ways with the phone's own scrolling; bleeds to the screen edges. */
   .pan {
     margin: 0 -16px; height: min(68vh, 620px); overflow: hidden; position: relative; touch-action: none; cursor: grab;
+    contain: strict; /* fixed size: the map's many nodes never trigger layout outside it */
     border-block: 1px solid var(--line); scrollbar-width: none;
   }
   .pan::-webkit-scrollbar { display: none; }

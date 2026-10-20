@@ -57,15 +57,19 @@
   let strip;
   const mid = (el) => el.offsetLeft + el.offsetWidth / 2;
   // Look by distance from the centre: only transform and opacity change (cheap). Written straight to the elements.
+  // All positions are read before any style is written: reading after a write forced a fresh layout per item,
+  // which made opening a topic freeze (measured 2026-10-21: 118 ms on a desktop, several times that on a phone).
   function shade() {
     if (!strip) return;
     const c = strip.scrollLeft + strip.clientWidth / 2;
-    for (const el of strip.children) {
-      const p = Math.min(Math.abs(mid(el) - c) / el.offsetWidth, 2), n = Math.min(p, 1);
+    const items = [...strip.children];
+    const ps = items.map((el) => Math.min(Math.abs(mid(el) - c) / el.offsetWidth, 2));
+    items.forEach((el, k) => {
+      const p = ps[k], n = Math.min(p, 1);
       el.style.transform = `scale(${1 - 0.14 * n})`;
       el.style.opacity = 1 - 0.55 * Math.max(0, p - 1);
       el.style.setProperty('--n', n);
-    }
+    });
   }
   const centre = (el, behavior = 'instant') => strip.scrollTo({ left: mid(el) - strip.clientWidth / 2, behavior });
   // Each new row opens centred on its topic, before the screen paints.

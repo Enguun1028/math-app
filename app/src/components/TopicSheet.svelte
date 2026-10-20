@@ -124,7 +124,7 @@
   // scrolled to that item (instant, while the card grows, so no wait), then the item glows in gold.
   $effect(() => {
     const f = ui.focus;
-    if (!isOpen || !f || !scroller) return;
+    if (!isOpen || !f || !scroller || !ready) return;
     let tm = setTimeout(() => {
       ui.focus = null;
       const el = scroller.querySelector(`[data-f="${f}"]`);
@@ -156,6 +156,20 @@
   const open = (path) => { pushed = false; ui.topic = null; location.replace('#' + path); };
   // A new topic (from the strip or a chip) starts at the top.
   $effect(() => { t?.id; if (scroller) scroller.scrollTop = 0; });
+  // The card opens with only its top (title, jump row, definition); the sections below arrive once the opening
+  // animation is done, so the tap answers at once on slow phones (owner, 2026-10-21: "optimize a lot").
+  let ready = $state(false);
+  $effect(() => {
+    t?.id;
+    ready = false;
+    const tm = setTimeout(() => (ready = true), ms(300) + 30);
+    return () => clearTimeout(tm);
+  });
+  // While a card covers the map, the map's floating and pulsing stop, so the phone only draws the card.
+  $effect(() => {
+    document.documentElement.classList.toggle('sheet-open', isOpen);
+    return () => document.documentElement.classList.remove('sheet-open');
+  });
   // Pull down on the top bar closes the topic. Only the bar (owner, 2026-10-16): scrolling back up through the card
   // and pulling further must never close it.
   let y0 = null;
@@ -226,6 +240,7 @@
 
         {#if GRAPH[t.id]}<button class="graphit" onclick={() => openGraph(GRAPH[t.id])}>📈 Графикаар туршаад үзэх</button>{/if}
 
+        {#if ready}
         <VideoSlot key={'topic:' + t.id} title={t.name} />
 
         <FormulaSection {tc} {formulas} {methods} named={extras} topic={t.id} onopen={(id) => open('/c/' + id)} />
@@ -357,6 +372,7 @@
             </div>
           </section>
         {/if}
+        {/if}
       </div>
       {/key}
     </div></div>
@@ -367,6 +383,8 @@
   .scrim { z-index: 40; }
   .topic {
     position: fixed; inset: 0; z-index: 41; display: flex; flex-direction: column; overflow: hidden;
+    /* Its own layout and paint island: building the card does not make the browser re-measure the map behind it. */
+    contain: strict;
     background: radial-gradient(90% 45% at 50% 12%, color-mix(in srgb, var(--c) 14%, var(--bg)), var(--bg) 70%);
   }
   .head { flex: none; position: relative; z-index: 4; padding: 0 16px 8px; border-bottom: 1px solid color-mix(in srgb, var(--line) 60%, transparent); }
@@ -381,7 +399,7 @@
   /* Top bar stays on screen, so "‹ Буцах" is always one tap away, in the same spot as on every other page. */
   .bar {
     display: flex; justify-content: space-between; align-items: center;
-    margin: 0 -16px; padding: calc(env(safe-area-inset-top, 0px) + 8px) 16px 6px 8px; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(10px);
+    margin: 0 -16px; padding: calc(env(safe-area-inset-top, 0px) + 8px) 16px 6px 8px; background: var(--bg);
     /* Lines "‹ Буцах" up with the page top bar (a 560px column, 8px in) on any screen width. */
     padding-left: calc(max(0px, (100vw - 560px) / 2) + 8px - max(0px, (100vw - 592px) / 2));
   }
@@ -404,7 +422,7 @@
      between the topic strip and this row (owner, 2026-10-16). */
   .jump {
     position: sticky; top: -14px; z-index: 3; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none;
-    margin: -6px -16px 0; padding: 6px 16px; background: color-mix(in srgb, var(--bg) 97%, transparent); backdrop-filter: blur(10px);
+    margin: -6px -16px 0; padding: 6px 16px; background: var(--bg);
   }
   .jump::-webkit-scrollbar { display: none; }
   .jump button { flex: none; min-height: 36px; border: 1px solid color-mix(in srgb, var(--k) 45%, var(--line)); background: var(--surface-solid); color: var(--ink); border-radius: 10px; padding: 0 11px; font-weight: 700; font-size: 0.8rem; }

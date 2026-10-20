@@ -173,3 +173,6 @@ input, textarea, select { font-size: 16px; }
 /* While a transition runs (lockInput in lib/motion.js), scroll areas stop, so running momentum cannot drag a
    layer that is zooming or fading. */
 html.moving .scroller, html.moving .topic .scroll { overflow: hidden !important; }
+
+/* A topic card covers the map: pause the map's floating, pulsing and beacon so the phone only draws the card. */
+.sheet-open .bob, .sheet-open .halo, .sheet-open .beacon { animation-play-state: paused; }
