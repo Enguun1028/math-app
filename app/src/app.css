@@ -36,16 +36,20 @@ html { -webkit-text-size-adjust: 100%; }
 body {
   margin: 0;
   overflow-x: clip;
-  background:
-    radial-gradient(ellipse at 20% 10%, rgba(34, 211, 238, 0.07), transparent 55%),
-    radial-gradient(ellipse at 85% 60%, rgba(167, 139, 250, 0.07), transparent 55%),
-    var(--bg);
-  background-attachment: fixed;
+  background: var(--bg);
   color: var(--ink);
   font-family: var(--font);
   font-size: 17px;
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
+}
+/* The soft glows behind every page sit on their own fixed layer. As a fixed body background they were
+   redrawn on every scroll frame on Android. */
+body::before {
+  content: ''; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(ellipse at 20% 10%, rgba(34, 211, 238, 0.07), transparent 55%),
+    radial-gradient(ellipse at 85% 60%, rgba(167, 139, 250, 0.07), transparent 55%);
 }
 button { font: inherit; color: inherit; cursor: pointer; }
 h1, h2, h3 { line-height: 1.2; margin: 0; }
@@ -123,7 +127,6 @@ sup { font-size: 0.7em; line-height: 0; }
 .badge.known { background: var(--grass-soft); color: var(--grass); }
 .badge.next { background: var(--sun-soft); color: #8a5500; }
 
-.card { backdrop-filter: blur(10px); }
 .chip.on { background: var(--sky); border-color: var(--sky); color: var(--on-sky); }
 .vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 input, textarea { color: var(--ink); background: var(--surface-solid); }

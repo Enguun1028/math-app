@@ -326,7 +326,7 @@
   .sphere.later .body { opacity: 0.6; }
   .sphere.reveal .rim { animation: lightup 1.1s var(--d) cubic-bezier(0.32, 0.72, 0, 1) both; }
   .sphere.reveal .body { animation: fillup 1.1s var(--d) ease-out both; }
-  @keyframes lightup { from { stroke-opacity: 0.1; stroke-width: 0; } 60% { stroke-opacity: 1; filter: drop-shadow(0 0 14px var(--c)); } }
+  @keyframes lightup { from { stroke-opacity: 0.1; } 60% { stroke-opacity: 1; } }
   @keyframes fillup { from { opacity: 0.2; } }
   .halo { fill: var(--sun); fill-opacity: 0.1; }
   .pulse { fill: none; stroke: var(--sun); animation: pulse 2.6s ease-in-out infinite; }
@@ -352,8 +352,7 @@
   .lvl svg { flex: none; width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; }
   .welcome {
     position: relative; margin-top: 10px; padding: 14px 52px 14px 16px; display: grid; gap: 10px; justify-items: start;
-    border-radius: 18px; background: rgba(12, 15, 21, 0.94); border: 1px solid color-mix(in srgb, var(--grass) 45%, var(--line));
-    backdrop-filter: blur(12px);
+    border-radius: 18px; background: rgba(12, 15, 21, 0.97); border: 1px solid color-mix(in srgb, var(--grass) 45%, var(--line));
   }
   .welcome > div { display: grid; }
   .welcome a { text-decoration: none; }
@@ -367,21 +366,24 @@
     justify-self: stretch; display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 60px; padding: 0 22px;
     border-radius: 999px; font-size: 1.15rem; font-weight: 800; color: #2a1a00;
     background: var(--sun); border: 0;
-    box-shadow: 0 0 28px rgba(255, 204, 102, 0.45); animation: glow 2.2s ease-in-out infinite;
+    box-shadow: 0 0 28px rgba(255, 204, 102, 0.45); position: relative;
   }
+  /* Breathing glow as a still shadow fading in and out (opacity only, no repaint). */
+  .find::after, .nextcard.lit::after { content: ''; position: absolute; inset: 0; border-radius: inherit; box-shadow: 0 0 48px rgba(255, 204, 102, 0.7); opacity: 0; pointer-events: none; animation: glow 2.2s ease-in-out infinite; }
+  .nextcard.lit::after { animation-duration: 1.6s; }
   .find svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; }
-  @keyframes glow { 50% { box-shadow: 0 0 48px rgba(255, 204, 102, 0.7); } }
+  @keyframes glow { 50% { opacity: 1; } }
   /* Spotlight after the level check: everything dims, the next step beams. */
   .map.spot .sphere:not(.next), .map.spot .stitle:not(.next), .map.spot .scount, .map.spot .thread, .map.spot .journey { opacity: 0.15; transition: opacity 0.6s ease-out; }
   .map.spot .hud-top, .map.spot .stories { opacity: 0.3; }
-  .beacon { fill: none; stroke: var(--sun); transform-box: fill-box; transform-origin: center; animation: beacon 1.6s ease-out infinite; filter: drop-shadow(0 0 18px var(--sun)); pointer-events: none; }
-  @keyframes beacon { from { transform: scale(0.92); stroke-opacity: 1; } to { transform: scale(1.35); stroke-opacity: 0; } }
+  .beacon { fill: none; stroke: var(--sun); transform-box: fill-box; transform-origin: center; animation: beacon 1.6s ease-out infinite; pointer-events: none; }
+  @keyframes beacon { from { transform: scale(0.92); opacity: 1; } to { transform: scale(1.35); opacity: 0; } }
   .map.spot .halo { fill-opacity: 0.32; }
   .map.spot .pulse { stroke-opacity: 1; animation-duration: 1.2s; }
-  .nextcard.lit { border: 2px solid var(--sun); animation: glow 1.6s ease-in-out infinite; }
+  .nextcard.lit { border: 2px solid var(--sun); }
   .nextcard {
     display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 8px 10px; padding: 10px 10px 10px 12px;
-    border-radius: 18px; background: rgba(12, 15, 21, 0.96);
+    position: relative; border-radius: 18px; background: rgba(12, 15, 21, 0.96);
     border: 1px solid rgba(255, 204, 102, 0.33); box-shadow: 0 0 28px rgba(255, 204, 102, 0.12);
   }
   .nt { display: flex; align-items: center; gap: 10px; min-width: 0; border: 0; background: none; padding: 0; text-align: left; }
@@ -393,6 +395,6 @@
   .more { grid-column: 1 / -1; justify-self: start; border: 0; background: none; padding: 2px 0 0; color: var(--muted); font-size: 0.85rem; text-decoration: underline; text-underline-offset: 3px; }
 
   @media (prefers-reduced-motion: reduce) {
-    .dx, .dy, .pulse, .find, .beacon, .nextcard.lit { animation: none; }
+    .dx, .dy, .pulse, .find::after, .beacon, .nextcard.lit::after { animation: none; }
   }
 </style>

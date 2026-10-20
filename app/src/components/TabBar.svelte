@@ -63,14 +63,17 @@
   .fab {
     position: absolute; left: 50%; top: -24px; width: 64px; height: 64px; margin-left: -32px; border-radius: 50%;
     display: grid; place-items: center; background: radial-gradient(circle at 35% 30%, #7ff3ff, var(--sky) 45%, #0e7fa0);
-    box-shadow: 0 0 0 5px #05070d, 0 0 22px rgba(34, 211, 238, 0.39); animation: fabglow 2.8s ease-in-out infinite;
+    box-shadow: 0 0 0 5px #05070d, 0 0 22px rgba(34, 211, 238, 0.39);
   }
+  /* The breathing glow: a still, stronger shadow that fades in and out. Only opacity changes, which the phone's
+     graphics chip handles without redrawing the bar. */
+  .fab::after { content: ''; position: absolute; inset: 0; border-radius: 50%; box-shadow: 0 0 34px rgba(34, 211, 238, 0.57); opacity: 0; pointer-events: none; animation: fabglow 2.8s ease-in-out infinite; }
   /* The rim of the bar bends around the button, so it reads as rising out of the bar. */
   .fab::before { content: ''; position: absolute; inset: -6px; border-radius: 50%; border-top: 0.5px solid rgba(120, 160, 220, 0.25); clip-path: inset(0 0 55% 0); }
   .fab svg.lens, .tab.on .fab svg.lens { width: 30px; height: 30px; fill: none; stroke: #03161c; stroke-width: 2.8; filter: none; }
   .tab.on .fab { box-shadow: 0 0 0 5px #05070d, 0 0 30px rgba(34, 211, 238, 0.57); }
-  @keyframes fabglow { 50% { box-shadow: 0 0 0 5px #05070d, 0 0 34px rgba(34, 211, 238, 0.57); } }
-  @media (prefers-reduced-motion: reduce) { .fab { animation: none; } }
+  @keyframes fabglow { 50% { opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) { .fab::after { animation: none; } }
   .me { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: linear-gradient(140deg, var(--sky), var(--dusk)); box-shadow: 0 0 0 2px #05070d, 0 0 0 3.5px var(--sun); }
   .me svg { width: 20px; height: 20px; stroke: #03161c; stroke-width: 2.4; }
   .tab.on .me { box-shadow: 0 0 0 2px #05070d, 0 0 0 4px var(--sky); }

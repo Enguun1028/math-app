@@ -119,7 +119,6 @@
     position: sticky; top: 0; z-index: 10;
     display: flex; align-items: center; justify-content: space-between;
     max-width: 560px; margin: 0 auto; padding: 8px;
-    background: color-mix(in srgb, var(--bg) 80%, transparent);
-    backdrop-filter: blur(10px);
+    background: color-mix(in srgb, var(--bg) 96%, transparent);
   }
 </style>

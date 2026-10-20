@@ -383,8 +383,8 @@
   .ib.later { opacity: 0.6; }
   .page.spot .node:not(.next), .page.spot .ib:not(.nx), .page.spot .e, .page.spot .border, .page.spot .strand { opacity: 0.15; transition: opacity 0.6s ease-out; }
   .page.spot .node.next .halo { stroke-width: 5; animation-duration: 1.2s; }
-  .beacon { fill: none; stroke: var(--sun); stroke-width: 6; transform-box: fill-box; transform-origin: center; animation: beacon 1.6s ease-out infinite; filter: drop-shadow(0 0 12px var(--sun)); pointer-events: none; }
-  @keyframes beacon { from { transform: scale(0.9); stroke-opacity: 1; } to { transform: scale(1.5); stroke-opacity: 0; } }
+  .beacon { fill: none; stroke: var(--sun); stroke-width: 6; transform-box: fill-box; transform-origin: center; animation: beacon 1.6s ease-out infinite; pointer-events: none; }
+  @keyframes beacon { from { transform: scale(0.9); opacity: 1; } to { transform: scale(1.5); opacity: 0; } }
   .head { padding: 12px 0 8px; display: grid; gap: 6px; justify-items: start; }
   h1 { color: var(--c); text-shadow: 0 0 18px color-mix(in srgb, var(--c) 50%, transparent); }
   .key { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
@@ -401,8 +401,8 @@
   .panwrap { position: relative; }
   .zoom { position: absolute; right: 0; bottom: 10px; display: grid; gap: 6px; }
   .zoom button {
-    width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background: rgba(12, 15, 21, 0.9);
-    color: var(--ink); font-size: 1.4rem; font-weight: 700; display: grid; place-items: center; backdrop-filter: blur(8px);
+    width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background: rgba(12, 15, 21, 0.96);
+    color: var(--ink); font-size: 1.4rem; font-weight: 700; display: grid; place-items: center;
   }
   .zoom button:disabled { opacity: 0.35; }
   /* Life: each circle drifts a few pixels, slowly, like the spheres on the main map. */

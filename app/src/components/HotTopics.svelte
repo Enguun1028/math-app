@@ -27,6 +27,11 @@
 
   let open = $state(null); // index of the story being watched
   let story = $derived(open == null ? null : STORIES[open]);
+  // While a story plays, the map behind it stops moving (app.css), so the phone only draws the story.
+  $effect(() => {
+    document.documentElement.classList.toggle('story-open', !!story);
+    return () => document.documentElement.classList.remove('story-open');
+  });
   const seen = (id) => !!progress.stories?.[id];
   function watch(k) {
     open = k;

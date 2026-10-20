@@ -25,7 +25,7 @@
   }
   .toggle {
     position: relative; display: inline-grid; grid-template-columns: 1fr 1fr; padding: 3px; border-radius: 999px;
-    background: rgba(12, 15, 21, 0.92); border: 1px solid var(--line); pointer-events: auto; backdrop-filter: blur(10px);
+    background: rgba(12, 15, 21, 0.96); border: 1px solid var(--line); pointer-events: auto;
   }
   .pill {
     position: absolute; top: 3px; bottom: 3px; left: 3px; width: calc(50% - 3px); border-radius: 999px;
