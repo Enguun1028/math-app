@@ -16,5 +16,6 @@ export const ui = $state({
   alts: [], // other ideas the same formula could mean
   welcome: false, // back after 3+ days: a warm welcome and a 3-question warm-up on the map
   reveal: false, // after the level check: known spheres light up one by one on the map
+  spotlight: false, // after the level check: the next step glows and everything else dims until it is tapped
   back: null, // { sphere, rects } the sphere that is open, so going back can fly its topics home
 });

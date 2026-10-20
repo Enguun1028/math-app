@@ -172,16 +172,20 @@
   // No "next step" until we know the student's level. Before that, a small "Дутагдлаа олъё" button
   // opens the explanation and the check. After it, a card names the next topic with "Сурах цаг!".
   let known = $derived(levelChecked());
+  // After the level check the next step is the only bright thing on the map until it is tapped (owner, 2026-10-20).
+  let spot = $derived(ui.spotlight && !!next && !ui.reveal);
+  $effect(() => { if (ui.spotlight && next && ui.topic === next) ui.spotlight = false; });
   let left = $derived(checkLeft().length);
   function learn() {
     const es = topicEntries[next];
+    ui.spotlight = false;
     ui.scrollY = scroller.scrollTop;
     if (es.length) go('/e/' + (es.find((id) => entryState(id) !== 'known') ?? es[0]));
     else ui.topic = next;
   }
 </script>
 
-<div class="map" bind:this={mapEl}>
+<div class="map" class:spot bind:this={mapEl}>
   <div class="scroller" bind:this={scroller}>
     <!-- Stories sit at the top of the map and scroll away with it, like Instagram (owner: not persistent). -->
     <div class="stories"><HotTopics /></div>
@@ -222,6 +226,7 @@
                 <circle cx={L.x} cy={L.y} r={L.R} fill="url(#g-{s.id})" class="body" />
                 <circle cx={L.x} cy={L.y} r={L.R} class="rim" style:stroke-width={2 / k} />
                 {#if st === 'next'}
+                  {#if spot}<circle cx={L.x} cy={L.y} r={L.R + 18 / k} class="beacon" style:stroke-width={10 / k} />{/if}
                   <circle cx={L.x} cy={L.y} r={L.R + 10 / k} class="halo" />
                   <circle cx={L.x} cy={L.y} r={L.R + 14 / k} class="pulse" style:stroke-width={4 / k} />
                 {/if}
@@ -252,8 +257,9 @@
   <header class="hud-top">
     <div class="toprow">
       <span class="toggle-room" aria-hidden="true"></span>
-      <button class="icon" aria-label="Дутагдлаа олъё" onclick={() => (ui.level = true)}>
-        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5M11 8v6M8 11h6" /></svg>
+      <button class="lvl" onclick={() => (ui.level = true)}>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5M11 8v6M8 11h6" /></svg>
+        <span>Түвшин<br />тодорхойлох</span>
       </button>
     </div>
     {#if ui.welcome}
@@ -272,10 +278,10 @@
     {#if !known}
       <button class="find" onclick={() => (ui.level = true)} transition:fly={{ y: 30, duration: ms(300), easing: ease }}>
         <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5M11 8v6M8 11h6" /></svg>
-        Дутагдлаа олъё
+        Түвшин тодорхойлох
       </button>
     {:else if next}
-      <div class="nextcard" transition:fly={{ y: 40, duration: ms(320), easing: ease }}>
+      <div class="nextcard" class:lit={spot} transition:fly={{ y: 40, duration: ms(320), easing: ease }}>
         <button class="nt" onclick={() => { scrollToWorldY(sphereLayout[topics[next].sphere].y); ui.topic = next; }}>
           <span class="nf" style:--sc={strands[topics[next].strand].color}>{#if topics[next].formula}<RichText text={topics[next].formula} />{:else}<i class="sdot"></i>{/if}</span>
           <span class="nn"><span class="small">Дараагийн алхам</span><strong>{topics[next].name}</strong></span>
@@ -339,8 +345,11 @@
   .hud-top > * { pointer-events: auto; }
   .toprow { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 30px; margin-bottom: 8px; pointer-events: none; }
   .toprow > button { pointer-events: auto; }
-  .icon { width: 44px; height: 44px; margin-right: -8px; border: 0; background: none; display: grid; place-items: center; color: #fff; }
-  .icon svg { width: 27px; height: 27px; fill: none; stroke: currentColor; stroke-width: 2.1; stroke-linecap: round; }
+  /* Level check: a labelled gold button, easy to spot (owner, 2026-10-20: the plain icon was missed). */
+  .lvl { display: inline-flex; align-items: center; gap: 7px; min-height: 46px; padding: 5px 12px 5px 9px; border-radius: 14px;
+    color: var(--sun); background: rgba(12, 15, 21, 0.92); border: 1.5px solid rgba(255, 204, 102, 0.75);
+    box-shadow: 0 0 18px rgba(255, 204, 102, 0.28); font-size: 0.78rem; font-weight: 800; line-height: 1.1; text-align: left; }
+  .lvl svg { flex: none; width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; }
   .welcome {
     position: relative; margin-top: 10px; padding: 14px 52px 14px 16px; display: grid; gap: 10px; justify-items: start;
     border-radius: 18px; background: rgba(12, 15, 21, 0.94); border: 1px solid color-mix(in srgb, var(--grass) 45%, var(--line));
@@ -355,13 +364,21 @@
   }
   .hud-bottom > * { pointer-events: auto; grid-area: 1 / 1; }
   .find {
-    justify-self: start; display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 18px 0 14px;
-    border-radius: 999px; font-weight: 800; color: var(--sun);
-    background: rgba(12, 15, 21, 0.96); border: 1px solid rgba(255, 204, 102, 0.6);
-    box-shadow: 0 0 24px rgba(255, 204, 102, 0.15); animation: glow 2.6s ease-in-out infinite;
+    justify-self: stretch; display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 60px; padding: 0 22px;
+    border-radius: 999px; font-size: 1.15rem; font-weight: 800; color: #2a1a00;
+    background: var(--sun); border: 0;
+    box-shadow: 0 0 28px rgba(255, 204, 102, 0.45); animation: glow 2.2s ease-in-out infinite;
   }
-  .find svg { width: 20px; height: 20px; fill: none; stroke: var(--sun); stroke-width: 2; stroke-linecap: round; }
-  @keyframes glow { 50% { box-shadow: 0 0 34px rgba(255, 204, 102, 0.27); } }
+  .find svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; }
+  @keyframes glow { 50% { box-shadow: 0 0 48px rgba(255, 204, 102, 0.7); } }
+  /* Spotlight after the level check: everything dims, the next step beams. */
+  .map.spot .sphere:not(.next), .map.spot .stitle:not(.next), .map.spot .scount, .map.spot .thread, .map.spot .journey { opacity: 0.15; transition: opacity 0.6s ease-out; }
+  .map.spot .hud-top, .map.spot .stories { opacity: 0.3; }
+  .beacon { fill: none; stroke: var(--sun); transform-box: fill-box; transform-origin: center; animation: beacon 1.6s ease-out infinite; filter: drop-shadow(0 0 18px var(--sun)); pointer-events: none; }
+  @keyframes beacon { from { transform: scale(0.92); stroke-opacity: 1; } to { transform: scale(1.35); stroke-opacity: 0; } }
+  .map.spot .halo { fill-opacity: 0.32; }
+  .map.spot .pulse { stroke-opacity: 1; animation-duration: 1.2s; }
+  .nextcard.lit { border: 2px solid var(--sun); animation: glow 1.6s ease-in-out infinite; }
   .nextcard {
     display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 8px 10px; padding: 10px 10px 10px 12px;
     border-radius: 18px; background: rgba(12, 15, 21, 0.96);
@@ -376,6 +393,6 @@
   .more { grid-column: 1 / -1; justify-self: start; border: 0; background: none; padding: 2px 0 0; color: var(--muted); font-size: 0.85rem; text-decoration: underline; text-underline-offset: 3px; }
 
   @media (prefers-reduced-motion: reduce) {
-    .dx, .dy, .pulse, .find { animation: none; }
+    .dx, .dy, .pulse, .find, .beacon, .nextcard.lit { animation: none; }
   }
 </style>

@@ -6,7 +6,7 @@
   // (owner, 2026-10-13: "made as a circle ... so zoom is appropriate here and only here"): pinch, +/−, or ctrl+wheel.
   import { sphereById, topics, strands, isFresh } from '../lib/content.js';
   import { sphereLayout, gradeRadial, RAD, twoLines } from '../lib/layout.js';
-  import { topicState, sphereState, readiness, sphereKnown } from '../lib/logic.js';
+  import { topicState, sphereState, readiness, sphereKnown, nextTopic } from '../lib/logic.js';
   import { ui } from '../lib/ui.svelte.js';
   import { onMount, onDestroy } from 'svelte';
   import { reduced } from '../lib/motion.js';
@@ -16,6 +16,9 @@
 
   let { id } = $props();
   let s = $derived(sphereById[id]);
+  // Spotlight after the level check: the next topic beams, the rest dims, until it is tapped.
+  let spot = $derived(ui.spotlight && s.topics.includes(nextTopic()));
+  $effect(() => { if (ui.spotlight && ui.topic && ui.topic === nextTopic()) ui.spotlight = false; });
   let st = $derived(s && sphereState(s));
   let rad = $derived(s && gradeRadial(s.id));
 
@@ -252,7 +255,7 @@
 {#if !s}
   <p class="card">Ийм анги олдсонгүй.</p>
 {:else}
-  <div class="page" class:morphing bind:this={pageEl} style:--c={sphereLayout[s.id].color}>
+  <div class="page" class:morphing class:spot bind:this={pageEl} style:--c={sphereLayout[s.id].color}>
     <header class="head">
       <h1>{s.title}</h1>
       <p class="key small">
@@ -300,7 +303,7 @@
           >
             <g class="bob" style:animation-delay="{-((n.x * 7 + n.y * 3) % 900) / 100}s" style:animation-duration="{7 + ((n.x + n.y) % 400) / 100}s">
             <circle cx={n.x} cy={n.y} r={RAD.NODE + 10} class="hit" />
-            {#if ts === 'next'}<circle cx={n.x} cy={n.y} r={RAD.NODE + 6} class="halo" />{/if}
+            {#if ts === 'next'}{#if spot}<circle cx={n.x} cy={n.y} r={RAD.NODE + 14} class="beacon" />{/if}<circle cx={n.x} cy={n.y} r={RAD.NODE + 6} class="halo" />{/if}
             {#if ui.topic === t}<circle cx={n.x} cy={n.y} r={RAD.NODE + 6} class="sel" />{/if}
             <!-- The topic's icon sits on top of this spot (HTML layer below); a returning topic gets a dashed ring. -->
             <circle cx={n.x} cy={n.y} r={RAD.NODE + 1} class="c" />
@@ -317,7 +320,7 @@
         {#each s.topics as t (t)}
           {@const n = nodes[t]}
           {@const ts = topicState(t)}
-          <div class="bob ib" data-i={t} class:later={ts === 'later'} style:left="{n.x - RAD.NODE - 1}px" style:top="{n.y - RAD.NODE - 1}px" style:animation-delay="{-((n.x * 7 + n.y * 3) % 900) / 100}s" style:animation-duration="{7 + ((n.x + n.y) % 400) / 100}s">
+          <div class="bob ib" data-i={t} class:later={ts === 'later'} class:nx={ts === 'next'} style:left="{n.x - RAD.NODE - 1}px" style:top="{n.y - RAD.NODE - 1}px" style:animation-delay="{-((n.x * 7 + n.y * 3) % 900) / 100}s" style:animation-duration="{7 + ((n.x + n.y) % 400) / 100}s">
             <TopicIcon id={t} size={RAD.NODE * 2 + 2} known={ts === 'known' || ts === 'faded'} />
           </div>
         {/each}
@@ -378,6 +381,10 @@
   .icons { position: absolute; left: 0; top: 0; transform-origin: 0 0; pointer-events: none; }
   .ib { position: absolute; }
   .ib.later { opacity: 0.6; }
+  .page.spot .node:not(.next), .page.spot .ib:not(.nx), .page.spot .e, .page.spot .border, .page.spot .strand { opacity: 0.15; transition: opacity 0.6s ease-out; }
+  .page.spot .node.next .halo { stroke-width: 5; animation-duration: 1.2s; }
+  .beacon { fill: none; stroke: var(--sun); stroke-width: 6; transform-box: fill-box; transform-origin: center; animation: beacon 1.6s ease-out infinite; filter: drop-shadow(0 0 12px var(--sun)); pointer-events: none; }
+  @keyframes beacon { from { transform: scale(0.9); stroke-opacity: 1; } to { transform: scale(1.5); stroke-opacity: 0; } }
   .head { padding: 12px 0 8px; display: grid; gap: 6px; justify-items: start; }
   h1 { color: var(--c); text-shadow: 0 0 18px color-mix(in srgb, var(--c) 50%, transparent); }
   .key { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
@@ -434,5 +441,5 @@
   .note { padding: 10px 12px; border-radius: 12px; background: var(--sun-soft); color: var(--sun); margin: 6px 0; }
   .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 28px; }
   .actions a { text-decoration: none; }
-  @media (prefers-reduced-motion: reduce) { .halo, .bob { animation: none; } }
+  @media (prefers-reduced-motion: reduce) { .halo, .bob, .beacon { animation: none; } }
 </style>

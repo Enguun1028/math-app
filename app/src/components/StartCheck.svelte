@@ -51,6 +51,7 @@
   let knownCount = $derived(level == null ? 0 : Object.keys(topics).filter((id) => progress.topics?.[id]).length);
   function open() {
     ui.reveal = true;
+    ui.spotlight = true;
     replace('/s/' + target);
   }
 </script>
@@ -92,7 +93,7 @@
       </p>
       <div class="row">
         <button class="btn sun" onclick={open}>{target.slice(1)}-р ангийн зураг руу</button>
-        <button class="btn" onclick={() => { ui.reveal = true; replace('/'); }}>Газрын зураг</button>
+        <button class="btn" onclick={() => { ui.reveal = true; ui.spotlight = true; replace('/'); }}>Газрын зураг</button>
       </div>
     </div>
   {/if}
