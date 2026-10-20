@@ -24,6 +24,9 @@
   });
   let total = $derived(groups.reduce((n, x) => n + x.items.length, 0) + named.length);
   const opens = (x) => x.def || x.steps?.length || x.column;
+  // A row's definition and steps are built the first time it is opened, not for every closed row (2026-10-21).
+  let shown = $state(new Set());
+  const toggled = (x) => (e) => { if (e.currentTarget.open && !shown.has(x)) shown = new Set(shown).add(x); };
 </script>
 
 {#if total}
@@ -42,13 +45,15 @@
         <div class="items">
           {#each g.items as x}
             {#if opens(x)}
-              <details class="fx">
+              <details class="fx" ontoggle={toggled(x)}>
                 <summary class:text={x.text}>{#if x.name}<span class="nm">{x.name}</span>{/if}<RichText text={x.f} /></summary>
+                {#if shown.has(x)}
                 <div class="more">
                   {#if x.def}<p><RichText text={x.def} /></p>{/if}
                   {#if x.column}<ColumnCalc {...x.column} />{/if}
                   {#if x.steps?.length}<ol>{#each x.steps as s}<li><RichText text={s} /></li>{/each}</ol>{/if}
                 </div>
+                {/if}
               </details>
             {:else}
               <div class="fx plain" class:text={x.text}>{#if x.name}<span class="nm">{x.name}</span>{/if}<RichText text={x.f} /></div>

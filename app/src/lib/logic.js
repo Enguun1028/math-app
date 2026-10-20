@@ -93,10 +93,13 @@ export const levelChecked = () =>
 
 // The one clear next step: the first topic in journey order that is ready but not yet known.
 // No next step before the level is known: guessing where a student should start helps nobody.
-export function nextTopic() {
+export function findNext() {
   if (!levelChecked()) return null;
   return order.find((id) => !topicKnown(id) && topicReady(id)) || null;
 }
+// Everyone calls the cached one (nextstep.svelte.js); it recomputes only when progress changes.
+export { nextTopic } from './nextstep.svelte.js';
+import { nextTopic } from './nextstep.svelte.js';
 
 const faded = (id) => {
   const seen = progress.seen[id];

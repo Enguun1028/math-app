@@ -31,13 +31,7 @@
 
   // Owner, 2026-10-12: dragging on a short sheet moved the map behind it. While a sheet is open, a drag on the
   // dimmed background or on a sheet too short to scroll does nothing; a tall sheet scrolls itself and stops at its ends.
-  addEventListener('touchmove', (ev) => {
-    const t = ev.target instanceof Element ? ev.target : null;
-    if (!t) return;
-    if (t.closest('.scrim')) return ev.preventDefault();
-    const sheet = t.closest('.sheet');
-    if (sheet && sheet.scrollHeight <= sheet.clientHeight + 1) ev.preventDefault();
-  }, { passive: false });
+  // Done per sheet (motion.js noBleed) and in CSS (app.css), so scrolling elsewhere never waits for JavaScript.
 
   let [page, id] = $derived(route.parts);
   // Tab pages stand on their own; the other pages get a top bar with "‹ Буцах".
@@ -52,9 +46,8 @@
   // Fade, or with { hold } just keep the layer on screen for that long. The leaving layer is pinned where it was
   // (fixed, at its old scroll spot) and ignores touches, so it never pushes the new page down or scrolls with it.
   const leave = (node, p) => {
-    if (getComputedStyle(node).position !== 'fixed') {
-      Object.assign(node.style, { position: 'fixed', left: '0', right: '0', top: -leaving.y + 'px' });
-    }
+    // The layer is never fixed itself, so no style lookup is needed (it forced a style pass on every page change).
+    Object.assign(node.style, { position: 'fixed', left: '0', right: '0', top: -leaving.y + 'px' });
     node.style.pointerEvents = 'none';
     return p.hold ? { duration: p.hold } : fade(node, p);
   };

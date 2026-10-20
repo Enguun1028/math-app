@@ -95,7 +95,11 @@ function terms(side) {
 }
 
 const lit = (f) => String(f).toLowerCase().replace(/\s+/g, '').replace(/²/g, '^2').replace(/³/g, '^3').replace(/[−–]/g, '-').replace(/[·×]/g, '*').replace(/\(([a-z0-9]+)\)/g, '$1');
-const shapes = Object.values(ideas).map((i) => ({ id: i.id, list: i.formulas.filter(Boolean).map(shape) }));
+// Every formula's shape (about 1 000 formulas), worked out when the phone is idle after start, or on the first
+// formula search if that comes sooner; not while the app starts.
+let shapes = null;
+const allShapes = () => (shapes ??= Object.values(ideas).map((i) => ({ id: i.id, list: i.formulas.filter(Boolean).map(shape) })));
+(globalThis.requestIdleCallback ?? ((f) => setTimeout(f, 2000)))(allShapes, { timeout: 8000 });
 
 // Ideas whose formula has the same shape as the typed one, best first.
 // Exact shape = 100. A typed side that equals one side of a formula = 80 (a²+b²+c² → 3D distance).
@@ -107,7 +111,7 @@ export function formulaMatches(raw) {
   const qSides = q.split('=');
   const qTerms = qSides.flatMap((x) => x.split('+'));
   const found = [];
-  for (const { id, list } of shapes) {
+  for (const { id, list } of allShapes()) {
     let best = 0;
     for (const f of list) {
       if (f === q) best = Math.max(best, 100);

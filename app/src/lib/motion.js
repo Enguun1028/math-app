@@ -37,15 +37,28 @@ export const scrimFade = { duration: ms(200) };
 // taps still work. Calls that overlap extend the lock.
 let lockUntil = 0;
 let lockTimer = 0;
+// The blocking listeners exist only while a lock runs: a non-passive listener on the window makes every scroll on
+// the page wait for JavaScript first, which felt sticky on slow phones.
 const stop = (ev) => { if (performance.now() < lockUntil) ev.preventDefault(); };
-if (typeof addEventListener !== 'undefined') {
-  addEventListener('wheel', stop, { passive: false });
-  addEventListener('touchmove', stop, { passive: false });
-}
+const listen = (on) => {
+  for (const t of ['wheel', 'touchmove']) (on ? addEventListener : removeEventListener)(t, stop, { passive: false });
+};
 export function lockInput(n) {
   if (!n || reduced) return;
+  if (performance.now() >= lockUntil) listen(true);
   lockUntil = Math.max(lockUntil, performance.now() + n);
   document.documentElement.classList.add('moving');
   clearTimeout(lockTimer);
-  lockTimer = setTimeout(() => document.documentElement.classList.remove('moving'), lockUntil - performance.now());
+  lockTimer = setTimeout(() => {
+    document.documentElement.classList.remove('moving');
+    listen(false);
+  }, lockUntil - performance.now());
+}
+
+// A sheet too short to scroll swallows drags, so they never move the page behind it (owner, 2026-10-12).
+// The listener sits on the sheet only, so scrolling anywhere else is not held up.
+export function noBleed(node) {
+  const f = (ev) => { if (node.scrollHeight <= node.clientHeight + 1) ev.preventDefault(); };
+  node.addEventListener('touchmove', f, { passive: false });
+  return { destroy: () => node.removeEventListener('touchmove', f) };
 }

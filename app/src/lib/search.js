@@ -44,7 +44,13 @@ const words = (s) => fold(s).split(/[^\p{L}\p{N}%=+×÷−-]+/u).filter(Boolean)
 
 const letters = (list) => list.filter((w) => /\p{L}/u.test(w));
 // Map topics and dictionary entries are searched together. Keys: "t:<id>" and "e:<id>".
-const index = [
+// Built when the phone is idle after the app has started (or on the first search, if that comes sooner), not
+// while the app starts: the map does not need it, and building it inside the first keystroke froze one frame
+// for about 200 ms on a slow phone (2026-10-21).
+let index = null;
+const idle = globalThis.requestIdleCallback ?? ((f) => setTimeout(f, 2000));
+idle(() => (index ??= buildIndex()), { timeout: 8000 });
+const buildIndex = () => [
   ...Object.values(topics).map((t) => ({ key: 't:' + t.id, title: words(t.name), aliases: [...(ideas[t.id]?.aliases ?? []), ...(extraAliases[t.id] ?? [])].flatMap(words), body: letters(words(t.text)) })),
   // Extra, smaller ideas from content/concepts.json.
   ...Object.values(ideas).filter((i) => !i.topic).map((i) => ({ key: 'i:' + i.id, title: words(i.name), aliases: i.aliases.flatMap(words), body: letters(words(i.def ?? '')) })),
@@ -126,6 +132,7 @@ export function search(raw) {
     }
     if (/[a-z]/i.test(q.replace(/sqrt/gi, ''))) add('t:' + (/=/.test(q) ? OP_TOPIC.eq : OP_TOPIC.var), 7);
   }
+  index ??= buildIndex();
   for (const x of index) if (x.symbol && q === x.symbol) add(x.key, 20);
   // A whole alias typed as is (n!, b^2-4ac, 0.(3)) wins, even when it has no letters to match.
   const whole = q.toLowerCase().replace(/\s+/g, '');

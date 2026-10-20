@@ -36,8 +36,10 @@
   // A topic shows only once; a chain stops where it would loop back.
   let row = $derived.by(() => {
     const seen = new Set([cur]), lefts = [], rights = [];
-    for (let x = l; x && !seen.has(x) && lefts.length < 40; x = leftOf(x)) { seen.add(x); lefts.unshift(x); }
-    for (let x = r; x && !seen.has(x) && rights.length < 40; x = rightOf(x)) { seen.add(x); rights.push(x); }
+    // 15 each way: more than a hard fling travels, and the row re-grows around wherever it stops.
+    // Up to 40 each way rendered 162 icons for one card, which slowed opening on weak phones (2026-10-21).
+    for (let x = l; x && !seen.has(x) && lefts.length < 15; x = leftOf(x)) { seen.add(x); lefts.unshift(x); }
+    for (let x = r; x && !seen.has(x) && rights.length < 15; x = rightOf(x)) { seen.add(x); rights.push(x); }
     return [...lefts, cur, ...rights];
   });
   const isKnown = (x) => ['known', 'faded'].includes(topicState(x));
@@ -141,7 +143,7 @@
   .strip::-webkit-scrollbar { display: none; }
   .it {
     flex: none; width: 120px; scroll-snap-align: center; scroll-snap-stop: always; display: grid; justify-items: center; gap: 6px; padding: 4px 6px;
-    border: 0; background: none; color: var(--ink); transform-origin: 50% 30%; will-change: transform, opacity;
+    border: 0; background: none; color: var(--ink); transform-origin: 50% 30%;
   }
   .pair { display: grid; }
   .pair > span { grid-area: 1 / 1; }

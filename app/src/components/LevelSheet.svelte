@@ -9,7 +9,7 @@
   import { ui } from '../lib/ui.svelte.js';
   import { go } from '../lib/router.svelte.js';
   import { search } from '../lib/search.js';
-  import { sheetIn, sheetOut, scrimFade } from '../lib/motion.js';
+  import { sheetIn, sheetOut, scrimFade, noBleed } from '../lib/motion.js';
 
   const GRADES = [5, 6, 7, 8, 9, 10, 11, 12];
   let q = $state('');
@@ -54,7 +54,7 @@
 
 {#if ui.level}
   <div class="scrim" onclick={close} role="presentation" transition:fade={scrimFade}></div>
-  <div class="sheet" role="dialog" aria-label="Дутагдлаа олъё" in:fly={sheetIn} out:fly={sheetOut}>
+  <div class="sheet" use:noBleed role="dialog" aria-label="Дутагдлаа олъё" in:fly={sheetIn} out:fly={sheetOut}>
     <div class="grab"></div>
     <button class="sheet-close" aria-label="Хаах" onclick={close}>×</button>
     <!-- One question per step (owner, 2026-10-13: "much cleaner and easy to follow"), with a progress row on top. -->

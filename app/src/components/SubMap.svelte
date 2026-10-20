@@ -150,10 +150,19 @@
     const pts = new Map();
     let last = null, moved = 0, vx = 0, vy = 0, lt = 0, glide = 0;
     const measure = () => { box = { w: node.clientWidth, h: node.clientHeight }; cam = fit(cam); };
-    const local = (e) => { const r = node.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; };
+    // The map's place on screen is read once when a finger goes down, not on every move: reading it right after the
+    // camera moved forced the browser to recompute styles each time.
+    let rect = null;
+    const local = (e) => { const r = rect ?? node.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; };
+    // Moves arrive faster than the screen draws (up to 120 a second); the camera is written once per frame.
+    let pending = null, frame = 0;
+    const camNow = () => pending ?? cam;
+    const flush = () => { cancelAnimationFrame(frame); frame = 0; if (pending) { cam = pending; pending = null; } };
+    const setCam = (c) => { pending = c; frame ||= requestAnimationFrame(flush); };
     const pair = () => { const [a, b] = [...pts.values()]; return { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2, d: Math.hypot(a.x - b.x, a.y - b.y) }; };
     const down = (e) => {
       cancelAnimationFrame(glide); cancelAnimationFrame(anim);
+      if (!pts.size) rect = node.getBoundingClientRect();
       pts.set(e.pointerId, local(e));
       if (pts.size === 1) moved = 0;
       last = pts.size === 2 ? pair() : { ...local(e) };
@@ -166,9 +175,11 @@
       if (pts.size === 1) {
         const p = local(e), dx = p.x - last.x, dy = p.y - last.y;
         moved += Math.abs(dx) + Math.abs(dy);
-        cam = fit({ ...cam, x: cam.x + dx, y: cam.y + dy });
+        const c = camNow();
+        setCam(fit({ ...c, x: c.x + dx, y: c.y + dy }));
         vx = dx / dt; vy = dy / dt; last = p;
       } else if (pts.size === 2) {
+        flush();
         const p = pair();
         moved += 10;
         const shifted = { ...cam, x: cam.x + p.x - last.x, y: cam.y + p.y - last.y };
@@ -181,6 +192,8 @@
       if (!pts.delete(e.pointerId)) return;
       if (pts.size === 1) { last = { ...[...pts.values()][0] }; return; }
       if (pts.size) return;
+      flush();
+      rect = null;
       // Momentum: the map keeps sliding and slows down, like flicking a game map.
       let t = performance.now();
       const slide = (now) => {

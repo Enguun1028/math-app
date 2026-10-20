@@ -16,9 +16,18 @@
 
   let q = $state(ui.lastQuery ?? '');
   let input;
+  // Results follow the typing 120 ms after the last letter, so fast typing on a slow phone is not held up by a full
+  // search on every key (owner, 2026-10-21). The box itself always shows each letter at once.
+  let sq = $state(q);
+  $effect(() => {
+    const v = q;
+    if (!v.trim()) { sq = v; return; }
+    const tm = setTimeout(() => (sq = v), 120);
+    return () => clearTimeout(tm);
+  });
   // A weak "did you mean" shape guess is dropped when the expression's kind is clear (x + y = 7 → систем).
-  let found = $derived(formulaMatches(q).filter((f) => f.score >= 80 || !kindOf(q).length));
-  let words = $derived(search(q).filter((r) => !found.some((f) => f.id === r.id)));
+  let found = $derived(formulaMatches(sq).filter((f) => f.score >= 80 || !kindOf(sq).length));
+  let words = $derived(search(sq).filter((r) => !found.some((f) => f.id === r.id)));
   let mathy = $derived(looksLikeMath(q) || /\^|²|√|=/.test(q));
   // Something the graph calculator can draw (y = …, x² + y² = 9, (2; 3)): offer to open it there.
   let drawable = $derived(mathy && ['fn', 'implicit', 'vline', 'point'].includes(readLine(q).kind));

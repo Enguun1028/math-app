@@ -188,3 +188,6 @@ html.moving .scroller, html.moving .topic .scroll { overflow: hidden !important;
 .lite .beacon { filter: none !important; } /* stays as a still ring: it still shows the next step */
 .lite * { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
 .lite :is(svg, .tab svg, .walker) { filter: none !important; }
+
+/* A drag on the dimmed background never moves the page behind a sheet (owner, 2026-10-12). */
+.scrim { touch-action: none; }

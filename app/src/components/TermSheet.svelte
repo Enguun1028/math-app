@@ -5,7 +5,7 @@
   import { entryState } from '../lib/logic.js';
   import RichText from './RichText.svelte';
   import { fly, fade } from 'svelte/transition';
-  import { sheetIn, sheetOut, scrimFade, ms } from '../lib/motion.js';
+  import { sheetIn, sheetOut, scrimFade, ms, noBleed } from '../lib/motion.js';
 
   // The last entry stays on the card while it slides away.
   let isOpen = $derived(!!(ui.preview && entries[ui.preview]));
@@ -18,7 +18,7 @@
 
 {#if isOpen}
   <div class="scrim" onclick={close} role="presentation" transition:fade={scrimFade}></div>
-  <div class="sheet" role="dialog" aria-label={e.title} in:fly={sheetIn} out:fly={sheetOut}>
+  <div class="sheet" use:noBleed role="dialog" aria-label={e.title} in:fly={sheetIn} out:fly={sheetOut}>
     <div class="grab"></div>
     <p class="small muted">{sphereById[e.sphere]?.title} · {e.type}</p>
     <h2 class="t">{#if e.symbol}<span class="sym"><RichText text={e.symbol} /></span>{/if}{e.title}</h2>
