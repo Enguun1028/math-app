@@ -1,11 +1,11 @@
 /* Neon night: the dark, glowing look of the earlier map versions. */
 :root {
   --bg: #05070d;
-  --surface: rgba(16, 22, 36, 0.92);
-  --surface-solid: #101624;
-  --ink: #e6f0ff;
-  --muted: #8b9bb4;
-  --line: rgba(120, 160, 220, 0.18);
+  --surface: rgba(17, 20, 27, 0.92);
+  --surface-solid: #11141B;
+  --ink: #EEF1F5;
+  --muted: #A3ACBA;
+  --line: rgba(255, 255, 255, 0.10);
   --sky: #22d3ee;
   --sky-deep: #8beeff;
   --sky-soft: rgba(34, 211, 238, 0.12);
@@ -19,8 +19,8 @@
   --warn: #ff7a8a;
   --warn-soft: rgba(255, 122, 138, 0.12);
   --radius: 16px;
-  --shadow: 0 0 0 1px rgba(34, 211, 238, 0.04), 0 8px 30px rgba(0, 0, 0, 0.45);
-  --glow: 0 0 18px rgba(34, 211, 238, 0.35);
+  --shadow: 0 0 0 1px rgba(34, 211, 238, 0.02), 0 8px 30px rgba(0, 0, 0, 0.45);
+  --glow: 0 0 18px rgba(34, 211, 238, 0.21);
   --font: 'Manrope', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --math: 'Cambria Math', 'STIX Two Math', 'Times New Roman', serif;
   /* One type scale for every page (Apple-style sizes): title 34, section 22, body 17, small 14. */
@@ -96,7 +96,7 @@ sup { font-size: 0.7em; line-height: 0; }
   border: 1px solid var(--line); background: var(--surface); font-weight: 700;
 }
 .btn.primary { background: var(--sky); border-color: var(--sky); color: var(--on-sky); box-shadow: var(--glow); }
-.btn.sun { background: var(--sun); border-color: var(--sun); color: #2a1a00; box-shadow: 0 0 18px rgba(255, 204, 102, 0.4); }
+.btn.sun { background: var(--sun); border-color: var(--sun); color: #2a1a00; box-shadow: 0 0 18px rgba(255, 204, 102, 0.24); }
 .btn.ghost { background: transparent; border-color: transparent; color: var(--sky); padding: 0 8px; }
 .btn:focus-visible, .chip:focus-visible, .term:focus-visible { outline: 3px solid var(--sky); outline-offset: 2px; }
 

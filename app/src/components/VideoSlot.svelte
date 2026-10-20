@@ -44,7 +44,7 @@
 <style>
   /* A video looks clickable through visuals only (owner, 2026-10-16): frame in the topic colour, a thumbnail-like
      backdrop and a large play disc with a slow pulse ring. No extra text or arrow. --c falls back to sky outside a topic. */
-  .slot { position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 16px; overflow: hidden; border: 1.5px solid color-mix(in srgb, var(--c, var(--sky)) 70%, transparent); background: #070b16; box-shadow: 0 0 22px color-mix(in srgb, var(--c, var(--sky)) 22%, transparent); }
+  .slot { position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 16px; overflow: hidden; border: 1.5px solid color-mix(in srgb, var(--c, var(--sky)) 70%, transparent); background: #08090E; box-shadow: 0 0 22px color-mix(in srgb, var(--c, var(--sky)) 22%, transparent); }
   .slot.vertical { aspect-ratio: 9 / 16; max-width: 320px; margin: 0 auto; }
   .slot.empty { aspect-ratio: auto; border: 1px dashed var(--line); box-shadow: none; }
   .soon { display: flex; align-items: center; gap: 12px; padding: 14px; }
@@ -53,7 +53,7 @@
   .play svg { width: 22px; height: 22px; fill: var(--sky); }
   .cover {
     position: absolute; inset: 0; border: 0; display: grid; place-content: center; justify-items: center; gap: 12px; color: var(--ink);
-    background: radial-gradient(55% 70% at 50% 45%, color-mix(in srgb, var(--c, var(--sky)) 32%, transparent), transparent 72%), repeating-linear-gradient(135deg, #0b1220 0 14px, #0e1628 14px 28px);
+    background: radial-gradient(55% 70% at 50% 45%, color-mix(in srgb, var(--c, var(--sky)) 32%, transparent), transparent 72%), repeating-linear-gradient(135deg, #12161E 0 14px, #12161E 14px 28px);
   }
   .cover .play { width: 68px; height: 68px; background: var(--c, var(--sky)); box-shadow: 0 0 30px var(--c, var(--sky)); }
   .cover .play::after { content: ''; position: absolute; inset: -10px; border-radius: 50%; border: 2px solid var(--c, var(--sky)); animation: ring 2.2s ease-out infinite; }

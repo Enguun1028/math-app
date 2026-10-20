@@ -206,7 +206,7 @@
   .m { font-family: var(--math); font-size: 1.1em; color: var(--ink); }
   .hero {
     display: grid; gap: 8px; justify-items: start; padding: 18px; border-radius: 22px;
-    background: linear-gradient(160deg, color-mix(in srgb, var(--c) 22%, transparent), rgba(10, 14, 24, 0.6));
+    background: linear-gradient(160deg, color-mix(in srgb, var(--c) 22%, transparent), rgba(12, 15, 21, 0.6));
     border: 1px solid color-mix(in srgb, var(--c) 50%, transparent);
   }
   /* Place bar: grade › strand › topic. */

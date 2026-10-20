@@ -18,7 +18,7 @@
     generalizes: ['Ерөнхийлнө', '#a78bfa'],
     representation: ['Өөр дүрслэл', '#ffd166'],
     application: ['Хэрэглээ', '#ff7aa8'],
-    analogy: ['Төстэй', '#9aa5bf'],
+    analogy: ['Төстэй', '#A3ACBA'],
   };
 
   let sel = $derived(ui.topic && pos[ui.topic] ? ui.topic : null);
@@ -114,18 +114,18 @@
   }
   .pan::-webkit-scrollbar { display: none; }
   svg { display: block; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; }
-  .col { fill: #0a1022; }
-  .col.odd { fill: #0b1328; }
-  .bname { fill: #8d9abb; font-size: 10.5px; font-weight: 700; text-anchor: middle; }
+  .col { fill: #0C0F15; }
+  .col.odd { fill: #12161E; }
+  .bname { fill: #A3ACBA; font-size: 10.5px; font-weight: 700; text-anchor: middle; }
   .e { fill: none; stroke: var(--sky); stroke-opacity: 0.13; stroke-width: 1; }
   .e.sel { stroke-opacity: 0.95; stroke-width: 2; }
   .e.dash { stroke-dasharray: 5 4; }
   .node { cursor: pointer; outline: none; transition: opacity 0.2s ease-out; }
   .node.dim { opacity: 0.25; }
-  .box { fill: #121b33; stroke: var(--tc); stroke-opacity: 0.8; }
-  .node.base .box { fill: #0a1022; stroke-opacity: 0.5; stroke-dasharray: 3 3; }
+  .box { fill: #171B24; stroke: var(--tc); stroke-opacity: 0.8; }
+  .node.base .box { fill: #0C0F15; stroke-opacity: 0.5; stroke-dasharray: 3 3; }
   .node.on .box { fill: #2a2410; stroke: var(--sun); stroke-opacity: 1; stroke-width: 2; }
-  .node.known .box { fill: color-mix(in srgb, var(--tc) 22%, #121b33); }
+  .node.known .box { fill: color-mix(in srgb, var(--tc) 22%, #171B24); }
   .node:focus-visible .box { stroke-width: 2.5; }
   .n { fill: var(--ink); font-size: 10.5px; font-weight: 600; pointer-events: none; }
   .node.base .n { fill: var(--muted); }

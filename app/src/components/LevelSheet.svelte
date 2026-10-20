@@ -134,7 +134,7 @@
   .n { flex: none; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; font-size: 0.8rem; font-weight: 800; background: var(--sun-soft); color: var(--sun); }
   .tip { display: grid; gap: 10px; justify-items: start; padding: 16px; border-radius: 18px; background: var(--sun-soft); border: 1px solid color-mix(in srgb, var(--sun) 35%, transparent); }
   .tip p { margin: 0; }
-  .bulb { width: 40px; height: 40px; fill: none; stroke: var(--sun); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 8px rgba(255, 204, 102, 0.55)); }
+  .bulb { width: 40px; height: 40px; fill: none; stroke: var(--sun); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 8px rgba(255, 204, 102, 0.33)); }
   .wide { width: 100%; min-height: 50px; font-size: 1.05rem; }
   .back { justify-self: start; min-height: 44px; border: 0; background: none; color: var(--sky); font-weight: 700; padding: 0 4px; }
 </style>

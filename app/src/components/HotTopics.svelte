@@ -91,7 +91,7 @@
     box-shadow: 0 0 14px color-mix(in srgb, var(--c) 45%, transparent);
   }
   .face {
-    border-radius: 50%; display: grid; place-items: center; background: #070b16; border: 2px solid #05070d;
+    border-radius: 50%; display: grid; place-items: center; background: #08090E; border: 2px solid #05070d;
     font-family: var(--math); font-size: 0.78rem; color: #fff; white-space: nowrap; overflow: hidden;
   }
   .st.seen .ring { background: var(--line); box-shadow: none; }

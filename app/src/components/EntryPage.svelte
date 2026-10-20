@@ -288,7 +288,7 @@
     background: linear-gradient(var(--sky), transparent); opacity: 0.35;
   }
   .step.warn::before { border-color: var(--warn); color: var(--warn); box-shadow: 0 0 14px rgba(255, 122, 138, 0.35); content: '!'; }
-  .step.check::before { border-color: var(--grass); color: var(--grass); box-shadow: 0 0 14px rgba(94, 234, 154, 0.35); content: '✓'; }
+  .step.check::before { border-color: var(--grass); color: var(--grass); box-shadow: 0 0 14px rgba(94, 234, 154, 0.21); content: '✓'; }
 
   .worked { display: grid; gap: 12px; padding: 18px; border-radius: 20px; background: var(--surface); border: 1px solid var(--line); }
   .problem { font-family: var(--math); font-size: 1.7rem; line-height: 1.2; color: var(--sky-deep); }

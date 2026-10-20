@@ -67,7 +67,7 @@
   section { display: grid; gap: 8px; }
   .next {
     display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 12px; padding: 14px; border-radius: 20px;
-    background: rgba(10, 14, 24, 0.96); border: 1px solid rgba(255, 204, 102, 0.55); box-shadow: 0 0 28px rgba(255, 204, 102, 0.18);
+    background: rgba(12, 15, 21, 0.96); border: 1px solid rgba(255, 204, 102, 0.33); box-shadow: 0 0 28px rgba(255, 204, 102, 0.11);
     color: var(--ink); text-decoration: none; text-align: left; font: inherit;
   }
   .nf { min-width: 48px; height: 48px; padding: 0 6px; border-radius: 50%; border: 1.5px solid var(--sun); color: var(--sun); display: grid; place-items: center; font: 0.95rem var(--math); white-space: nowrap; }

@@ -393,7 +393,7 @@
   .panwrap { position: relative; }
   .zoom { position: absolute; right: 0; bottom: 10px; display: grid; gap: 6px; }
   .zoom button {
-    width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background: rgba(10, 14, 24, 0.9);
+    width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background: rgba(12, 15, 21, 0.9);
     color: var(--ink); font-size: 1.4rem; font-weight: 700; display: grid; place-items: center; backdrop-filter: blur(8px);
   }
   .zoom button:disabled { opacity: 0.35; }
@@ -403,7 +403,7 @@
   .pan:active { cursor: grabbing; }
   .mini { position: absolute; left: 0; top: 0; transform-origin: 0 0; will-change: transform; display: block; overflow: visible; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; }
   .ring { fill: none; stroke: var(--c); stroke-opacity: 0.1; }
-  .border { stroke: #24304f; stroke-dasharray: 2 6; }
+  .border { stroke: #262C38; stroke-dasharray: 2 6; }
   /* Slice names keep one readable size on screen at every zoom; they stay in place on the map. */
   .strand {
     position: absolute; z-index: 1; pointer-events: none; white-space: nowrap; font-size: 14px; font-weight: 800; line-height: 1.2;
@@ -412,7 +412,7 @@
   .e { fill: none; stroke-opacity: 0.6; stroke-width: 1.7; }
   .e.root { stroke-opacity: 0.22; stroke-width: 1.4; }
   .e.on { stroke-opacity: 1; stroke-width: 2.4; }
-  .core { fill: #0b1226; stroke: var(--c); stroke-width: 2; }
+  .core { fill: #12161E; stroke: var(--c); stroke-width: 2; }
   .grade { fill: var(--c); font-size: 42px; font-weight: 800; text-anchor: middle; }
   .node { cursor: pointer; outline: none; }
   .hit { fill: transparent; }

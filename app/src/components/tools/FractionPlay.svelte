@@ -261,7 +261,7 @@
   .cap { min-height: 4.3em; font-weight: 700; font-size: 1.02rem; line-height: 1.4; text-wrap: pretty; }
   .stage { position: relative; }
   svg { display: block; width: 100%; height: auto; overflow: visible; }
-  .frame { fill: rgba(10, 14, 24, 0.6); stroke: var(--line); stroke-width: 1.2; }
+  .frame { fill: rgba(12, 15, 21, 0.6); stroke: var(--line); stroke-width: 1.2; }
   .frame.res { opacity: 0; transition: opacity 0.5s; }
   .frame.res.show { opacity: 1; stroke: color-mix(in srgb, var(--grass) 60%, transparent); }
   .piece { transform-box: view-box; transition: transform 0.9s cubic-bezier(0.32, 0.72, 0, 1), opacity 0.6s; }
@@ -305,7 +305,7 @@
   .who { width: 26px; font-weight: 800; color: var(--col); }
   .mrow.a { --col: var(--sky); } .mrow.b { --col: var(--sun); }
   .m { min-width: 32px; padding: 3px 6px; text-align: center; border-radius: 8px; border: 1px solid var(--line); color: var(--muted); font-variant-numeric: tabular-nums; animation: pop 0.35s both; }
-  .m.hit { background: var(--grass); border-color: var(--grass); color: #052012; font-weight: 800; box-shadow: 0 0 10px rgba(94, 234, 154, 0.55); }
+  .m.hit { background: var(--grass); border-color: var(--grass); color: #052012; font-weight: 800; box-shadow: 0 0 10px rgba(94, 234, 154, 0.33); }
   @keyframes pop { from { opacity: 0; transform: translateY(6px) scale(0.9); } }
   .ctl { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
   .btns { display: flex; gap: 8px; }

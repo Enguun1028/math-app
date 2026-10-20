@@ -108,6 +108,6 @@
   }
   .st.ok { background: var(--grass-soft); border-color: var(--grass); color: var(--grass); }
   .st.miss { background: var(--sun-soft); border-color: var(--sun); color: var(--sun); }
-  .st.now { border-color: var(--sky); color: var(--ink); box-shadow: 0 0 10px rgba(34, 211, 238, 0.4); }
+  .st.now { border-color: var(--sky); color: var(--ink); box-shadow: 0 0 10px rgba(34, 211, 238, 0.24); }
   .row { display: flex; gap: 8px; flex-wrap: wrap; }
 </style>

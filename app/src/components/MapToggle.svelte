@@ -25,11 +25,11 @@
   }
   .toggle {
     position: relative; display: inline-grid; grid-template-columns: 1fr 1fr; padding: 3px; border-radius: 999px;
-    background: rgba(10, 14, 24, 0.92); border: 1px solid var(--line); pointer-events: auto; backdrop-filter: blur(10px);
+    background: rgba(12, 15, 21, 0.92); border: 1px solid var(--line); pointer-events: auto; backdrop-filter: blur(10px);
   }
   .pill {
     position: absolute; top: 3px; bottom: 3px; left: 3px; width: calc(50% - 3px); border-radius: 999px;
-    background: var(--sky); box-shadow: 0 0 14px rgba(34, 211, 238, 0.45);
+    background: var(--sky); box-shadow: 0 0 14px rgba(34, 211, 238, 0.27);
     transition: transform 0.32s cubic-bezier(0.32, 0.72, 0, 1);
   }
   .toggle.math .pill { transform: translateX(100%); }

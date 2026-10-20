@@ -221,7 +221,7 @@
   .tag.b { color: var(--sun); background: var(--sun-soft); }
   /* Sliced bars: thin lines between slices, thick ones where the original parts were. */
   .bar.fine { gap: 0; height: 40px; border-radius: 8px; overflow: hidden; border: 1.5px solid var(--line); }
-  .bar.fine .cell { border-radius: 0; border: 0; border-left: 1.5px solid rgba(230, 240, 255, 0.55); }
+  .bar.fine .cell { border-radius: 0; border: 0; border-left: 1.5px solid rgba(238, 241, 245, 0.55); }
   .bar.fine .cell:first-child { border-left: 0; }
   .bar.fine .cell.edge { border-left: 3.5px solid #ffffff; }
   .bar.fine .cell.a.on { background: var(--sky); box-shadow: none; }
@@ -234,7 +234,7 @@
   .who { width: 28px; font-weight: 800; color: var(--col); }
   .mrow.a { --col: var(--sky); } .mrow.b { --col: var(--sun); }
   .m { min-width: 34px; padding: 4px 6px; text-align: center; border-radius: 8px; border: 1px solid var(--line); font-variant-numeric: tabular-nums; color: var(--muted); }
-  .m.hit { background: var(--grass); border-color: var(--grass); color: #052012; font-weight: 800; box-shadow: 0 0 10px rgba(94, 234, 154, 0.5); }
+  .m.hit { background: var(--grass); border-color: var(--grass); color: #052012; font-weight: 800; box-shadow: 0 0 10px rgba(94, 234, 154, 0.3); }
   .hitword { color: var(--grass); }
   .topic { justify-self: start; display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); color: var(--sky-deep); font-weight: 700; text-decoration: none; }
   /* + and −: the two fractions and the answer in one aligned stack, same width, same slices. */
@@ -251,10 +251,10 @@
   .area .cell { border-radius: 3px; background: var(--surface-solid); border: 1px solid var(--line); transition: background 0.25s; }
   .area .cell.ina { background: color-mix(in srgb, var(--sky) 35%, var(--surface-solid)); }
   .area .cell.inb { background: color-mix(in srgb, var(--sun) 35%, var(--surface-solid)); }
-  .area .cell.solo.ina { background: var(--sky); box-shadow: 0 0 8px rgba(34, 211, 238, 0.45); }
-  .area .cell.solo.inb { background: var(--sun); box-shadow: 0 0 8px rgba(255, 204, 102, 0.45); }
+  .area .cell.solo.ina { background: var(--sky); box-shadow: 0 0 8px rgba(34, 211, 238, 0.27); }
+  .area .cell.solo.inb { background: var(--sun); box-shadow: 0 0 8px rgba(255, 204, 102, 0.27); }
   .topic.two { display: grid; gap: 0; padding: 8px 14px; border-radius: 16px; }
-  .area .cell.both { background: var(--grass); box-shadow: 0 0 6px rgba(94, 234, 154, 0.5); }
+  .area .cell.both { background: var(--grass); box-shadow: 0 0 6px rgba(94, 234, 154, 0.3); }
   /* A wider gap where one whole rectangle meets the next. */
   .area .cell.ec { margin-left: 6px; }
   .area .cell.er { margin-top: 6px; }

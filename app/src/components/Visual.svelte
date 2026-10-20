@@ -125,7 +125,7 @@
 
   .grid { display: grid; gap: 3px; width: 100%; }
   .cell { aspect-ratio: 1; border-radius: 4px; background: var(--surface); border: 1px solid rgba(34, 211, 238, 0.3); }
-  .cell.on { background: var(--sky); border-color: var(--sky); box-shadow: 0 0 6px rgba(34, 211, 238, 0.6); }
+  .cell.on { background: var(--sky); border-color: var(--sky); box-shadow: 0 0 6px rgba(34, 211, 238, 0.36); }
   .cell.split { box-shadow: -3px 0 0 var(--sun); }
 
   .bar { display: grid; gap: 3px; width: 100%; max-width: 320px; height: 44px; }
@@ -140,9 +140,9 @@
   .cubes { display: flex; flex-wrap: wrap; gap: 5px; justify-content: center; max-width: 230px; }
   .cube {
     width: 24px; height: 24px; border-radius: 6px; background: var(--sky);
-    box-shadow: inset 0 3px 0 rgba(255, 255, 255, 0.35), inset 0 -3px 0 rgba(0, 0, 0, 0.25), 0 0 8px rgba(34, 211, 238, 0.45);
+    box-shadow: inset 0 3px 0 rgba(255, 255, 255, 0.35), inset 0 -3px 0 rgba(0, 0, 0, 0.25), 0 0 8px rgba(34, 211, 238, 0.27);
   }
-  .cube.b { background: var(--sun); box-shadow: inset 0 3px 0 rgba(255, 255, 255, 0.4), inset 0 -3px 0 rgba(0, 0, 0, 0.2), 0 0 8px rgba(255, 204, 102, 0.45); }
+  .cube.b { background: var(--sun); box-shadow: inset 0 3px 0 rgba(255, 255, 255, 0.4), inset 0 -3px 0 rgba(0, 0, 0, 0.2), 0 0 8px rgba(255, 204, 102, 0.27); }
   .grp:last-child .cube { animation: pop 0.4s cubic-bezier(0.32, 0.72, 0, 1) both; }
   @keyframes pop { from { opacity: 0; transform: translateY(8px); } }
   .num { font: 800 1.4rem var(--font); color: var(--sky-deep); }

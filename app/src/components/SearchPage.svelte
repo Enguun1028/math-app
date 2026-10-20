@@ -135,9 +135,9 @@
   .bar { position: sticky; top: env(safe-area-inset-top); z-index: 5; display: grid; gap: 8px; padding: 8px 0 10px; background: linear-gradient(var(--bg) 85%, transparent); }
   .box {
     display: flex; align-items: center; gap: 10px; min-height: 52px; padding: 0 8px 0 16px; border-radius: 16px;
-    background: rgba(10, 14, 24, 0.92); border: 1.5px solid color-mix(in srgb, var(--sky) 55%, transparent); box-shadow: 0 0 24px rgba(34, 211, 238, 0.18);
+    background: rgba(12, 15, 21, 0.92); border: 1.5px solid color-mix(in srgb, var(--sky) 55%, transparent); box-shadow: 0 0 24px rgba(34, 211, 238, 0.11);
   }
-  .box:focus-within { border-color: var(--sky); box-shadow: 0 0 28px rgba(34, 211, 238, 0.32); }
+  .box:focus-within { border-color: var(--sky); box-shadow: 0 0 28px rgba(34, 211, 238, 0.19); }
   .box svg { width: 20px; height: 20px; flex: none; fill: none; stroke: var(--sky); stroke-width: 2.2; stroke-linecap: round; }
   .box input { flex: 1; min-width: 0; border: 0; outline: 0; background: none; font: inherit; font-size: 17px; }
   .box input::-webkit-search-cancel-button, .box input::-webkit-search-decoration { -webkit-appearance: none; appearance: none; display: none; }
@@ -153,8 +153,8 @@
   .preview { font: 1.6rem var(--math); color: var(--sky-deep); padding: 10px 14px; border-radius: 14px; background: var(--sky-soft); }
   .top {
     display: grid; gap: 4px; justify-items: start; text-align: left; padding: 16px; border-radius: 20px;
-    background: linear-gradient(160deg, rgba(34, 211, 238, 0.16), rgba(10, 14, 24, 0.7)); border: 1.5px solid color-mix(in srgb, var(--sky) 55%, transparent);
-    box-shadow: 0 0 26px rgba(34, 211, 238, 0.16);
+    background: linear-gradient(160deg, rgba(34, 211, 238, 0.16), rgba(12, 15, 21, 0.7)); border: 1.5px solid color-mix(in srgb, var(--sky) 55%, transparent);
+    box-shadow: 0 0 26px rgba(34, 211, 238, 0.1);
   }
   .top .small:first-child { color: var(--sky-deep); font-weight: 800; }
   .top strong { font-size: 1.35rem; letter-spacing: -0.015em; }

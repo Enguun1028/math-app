@@ -343,7 +343,7 @@
   .icon svg { width: 27px; height: 27px; fill: none; stroke: currentColor; stroke-width: 2.1; stroke-linecap: round; }
   .welcome {
     position: relative; margin-top: 10px; padding: 14px 52px 14px 16px; display: grid; gap: 10px; justify-items: start;
-    border-radius: 18px; background: rgba(10, 14, 24, 0.94); border: 1px solid color-mix(in srgb, var(--grass) 45%, var(--line));
+    border-radius: 18px; background: rgba(12, 15, 21, 0.94); border: 1px solid color-mix(in srgb, var(--grass) 45%, var(--line));
     backdrop-filter: blur(12px);
   }
   .welcome > div { display: grid; }
@@ -357,15 +357,15 @@
   .find {
     justify-self: start; display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 18px 0 14px;
     border-radius: 999px; font-weight: 800; color: var(--sun);
-    background: rgba(10, 14, 24, 0.96); border: 1px solid rgba(255, 204, 102, 0.6);
-    box-shadow: 0 0 24px rgba(255, 204, 102, 0.25); animation: glow 2.6s ease-in-out infinite;
+    background: rgba(12, 15, 21, 0.96); border: 1px solid rgba(255, 204, 102, 0.6);
+    box-shadow: 0 0 24px rgba(255, 204, 102, 0.15); animation: glow 2.6s ease-in-out infinite;
   }
   .find svg { width: 20px; height: 20px; fill: none; stroke: var(--sun); stroke-width: 2; stroke-linecap: round; }
-  @keyframes glow { 50% { box-shadow: 0 0 34px rgba(255, 204, 102, 0.45); } }
+  @keyframes glow { 50% { box-shadow: 0 0 34px rgba(255, 204, 102, 0.27); } }
   .nextcard {
     display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 8px 10px; padding: 10px 10px 10px 12px;
-    border-radius: 18px; background: rgba(10, 14, 24, 0.96);
-    border: 1px solid rgba(255, 204, 102, 0.55); box-shadow: 0 0 28px rgba(255, 204, 102, 0.2);
+    border-radius: 18px; background: rgba(12, 15, 21, 0.96);
+    border: 1px solid rgba(255, 204, 102, 0.33); box-shadow: 0 0 28px rgba(255, 204, 102, 0.12);
   }
   .nt { display: flex; align-items: center; gap: 10px; min-width: 0; border: 0; background: none; padding: 0; text-align: left; }
   .nf { flex: none; min-width: 44px; height: 44px; padding: 0 6px; display: grid; place-items: center; border-radius: 50%; border: 1.5px solid var(--sun); color: var(--sun); font-family: var(--math); font-size: 0.9rem; white-space: nowrap; }
