@@ -174,5 +174,14 @@ input, textarea, select { font-size: 16px; }
    layer that is zooming or fading. */
 html.moving .scroller, html.moving .topic .scroll { overflow: hidden !important; }
 
-/* A topic card covers the map: pause the map's floating, pulsing and beacon so the phone only draws the card. */
-.sheet-open .bob, .sheet-open .halo, .sheet-open .beacon { animation-play-state: paused; }
+/* Endless animations stop while something covers or moves the map, so the phone only draws what is seen.
+   !important: component styles have the same weight and load later, so without it they would win. */
+:is(.sheet-open, .story-open) :is(.dx, .dy, .bob, .halo, .pulse, .beacon, .fab, .fab::after, .find, .find::after, .nextcard.lit, .nextcard.lit::after),
+:is(.zooming, .morphing) :is(.dx, .dy, .bob, .halo, .pulse, .beacon) { animation-play-state: paused !important; }
+
+/* Lite mode for weak phones (lib/perf.js): no drifting, floating, pulsing glows, drop shadows or blur.
+   Everything stays where it is and looks the same when still; only the motion and soft glows go. */
+.lite :is(.dx, .dy, .bob, .halo, .pulse, .beacon, .fab, .fab::after, .find, .find::after, .nextcard.lit, .nextcard.lit::after, .sphere.reveal .rim, .sphere.reveal .body) { animation: none !important; }
+.lite .beacon { filter: none !important; } /* stays as a still ring: it still shows the next step */
+.lite * { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+.lite :is(svg, .tab svg, .walker) { filter: none !important; }

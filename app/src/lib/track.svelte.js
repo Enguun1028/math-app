@@ -43,6 +43,10 @@ function context() {
     level_checked: !!progress.levelChecked,
     known_topics: Object.keys(progress.topics ?? {}).length,
     installed: matchMedia('(display-mode: standalone)').matches,
+    // Device class, so tap speed can be compared between weak and strong phones (lite: see perf.js).
+    lite: document.documentElement.classList.contains('lite'),
+    cores: navigator.hardwareConcurrency ?? null,
+    memory: navigator.deviceMemory ?? null,
   };
 }
 
