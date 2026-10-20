@@ -3,7 +3,7 @@
   // It starts at the student's grade and steps up after a pass, down after a miss, until it finds the edge.
   // At the end, known topics light up and the grade the student picked opens (owner, 2026-10-13).
   import { fly } from 'svelte/transition';
-  import { levelQuestions, startGrade, nextLevelGrade, applyLevel, LEVEL_PASS, LEVEL_MIN } from '../lib/logic.js';
+  import { levelQuestions, startGrade, nextLevelGrade, applyLevel, LEVEL_PASS, LEVEL_MIN, LEVEL_ROUNDS } from '../lib/logic.js';
   import { topics } from '../lib/content.js';
   import { progress } from '../lib/progress.svelte.js';
   import { ui } from '../lib/ui.svelte.js';
@@ -28,7 +28,10 @@
     track('level_round', { tested_grade: grade, passed: ok, right: results.filter(Boolean).length, round: round + 1 });
     const next = nextLevelGrade(grade, ok, passed, missed);
     round += 1;
+    eased = !ok && next != null;
     if (next == null) finish();
+    // The promised length is reached: a miss ends here; a pass asks whether to keep going up.
+    else if (round >= LEVEL_ROUNDS && !keepGoing) ok ? (asking = next) : finish();
     // Not ЭЕШ: once the student has passed one grade above their own, that is usually enough for their goal.
     // Pause and ask instead of testing all the way to grade 12 (owner, 2026-10-13).
     else if (ok && !keepGoing && progress.goal !== 'eesh' && progress.grade && grade >= progress.grade + 1) asking = next;
@@ -36,11 +39,13 @@
   }
   let asking = $state(null); // the next grade, while the student decides
   let keepGoing = false;
-  function finish() {
+  let eased = $state(false); // the last round was a miss: say so kindly above the easier questions
+  // stopped: the student pressed "Зогсоох" after at least one round; they still get a result from what was tested.
+  function finish(stopped = false) {
     asking = null;
     level = passed.size ? Math.max(...passed) : LEVEL_MIN - 1;
     applyLevel(level, missedConcepts);
-    track('level_check_finished', { level, rounds: round, missed_concepts: [...missedConcepts] });
+    track('level_check_finished', { level, rounds: round, stopped, missed_concepts: [...missedConcepts] });
     setVisitor({ level, grade: progress.grade ?? null, goal: progress.goal ?? null });
   }
   function goOn() {
@@ -52,7 +57,8 @@
 
   const label = (g) => (g <= 4 ? '1–4-р ангийн суурь' : g + '-р анги');
   // Where to go after: the grade the student picked, else the first grade above their level.
-  let target = $derived(level == null ? null : 'g' + Math.min(12, Math.max(5, progress.grade || level + 1)));
+  // If no grade was passed, the first grade map instead: opening a grade they just failed reads as another failure.
+  let target = $derived(level == null ? null : 'g' + Math.min(12, Math.max(5, passed.size ? progress.grade || level + 1 : 5)));
   let knownCount = $derived(level == null ? 0 : Object.keys(topics).filter((id) => progress.topics?.[id]).length);
   function open() {
     ui.reveal = true;
@@ -63,8 +69,9 @@
 
 <header class="head">
   <div class="top">
-    <p class="small muted">Дутагдлаа олъё{level == null ? ` · ${label(grade)}` : ''}</p>
-    {#if level == null}<button class="btn ghost stop" onclick={() => go('/')}>Зогсоох</button>{/if}
+    <p class="small muted">Дутагдлаа олъё{level == null ? ` · ${label(grade)} · Шат ${round + 1}/${Math.max(LEVEL_ROUNDS, round + 1)}` : ''}</p>
+    <!-- After a round, stopping still shows a result from what was tested, so no effort is lost. -->
+    {#if level == null}<button class="btn ghost stop" onclick={() => (round ? finish(true) : go('/'))}>Зогсоох</button>{/if}
   </div>
   <!-- Grades tested so far: green = known, amber = not yet. -->
   <div class="steps" aria-label="Шалгасан ангиуд">
@@ -72,8 +79,10 @@
       <span class="st" class:ok={passed.has(g)} class:miss={missed.has(g)} class:now={level == null && g === grade}>{g <= 4 ? '1–4' : g}</span>
     {/each}
   </div>
-  {#if level == null}
-    <p class="muted">Хариултыг нь мэдэхгүй бол «Мэдэхгүй байна»-г дарахад болно. Энэ нь дүн биш, эхлэх газраа олох арга юм.</p>
+  {#if level == null && asking == null && eased}
+    <p class="eased">Энэ шат одоохондоо хүнд байлаа. Зүгээр, арай хялбар асуултууд руу орлоо.</p>
+  {:else if level == null && round === 0}
+    <p class="muted">Хариултыг нь мэдэхгүй бол «Мэдэхгүй байна»-г дарахад болно. Энэ нь дүн биш, эхлэх газраа олох арга юм. Хамгийн ихдээ {LEVEL_ROUNDS} шат ({LEVEL_ROUNDS * 4} асуулт).</p>
   {/if}
 </header>
 
@@ -93,7 +102,8 @@
     <div class="stack" in:fly={{ y: 12, duration: ms(280), easing: ease }}>
       <h2>{level >= LEVEL_MIN ? `Та ${label(level)} хүртэлх ихэнх зүйлийг мэдэж байна.` : 'Суурь сэдвүүдээс эхэлье.'}</h2>
       <p>
-        Таны мэддэг {knownCount} сэдэв газрын зураг дээр гэрэлтэнэ. Харанхуй үлдсэн нь таны дараагийн алхмууд.
+        {#if knownCount}Таны мэддэг {knownCount} сэдэв газрын зураг дээр гэрэлтэнэ. Харанхуй үлдсэн нь таны дараагийн алхмууд.
+        {:else}Санаа зоволтгүй: эхний алхмаас эхэлж, нэг нэгээр нь ахина. Дараагийн алхам тань газрын зураг дээр гэрэлтэнэ.{/if}
         {#if missedConcepts.size}Алдсан асуултын сэдвүүдийг дахин үзэхэд тань зориулж үлдээлээ.{/if}
       </p>
       <div class="row">
@@ -108,6 +118,7 @@
   .head { padding: 16px 0; display: grid; gap: 10px; }
   .top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
   .steps { display: flex; gap: 4px; }
+  .eased { padding: 10px 12px; border-radius: 12px; background: var(--surface); border: 1px solid var(--line); }
   .st {
     flex: 1; min-width: 0; height: 26px; display: grid; place-items: center; border-radius: 8px; font-size: 0.72rem; font-weight: 800;
     border: 1px solid var(--line); color: var(--muted); font-variant-numeric: tabular-nums;

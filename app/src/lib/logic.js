@@ -58,13 +58,19 @@ export const checkLeft = () => [];
 export const LEVEL_MIN = 4;
 export const LEVEL_MAX = 12;
 export const LEVEL_PASS = 3;
+// At most this many rounds (4 questions each) unless the student chooses to go on after passing.
+// The first real data showed a student failing five grades in a row and quitting with no result (owner, 2026-10-21).
+export const LEVEL_ROUNDS = 3;
 export const levelQuestions = (g) => levelTest.grades[g].map((q) => ({ ...q }));
 export const startGrade = () => Math.min(LEVEL_MAX, Math.max(5, progress.grade || 7));
 
 // Next grade to test, or null when the level is found. passed/missed: Sets of grades.
+// After a miss it drops two grades (one if the grade two below was already passed), so a student who is
+// far behind reaches their level in fewer failed rounds.
 export function nextLevelGrade(g, ok, passed, missed) {
   if (ok) return g >= LEVEL_MAX || missed.has(g + 1) ? null : g + 1;
-  return g <= LEVEL_MIN || passed.has(g - 1) ? null : g - 1;
+  if (g <= LEVEL_MIN || passed.has(g - 1)) return null;
+  return Math.max(LEVEL_MIN, passed.has(g - 2) ? g - 1 : g - 2);
 }
 
 // Save the level: every concept first taught up to that grade is marked known (grade 1–4 basics from level 4),
