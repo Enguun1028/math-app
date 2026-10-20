@@ -14,6 +14,7 @@
   import FractionOps from './tools/FractionOps.svelte';
   import NumberOps from './tools/NumberOps.svelte';
   import CoordTool from './tools/CoordTool.svelte';
+  import { openGraph } from '../lib/tools.svelte.js';
   import { topics, topicEntries, entries, strands, links, stripLinks } from '../lib/content.js';
   import { ideas } from '../lib/ideas.js';
   import topicContent from '../../content/topic-content.json';
@@ -30,6 +31,14 @@
   $effect(() => { lockInput(isOpen ? ms(300) : ms(190)); });
   let lastT;
   let t = $derived(isOpen ? (lastT = topics[ui.topic]) : lastT);
+  // Function topics open the graph calculator with their own lines and sliders (owner, 2026-10-20).
+  const GRAPH = {
+    func: ['y = 2x + 1'], direct: ['y = k x', 'k = 2'], linear: ['y = k x + b', 'k = 1', 'b = 2'],
+    'inv-prop': ['y = k / x', 'k = 4'], 'quad-fn': ['y = a x^2 + b x + c', 'a = 1', 'b = 0', 'c = -2'],
+    'power-fn': ['y = x^n', 'n = 3'], 'exp-fn': ['y = a^x', 'a = 2'], log: ['y = log_2 x', 'y = 2^x', 'y = x'],
+    'rat-fn': ['y = (x + 1) / (x - 2)'], circle: ['x^2 + y^2 = r^2', 'r = 3'], 'trig-fn': ['y = a sin(b x)', 'a = 1', 'b = 1'],
+    'fn-props': ['y = x^3 - 3x'],
+  };
   let st = $derived(t && topicState(t.id));
   let known = $derived(st === 'known' || st === 'faded');
   let es = $derived(t ? topicEntries[t.id] : []);
@@ -214,6 +223,8 @@
             {#if tc?.src}<span class="small muted">Эх сурвалж: {tc.src} (БСШУЯ, econtent.edu.mn)</span>{/if}
           </div>
         {/if}
+
+        {#if GRAPH[t.id]}<button class="graphit" onclick={() => openGraph(GRAPH[t.id])}>📈 Графикаар туршаад үзэх</button>{/if}
 
         <VideoSlot key={'topic:' + t.id} title={t.name} />
 
@@ -400,6 +411,7 @@
   .jump i { font-style: normal; margin-right: 5px; color: var(--k); }
 
   /* Definition: glowing frame and a tag on its edge. */
+  .graphit { justify-self: start; min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid rgba(255, 204, 102, 0.6); background: var(--sun-soft); color: var(--sun); font-weight: 800; }
   .def {
     position: relative; margin-top: 8px; padding: 20px 16px 14px; border-radius: 18px; display: grid; gap: 8px;
     border: 2px solid transparent; background: linear-gradient(var(--surface-solid), var(--surface-solid)) padding-box, linear-gradient(135deg, var(--sun), var(--c) 55%, color-mix(in srgb, var(--c) 30%, transparent)) border-box;

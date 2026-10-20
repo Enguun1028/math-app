@@ -1,23 +1,10 @@
 <script>
-  // "Хэрэгсэл" tab: the tool bag as its own page (number line, scale, fraction bar, area grid, coordinate plane).
+  // "Хэрэгсэл" tab: every tool on one page (graph calculator first). Any tool can be pinned to the bottom bar.
   import { ui } from '../lib/ui.svelte.js';
-  import Visual from './Visual.svelte';
-  import NumberLineTool from './tools/NumberLineTool.svelte';
-  import ScaleTool from './tools/ScaleTool.svelte';
-  import FractionTool from './tools/FractionTool.svelte';
-  import CoordTool from './tools/CoordTool.svelte';
+  import ToolView from './ToolView.svelte';
+  import { TOOLS as tools, slot, pinTool } from '../lib/tools.svelte.js';
   import { fly } from 'svelte/transition';
   import { ms, ease } from '../lib/motion.js';
-
-  const tools = [
-    { id: 'numberline', name: 'Тооны шулуун' },
-    { id: 'scale', name: 'Жин' },
-    { id: 'fraction', name: 'Бутархай' },
-    { id: 'grid', name: 'Талбайн тор' },
-    { id: 'coord', name: 'Координатын хавтгай' },
-  ];
-
-  let rows = $state(3), cols = $state(4);
 
   // Switching tools: the new one glides in from the side of the tab you tapped; the highlight slides along.
   let dir = $state(1);
@@ -42,23 +29,16 @@
       {/each}
     </div>
 
+    <!-- Pin this tool to the bottom bar (the 2nd tab). -->
+    {#if slot.id === ui.tool}
+      <p class="pinned small">📌 Доод цэсэнд байгаа</p>
+    {:else}
+      <button class="pin" onclick={() => pinTool(ui.tool)}>📌 Доод цэсэнд байрлуулах</button>
+    {/if}
+
     {#key ui.tool}
     <div class="tool" in:fly={{ x: 28 * dir, duration: ms(280), easing: ease }}>
-    {#if ui.tool === 'numberline'}
-      <NumberLineTool />
-    {:else if ui.tool === 'scale'}
-      <ScaleTool />
-    {:else if ui.tool === 'fraction'}
-      <FractionTool />
-    {:else if ui.tool === 'coord'}
-      <CoordTool />
-    {:else}
-      <Visual v={{ kind: 'grid', rows, cols }} />
-      <div class="ctl">
-        <label>Мөр: <b>{rows}</b><input type="range" min="1" max="10" bind:value={rows} /></label>
-        <label>Багана: <b>{cols}</b><input type="range" min="1" max="10" bind:value={cols} /></label>
-      </div>
-    {/if}
+    <ToolView id={ui.tool} />
     </div>
     {/key}
 </div>
@@ -73,9 +53,8 @@
     box-shadow: var(--glow); transition: transform 0.32s cubic-bezier(0.22, 0.8, 0.24, 1), width 0.32s cubic-bezier(0.22, 0.8, 0.24, 1);
   }
   .tool { display: grid; gap: 12px; }
-  .ctl { display: grid; gap: 10px; }
-  label { display: grid; gap: 2px; font-weight: 600; font-size: 0.9rem; }
-  input[type='range'] { width: 100%; accent-color: var(--sky); }
+  .pin { justify-self: start; min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid rgba(255, 204, 102, 0.6); background: var(--sun-soft); color: var(--sun); font-weight: 700; }
+  .pinned { color: var(--muted); }
   .pair { display: flex; align-items: center; gap: 6px; font-weight: 600; }
   .pair span { width: 64px; }
   .pair input { width: 64px; min-height: 40px; font: inherit; text-align: center; border: 1.5px solid var(--line); border-radius: 10px; }

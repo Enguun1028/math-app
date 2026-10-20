@@ -7,7 +7,8 @@ export const ui = $state({
   slide: 0, // 1 / -1: the next topic card slides in from the right / left (set by the topic strip)
   tools: false,
   level: false, // the "Дутагдлаа олъё" sheet
-  tool: 'numberline',
+  tool: 'graph',
+  graphSeed: null, // lines for the graph calculator to open with (from search or a topic card)
   scrollY: null, // how far the map was scrolled
   fly: null, // { sphere } or { topic } the map should scroll to when it opens
   morph: null, // { sphere, rects } screen spots of a sphere's topics, for the opening animation

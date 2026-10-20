@@ -21,3 +21,6 @@ desktop.ini
 
 # Local tool caches (contain local folder paths)
 hook.cache.json
+
+# Copied from node_modules by scripts/vendor.mjs
+app/public/vendor/

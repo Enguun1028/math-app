@@ -21,7 +21,7 @@
   import TabBar from './components/TabBar.svelte';
   import SearchPage from './components/SearchPage.svelte';
   import IdeaPage from './components/IdeaPage.svelte';
-  import PracticePage from './components/PracticePage.svelte';
+  import ToolSlotPage from './components/ToolSlotPage.svelte';
   import ToolsPage from './components/ToolsPage.svelte';
   import MePage from './components/MePage.svelte';
   import LevelSheet from './components/LevelSheet.svelte';
@@ -38,7 +38,7 @@
 
   let [page, id] = $derived(route.parts);
   // Tab pages stand on their own; the other pages get a top bar with "‹ Буцах".
-  const TAB_PAGES = ['m', 'practice', 'search', 'tools', 'me'];
+  const TAB_PAGES = ['m', 't', 'search', 'tools', 'me'];
   let tabPage = $derived(TAB_PAGES.includes(page));
   // Opening or closing a grade sphere is one camera zoom (lib/zoom.js) that the map and the grade map run
   // themselves, so for those the layers neither fade nor slide; they only stay until the zoom is done.
@@ -92,8 +92,8 @@
             <SearchPage />
           {:else if page === 'c'}
             <IdeaPage {id} />
-          {:else if page === 'practice'}
-            <PracticePage />
+          {:else if page === 't'}
+            <ToolSlotPage />
           {:else if page === 'tools'}
             <ToolsPage />
           {:else if page === 'me'}

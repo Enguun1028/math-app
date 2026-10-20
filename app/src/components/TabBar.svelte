@@ -2,15 +2,17 @@
   // Bottom bar, always there, like today's Instagram: five icons, no labels, search in the middle.
   // The open tab's icon fills in and glows; the others are plain white outlines.
   import { route } from '../lib/router.svelte.js';
+  import { slot, toolById } from '../lib/tools.svelte.js';
 
-  const TABS = [
+  // The 2nd tab holds whichever tool the student pinned (graph calculator by default; owner, 2026-10-20).
+  let TABS = $derived([
     { id: 'map', href: '#/', label: 'Газрын зураг' },
-    { id: 'practice', href: '#/practice', label: 'Дасгал' },
+    { id: 'slot', href: '#/t', label: toolById[slot.id].name },
     { id: 'search', href: '#/search', label: 'Бүхнийг хай' },
     { id: 'tools', href: '#/tools', label: 'Хэрэгсэл' },
     { id: 'me', href: '#/me', label: 'Би' },
-  ];
-  const OF = { practice: 'practice', warmup: 'practice', start: 'practice', search: 'search', c: 'search', tools: 'tools', me: 'me' };
+  ]);
+  const OF = { t: 'slot', search: 'search', c: 'search', tools: 'tools', me: 'me' };
   let on = $derived(OF[route.parts[0]] ?? 'map');
 </script>
 
@@ -19,8 +21,16 @@
     <a class="tab" class:on={on === t.id} href={t.href} aria-label={t.label} aria-current={on === t.id ? 'page' : undefined}>
       {#if t.id === 'map'}
         <svg viewBox="0 0 24 24"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2Z" /><path class="cut" d="M9 4v14M15 6v14" /></svg>
-      {:else if t.id === 'practice'}
-        <svg viewBox="0 0 24 24"><path d="M12 3c1 3 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3.5 2-4.5 0 2 1 3 2 3 0-3 0-6 1-8.5Z" /></svg>
+      {:else if t.id === 'slot'}
+        <!-- Line icons stay outlines when active; the glow and colour show the open tab. -->
+        <svg viewBox="0 0 24 24" class="line">
+          {#if slot.id === 'graph'}<path d="M3 3v18h18" /><path d="M6 17c2.5-8 5-9 7-4s4 4 7-7" />
+          {:else if slot.id === 'numberline'}<path d="M2 12h20M5 9v6M12 9v6M19 9v6" />
+          {:else if slot.id === 'scale'}<path d="M12 4v16M7 20h10M4 7h16M4 7l-2.5 6h5ZM20 7l-2.5 6h5Z" />
+          {:else if slot.id === 'fraction'}<rect x="3" y="4" width="18" height="7" rx="2" /><rect x="3" y="13" width="9" height="7" rx="2" />
+          {:else if slot.id === 'grid'}<rect x="3" y="3" width="18" height="18" rx="2" /><path d="M9 3v18M15 3v18M3 9h18M3 15h18" />
+          {:else}<path d="M12 2v20M2 12h20" /><circle cx="17" cy="7" r="1.6" />{/if}
+        </svg>
       {:else if t.id === 'search'}
         <!-- Search is the core feature (owner, 2026-10-13): a big glowing half circle rising out of the bar. -->
         <span class="fab"><svg viewBox="0 0 24 24" class="lens"><circle cx="11" cy="11" r="7" /><path d="m20.5 20.5-4.6-4.6" /></svg></span>
@@ -47,6 +57,7 @@
   .tab.on { color: var(--sky); }
   .tab.on svg { fill: currentColor; filter: drop-shadow(0 0 5px rgba(34, 211, 238, 0.33)); }
   .tab.on svg .cut { fill: none; stroke: #05070d; }
+  .tab.on svg.line { fill: none; stroke-width: 2.6; }
   .tab.on svg.lens { fill: none; stroke-width: 3; }
   .tab:has(.fab) { overflow: visible; position: relative; }
   .fab {

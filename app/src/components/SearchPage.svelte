@@ -10,6 +10,8 @@
   import { ui } from '../lib/ui.svelte.js';
   import { go } from '../lib/router.svelte.js';
   import RichText from './RichText.svelte';
+  import { readLine } from '../lib/graphexpr.js';
+  import { openGraph } from '../lib/tools.svelte.js';
 
   let q = $state(ui.lastQuery ?? '');
   let input;
@@ -17,6 +19,8 @@
   let found = $derived(formulaMatches(q).filter((f) => f.score >= 80 || !kindOf(q).length));
   let words = $derived(search(q).filter((r) => !found.some((f) => f.id === r.id)));
   let mathy = $derived(looksLikeMath(q) || /\^|²|√|=/.test(q));
+  // Something the graph calculator can draw (y = …, x² + y² = 9, (2; 3)): offer to open it there.
+  let drawable = $derived(mathy && ['fn', 'implicit', 'vline', 'point'].includes(readLine(q).kind));
 
   const STARTERS = [
     { label: 'a² + b² = c²', q: 'a^2+b^2=c^2', math: true },
@@ -93,6 +97,7 @@
     </section>
   {:else}
     {#if mathy}<p class="preview">{@html formatMath(q)}</p>{/if}
+    {#if drawable}<button class="graphit" onclick={() => openGraph([q])}>📈 Графикаар нээх</button>{/if}
 
     {#if found.length}
       {@const top = ideas[found[0].id]}
@@ -150,6 +155,7 @@
   .chip.m, .m { font-family: var(--math); }
   .chip.m { color: var(--sky-deep); font-size: 1.02rem; }
   .tip { margin-top: 6px; }
+  .graphit { justify-self: start; min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid rgba(255, 204, 102, 0.6); background: var(--sun-soft); color: var(--sun); font-weight: 800; }
   .preview { font: 1.6rem var(--math); color: var(--sky-deep); padding: 10px 14px; border-radius: 14px; background: var(--sky-soft); }
   .top {
     display: grid; gap: 4px; justify-items: start; text-align: left; padding: 16px; border-radius: 20px;
