@@ -27,7 +27,7 @@ if (live) {
     capture_exceptions: true,
     session_recording: { maskAllInputs: true },
   }]];
-  for (const m of ['capture', 'setPersonProperties']) q[m] = (...args) => q.push([m, ...args]);
+  for (const m of ['capture', 'setPersonProperties', 'register']) q[m] = (...args) => q.push([m, ...args]);
   const s = document.createElement('script');
   s.async = true;
   s.crossOrigin = 'anonymous';

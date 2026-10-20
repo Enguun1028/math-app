@@ -19,12 +19,15 @@ try { remembered = Date.now() - Number(localStorage.getItem(KEY) || 0) < 14 * 86
 const weak = reduced || remembered || (nav.deviceMemory ?? 8) <= 2 || (nav.hardwareConcurrency ?? 8) <= 4 || !!nav.connection?.saveData;
 export const lite = { on: forced ? forced === '1' : weak, why: forced ? 'forced' : weak ? (remembered ? 'remembered' : 'device') : null };
 root.classList.toggle('lite', lite.on);
+// On every event, PostHog's own speed events included, so tap speed can be compared between lite and full.
+window.posthog?.register?.({ lite: lite.on, lite_why: lite.why });
 
 function goLite(why, stats) {
   if (lite.on) return;
   lite.on = true;
   lite.why = why;
   root.classList.add('lite');
+  window.posthog?.register?.({ lite: true, lite_why: why });
   try { localStorage.setItem(KEY, String(Date.now())); } catch {}
   window.posthog?.stopSessionRecording?.();
   track('lag_detected', stats);
