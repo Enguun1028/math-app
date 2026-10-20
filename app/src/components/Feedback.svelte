@@ -31,7 +31,7 @@
     </form>
   {:else if small}
     <div class="row">
-      <button class="link" onclick={() => (kind = 'error')}>Асуулт алдаатай юу?</button>
+      <button class="link" onclick={() => (kind = 'error')}>Алдаа олсон уу?</button>
       <button class="link" onclick={() => (kind = 'unclear')}>Ойлгомжгүй байна</button>
     </div>
   {:else}
