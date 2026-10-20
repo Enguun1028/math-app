@@ -19,5 +19,11 @@ if (splash) {
   }, wait);
 }
 
+// Keep the app on the phone for fast return visits and offline use (scripts/make-sw.mjs). Registered after the
+// page has loaded, so it never competes with the first screen.
+if (import.meta.env.PROD && 'serviceWorker' in navigator) {
+  addEventListener('load', () => setTimeout(() => navigator.serviceWorker.register('/sw.js').catch(() => {}), 3000));
+}
+
 // iOS Safari ignores user-scalable=no; cancel its pinch gesture directly.
 for (const t of ['gesturestart', 'gesturechange']) document.addEventListener(t, (e) => e.preventDefault(), { passive: false });

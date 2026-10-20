@@ -8,10 +8,6 @@
   import SubMap from './components/SubMap.svelte';
   import MathMap from './components/MathMap.svelte';
   import MapToggle from './components/MapToggle.svelte';
-  import EntryPage from './components/EntryPage.svelte';
-  import TestPage from './components/TestPage.svelte';
-  import StartCheck from './components/StartCheck.svelte';
-  import WarmUp from './components/WarmUp.svelte';
   import { progress, recordVisit } from './lib/progress.svelte.js';
   import { track } from './lib/track.svelte.js';
 
@@ -20,14 +16,26 @@
   track('app_opened', { days_since_last: away, days_opened: progress.days?.length ?? 0 });
   if (away >= 3 && Object.keys(progress.known).length) ui.welcome = true;
   import TermSheet from './components/TermSheet.svelte';
-  import TopicSheet from './components/TopicSheet.svelte';
   import TabBar from './components/TabBar.svelte';
-  import SearchPage from './components/SearchPage.svelte';
-  import IdeaPage from './components/IdeaPage.svelte';
-  import ToolSlotPage from './components/ToolSlotPage.svelte';
-  import ToolsPage from './components/ToolsPage.svelte';
-  import MePage from './components/MePage.svelte';
-  import LevelSheet from './components/LevelSheet.svelte';
+  import Lazy from './components/Lazy.svelte';
+  import { lazy, preloadWhenIdle } from './lib/lazy.js';
+
+  // Everything except the maps, tab bar and term preview is its own file (lib/lazy.js).
+  const L = {
+    entry: lazy(() => import('./components/EntryPage.svelte')),
+    test: lazy(() => import('./components/TestPage.svelte')),
+    start: lazy(() => import('./components/StartCheck.svelte')),
+    warmup: lazy(() => import('./components/WarmUp.svelte')),
+    topic: lazy(() => import('./components/TopicSheet.svelte')),
+    search: lazy(() => import('./components/SearchPage.svelte')),
+    idea: lazy(() => import('./components/IdeaPage.svelte')),
+    slot: lazy(() => import('./components/ToolSlotPage.svelte')),
+    tools: lazy(() => import('./components/ToolsPage.svelte')),
+    me: lazy(() => import('./components/MePage.svelte')),
+    level: lazy(() => import('./components/LevelSheet.svelte')),
+  };
+  // Most used first: the topic card and search, then the level check and the rest.
+  preloadWhenIdle([L.topic, L.search, L.level, L.start, L.me, L.entry, L.idea, L.slot, L.tools, L.test, L.warmup]);
 
   // Owner, 2026-10-12: dragging on a short sheet moved the map behind it. While a sheet is open, a drag on the
   // dimmed background or on a sheet too short to scroll does nothing; a tall sheet scrolls itself and stops at its ends.
@@ -77,23 +85,23 @@
           {:else if page === 'm'}
             <MathMap />
           {:else if page === 'e'}
-            <EntryPage {id} />
+            <Lazy get={L.entry} {id} />
           {:else if page === 'test'}
-            <TestPage {id} />
+            <Lazy get={L.test} {id} />
           {:else if page === 'start'}
-            <StartCheck />
+            <Lazy get={L.start} />
           {:else if page === 'warmup'}
-            <WarmUp />
+            <Lazy get={L.warmup} />
           {:else if page === 'search'}
-            <SearchPage />
+            <Lazy get={L.search} />
           {:else if page === 'c'}
-            <IdeaPage {id} />
+            <Lazy get={L.idea} {id} />
           {:else if page === 't'}
-            <ToolSlotPage />
+            <Lazy get={L.slot} />
           {:else if page === 'tools'}
-            <ToolsPage />
+            <Lazy get={L.tools} />
           {:else if page === 'me'}
-            <MePage />
+            <Lazy get={L.me} />
           {/if}
         </div>
       {/key}
@@ -103,9 +111,9 @@
 
 {#if !page || page === 'm'}<MapToggle />{/if}
 <TabBar />
-<TopicSheet />
+<Lazy get={L.topic} when={!!ui.topic} />
 <TermSheet />
-<LevelSheet />
+<Lazy get={L.level} when={ui.level} />
 
 <style>
   .bar {
