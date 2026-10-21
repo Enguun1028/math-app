@@ -47,7 +47,7 @@
   <section class="list">
     <button class="row" onclick={() => (ui.level = true)}><span><strong>Зорилго ба анги</strong><span class="small muted">Дутагдлаа олъё шалгалт ч эндээс</span></span><span class="go">›</span></button>
     <button class="row" role="switch" aria-checked={light} onclick={toggleLite}>
-      <span><strong>Хөнгөн горим</strong><span class="small muted">Хөдөлгөөн, гэрэлтэлтгүй. Удаан утсан дээр илүү жигд ажиллана.</span></span>
+      <span><strong>Хөнгөн горим</strong><span class="small muted">Гацдаг, удаан утаснуудад зориулав.</span></span>
       <span class="sw" class:on={light} aria-hidden="true"><i></i></span>
     </button>
     <div class="row col">
