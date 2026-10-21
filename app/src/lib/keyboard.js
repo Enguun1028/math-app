@@ -4,17 +4,28 @@
 // (sheets, the topic card) ends up behind it. This keeps two things on <html> up to date:
 //   --kb      how much of the screen bottom the keyboard covers (0 on Android, where the page shrinks instead);
 //   --vvh     the height that is still visible above the keyboard;
-//   .typing   while a text box has focus, so the tab bar and the bug button step aside.
+//   .typing   while a text box has focus AND the keyboard is really up, so the tab bar and the bug button step aside.
+// Focus alone is not enough (owner bug report, 2026-10-21: "when u press on search button at bottom the whole low bar
+// disappears"): the search page focuses its box by itself, and an iPhone opens no keyboard for that, so the bar
+// went away with nothing in its place. The keyboard counts as up when the visible height is well below the
+// tallest seen (iPhone: only the visual viewport shrinks; Android: the whole page shrinks).
 // Sheets sit on top of --kb (app.css), and the focused box is scrolled into view once the keyboard is up.
 const root = document.documentElement;
 const vv = window.visualViewport;
 const isText = (el) => el?.matches?.('textarea, input:not([type=range]):not([type=checkbox]):not([type=radio]):not([type=button])');
 
+let tallest = vv?.height ?? innerHeight;
+addEventListener('orientationchange', () => { tallest = 0; });
+const keyboardUp = () => !!vv && vv.height < tallest - 150;
+function sync() { root.classList.toggle('typing', isText(document.activeElement) && keyboardUp()); }
+
 function measure() {
   if (!vv) return;
+  if (!isText(document.activeElement) || vv.height > tallest) tallest = Math.max(vv.height, tallest);
   const kb = Math.max(0, Math.round(innerHeight - vv.height - vv.offsetTop));
   root.style.setProperty('--kb', kb + 'px');
   root.style.setProperty('--vvh', Math.round(vv.height) + 'px');
+  sync();
 }
 
 // The box and its send button (its whole form) are scrolled above the keyboard. scrollIntoView is not enough:
@@ -51,11 +62,11 @@ if (vv) {
 }
 document.addEventListener('focusin', (e) => {
   if (!isText(e.target)) return;
-  root.classList.add('typing');
+  sync();
   reveal(e.target);
 });
 document.addEventListener('focusout', (e) => {
   if (!isText(e.target)) return;
   // Moving straight to another box keeps the keyboard up.
-  setTimeout(() => { if (!isText(document.activeElement)) root.classList.remove('typing'); }, 50);
+  setTimeout(sync, 50);
 });
