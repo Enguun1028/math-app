@@ -5,6 +5,7 @@
   import { onMount, onDestroy } from 'svelte';
   import { ui } from '../../lib/ui.svelte.js';
   import { readLine, defaultParam } from '../../lib/graphexpr.js';
+  import Loader from '../Loader.svelte';
 
   const COLORS = ['#22d3ee', '#ffcc66', '#5eea9a', '#a78bfa', '#ff7a8a', '#7aa2ff'];
   const KEY = 'mm-graph';
@@ -120,7 +121,7 @@
   <div class="boardwrap">
     <div class="board jxgbox" bind:this={el}></div>
     {#if failed}<p class="state">График ачаалж чадсангүй. Интернэтээ шалгаад дахин нээгээрэй.</p>
-    {:else if !ready}<p class="state">График ачаалж байна…</p>{/if}
+    {:else if !ready}<div class="state"><Loader label="График ачаалж байна…" /></div>{/if}
     <button class="home" onclick={home} aria-label="Анхны байрлал">⌂</button>
   </div>
 
@@ -165,6 +166,7 @@
   .boardwrap { position: relative; }
   .board { width: 100%; aspect-ratio: 1 / 1; max-height: 58vh; border-radius: 18px; background: #0a0d14; border: 1px solid var(--line); overflow: hidden; touch-action: none; }
   .board :global(.JXGtext) { font-family: var(--font); }
+  .state :global(.loader) { min-height: 0; }
   .state { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; padding: 20px; color: var(--muted); }
   .home { position: absolute; right: 10px; top: 10px; width: 40px; height: 40px; border-radius: 12px; border: 1px solid var(--line); background: rgba(17, 20, 27, 0.9); color: var(--ink); font-size: 1.2rem; }
   .keys { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; }

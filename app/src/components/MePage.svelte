@@ -5,12 +5,16 @@
   import { topicKnown, sphereKnown, GOALS } from '../lib/logic.js';
   import { progress, daysThisWeek, resetProgress } from '../lib/progress.svelte.js';
   import { ui } from '../lib/ui.svelte.js';
+  import { lite, setLite } from '../lib/perf.js';
 
   let knownTopics = $derived(Object.keys(topics).filter(topicKnown).length);
   let knownSpheres = $derived(spheres.filter(sphereKnown).length);
   const week = daysThisWeek();
   let goal = $derived(GOALS.find((g) => g.id === progress.goal)?.name);
   let confirm = $state(false);
+  // Lite mode switch (owner, 2026-10-21): the student decides, whatever the phone was guessed to be.
+  let light = $state(lite.on);
+  const toggleLite = () => { light = !light; setLite(light); };
 </script>
 
 <div class="me">
@@ -42,6 +46,10 @@
 
   <section class="list">
     <button class="row" onclick={() => (ui.level = true)}><span><strong>Зорилго ба анги</strong><span class="small muted">Дутагдлаа олъё шалгалт ч эндээс</span></span><span class="go">›</span></button>
+    <button class="row" role="switch" aria-checked={light} onclick={toggleLite}>
+      <span><strong>Хөнгөн горим</strong><span class="small muted">Хөдөлгөөн, гэрэлтэлтгүй. Удаан утсан дээр илүү жигд ажиллана.</span></span>
+      <span class="sw" class:on={light} aria-hidden="true"><i></i></span>
+    </button>
     <div class="row col">
       <span><strong>Тохиргоо</strong><span class="small muted">Ахиц зөвхөн энэ утсанд хадгалагдана.</span></span>
       {#if !confirm}
@@ -84,4 +92,8 @@
   .btns { display: flex; gap: 8px; flex-wrap: wrap; }
   .btn.danger { border-color: var(--warn); color: var(--warn); }
   .go { color: var(--muted); font-size: 1.4rem; }
+  .sw { flex: none; width: 50px; height: 30px; border-radius: 15px; background: var(--line); position: relative; transition: background 0.2s; }
+  .sw i { position: absolute; top: 3px; left: 3px; width: 24px; height: 24px; border-radius: 50%; background: var(--ink); transition: transform 0.2s; }
+  .sw.on { background: var(--sky); }
+  .sw.on i { transform: translateX(20px); background: #fff; }
 </style>

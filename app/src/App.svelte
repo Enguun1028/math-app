@@ -111,9 +111,9 @@
 
 {#if !page || page === 'm'}<MapToggle />{/if}
 <TabBar />
-<Lazy get={L.topic} when={!!ui.topic} />
+<Lazy get={L.topic} when={!!ui.topic} float />
 <TermSheet />
-<Lazy get={L.level} when={ui.level} />
+<Lazy get={L.level} when={ui.level} float />
 
 <style>
   .bar {

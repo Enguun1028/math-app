@@ -7,6 +7,7 @@
   //   { "type": "file", "src": "videos/name.mp4" }                  our own video in app/public/videos/
   // Optional: "title", "vertical": true. The page loads the player only when the student taps play.
   import videos from '../../content/videos.json';
+  import Loader from './Loader.svelte';
 
   let { key, title = '' } = $props();
   let v = $derived(videos[key] ?? null);
@@ -37,6 +38,7 @@
     <!-- svelte-ignore a11y_media_has_caption -->
     <video src={src(v)} controls autoplay playsinline></video>
   {:else}
+    <Loader label="" />
     <iframe src={src(v)} title={v.title || title || 'Видео'} allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe>
   {/if}
 </div>
@@ -62,4 +64,7 @@
   @keyframes ring { from { transform: scale(0.85); opacity: 0.9; } to { transform: scale(1.35); opacity: 0; } }
   @media (prefers-reduced-motion: reduce) { .cover .play::after { animation: none; opacity: 0.4; } }
   iframe, video { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; background: #000; }
+  /* The loading star sits behind an embedded player until the player draws over it. */
+  .slot :global(.loader) { position: absolute; inset: 0; min-height: 0; }
+  iframe { background: transparent; }
 </style>

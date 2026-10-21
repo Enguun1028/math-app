@@ -1,7 +1,9 @@
 <script>
   // Shows a component that lives in its own file (lib/lazy.js). `when` says when it is needed now; until then it
   // still appears as soon as the idle preload has loaded it. Other props pass through.
-  let { get, when = true, ...rest } = $props();
+  // While it is needed but not loaded yet, the loading star shows (float: over the screen, for sheets).
+  import Loader from './Loader.svelte';
+  let { get, when = true, float = false, ...rest } = $props();
   let Page = $state(null);
   $effect(() => { if (when) get(); });
   $effect(() => {
@@ -11,4 +13,4 @@
   });
 </script>
 
-{#if Page}<Page {...rest} />{/if}
+{#if Page}<Page {...rest} />{:else if when}<Loader {float} />{/if}

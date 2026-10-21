@@ -3,27 +3,53 @@
 // It turns on at start for a phone that looks weak, or later when the lag guard sees the phone struggling.
 // Lag guard (owner's idea): when frames get slow, switch to lite and stop the session recording, so the phone
 // gets smooth again; the visit is still tracked as events. A phone that lagged starts in lite for the next 14 days.
+// The student can also switch it on or off on the "Би" page (owner, 2026-10-21: "give us a button for lite mode");
+// that choice wins over the automatic one and is kept on the phone.
 // Testing: ?lite=1 or ?lite=0 in the address forces it either way.
 import { reduced } from './motion.js';
 import { track } from './track.svelte.js';
 
 const KEY = 'mm-lite';
+const CHOICE = 'mm-lite-choice';
 const root = document.documentElement;
 const nav = navigator;
 const forced = new URLSearchParams(location.search).get('lite');
-let remembered = false;
-try { remembered = Date.now() - Number(localStorage.getItem(KEY) || 0) < 14 * 864e5; } catch {}
+let remembered = false, chosen = null;
+try {
+  remembered = Date.now() - Number(localStorage.getItem(KEY) || 0) < 14 * 864e5;
+  chosen = localStorage.getItem(CHOICE);
+} catch {}
 
-// Cheap Android phones report 2 GB or less of memory, or 4 or fewer cores; Safari reports neither, so iPhones
-// are left to the lag guard.
-const weak = reduced || remembered || (nav.deviceMemory ?? 8) <= 2 || (nav.hardwareConcurrency ?? 8) <= 4 || !!nav.connection?.saveData;
-export const lite = { on: forced ? forced === '1' : weak, why: forced ? 'forced' : weak ? (remembered ? 'remembered' : 'device') : null };
+// Only signals that really mean a weak phone. Memory is reported by Chrome on Android only (2 GB or less is a
+// cheap phone). Core count is not used: Safari reports 4 on every iPhone, so it sent even an iPhone 16 Pro Max to
+// lite (PostHog, 2026-10-21: every iPhone visitor was lite for "device"). iPhones are left to the lag guard.
+const weak = reduced || remembered || (nav.deviceMemory ?? 8) <= 2 || !!nav.connection?.saveData;
+const start = forced ? forced === '1' : chosen ? chosen === 'on' : weak;
+export const lite = { on: start, why: forced ? 'forced' : chosen ? 'chosen' : weak ? (remembered ? 'remembered' : 'device') : null };
 root.classList.toggle('lite', lite.on);
 // On every event, PostHog's own speed events included, so tap speed can be compared between lite and full.
 window.posthog?.register?.({ lite: lite.on, lite_why: lite.why });
 
+// The "Би" page switch. The choice is kept, so the lag guard no longer changes the look on this phone.
+export function setLite(on) {
+  lite.on = on;
+  lite.why = 'chosen';
+  root.classList.toggle('lite', on);
+  try { localStorage.setItem(CHOICE, on ? 'on' : 'off'); } catch {}
+  window.posthog?.register?.({ lite: on, lite_why: 'chosen' });
+  track('lite_switched', { on });
+}
+
 function goLite(why, stats) {
   if (lite.on) return;
+  // The student chose the full look: keep it, but still stop the recording so the phone gets lighter.
+  if (lite.why === 'chosen-lagged') return;
+  if (lite.why === 'chosen') {
+    window.posthog?.stopSessionRecording?.();
+    track('lag_detected', { ...stats, kept_full: true });
+    lite.why = 'chosen-lagged';
+    return;
+  }
   lite.on = true;
   lite.why = why;
   root.classList.add('lite');
