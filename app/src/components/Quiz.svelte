@@ -27,8 +27,10 @@
   const praise = ['Зөв. Сайн бодлоо.', 'Зөв. Аргаа зөв сонгосон байна.', 'Яг зөв.', 'Зөв. Алхам бүрээ сайн шалгажээ.'];
 
   // One event per tap: which question, which choice, right or not, and on which try.
+  // choice is the tapped index or 'dont_know'; choice_text is what the tapped answer said, so the PostHog
+  // "most picked wrong choice" table reads without the quiz files at hand.
   const answered = (choice, correct) => track('question_answered', {
-    mode, n: i + 1, of: questions.length, choice, correct, attempt: tried.length + 1,
+    mode, n: i + 1, of: questions.length, choice, choice_text: typeof choice === 'number' ? String(cur.choices[choice]).slice(0, 80) : null, correct, attempt: tried.length + 1,
     concept: cur.concept ?? null, entry: cur.entry ?? null, question: cur.q.slice(0, 120),
   });
 

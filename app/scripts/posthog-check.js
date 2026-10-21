@@ -35,7 +35,8 @@
     `answers ${ok}/${qa} right, level rounds ${rounds}, finished check ${lcf}, topics ${topics}, searches ${searches}, tools ${tools}, reports ${reports}` +
     (inp ? ` | slowest tap ${inp} ms` : ''));
 
-  const worst = await q(`select properties.question, count() n, countIf(toString(properties.correct) = 'true') ok, countIf(properties.choice = 'dont_know') idk
+  // PostHog stores choice as a number, so a 'dont_know' tap reads as null here.
+  const worst = await q(`select properties.question, count() n, countIf(toString(properties.correct) = 'true') ok, countIf(toInt(properties.choice) is null) idk
     from events where ${real} and event = 'question_answered' and toInt(properties.attempt) = 1
     group by properties.question order by ok / n, n desc limit 8`);
   const empty = await q(`select properties.query, count() from events where ${real} and event = 'searched' and toInt(properties.results) = 0

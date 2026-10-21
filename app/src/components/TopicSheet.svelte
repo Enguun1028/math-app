@@ -8,6 +8,7 @@
   import Visual from './Visual.svelte';
   import VideoSlot from './VideoSlot.svelte';
   import Quiz from './Quiz.svelte';
+  import Feedback from './Feedback.svelte';
   import TopicIcon from './TopicIcon.svelte';
   import TopicStrip from './TopicStrip.svelte';
   import FormulaSection from './FormulaSection.svelte';
@@ -372,6 +373,8 @@
             </div>
           </section>
         {/if}
+        <!-- Report a mistake from any topic card (owner, 2026-10-21: "i dont see any button for feedbacks"). -->
+        <div class="report"><Feedback small entry={'topic:' + t.id} /></div>
         {/if}
       </div>
       {/key}
@@ -499,4 +502,5 @@
   .rchips { display: flex; flex-wrap: wrap; gap: 6px; }
   .rc { border: 1px solid var(--line); background: transparent; color: var(--ink); border-radius: 999px; padding: 6px 12px; font-size: 0.85rem; font-weight: 600; }
   .rc em { font-style: normal; color: var(--muted); font-weight: 500; }
+  .report { margin-top: 18px; padding-top: 10px; border-top: 1px solid var(--line); }
 </style>

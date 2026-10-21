@@ -6,6 +6,7 @@
   import { progress, daysThisWeek, resetProgress } from '../lib/progress.svelte.js';
   import { ui } from '../lib/ui.svelte.js';
   import { lite, setLite } from '../lib/perf.js';
+  import Feedback from './Feedback.svelte';
 
   let knownTopics = $derived(Object.keys(topics).filter(topicKnown).length);
   let knownSpheres = $derived(spheres.filter(sphereKnown).length);
@@ -46,6 +47,11 @@
 
   <section class="list">
     <button class="row" onclick={() => (ui.level = true)}><span><strong>Зорилго ба анги</strong><span class="small muted">Дутагдлаа олъё шалгалт ч эндээс</span></span><span class="go">›</span></button>
+    <!-- Feedback and bug reports from anywhere in the app (owner, 2026-10-21). -->
+    <div class="row col">
+      <span><strong>Санал хүсэлт, алдаа</strong><span class="small muted">Алдаа олсон эсвэл санаа байвал бидэнд бичээрэй.</span></span>
+      <Feedback general entry="me" />
+    </div>
     <button class="row" role="switch" aria-checked={light} onclick={toggleLite}>
       <span><strong>Хөнгөн горим</strong><span class="small muted">Гацдаг, удаан утаснуудад зориулав.</span></span>
       <span class="sw" class:on={light} aria-hidden="true"><i></i></span>
