@@ -7,6 +7,7 @@
   import { ui } from '../lib/ui.svelte.js';
   import { lite, setLite } from '../lib/perf.js';
   import Feedback from './Feedback.svelte';
+  import Hint from './Hint.svelte';
 
   let knownTopics = $derived(Object.keys(topics).filter(topicKnown).length);
   let knownSpheres = $derived(spheres.filter(sphereKnown).length);
@@ -19,6 +20,7 @@
 </script>
 
 <div class="me">
+  <Hint id="me" text="Энд таны ахиц, зорилго, анги, тохиргоо байна." />
   <header class="top">
     <span class="avatar" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="9" r="3.6" /><path d="M5.5 19.5a6.5 6.5 0 0 1 13 0" /></svg></span>
     <div class="who">

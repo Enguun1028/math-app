@@ -1,5 +1,4 @@
 <script>
-  import RichText from './RichText.svelte';
   import HotTopics from './HotTopics.svelte';
   // The explorable neon map. It scrolls like a feed, using the phone's own scrolling (momentum and
   // rubber band come from the system, exactly as in Instagram). No zoom: tapping a sphere opens it.
@@ -8,9 +7,9 @@
   // year: a filled dot is new that year, a ring is a concept coming back to be studied deeper.
   import { onMount, tick } from 'svelte';
   import { fly } from 'svelte/transition';
-  import { spheres, topics, sphereById, topicEntries, strands, isFresh } from '../lib/content.js';
+  import { spheres, topics, sphereById, isFresh } from '../lib/content.js';
   import { sphereLayout, dotLayout, world } from '../lib/layout.js';
-  import { sphereState, nextTopic, levelChecked, checkLeft, entryState } from '../lib/logic.js';
+  import { sphereState, nextTopic, levelChecked } from '../lib/logic.js';
   import { progress, save } from '../lib/progress.svelte.js';
   import { ui } from '../lib/ui.svelte.js';
   import { go, route } from '../lib/router.svelte.js';
@@ -79,8 +78,10 @@
     return d;
   });
 
+  // An <svg> has no offsetTop (it gave NaN, so no map scroll ever moved); its spot in the scroller is measured instead.
+  const svgTop = () => svg.getBoundingClientRect().top - scroller.getBoundingClientRect().top + scroller.scrollTop;
   const scrollToWorldY = (wy, at = 0.45, smooth = true) =>
-    scroller.scrollTo({ top: svg.offsetTop + oy + wy * k - H * at, behavior: smooth && !reduced ? 'smooth' : 'auto' });
+    scroller.scrollTo({ top: svgTop() + oy + wy * k - H * at, behavior: smooth && !reduced ? 'smooth' : 'auto' });
 
   // ---- opening a sphere: the camera zooms into it (lib/zoom.js) ----
   // The grade map page runs the zoom once it knows where its own centre sits; here we only note where the sphere is.
@@ -94,6 +95,7 @@
   function openSphere(id) {
     if (opening) return;
     opening = true;
+    ui.introSphere = null;
     const geo = { sphere: id, c: sphereGeo(id), rs: sphereLayout[id].ks * k };
     ui.morph = { ...geo, mapEl };
     ui.back = geo;
@@ -156,8 +158,8 @@
       // Cleared once the page that is closing has used it for its own half of the motion.
       setTimeout(() => (ui.back = null), 700);
     } else {
-      // First look: scrolled to the sphere with the next step (or the first one).
-      const s = sphereLayout[next ? topics[next].sphere : spheres[0].id];
+      // First look: scrolled to the sphere the tutorial points at, else the one with the next step (or the first one).
+      const s = sphereLayout[ui.introSphere ?? (next ? topics[next].sphere : spheres[0].id)];
       scrollToWorldY(s.y, 0.45, false);
     }
   }
@@ -169,20 +171,13 @@
   };
 
   // ---- level, then the next step ----
+  // The "Дараагийн алхам" card is gone (owner, 2026-10-22: "its distraction"); the next sphere still glows.
   // No "next step" until we know the student's level. Before that, a small "Дутагдлаа олъё" button
   // opens the explanation and the check. After it, a card names the next topic with "Сурах цаг!".
   let known = $derived(levelChecked());
   // After the level check the next step is the only bright thing on the map until it is tapped (owner, 2026-10-20).
   let spot = $derived(ui.spotlight && !!next && !ui.reveal);
   $effect(() => { if (ui.spotlight && next && ui.topic === next) ui.spotlight = false; });
-  let left = $derived(checkLeft().length);
-  function learn() {
-    const es = topicEntries[next];
-    ui.spotlight = false;
-    ui.scrollY = scroller.scrollTop;
-    if (es.length) go('/e/' + (es.find((id) => entryState(id) !== 'known') ?? es[0]));
-    else ui.topic = next;
-  }
 </script>
 
 <div class="map" class:spot bind:this={mapEl}>
@@ -225,6 +220,7 @@
               >
                 <circle cx={L.x} cy={L.y} r={L.R} fill="url(#g-{s.id})" class="body" />
                 <circle cx={L.x} cy={L.y} r={L.R} class="rim" style:stroke-width={2 / k} />
+                {#if ui.introSphere === s.id}<circle cx={L.x} cy={L.y} r={L.R + 18 / k} class="beacon" style:stroke-width={10 / k} />{/if}
                 {#if st === 'next'}
                   {#if spot}<circle cx={L.x} cy={L.y} r={L.R + 18 / k} class="beacon" style:stroke-width={10 / k} />{/if}
                   <circle cx={L.x} cy={L.y} r={L.R + 10 / k} class="halo" />
@@ -275,20 +271,17 @@
   </header>
 
   <div class="hud-bottom">
-    {#if !known}
+    {#if ui.introSphere}
+      <!-- End of the tutorial level: the student's own grade glows; tapping it is the last step. -->
+      <div class="introtip" transition:fly={{ y: 30, duration: ms(300), easing: ease }}>
+        <strong>Энэ гэрэлтэж буй бөмбөлөг бол таны {sphereById[ui.introSphere].grade}-р анги.</strong>
+        <span class="small muted">Дарж нээгээд, дотор нь сэдвүүдээ үзээрэй.</span>
+      </div>
+    {:else if !known}
       <button class="find" onclick={() => (ui.level = true)} transition:fly={{ y: 30, duration: ms(300), easing: ease }}>
         <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5M11 8v6M8 11h6" /></svg>
         Түвшин тодорхойлох
       </button>
-    {:else if next}
-      <div class="nextcard" class:lit={spot} transition:fly={{ y: 40, duration: ms(320), easing: ease }}>
-        <button class="nt" onclick={() => { scrollToWorldY(sphereLayout[topics[next].sphere].y); ui.topic = next; }}>
-          <span class="nf" style:--sc={strands[topics[next].strand].color}>{#if topics[next].formula}<RichText text={topics[next].formula} />{:else}<i class="sdot"></i>{/if}</span>
-          <span class="nn"><span class="small">Дараагийн алхам</span><strong>{topics[next].name}</strong></span>
-        </button>
-        <button class="btn sun" onclick={learn}>Сурах цаг!</button>
-        {#if left}<button class="more" onclick={() => (ui.level = true)}>Шалгалт үргэлжлүүлэх · {left} хэсэг үлдсэн</button>{/if}
-      </div>
     {/if}
   </div>
 </div>
@@ -362,6 +355,10 @@
     padding: 0 16px calc(var(--tabbar-h) + env(safe-area-inset-bottom) + 34px); max-width: 560px; margin: 0 auto; pointer-events: none;
   }
   .hud-bottom > * { pointer-events: auto; grid-area: 1 / 1; }
+  .introtip {
+    display: grid; gap: 4px; padding: 12px 14px; border-radius: 18px; background: rgba(12, 15, 21, 0.97);
+    border: 2px solid var(--sun); box-shadow: 0 0 28px rgba(255, 204, 102, 0.25);
+  }
   .find {
     justify-self: stretch; display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 60px; padding: 0 22px;
     border-radius: 999px; font-size: 1.15rem; font-weight: 800; color: #2a1a00;
@@ -369,8 +366,7 @@
     box-shadow: 0 0 28px rgba(255, 204, 102, 0.45); position: relative;
   }
   /* Breathing glow as a still shadow fading in and out (opacity only, no repaint). */
-  .find::after, .nextcard.lit::after { content: ''; position: absolute; inset: 0; border-radius: inherit; box-shadow: 0 0 48px rgba(255, 204, 102, 0.7); opacity: 0; pointer-events: none; animation: glow 2.2s ease-in-out infinite; }
-  .nextcard.lit::after { animation-duration: 1.6s; }
+  .find::after { content: ''; position: absolute; inset: 0; border-radius: inherit; box-shadow: 0 0 48px rgba(255, 204, 102, 0.7); opacity: 0; pointer-events: none; animation: glow 2.2s ease-in-out infinite; }
   .find svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; }
   @keyframes glow { 50% { opacity: 1; } }
   /* Spotlight after the level check: everything dims, the next step beams. */
@@ -380,21 +376,8 @@
   @keyframes beacon { from { transform: scale(0.92); opacity: 1; } to { transform: scale(1.35); opacity: 0; } }
   .map.spot .halo { fill-opacity: 0.32; }
   .map.spot .pulse { stroke-opacity: 1; animation-duration: 1.2s; }
-  .nextcard.lit { border: 2px solid var(--sun); }
-  .nextcard {
-    display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 8px 10px; padding: 10px 10px 10px 12px;
-    position: relative; border-radius: 18px; background: rgba(12, 15, 21, 0.96);
-    border: 1px solid rgba(255, 204, 102, 0.33); box-shadow: 0 0 28px rgba(255, 204, 102, 0.12);
-  }
-  .nt { display: flex; align-items: center; gap: 10px; min-width: 0; border: 0; background: none; padding: 0; text-align: left; }
-  .nf { flex: none; min-width: 44px; height: 44px; padding: 0 6px; display: grid; place-items: center; border-radius: 50%; border: 1.5px solid var(--sun); color: var(--sun); font-family: var(--math); font-size: 0.9rem; white-space: nowrap; }
-  .nn { display: grid; min-width: 0; }
-  .nn .small { color: var(--sun); font-weight: 700; font-size: 0.75rem; white-space: nowrap; }
-  .nn strong { line-height: 1.25; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-  .nextcard .btn { min-height: 44px; padding: 0 16px; }
-  .more { grid-column: 1 / -1; justify-self: start; border: 0; background: none; padding: 2px 0 0; color: var(--muted); font-size: 0.85rem; text-decoration: underline; text-underline-offset: 3px; }
 
   @media (prefers-reduced-motion: reduce) {
-    .dx, .dy, .pulse, .find::after, .beacon, .nextcard.lit::after { animation: none; }
+    .dx, .dy, .pulse, .find::after, .beacon { animation: none; }
   }
 </style>

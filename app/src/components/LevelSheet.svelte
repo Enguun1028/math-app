@@ -32,8 +32,9 @@
     progress.goalPicked = true;
     save();
   }
-  function setGrade(g, keep = false) {
+  function setGrade(g, keep = false, graduated = false) {
     progress.grade = !keep && progress.grade === g ? null : g;
+    progress.graduated = graduated;
     save();
     track('grade_set', { picked: progress.grade });
   }
@@ -75,7 +76,9 @@
         {:else if step === 1}
           <h2>Хэддүгээр ангид сурдаг вэ?</h2>
           <div class="grades">
-            {#each GRADES as g}<button class="chip grade" class:on={progress.grade === g} onclick={() => { setGrade(g, true); next(); }}>{g}</button>{/each}
+            {#each GRADES as g}<button class="chip grade" class:on={progress.grade === g && !progress.graduated} onclick={() => { setGrade(g, true); next(); }}>{g}</button>{/each}
+            <!-- Graduates and adults (owner, 2026-10-22); counts as grade 12. -->
+            <button class="chip grade wide" class:on={progress.graduated} onclick={() => { setGrade(12, true, true); next(); }}>Төгссөн</button>
           </div>
         {:else if step === 2}
           <h2>Барагцаагаар ямар сэдвүүдээр шалгалттай вэ?</h2>
@@ -130,6 +133,7 @@
   .grades { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
   .chips { display: flex; flex-wrap: wrap; gap: 8px; }
   .chip { color: var(--ink); background: transparent; }
+  .chip.wide { grid-column: 1 / -1; }
   .chip.grade { min-height: 56px; justify-content: center; font-size: 1.15rem; font-weight: 800; }
   .chip.on { background: var(--sun); border-color: var(--sun); color: #2a1a00; }
   input { width: 100%; min-height: 48px; padding: 0 12px; border-radius: 12px; border: 1px solid var(--line); font: inherit; }

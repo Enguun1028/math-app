@@ -1,6 +1,6 @@
 <script>
   import { fade, fly } from 'svelte/transition';
-  import { route, back, leaving } from './lib/router.svelte.js';
+  import { route, back, leaving, replace } from './lib/router.svelte.js';
   import { ui } from './lib/ui.svelte.js';
   import { ms, ease, reduced, lockInput } from './lib/motion.js';
   import { ZOOM_IN_MS, ZOOM_OUT_MS } from './lib/zoom.js';
@@ -10,11 +10,14 @@
   import MapToggle from './components/MapToggle.svelte';
   import { progress, recordVisit } from './lib/progress.svelte.js';
   import { track } from './lib/track.svelte.js';
+  import { levelChecked } from './lib/logic.js';
 
   // Back after a few days with something learned: say hello and offer a short warm-up (no streak guilt).
   const away = recordVisit();
   track('app_opened', { days_since_last: away, days_opened: progress.days?.length ?? 0 });
   if (away >= 3 && Object.keys(progress.known).length) ui.welcome = true;
+  // Very first visit, landing on the map: the tutorial level first (IntroPage). A link straight to a page skips it.
+  if (!progress.intro && !levelChecked() && (progress.days?.length ?? 0) <= 1 && !route.parts.length) replace('/intro');
   import TermSheet from './components/TermSheet.svelte';
   import TabBar from './components/TabBar.svelte';
   import BugButton from './components/BugButton.svelte';
@@ -26,6 +29,7 @@
     entry: lazy(() => import('./components/EntryPage.svelte')),
     test: lazy(() => import('./components/TestPage.svelte')),
     start: lazy(() => import('./components/StartCheck.svelte')),
+    intro: lazy(() => import('./components/IntroPage.svelte')),
     warmup: lazy(() => import('./components/WarmUp.svelte')),
     topic: lazy(() => import('./components/TopicSheet.svelte')),
     search: lazy(() => import('./components/SearchPage.svelte')),
@@ -44,7 +48,7 @@
 
   let [page, id] = $derived(route.parts);
   // Tab pages stand on their own; the other pages get a top bar with "‹ Буцах".
-  const TAB_PAGES = ['m', 't', 'search', 'tools', 'me'];
+  const TAB_PAGES = ['m', 't', 'search', 'tools', 'me', 'intro'];
   let tabPage = $derived(TAB_PAGES.includes(page));
   // Opening or closing a grade sphere is one camera zoom (lib/zoom.js) that the map and the grade map run
   // themselves, so for those the layers neither fade nor slide; they only stay until the zoom is done.
@@ -91,6 +95,8 @@
             <Lazy get={L.test} {id} />
           {:else if page === 'start'}
             <Lazy get={L.start} />
+          {:else if page === 'intro'}
+            <Lazy get={L.intro} />
           {:else if page === 'warmup'}
             <Lazy get={L.warmup} />
           {:else if page === 'search'}
@@ -111,7 +117,7 @@
 {/if}
 
 {#if !page || page === 'm'}<MapToggle />{/if}
-<TabBar />
+{#if page !== 'intro'}<TabBar />{/if}
 <BugButton raised={page === 's'} />
 <Lazy get={L.topic} when={!!ui.topic} float />
 <TermSheet />

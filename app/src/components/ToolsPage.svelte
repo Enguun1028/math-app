@@ -5,6 +5,7 @@
   import { TOOLS as tools, slot, pinTool } from '../lib/tools.svelte.js';
   import { fly } from 'svelte/transition';
   import { ms, ease } from '../lib/motion.js';
+  import Hint from './Hint.svelte';
 
   // Switching tools: the new one glides in from the side of the tab you tapped; the highlight slides along.
   let dir = $state(1);
@@ -21,6 +22,7 @@
 </script>
 
 <div class="tools-page">
+  <Hint id="tools" text="Граф, бутархай, тоон шулуун... Дарж туршаад үз. Дуртайгаа доод цэсэнд зүүж болно." />
     <h1>Хэрэгсэл</h1>
     <div class="tabs">
       {#if pill}<span class="pill" style:transform="translateX({pill.x}px)" style:width="{pill.w}px"></span>{/if}

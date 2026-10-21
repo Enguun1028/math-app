@@ -13,6 +13,7 @@
   import { zoomPlan, zoomLayer, fadeAlong, gradeOpacity, mapOpacity } from '../lib/zoom.js';
   import TopicIcon from './TopicIcon.svelte';
   import { route } from '../lib/router.svelte.js';
+  import Hint from './Hint.svelte';
 
   let { id } = $props();
   let s = $derived(sphereById[id]);
@@ -381,7 +382,7 @@
       {/if}
       <button class="link" onclick={() => { ui.fly = { sphere: s.id }; location.hash = '/'; }}>Газрын зураг дээр харах</button>
     </div>
-  </div>
+  </div>  {#if !morphing}<Hint id="submap" float text="Сэдэв бүр дээр дарвал тайлбар, видео, дасгал нь нээгдэнэ." />{/if}
 {/if}
 
 <style>
