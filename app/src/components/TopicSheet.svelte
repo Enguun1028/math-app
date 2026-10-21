@@ -386,6 +386,7 @@
   .scrim { z-index: 40; }
   .topic {
     position: fixed; inset: 0; z-index: 41; display: flex; flex-direction: column; overflow: hidden;
+    bottom: var(--kb, 0px); /* ends at the top of the phone keyboard, so a report box can scroll into sight */
     /* Its own layout and paint island: building the card does not make the browser re-measure the map behind it. */
     contain: strict;
     background: radial-gradient(90% 45% at 50% 12%, color-mix(in srgb, var(--c) 14%, var(--bg)), var(--bg) 70%);

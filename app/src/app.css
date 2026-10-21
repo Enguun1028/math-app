@@ -166,6 +166,12 @@ input, textarea, select { font-size: 16px; }
   background: var(--surface-solid); border: 1px solid var(--line); border-bottom: 0; border-radius: 24px 24px 0 0;
   box-shadow: 0 -12px 40px rgba(0, 0, 0, 0.6);
 }
+/* Phone keyboard (lib/keyboard.js): a sheet rests on top of the keyboard and fits in what is still visible;
+   while typing, the tab bar and the bug button step aside, and a page can scroll its last box above the keyboard. */
+.sheet { bottom: var(--kb, 0px); max-height: min(86dvh, calc(var(--vvh, 100dvh) - 24px)); }
+.typing .sheet { padding-bottom: 16px; }
+.typing :is(.tabbar, .bug) { display: none !important; }
+.typing .wrap { padding-bottom: calc(var(--kb, 0px) + 24px); }
 .grab { width: 40px; height: 5px; border-radius: 5px; background: var(--line); margin: 0 auto; }
 .sheet-close {
   position: absolute; top: 8px; right: 8px; width: 44px; height: 44px; border: 0; border-radius: 50%;
