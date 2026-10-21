@@ -17,6 +17,7 @@
   if (away >= 3 && Object.keys(progress.known).length) ui.welcome = true;
   import TermSheet from './components/TermSheet.svelte';
   import TabBar from './components/TabBar.svelte';
+  import BugButton from './components/BugButton.svelte';
   import Lazy from './components/Lazy.svelte';
   import { lazy, preloadWhenIdle } from './lib/lazy.js';
 
@@ -111,6 +112,7 @@
 
 {#if !page || page === 'm'}<MapToggle />{/if}
 <TabBar />
+<BugButton raised={page === 's'} />
 <Lazy get={L.topic} when={!!ui.topic} float />
 <TermSheet />
 <Lazy get={L.level} when={ui.level} float />
