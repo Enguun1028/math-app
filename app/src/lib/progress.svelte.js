@@ -4,6 +4,12 @@ const KEY = 'ayalal.progress.v1';
 
 function load() {
   try {
+    // Test links only (preview branches, localhost), never the real site: "?new" starts as a first-time
+    // visitor, tutorial level and tour included (owner, 2026-10-22: "how do i enter as a new guy").
+    if (location.hostname !== 'matematikiin-ayalal.pages.dev' && new URLSearchParams(location.search).has('new')) {
+      localStorage.clear();
+      history.replaceState(null, '', location.pathname);
+    }
     return JSON.parse(localStorage.getItem(KEY)) || {};
   } catch {
     return {};
