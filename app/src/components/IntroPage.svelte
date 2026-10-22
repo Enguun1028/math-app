@@ -41,6 +41,12 @@
     else {
       ui.introSphere = 'g' + Math.min(12, Math.max(5, progress.grade ?? 7));
       ui.scrollY = null; // the map opens on that sphere (its first-look scroll), not where it was before the intro
+      // Then the guided tour: the map, a topic, the tools, the graph (Tour.svelte).
+      ui.tour = { step: 'sphere', sphere: ui.introSphere, topic: null };
+      // The tour's own tips replace the one-time hints on the grade map and the tools page.
+      progress.hints = { ...progress.hints, submap: true, tools: true };
+      save();
+      track('tour_step', { step: 'sphere' });
     }
     replace('/');
   }
@@ -63,13 +69,15 @@
           <button class="chip grade wide" onclick={() => setGrade(12, true)}>Төгссөн</button>
         </div>
       {:else if step === 'quiz'}
-        <p class="small muted">Санаа зоволтгүй: буруу хариулбал яаж бодохыг нь харуулна.</p>
+        <!-- Owner's words, 2026-10-22. -->
+        <p class="calm">Санаа зоволтгүй. Мэдэхгүй зүйлсээ олох нь амжилттай суралцахын эхний алхам.</p>
         <Quiz {questions} mode="intro" ondone={done} />
       {:else}
         <div class="hello">
-          <h1>{right === questions.length ? 'Гайхалтай!' : 'Сайн байна!'}</h1>
-          <p class="lead">{right}/{questions.length} асуултыг анхны оролдлогоор зөв бодлоо.</p>
-          <p class="muted">Одоо газрын зураг дээр өөрийн ангийг нээж үзээрэй.</p>
+          <!-- Warm for every result, 0 right too (owner, 2026-10-22). -->
+          <h1>{right === questions.length ? 'Гайхалтай!' : right ? 'Сайн байна!' : 'Сайн эхлэл!'}</h1>
+          <p class="lead">{right ? `${right}/${questions.length} асуултыг анхны оролдлогоор зөв бодлоо.` : 'Мэдэхгүй зүйлсээ оллоо. Энэ бол эхний алхам.'}</p>
+          <p class="muted">Одоо аппаа хамт танилцъя.</p>
         </div>
         <button class="btn sun big" onclick={() => leave(false)}>Газрын зураг руу</button>
       {/if}
@@ -88,4 +96,5 @@
   .grades { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
   .chip.grade { min-height: 56px; justify-content: center; font-size: 1.15rem; font-weight: 800; }
   .chip.wide { grid-column: 1 / -1; }
+  .calm { margin: 0; padding: 10px 14px; border-radius: 14px; background: var(--sky-soft); color: var(--sky); font-weight: 700; line-height: 1.4; }
 </style>

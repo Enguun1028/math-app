@@ -21,6 +21,7 @@
   import TermSheet from './components/TermSheet.svelte';
   import TabBar from './components/TabBar.svelte';
   import BugButton from './components/BugButton.svelte';
+  import Tour from './components/Tour.svelte';
   import Lazy from './components/Lazy.svelte';
   import { lazy, preloadWhenIdle } from './lib/lazy.js';
 
@@ -118,7 +119,9 @@
 
 {#if !page || page === 'm'}<MapToggle />{/if}
 {#if page !== 'intro'}<TabBar />{/if}
-<BugButton raised={page === 's'} />
+<!-- No bug button during the tutorial level and the tour (owner, 2026-10-22: "the bug appears from the start"). -->
+{#if page !== 'intro' && !ui.tour}<BugButton raised={page === 's'} />{/if}
+<Tour />
 <Lazy get={L.topic} when={!!ui.topic} float />
 <TermSheet />
 <Lazy get={L.level} when={ui.level} float />

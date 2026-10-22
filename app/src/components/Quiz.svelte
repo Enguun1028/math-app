@@ -3,7 +3,7 @@
   // Learn mode (lessons, sphere tests), following the feedback research:
   //   1st wrong: a hint, try again. 2nd wrong: the worked step and the right answer.
   //   "Мэдэхгүй байна": the worked step straight away, plus a link to the lesson underneath.
-  //   Only a first-try right answer counts toward "Мэднэ"; wrong answers are amber, never red.
+  //   Only a first-try right answer counts toward "Мэднэ"; wrong answers are calm blue, never red.
   // Check mode (finding the starting point): one try, no reveal, and "Мэдэхгүй байна" instead of guessing.
   import RichText from './RichText.svelte';
   import QuizFig from './QuizFig.svelte';
@@ -24,7 +24,10 @@
   let cur = $derived(questions[i]);
   let gap = $derived(state === 'shown' && help ? help(cur) : null);
 
-  const praise = ['Зөв. Сайн бодлоо.', 'Зөв. Аргаа зөв сонгосон байна.', 'Яг зөв.', 'Зөв. Алхам бүрээ сайн шалгажээ.'];
+  // Warm words for every answer (owner, 2026-10-22: "we need more encouraging words for any answers").
+  const praise = ['Зөв. Сайн бодлоо.', 'Зөв. Аргаа зөв сонгосон байна.', 'Яг зөв. Гайхалтай!', 'Зөв. Алхам бүрээ сайн шалгажээ.'];
+  const nudge = ['Ойрхон байна. Нэг санаа:', 'Сайн оролдлого. Нэг санаа:', 'Зүгээр дээ, дахиад оролдъё. Санаа:'];
+  let idk = $state(false); // "Мэдэхгүй байна" was tapped on this question
 
   // One event per tap: which question, which choice, right or not, and on which try.
   // choice is the tapped index or 'dont_know'; choice_text is what the tapped answer said, so the PostHog
@@ -57,6 +60,7 @@
     answered('dont_know', false);
     if (tried.length === 0) results.push(false);
     if (mode === 'check') return next();
+    idk = true;
     state = 'shown';
   }
 
@@ -68,6 +72,7 @@
     } else {
       i += 1;
       tried = [];
+      idk = false;
       state = 'ask';
     }
   }
@@ -96,13 +101,13 @@
               class:right={done && k === cur.answer}
               class:wrong={tried.includes(k)}
               disabled={done || tried.includes(k)}
-              onclick={() => pick(k)}><RichText text={c} /></button>
+              onclick={() => pick(k)}><RichText text={c} />{#if tried.includes(k)}<span class="mine">Таны сонголт</span>{/if}</button>
           {/each}
         </div>
 
         {#if state === 'hint'}
           <div class="fb hint" aria-live="polite">
-            <strong>Бараг. Нэг санаа:</strong>
+            <strong>{nudge[i % nudge.length]}</strong>
             <p><RichText text={hint} /></p>
             <p class="small muted">Дахин нэг сонгоод үз.</p>
           </div>
@@ -113,7 +118,7 @@
           </div>
         {:else if state === 'shown'}
           <div class="fb shown" aria-live="polite">
-            <strong>Ингэж бодно:</strong>
+            <strong>{idk ? 'Шударга хариулт. Одоо хамт бодъё:' : 'Оролдсон нь сайн байна. Ингэж бодно:'}</strong>
             <p><RichText text={cur.why} /></p>
             {#if gap}<a class="gap" href={gap.href}>{gap.label} →</a>{/if}
           </div>
@@ -145,13 +150,15 @@
   /* Hover only with a real mouse: on a phone the tapped spot stays "hovered", which lit up the same spot on the next question. */
   @media (hover: hover) { .choice:not(:disabled):hover { border-color: var(--sky); } }
   .choice.right { border-color: var(--grass); background: var(--grass-soft); }
-  /* Wrong is calm amber and simply set aside, not a red alarm. */
-  .choice.wrong { border-color: color-mix(in srgb, var(--sun) 55%, transparent); background: transparent; color: var(--muted); text-decoration: line-through; text-decoration-color: color-mix(in srgb, var(--sun) 60%, transparent); }
+  /* A wrong pick is calm blue with "Таны сонголт" in the corner, never red (owner, 2026-10-22). */
+  .choice { position: relative; }
+  .choice.wrong { border-color: color-mix(in srgb, var(--sky) 60%, transparent); background: var(--sky-soft); color: var(--ink); padding-right: 108px; }
+  .mine { position: absolute; top: 50%; right: 10px; transform: translateY(-50%); padding: 3px 8px; border-radius: 999px; background: color-mix(in srgb, var(--sky) 22%, transparent); color: var(--sky); font-size: 0.72rem; font-weight: 800; }
   .choice:disabled { cursor: default; }
   .choice.idk { border-style: dashed; color: var(--muted); font-weight: 600; font-size: 0.95rem; min-height: 46px; }
   .fb { padding: 14px 16px; border-radius: 14px; display: grid; gap: 4px; animation: in 0.25s ease-out; }
-  .fb.hint { background: var(--sun-soft); }
-  .fb.hint strong { color: var(--sun); }
+  .fb.hint { background: var(--sky-soft); }
+  .fb.hint strong { color: var(--sky); }
   .fb.ok { background: var(--grass-soft); }
   .fb.ok strong { color: var(--grass); }
   .fb.shown { background: var(--sky-soft); }

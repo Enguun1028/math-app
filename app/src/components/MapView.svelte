@@ -271,7 +271,7 @@
   </header>
 
   <div class="hud-bottom">
-    {#if ui.introSphere}
+    {#if ui.introSphere && !ui.tour}
       <!-- End of the tutorial level: the student's own grade glows; tapping it is the last step. -->
       <div class="introtip" transition:fly={{ y: 30, duration: ms(300), easing: ease }}>
         <strong>Энэ гэрэлтэж буй бөмбөлөг бол таны {sphereById[ui.introSphere].grade}-р анги.</strong>
