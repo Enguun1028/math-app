@@ -10,6 +10,7 @@
   import { sphereById } from '../lib/content.js';
   import { track } from '../lib/track.svelte.js';
   import { ms } from '../lib/motion.js';
+  import { readLine } from '../lib/graphexpr.js';
 
   // What the graph opens with: a parabola with a slider, a wave and a circle, so one screen shows what it can do.
   const SHOWCASE = ['y = a x^2', 'y = sin x', 'x^2 + y^2 = 9'];
@@ -50,8 +51,18 @@
     },
     // Same spot as the slider step, only the words change (owner: the jump to the board a moment later was weird).
     play: {
-      sel: () => '.graph .sliders', show: () => page === 'tools', free: true, done: 'Дуусгах',
+      sel: () => '.graph .sliders', show: () => page === 'tools', free: true,
       text: () => 'Гайхалтай! Парабол, синус, тойрог: бүгдийг өөрөө бичиж болно.',
+    },
+    // Then the student's own line (owner, 2026-10-22): the lines are cleared, the first row is lit, and the tip
+    // sits at the top so the board stays in sight; once a line can be drawn, the last tip.
+    type: {
+      sel: () => '.graph .rows .row', show: () => page === 'tools', free: true, high: true,
+      text: () => 'Одоо багшийнхаа өгсөн функцийг бичээд үзээрэй. Жишээ нь: y = 2x + 1',
+    },
+    typed: {
+      sel: () => '.graph .rows .row', show: () => page === 'tools', free: true, high: true, done: 'Дуусгах',
+      text: () => 'Гайхалтай! Таны функц зурагдлаа. Хүссэн функцээ ингэж зурж болно.',
     },
   };
   let s = $derived(t ? STEPS[t.step] : null);
@@ -101,9 +112,26 @@
     cardback: () => (ui.topic = null), // closing the card leads to the tools step
     tools: () => go('/tools'),
     graph: () => to('play'),
+    play: () => {
+      dispatchEvent(new Event('graph-clear')); // GraphTool empties its lines
+      scrollTo({ top: 0 });
+      to('type');
+    },
+    type: () => to('typed'),
+  };
+  // A line that draws something (not half typed), and a short pause in typing: the last tip.
+  let typeWait = null;
+  const onType = (ev) => {
+    if (t?.step !== 'type' || !ev.target.closest?.('.graph .rows')) return;
+    clearTimeout(typeWait);
+    const p = readLine(ev.target.value ?? '');
+    if (['fn', 'implicit', 'vline', 'point'].includes(p.kind)) typeWait = setTimeout(() => ui.tour?.step === 'type' && to('typed'), 1000);
   };
   // The first slider drag changes the tip's words in place.
-  const onInput = (ev) => { if (t?.step === 'graph' && ev.target.closest?.('.graph .sliders')) to('play'); };
+  const onInput = (ev) => {
+    if (t?.step === 'graph' && ev.target.closest?.('.graph .sliders')) to('play');
+    onType(ev);
+  };
 
   // The grade map's topic: one whose bubble is on screen now, a new one for this grade first, nearest the middle.
   // (Owner's iPhone, 2026-10-22: the first new topic of grade 10 sat off screen, everything else was dimmed and
@@ -197,14 +225,14 @@
     {/if}
     <div class="ring" class:round={s.round} class:free={s.free} style:width="{live.w}px" style:height="{live.h}px"
       style:transform="translate3d({live.x}px, {live.y}px, 0)"></div>
-    {#if !tall}
+    {#if !tall && !s.high}
       <div class="arrow" class:up={below}
         style:transform="translate3d({live.x + live.w / 2 - 20}px, {below ? live.y + live.h + 4 : live.y - 44}px, 0)">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v16M5 12l7 7 7-7" /></svg>
       </div>
     {/if}
-    <div class="tip" style:top={tall || s.low || !below ? null : hole.y + hole.h + 52 + 'px'}
-      style:bottom={tall || s.low ? 'calc(env(safe-area-inset-bottom) + 16px)' : below ? null : vh - hole.y + 52 + 'px'}>
+    <div class="tip" style:top={s.high ? 'calc(env(safe-area-inset-top) + 12px)' : tall || s.low || !below ? null : hole.y + hole.h + 52 + 'px'}
+      style:bottom={s.high ? null : tall || s.low ? 'calc(env(safe-area-inset-bottom) + 16px)' : below ? null : vh - hole.y + 52 + 'px'}>
       <p>{s.text()}</p>
       <div class="acts">
         <button class="skip" onclick={() => end(true)}>Алгасах</button>

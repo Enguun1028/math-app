@@ -93,6 +93,12 @@
   // ---- editing ----
   let active = $state(0);
   let inputs = [];
+  // The tour's "write your own" step starts from one empty line, ready to type in.
+  $effect(() => {
+    const clear = () => { lines = ['']; active = 0; requestAnimationFrame(() => inputs[0]?.focus()); };
+    addEventListener('graph-clear', clear);
+    return () => removeEventListener('graph-clear', clear);
+  });
   function insert(text) {
     const inp = inputs[active];
     if (!inp) return;
