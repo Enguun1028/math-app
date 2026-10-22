@@ -1,6 +1,6 @@
 """Joins the rendered frames into the Reel and adds the Mongolian captions (draft wording for the owner).
 
-Run: python captions_whatif_ub.py <frames_dir> <out.mp4>
+Run: python captions_whatif_ub.py <frames_dir | master.mp4> <out.mp4>
 Captions follow the reference style: one serif italic line at the bottom, the title in the first seconds,
 the speed counter under the title. Speed doubles every 2 s: v = 2^(t/2) m/s. A white flash at light speed.
 Silent on purpose: the owner adds the song in Instagram.
@@ -82,8 +82,12 @@ f.append(f"drawtext=fontfile='{esc_path(FONT_TITLE)}':textfile='{textfile('ма�
 script = os.path.join(tmp, 'filters.txt')
 with open(script, 'w', encoding='utf-8') as fh:
     fh.write(',\n'.join(f))
-src = (['-f', 'lavfi', '-i', 'color=c=0x4a86e8:s=720x1280:r=30:d=60'] if FRAMES == 'test'
-       else ['-framerate', '30', '-i', os.path.join(FRAMES, '%04d.png')])
+if FRAMES == 'test':
+    src = ['-f', 'lavfi', '-i', 'color=c=0x4a86e8:s=720x1280:r=30:d=60']
+elif os.path.isfile(FRAMES):                  # a clean master video without captions
+    src = ['-i', FRAMES]
+else:
+    src = ['-framerate', '30', '-i', os.path.join(FRAMES, '%04d.png')]
 cmd = ['ffmpeg', '-y', '-loglevel', 'error', *src,
        '-/filter_complex', script, '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-crf', '18', '-preset', 'medium',
        '-movflags', '+faststart', OUT]
