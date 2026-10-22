@@ -25,10 +25,15 @@
       sel: () => `[data-t="${t.topic}"] .c`, round: true, show: () => page === 's' && !ui.topic && !ui.morph && !!t.topic,
       text: () => 'Бөмбөлөг бүр нэг сэдэв. Нэгийг нь дарж үзээрэй.',
     },
+    // The topic card is explored first (owner, 2026-10-22: "let him explore the topic card a little"): nothing
+    // dims, the arrow points at the section chips, the tip waits at the bottom. After some scrolling, «‹ Буцах».
     card: {
-      // free: nothing dims, so the card can be read and scrolled first; only the arrow points at «‹ Буцах».
+      sel: () => (document.querySelector('.topic .jump') ? '.topic .jump' : '.topic .scroll'), show: () => !!ui.topic, free: true, low: true,
+      text: () => 'Энэ сэдвийн тайлбар, жишээ, дасгал бүгд энд байна. Доош гүйлгээд үзээрэй, эсвэл дээрх хэсгүүдээс дарж очоорой.',
+    },
+    cardback: {
       sel: () => '.topic .bar .btn', show: () => !!ui.topic, free: true,
-      text: () => 'Энд сэдвийн тайлбар, жишээ, дасгал бий. Гүйлгэж үзээрэй. Дараа нь «‹ Буцах» дарна уу.',
+      text: () => 'Сайн байна! Сэдэв бүр ийм карттай. Үзэж дуусаад «‹ Буцах» дарна уу.',
     },
     tools: {
       sel: () => '.tabbar a[href="#/tools"]', show: () => page === 's' && !ui.topic,
@@ -40,7 +45,7 @@
     },
     play: {
       sel: () => '.graph .boardwrap', show: () => page === 'tools', done: 'Дуусгах',
-      text: () => 'Гайхалтай! Парабол, синус, тойрог: бүгдийг өөрөө бичиж болно. Хоёр хуруугаараа томруулна.',
+      text: () => 'Гайхалтай! Парабол, синус, тойрог: бүгдийг өөрөө бичиж болно.',
     },
   };
   let s = $derived(t ? STEPS[t.step] : null);
@@ -63,12 +68,28 @@
       ui.tour = { ...t, step: 'topic', topic: null };
       track('tour_step', { step: 'topic' });
     } else if (t.step === 'topic' && ui.topic) to('card');
-    else if (t.step === 'card' && !ui.topic) {
+    else if ((t.step === 'card' || t.step === 'cardback') && !ui.topic) {
       // The graph waits on the tools page with the showcase lines; the tour's own tips replace the one-time hints.
       ui.tool = 'graph';
       ui.graphSeed = SHOWCASE;
       to('tools');
     } else if (t.step === 'tools' && page === 'tools') to('graph');
+  });
+  // Scrolling the topic card about two screens (or jumping to a section) leads to «‹ Буцах» a few seconds later.
+  let scrolled = 0, lastTop = 0, cardWait = null;
+  $effect(() => {
+    if (t?.step !== 'card') return;
+    scrolled = 0;
+    lastTop = 0;
+    const onScroll = (ev) => {
+      const el = ev.target;
+      if (!el.closest?.('.topic .scroll')) return;
+      scrolled += Math.abs(el.scrollTop - lastTop);
+      lastTop = el.scrollTop;
+      if (scrolled > innerHeight * 1.5 && !cardWait) cardWait = setTimeout(() => { cardWait = null; if (ui.tour?.step === 'card') to('cardback'); }, 3000);
+    };
+    addEventListener('scroll', onScroll, true);
+    return () => removeEventListener('scroll', onScroll, true);
   });
   // Dragging a graph slider is the last step before the end.
   // Moves on a moment after the first drag, so the student sees the curve change first.
@@ -122,6 +143,18 @@
     return () => cancelAnimationFrame(raf);
   });
 
+  function tapSpot() {
+    document.querySelector(s.sel())?.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+  }
+  // No scrolling, panning or zooming anything behind a dimmed tour step.
+  const still = (ev) => ev.cancelable && ev.preventDefault();
+  $effect(() => {
+    if (!visible || s.free) return;
+    addEventListener('touchmove', still, { passive: false });
+    addEventListener('wheel', still, { passive: false });
+    return () => { removeEventListener('touchmove', still); removeEventListener('wheel', still); };
+  });
+
   const PAD = 12; // roomy enough for a bubble's float
   let hole = $derived(r && { x: r.x - PAD, y: r.y - PAD, w: r.w + PAD * 2, h: r.h + PAD * 2 });
   // A tall spot (the graph board) gets its tip over the bottom of the screen and no arrow.
@@ -141,6 +174,10 @@
       <div class="dim" style:left="0" style:top="{hole.y + hole.h}px" style:right="0" style:bottom="0"></div>
       <div class="dim" style:left="0" style:top="{hole.y}px" style:width="{Math.max(0, hole.x)}px" style:height="{hole.h}px"></div>
       <div class="dim" style:left="{hole.x + hole.w}px" style:top="{hole.y}px" style:right="0" style:height="{hole.h}px"></div>
+      <!-- The lit spot takes a tap only: a drag or pinch there moved the map under the ring (owner, 2026-10-22:
+           "sloppy design"). The tap is passed on to the element underneath. -->
+      <button class="catch" class:round={s.round} style:left="{hole.x}px" style:top="{hole.y}px" style:width="{hole.w}px" style:height="{hole.h}px"
+        aria-label={s.text()} onclick={tapSpot}></button>
     {/if}
     <div class="ring" class:round={s.round} class:free={s.free} style:left="{hole.x}px" style:top="{hole.y}px" style:width="{hole.w}px" style:height="{hole.h}px"></div>
     {#if !tall}
@@ -149,8 +186,8 @@
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v16M5 12l7 7 7-7" /></svg>
       </div>
     {/if}
-    <div class="tip" style:top={tall || !below ? null : hole.y + hole.h + 52 + 'px'}
-      style:bottom={tall ? 'calc(env(safe-area-inset-bottom) + 16px)' : below ? null : vh - hole.y + 52 + 'px'}>
+    <div class="tip" style:top={tall || s.low || !below ? null : hole.y + hole.h + 52 + 'px'}
+      style:bottom={tall || s.low ? 'calc(env(safe-area-inset-bottom) + 16px)' : below ? null : vh - hole.y + 52 + 'px'}>
       <p>{s.text()}</p>
       <div class="acts">
         <button class="skip" onclick={() => end(true)}>Алгасах</button>
@@ -163,7 +200,9 @@
 <style>
   .tour { position: fixed; inset: 0; z-index: 60; pointer-events: none; }
   /* The panels only catch taps; the dimming is the ring's own huge shadow, so a round spot gets a round hole. */
-  .dim { position: absolute; pointer-events: auto; }
+  .dim { position: absolute; pointer-events: auto; touch-action: none; }
+  .catch { position: absolute; z-index: 1; pointer-events: auto; touch-action: none; padding: 0; border: 0; border-radius: 16px; background: transparent; }
+  .catch.round { border-radius: 50%; }
   .ring {
     position: absolute; border-radius: 16px; border: 2px solid var(--sun);
     box-shadow: 0 0 0 200vmax rgba(2, 3, 6, 0.78), 0 0 24px rgba(255, 204, 102, 0.55);

@@ -158,7 +158,7 @@
     </div>
   {/if}
 
-  <p class="hint small muted">Жишээ: y = x^2 · y = 2x + 1 · x^2 + y^2 = 9 · (2; 3) · y = sin x · a = 2. Хоёр хуруугаараа томруулна.</p>
+  <p class="hint small muted">Жишээ: y = x^2 · y = 2x + 1 · x^2 + y^2 = 9 · (2; 3) · y = sin x · a = 2.</p>
 </div>
 
 <style>
