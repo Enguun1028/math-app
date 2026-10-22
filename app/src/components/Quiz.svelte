@@ -163,5 +163,5 @@
   .fb.ok strong { color: var(--grass); }
   .fb.shown { background: var(--sky-soft); }
   .gap { justify-self: start; margin-top: 6px; min-height: 44px; display: inline-flex; align-items: center; color: var(--sky-deep); font-weight: 700; }
-  .next { justify-self: start; }
+  .next { justify-self: end; } /* bottom right, where the thumb goes next (owner, 2026-10-22) */
 </style>

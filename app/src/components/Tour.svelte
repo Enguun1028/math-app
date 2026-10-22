@@ -18,33 +18,39 @@
   let page = $derived(route.parts[0]);
   const STEPS = {
     sphere: {
-      sel: () => `[data-sphere="${t.sphere}"] .rim`, round: true, show: () => !page,
+      sel: () => `[data-sphere="${t.sphere}"] .rim`, round: true, tapOnly: true, show: () => !page,
       text: () => `Энэ бол таны ${sphereById[t.sphere].grade}-р анги. Дарж нээгээрэй.`,
     },
     topic: {
-      sel: () => `[data-t="${t.topic}"] .c`, round: true, show: () => page === 's' && !ui.topic && !ui.morph && !!t.topic,
+      sel: () => `[data-t="${t.topic}"] .c`, round: true, tapOnly: true, show: () => page === 's' && !ui.topic && !ui.morph && !!t.topic,
       text: () => 'Бөмбөлөг бүр нэг сэдэв. Нэгийг нь дарж үзээрэй.',
     },
-    // The topic card is explored first (owner, 2026-10-22: "let him explore the topic card a little"): nothing
-    // dims, the arrow points at the section chips, the tip waits at the bottom. After some scrolling, «‹ Буцах».
+    // The topic card, guided but explored (owner, 2026-10-22: "let him explore the topic card a little", and
+    // "inside the topic card nothing is dim so its not really a guide"): the section chips, then the card body
+    // lit and scrollable until the student taps "Ойлголоо", then «‹ Буцах». Nothing moves on by a timer.
     card: {
-      sel: () => (document.querySelector('.topic .jump') ? '.topic .jump' : '.topic .scroll'), show: () => !!ui.topic, free: true, low: true,
-      text: () => 'Энэ сэдвийн тайлбар, жишээ, дасгал бүгд энд байна. Доош гүйлгээд үзээрэй, эсвэл дээрх хэсгүүдээс дарж очоорой.',
+      sel: () => '.topic .jump', show: () => !!ui.topic,
+      text: () => 'Эдгээр нь сэдвийн хэсгүүд: томьёо, жишээ, дасгал... Нэгийг нь дарж үзээрэй.',
+    },
+    cardscroll: {
+      sel: () => '.topic .scroll', show: () => !!ui.topic, next: 'Ойлголоо',
+      text: () => 'Доош гүйлгээд үзээрэй. Сэдэв бүр ийм карттай.',
     },
     cardback: {
-      sel: () => '.topic .bar .btn', show: () => !!ui.topic, free: true,
-      text: () => 'Сайн байна! Сэдэв бүр ийм карттай. Үзэж дуусаад «‹ Буцах» дарна уу.',
+      sel: () => '.topic .bar .btn', show: () => !!ui.topic,
+      text: () => 'Сайн байна! Одоо «‹ Буцах» дарна уу.',
     },
     tools: {
-      sel: () => '.tabbar a[href="#/tools"]', show: () => page === 's' && !ui.topic,
+      sel: () => '.tabbar a[href="#/tools"]', tapOnly: true, show: () => page === 's' && !ui.topic,
       text: () => 'Одоо хэрэгслүүдтэй танилцъя.',
     },
     graph: {
       sel: () => '.graph .sliders', show: () => page === 'tools', free: true, // the curve must stay visible while dragging
       text: () => 'Граф тооны машин: тэгшитгэл бичихэд шууд зурна. Гулсуурыг чирж a-г өөрчлөөд үзээрэй.',
     },
+    // Same spot as the slider step, only the words change (owner: the jump to the board a moment later was weird).
     play: {
-      sel: () => '.graph .boardwrap', show: () => page === 'tools', done: 'Дуусгах',
+      sel: () => '.graph .sliders', show: () => page === 'tools', free: true, done: 'Дуусгах',
       text: () => 'Гайхалтай! Парабол, синус, тойрог: бүгдийг өөрөө бичиж болно.',
     },
   };
@@ -68,36 +74,17 @@
       ui.tour = { ...t, step: 'topic', topic: null };
       track('tour_step', { step: 'topic' });
     } else if (t.step === 'topic' && ui.topic) to('card');
-    else if ((t.step === 'card' || t.step === 'cardback') && !ui.topic) {
+    else if (t.step.startsWith('card') && !ui.topic) {
       // The graph waits on the tools page with the showcase lines; the tour's own tips replace the one-time hints.
       ui.tool = 'graph';
       ui.graphSeed = SHOWCASE;
       to('tools');
     } else if (t.step === 'tools' && page === 'tools') to('graph');
   });
-  // Scrolling the topic card about two screens (or jumping to a section) leads to «‹ Буцах» a few seconds later.
-  let scrolled = 0, lastTop = 0, cardWait = null;
-  $effect(() => {
-    if (t?.step !== 'card') return;
-    scrolled = 0;
-    lastTop = 0;
-    const onScroll = (ev) => {
-      const el = ev.target;
-      if (!el.closest?.('.topic .scroll')) return;
-      scrolled += Math.abs(el.scrollTop - lastTop);
-      lastTop = el.scrollTop;
-      if (scrolled > innerHeight * 1.5 && !cardWait) cardWait = setTimeout(() => { cardWait = null; if (ui.tour?.step === 'card') to('cardback'); }, 3000);
-    };
-    addEventListener('scroll', onScroll, true);
-    return () => removeEventListener('scroll', onScroll, true);
-  });
-  // Dragging a graph slider is the last step before the end.
-  // Moves on a moment after the first drag, so the student sees the curve change first.
-  let wait = null;
-  const onInput = (ev) => {
-    if (t?.step !== 'graph' || wait || !ev.target.closest?.('.graph .sliders')) return;
-    wait = setTimeout(() => { wait = null; if (ui.tour?.step === 'graph') to('play'); }, 1500);
-  };
+  // A tapped section chip: the card scrolls there, then its body lights up.
+  const onClick = (ev) => { if (t?.step === 'card' && ev.target.closest?.('.topic .jump button')) setTimeout(() => ui.tour?.step === 'card' && to('cardscroll'), 500); };
+  // The first slider drag changes the tip's words in place.
+  const onInput = (ev) => { if (t?.step === 'graph' && ev.target.closest?.('.graph .sliders')) to('play'); };
 
   // The grade map's topic: one whose bubble is on screen now, a new one for this grade first, nearest the middle.
   // (Owner's iPhone, 2026-10-22: the first new topic of grade 10 sat off screen, everything else was dimmed and
@@ -115,18 +102,22 @@
     ui.tour = { ...ui.tour, topic: on.sort((a, b) => d(a) - d(b))[0].id };
   }
 
-  // The lit spot follows its element (spheres drift, the map scrolls). It moves only when the element moved a few
-  // pixels, so the dimmed screen is not repainted every frame (slow on iPhones), and the loop runs only during a tour.
+  // The ring and arrow follow their element every frame (spheres and bubbles float) by a transform only, which the
+  // GPU moves without repainting (owner: the ring snapping every few seconds "looks so stupid"). The tap-catching
+  // panels and the tip use a steadier copy that moves only when the element moved a lot; the padding covers a float.
   // A spot below the fold (the graph sliders) is scrolled into view once, since the dim panels stop scrolling.
-  let r = $state(null), vh = $state(innerHeight), shown = null;
-  const near = (a, b) => a && b && Math.abs(a.x - b.x) < 5 && Math.abs(a.y - b.y) < 5 && Math.abs(a.w - b.w) < 5 && Math.abs(a.h - b.h) < 5;
+  // The loop runs only during a tour.
+  let r = $state(null), rb = $state(null), vh = $state(innerHeight), shown = null, litEl = null;
+  const near = (a, b, d) => a && b && Math.abs(a.x - b.x) < d && Math.abs(a.y - b.y) < d && Math.abs(a.w - b.w) < d && Math.abs(a.h - b.h) < d;
   let active = $derived(!!t);
   $effect(() => {
     if (!active) return;
     let raf;
     const loop = () => {
       if (t?.step === 'topic' && !t.topic && page === 's' && !ui.morph) pickTopic();
-      const el = visible ? document.querySelector(s.sel()) : null;
+      const el = (litEl = visible ? document.querySelector(s.sel()) : null);
+      // A card without section chips goes straight to its body.
+      if (t?.step === 'card' && ui.topic && !el && document.querySelector('.topic .scroll')) to('cardscroll');
       if (el && shown !== t.step) {
         shown = t.step;
         const b0 = el.getBoundingClientRect();
@@ -134,8 +125,11 @@
       }
       const b = el?.getBoundingClientRect();
       const n = b && b.width ? { x: b.left, y: b.top, w: b.width, h: b.height } : null;
-      if (!n) r = null;
-      else if (!near(n, r)) r = n;
+      if (!n) r = rb = null;
+      else {
+        if (!near(n, r, 0.5)) r = n;
+        if (!near(n, rb, 14)) rb = n;
+      }
       if (vh !== innerHeight) vh = innerHeight;
       raf = requestAnimationFrame(loop);
     };
@@ -146,8 +140,9 @@
   function tapSpot() {
     document.querySelector(s.sel())?.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
   }
-  // No scrolling, panning or zooming anything behind a dimmed tour step.
-  const still = (ev) => ev.cancelable && ev.preventDefault();
+  // No scrolling, panning or zooming anything behind a dimmed tour step; inside the lit spot only where it is not
+  // tap-only (the topic card body scrolls).
+  const still = (ev) => { if (ev.cancelable && (s?.tapOnly || !litEl?.contains(ev.target))) ev.preventDefault(); };
   $effect(() => {
     if (!visible || s.free) return;
     addEventListener('touchmove', still, { passive: false });
@@ -156,7 +151,9 @@
   });
 
   const PAD = 12; // roomy enough for a bubble's float
-  let hole = $derived(r && { x: r.x - PAD, y: r.y - PAD, w: r.w + PAD * 2, h: r.h + PAD * 2 });
+  const grow = (q) => q && { x: q.x - PAD, y: q.y - PAD, w: q.w + PAD * 2, h: q.h + PAD * 2 };
+  let hole = $derived(grow(rb)); // steady: panels, tap catcher, tip
+  let live = $derived(grow(r)); // every frame: ring, arrow
   // A tall spot (the graph board) gets its tip over the bottom of the screen and no arrow.
   let tall = $derived(hole && hole.h > vh * 0.4);
   let below = $derived(hole && hole.y + hole.h / 2 < vh / 2); // the tip sits below a spot in the top half
@@ -164,7 +161,7 @@
   let lost = $derived(hole && (hole.y + hole.h < 0 || hole.y > vh || hole.x + hole.w < 0 || hole.x > innerWidth));
 </script>
 
-<svelte:document oninput={onInput} />
+<svelte:document oninput={onInput} onclick={onClick} />
 
 {#if visible && hole && !lost}
   <div class="tour" transition:fade={{ duration: ms(200) }}>
@@ -174,15 +171,16 @@
       <div class="dim" style:left="0" style:top="{hole.y + hole.h}px" style:right="0" style:bottom="0"></div>
       <div class="dim" style:left="0" style:top="{hole.y}px" style:width="{Math.max(0, hole.x)}px" style:height="{hole.h}px"></div>
       <div class="dim" style:left="{hole.x + hole.w}px" style:top="{hole.y}px" style:right="0" style:height="{hole.h}px"></div>
-      <!-- The lit spot takes a tap only: a drag or pinch there moved the map under the ring (owner, 2026-10-22:
-           "sloppy design"). The tap is passed on to the element underneath. -->
-      <button class="catch" class:round={s.round} style:left="{hole.x}px" style:top="{hole.y}px" style:width="{hole.w}px" style:height="{hole.h}px"
-        aria-label={s.text()} onclick={tapSpot}></button>
+      <!-- On the map the lit spot takes a tap only: a drag or pinch there moved the map under the ring (owner,
+           2026-10-22: "sloppy design"). The tap is passed on to the element underneath. -->
+      {#if s.tapOnly}<button class="catch" class:round={s.round} style:left="{hole.x}px" style:top="{hole.y}px" style:width="{hole.w}px" style:height="{hole.h}px"
+        aria-label={s.text()} onclick={tapSpot}></button>{/if}
     {/if}
-    <div class="ring" class:round={s.round} class:free={s.free} style:left="{hole.x}px" style:top="{hole.y}px" style:width="{hole.w}px" style:height="{hole.h}px"></div>
+    <div class="ring" class:round={s.round} class:free={s.free} style:width="{live.w}px" style:height="{live.h}px"
+      style:transform="translate3d({live.x}px, {live.y}px, 0)"></div>
     {#if !tall}
-      <div class="arrow" class:up={below} style:left="{hole.x + hole.w / 2}px"
-        style:top={below ? hole.y + hole.h + 4 + 'px' : null} style:bottom={below ? null : vh - hole.y + 4 + 'px'}>
+      <div class="arrow" class:up={below}
+        style:transform="translate3d({live.x + live.w / 2 - 20}px, {below ? live.y + live.h + 4 : live.y - 44}px, 0)">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v16M5 12l7 7 7-7" /></svg>
       </div>
     {/if}
@@ -191,6 +189,7 @@
       <p>{s.text()}</p>
       <div class="acts">
         <button class="skip" onclick={() => end(true)}>Алгасах</button>
+        {#if s.next}<button class="btn sun" onclick={() => to('cardback')}>{s.next}</button>{/if}
         {#if s.done}<button class="btn sun" onclick={() => end(false)}>{s.done}</button>{/if}
       </div>
     </div>
@@ -204,7 +203,7 @@
   .catch { position: absolute; z-index: 1; pointer-events: auto; touch-action: none; padding: 0; border: 0; border-radius: 16px; background: transparent; }
   .catch.round { border-radius: 50%; }
   .ring {
-    position: absolute; border-radius: 16px; border: 2px solid var(--sun);
+    position: absolute; left: 0; top: 0; will-change: transform; border-radius: 16px; border: 2px solid var(--sun);
     box-shadow: 0 0 0 200vmax rgba(2, 3, 6, 0.78), 0 0 24px rgba(255, 204, 102, 0.55);
   }
   .ring.round { border-radius: 50%; }
@@ -212,12 +211,11 @@
   /* The pulse is a glow layer fading in and out (opacity runs on the GPU), never an animated shadow. */
   .ring::after { content: ''; position: absolute; inset: -2px; border-radius: inherit; box-shadow: 0 0 40px 6px rgba(255, 204, 102, 0.8); opacity: 0; animation: glow 1.6s ease-in-out infinite; }
   @keyframes glow { 50% { opacity: 1; } }
-  .arrow { position: absolute; width: 40px; height: 40px; margin-left: -20px; color: var(--sun); animation: bob 1s ease-in-out infinite; }
-  .arrow svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 6px rgba(255, 204, 102, 0.7)); }
-  .arrow.up svg { transform: rotate(180deg); }
+  .arrow { position: absolute; left: 0; top: 0; width: 40px; height: 40px; color: var(--sun); will-change: transform; }
+  .arrow svg { animation: bob 1s ease-in-out infinite; width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 6px rgba(255, 204, 102, 0.7)); }
   @keyframes bob { 50% { transform: translateY(6px); } }
-  .arrow.up { animation-name: bobup; }
-  @keyframes bobup { 50% { transform: translateY(-6px); } }
+  .arrow.up svg { animation-name: bobup; transform: rotate(180deg); }
+  @keyframes bobup { 50% { transform: rotate(180deg) translateY(6px); } }
   .tip {
     position: absolute; left: 16px; right: 16px; max-width: 480px; margin: 0 auto; pointer-events: auto;
     display: grid; gap: 8px; padding: 14px 16px; border-radius: 18px; background: rgba(12, 15, 21, 0.98);
@@ -226,5 +224,5 @@
   .tip p { margin: 0; font-weight: 700; line-height: 1.4; }
   .acts { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
   .skip { min-height: 40px; padding: 0; border: 0; background: none; color: var(--muted); text-decoration: underline; text-underline-offset: 3px; }
-  @media (prefers-reduced-motion: reduce) { .ring::after, .arrow { animation: none; } }
+  @media (prefers-reduced-motion: reduce) { .ring::after, .arrow svg { animation: none; } }
 </style>
