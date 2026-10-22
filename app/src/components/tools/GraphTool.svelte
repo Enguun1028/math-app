@@ -6,11 +6,22 @@
   import { ui } from '../../lib/ui.svelte.js';
   import { readLine, defaultParam } from '../../lib/graphexpr.js';
   import { pointsOfInterest, fmtPoint } from '../../lib/graphpoi.js';
+  import { track } from '../../lib/track.svelte.js';
   import Loader from '../Loader.svelte';
 
   const COLORS = ['#22d3ee', '#ffcc66', '#5eea9a', '#a78bfa', '#ff7a8a', '#7aa2ff'];
   const KEY = 'mm-graph';
   const START = ['y = x^2', 'y = a x + 1'];
+  const BOX = [-6, 6, 6, -6];
+  // Ready-made formulas to open and play with (owner, 2026-10-23: the heart graph Reel ends here, so viewers can
+  // try it themselves). Each sets the lines and, where the shape is small, the view.
+  const PRESETS = [
+    { name: 'Зүрх ♥', lines: ['y = (x^2)^(1/3) + 0.9√(3.3 - x^2) sin(aπx)', 'a = 20'], box: [-2.6, 3.2, 2.6, -2] },
+    { name: 'Шулуун', lines: ['y = a x + b', 'a = 2', 'b = 1'] },
+    { name: 'Парабол', lines: ['y = a(x - h)^2 + k', 'a = 1', 'h = 0', 'k = 0'] },
+    { name: 'Синус долгион', lines: ['y = a sin(b x)', 'a = 2', 'b = 1'] },
+    { name: 'Тойрог', lines: ['x^2 + y^2 = r^2', 'r = 3'] },
+  ];
 
   const saved = () => {
     try { const v = JSON.parse(localStorage.getItem(KEY)); return Array.isArray(v) && v.length ? v : null; } catch { return null; }
@@ -18,6 +29,9 @@
   let lines = $state(ui.graphSeed ?? saved() ?? START);
   ui.graphSeed = null;
   $effect(() => { try { localStorage.setItem(KEY, JSON.stringify(lines)); } catch {} });
+
+  // The view: a preset's own when its lines are still open (so the heart reopens full size), else the default.
+  let box = PRESETS.find((p) => p.box && p.lines[0] === lines[0])?.box ?? BOX;
 
   let parsed = $derived(lines.map(readLine));
   // Sliders: "a = 2" lines set a value; any other letter a line uses gets a slider below the lines.
@@ -51,7 +65,7 @@
     loadJXG().then((JXG) => {
       if (!el) return;
       board = JXG.JSXGraph.initBoard(el, {
-        boundingbox: [-6, 6, 6, -6], keepaspectratio: true, axis: true, showCopyright: false, showNavigation: false,
+        boundingbox: box, keepaspectratio: true, axis: true, showCopyright: false, showNavigation: false,
         pan: { enabled: true, needTwoFingers: false, needShift: false },
         zoom: { enabled: true, wheel: true, pinch: true, needShift: false, min: 0.05, max: 40 },
         defaultAxes: { x: AX, y: AX },
@@ -106,7 +120,9 @@
     pois = [];
     const was = picked;
     picked = null;
-    for (const p of pointsOfInterest(parsed, $state.snapshot(params), board.getBoundingBox())) {
+    const found = pointsOfInterest(parsed, $state.snapshot(params), board.getBoundingBox());
+    // A fast wave (the heart, sin of a big number) has dozens of highs and lows: dots would hide the curve.
+    for (const p of found.length > 30 ? [] : found) {
       const label = fmtPoint(p);
       const dot = board.create('point', [p.x, p.y], {
         name: label, withLabel: false, size: 3, fillColor: '#8a93a6', strokeColor: '#0a0d14', strokeWidth: 1.5,
@@ -125,7 +141,15 @@
   }
   onDestroy(() => clearTimeout(findTimer));
 
-  function home() { board?.setBoundingBox([-6, 6, 6, -6], true); }
+  function home() { board?.setBoundingBox(box, true); }
+  function usePreset(p) {
+    lines = [...p.lines];
+    active = 0;
+    picked = null;
+    box = p.box ?? BOX;
+    home();
+    track('graph_preset', { name: p.name });
+  }
 
   // ---- editing ----
   let active = $state(0);
@@ -168,6 +192,11 @@
     <button class="home" onclick={home} aria-label="Анхны байрлал">⌂</button>
   </div>
   {#if picked}<p class="poi"><b>{picked.label}</b> {picked.kinds.map((k) => NAMES[k]).join(' · ')}</p>{/if}
+
+  <div class="presets" aria-label="Бэлэн томьёо">
+    <span class="plabel">Бэлэн томьёо</span>
+    {#each PRESETS as p}<button class="preset" onclick={() => usePreset(p)}>{p.name}</button>{/each}
+  </div>
 
   <div class="keys" aria-label="Тэмдэг оруулах">
     {#each KEYS as [label, text]}<button class="key" onpointerdown={(e) => e.preventDefault()} onclick={() => insert(text)}>{label}</button>{/each}
@@ -215,6 +244,9 @@
   .state :global(.loader) { min-height: 0; }
   .state { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; padding: 20px; color: var(--muted); }
   .home { position: absolute; right: 10px; top: 10px; width: 40px; height: 40px; border-radius: 12px; border: 1px solid var(--line); background: rgba(17, 20, 27, 0.9); color: var(--ink); font-size: 1.2rem; }
+  .presets { display: flex; align-items: center; gap: 6px; overflow-x: auto; scrollbar-width: none; }
+  .plabel { flex: none; color: var(--muted); font-size: 0.8rem; font-weight: 700; padding-right: 2px; }
+  .preset { flex: none; min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid color-mix(in srgb, var(--sun) 45%, var(--line)); background: var(--sun-soft); color: var(--sun); font-weight: 700; white-space: nowrap; }
   .keys { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; }
   .key { flex: none; min-width: 44px; height: 40px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); color: var(--sky); font-family: var(--math); font-size: 1.05rem; }
   .rows { display: grid; gap: 8px; }
