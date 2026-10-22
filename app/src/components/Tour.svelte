@@ -6,7 +6,7 @@
   // "Алгасах" ends it. ui.tour = { step, sphere, topic } is set by IntroPage; null when there is no tour.
   import { fade } from 'svelte/transition';
   import { ui } from '../lib/ui.svelte.js';
-  import { route } from '../lib/router.svelte.js';
+  import { route, go } from '../lib/router.svelte.js';
   import { sphereById } from '../lib/content.js';
   import { track } from '../lib/track.svelte.js';
   import { ms } from '../lib/motion.js';
@@ -30,7 +30,7 @@
     // lit and scrollable until the student taps "Ойлголоо", then «‹ Буцах». Nothing moves on by a timer.
     card: {
       sel: () => '.topic .jump', show: () => !!ui.topic,
-      text: () => 'Эдгээр нь сэдвийн хэсгүүд: томьёо, жишээ, дасгал... Нэгийг нь дарж үзээрэй.',
+      text: () => 'Эдгээр нь сэдвийн хэсгүүд: томьёо, жишээ, дасгал... Нэгийг нь дарж, эсвэл хажуу тийш гүйлгэж үзээрэй.',
     },
     cardscroll: {
       sel: () => '.topic .scroll', show: () => !!ui.topic, next: 'Ойлголоо',
@@ -83,6 +83,25 @@
   });
   // A tapped section chip: the card scrolls there, then its body lights up.
   const onClick = (ev) => { if (t?.step === 'card' && ev.target.closest?.('.topic .jump button')) setTimeout(() => ui.tour?.step === 'card' && to('cardscroll'), 500); };
+  // Swiping the section chips to their end also moves on (owner, 2026-10-22).
+  $effect(() => {
+    if (t?.step !== 'card') return;
+    const onScroll = (ev) => {
+      const el = ev.target;
+      if (el.matches?.('.topic .jump') && el.scrollLeft + el.clientWidth >= el.scrollWidth - 4) to('cardscroll');
+    };
+    addEventListener('scroll', onScroll, true);
+    return () => removeEventListener('scroll', onScroll, true);
+  });
+  // From the topic card on, every step has "Дараах ›": it skips just that step (owner, 2026-10-22: "include a skip
+  // button everywhere"). "Алгасах" still ends the whole tour.
+  const SKIP = {
+    card: () => to('cardscroll'),
+    cardscroll: () => to('cardback'),
+    cardback: () => (ui.topic = null), // closing the card leads to the tools step
+    tools: () => go('/tools'),
+    graph: () => to('play'),
+  };
   // The first slider drag changes the tip's words in place.
   const onInput = (ev) => { if (t?.step === 'graph' && ev.target.closest?.('.graph .sliders')) to('play'); };
 
@@ -189,7 +208,8 @@
       <p>{s.text()}</p>
       <div class="acts">
         <button class="skip" onclick={() => end(true)}>Алгасах</button>
-        {#if s.next}<button class="btn sun" onclick={() => to('cardback')}>{s.next}</button>{/if}
+        {#if s.next}<button class="btn sun" onclick={() => to('cardback')}>{s.next}</button>
+        {:else if SKIP[t.step]}<button class="nextstep" onclick={SKIP[t.step]}>Дараах ›</button>{/if}
         {#if s.done}<button class="btn sun" onclick={() => end(false)}>{s.done}</button>{/if}
       </div>
     </div>
@@ -223,6 +243,7 @@
   }
   .tip p { margin: 0; font-weight: 700; line-height: 1.4; }
   .acts { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .nextstep { min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--sun); background: none; color: var(--sun); font-weight: 800; }
   .skip { min-height: 40px; padding: 0; border: 0; background: none; color: var(--muted); text-decoration: underline; text-underline-offset: 3px; }
   @media (prefers-reduced-motion: reduce) { .ring::after, .arrow svg { animation: none; } }
 </style>
