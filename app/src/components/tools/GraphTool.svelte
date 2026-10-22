@@ -5,6 +5,7 @@
   import { onMount, onDestroy } from 'svelte';
   import { ui } from '../../lib/ui.svelte.js';
   import { readLine, defaultParam } from '../../lib/graphexpr.js';
+  import { pointsOfInterest, fmtPoint } from '../../lib/graphpoi.js';
   import Loader from '../Loader.svelte';
 
   const COLORS = ['#22d3ee', '#ffcc66', '#5eea9a', '#a78bfa', '#ff7a8a', '#7aa2ff'];
@@ -55,6 +56,8 @@
         zoom: { enabled: true, wheel: true, pinch: true, needShift: false, min: 0.05, max: 40 },
         defaultAxes: { x: AX, y: AX },
       });
+      // Panning or zooming brings new crossings into reach.
+      board.on('boundingbox', findSoon);
       ready = true;
     }).catch(() => (failed = true));
   });
@@ -80,13 +83,47 @@
       } catch { /* a line JSXGraph cannot draw is simply left out */ }
     });
     board.fullUpdate();
+    findSoon();
   }
   $effect(() => { if (ready) redraw(parsed); });
 
   $effect(() => {
     Object.assign(env, $state.snapshot(params));
-    if (ready) board.update();
+    if (ready) { board.update(); findSoon(); }
   });
+
+  // ---- points of interest, like Desmos (lib/graphpoi.js): grey dots where lines cross each other or the axes,
+  // and at highest and lowest points. A tap on a dot shows its coordinates on the board and its name below it.
+  const NAMES = { cross: 'Огтлолцох цэг', root: 'x тэнхлэгийг огтлох цэг', yint: 'y тэнхлэгийг огтлох цэг', max: 'Максимум цэг', min: 'Минимум цэг' };
+  let pois = [], picked = $state(null), findTimer;
+  function findSoon() {
+    clearTimeout(findTimer);
+    findTimer = setTimeout(findPois, 120);
+  }
+  function findPois() {
+    if (!board) return;
+    for (const e of pois) board.removeObject(e);
+    pois = [];
+    const was = picked;
+    picked = null;
+    for (const p of pointsOfInterest(parsed, $state.snapshot(params), board.getBoundingBox())) {
+      const label = fmtPoint(p);
+      const dot = board.create('point', [p.x, p.y], {
+        name: label, withLabel: false, size: 3, fillColor: '#8a93a6', strokeColor: '#0a0d14', strokeWidth: 1.5,
+        fixed: true, highlight: false, showInfobox: false, label: { strokeColor: '#EEF1F5', fontSize: 14, offset: [10, 12], highlight: false },
+      });
+      const pick = () => {
+        for (const d of pois) d.setAttribute({ withLabel: false, size: 3, fillColor: '#8a93a6' });
+        dot.setAttribute({ withLabel: true, size: 5, fillColor: '#EEF1F5' });
+        picked = { label, kinds: p.kinds };
+      };
+      dot.on('down', pick);
+      pois.push(dot);
+      if (was && was.label === label) pick(); // a slider move keeps the same dot open while it stays put
+    }
+    board.update();
+  }
+  onDestroy(() => clearTimeout(findTimer));
 
   function home() { board?.setBoundingBox([-6, 6, 6, -6], true); }
 
@@ -130,6 +167,7 @@
     {:else if !ready}<div class="state"><Loader label="График ачаалж байна…" /></div>{/if}
     <button class="home" onclick={home} aria-label="Анхны байрлал">⌂</button>
   </div>
+  {#if picked}<p class="poi"><b>{picked.label}</b> {picked.kinds.map((k) => NAMES[k]).join(' · ')}</p>{/if}
 
   <div class="keys" aria-label="Тэмдэг оруулах">
     {#each KEYS as [label, text]}<button class="key" onpointerdown={(e) => e.preventDefault()} onclick={() => insert(text)}>{label}</button>{/each}
@@ -169,6 +207,8 @@
 
 <style>
   .graph { display: grid; gap: 12px; }
+  .poi { margin: -4px 0 0; color: var(--muted); font-size: 0.9rem; }
+  .poi b { color: var(--ink); font-family: var(--math); margin-right: 6px; }
   .boardwrap { position: relative; }
   .board { width: 100%; aspect-ratio: 1 / 1; max-height: 58vh; border-radius: 18px; background: #0a0d14; border: 1px solid var(--line); overflow: hidden; touch-action: none; }
   .board :global(.JXGtext) { font-family: var(--font); }
