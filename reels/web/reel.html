@@ -1,0 +1,30 @@
+<!doctype html>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>html, body { margin: 0; background: #000; } canvas { display: block; }</style>
+<canvas id="c" width="1080" height="1920"></canvas>
+<script src="previews.js"></script>
+<script>
+// Renders one preview at full Reel size. render.mjs calls drawAt(t) for each frame and audioWav() once.
+const SCALE = 3;
+const g = document.getElementById('c').getContext('2d');
+const id = new URLSearchParams(location.search).get('id');
+window.reelLength = P[id].L;
+window.drawAt = (t) => { g.setTransform(SCALE, 0, 0, SCALE, 0, 0); g.clearRect(0, 0, W, H); P[id].draw(g, t); };
+
+// The same synthesised loop the board plays, rendered offline to a 16-bit WAV, returned as base64.
+window.audioWav = async () => {
+  const rate = 48000, L = P[id].L, ctx = new OfflineAudioContext(2, Math.ceil(rate * L), rate);
+  AC = ctx; master = ctx.createGain(); master.gain.value = 0.55; master.connect(ctx.destination);
+  noiseBuf = ctx.createBuffer(1, rate, rate); const nd = noiseBuf.getChannelData(0); for (let i = 0; i < nd.length; i++) nd[i] = Math.random() * 2 - 1;
+  for (const e of MUSIC[id]()) if (e.t < L) voice(e, e.t);
+  const buf = await ctx.startRendering(), n = buf.length, out = new DataView(new ArrayBuffer(44 + n * 4));
+  const str = (o, s) => [...s].forEach((c, i) => out.setUint8(o + i, c.charCodeAt(0)));
+  str(0, 'RIFF'); out.setUint32(4, 36 + n * 4, true); str(8, 'WAVEfmt '); out.setUint32(16, 16, true); out.setUint16(20, 1, true); out.setUint16(22, 2, true);
+  out.setUint32(24, rate, true); out.setUint32(28, rate * 4, true); out.setUint16(32, 4, true); out.setUint16(34, 16, true); str(36, 'data'); out.setUint32(40, n * 4, true);
+  const L0 = buf.getChannelData(0), R0 = buf.getChannelData(1);
+  for (let i = 0; i < n; i++) { out.setInt16(44 + i * 4, Math.max(-1, Math.min(1, L0[i])) * 32767, true); out.setInt16(46 + i * 4, Math.max(-1, Math.min(1, R0[i])) * 32767, true); }
+  let bin = ''; const bytes = new Uint8Array(out.buffer); for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
+  return btoa(bin);
+};
+</script>
