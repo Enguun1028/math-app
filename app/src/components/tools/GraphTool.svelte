@@ -6,11 +6,25 @@
   import { ui } from '../../lib/ui.svelte.js';
   import { readLine, defaultParam } from '../../lib/graphexpr.js';
   import { pointsOfInterest, fmtPoint } from '../../lib/graphpoi.js';
+  import { track } from '../../lib/track.svelte.js';
   import Loader from '../Loader.svelte';
 
   const COLORS = ['#22d3ee', '#ffcc66', '#5eea9a', '#a78bfa', '#ff7a8a', '#7aa2ff'];
+  // A tap on a line's dot opens these (owner, 2026-10-23: "make sure the graph colour is changeable").
+  const PALETTE = ['#22d3ee', '#ffcc66', '#5eea9a', '#a78bfa', '#ff7a8a', '#7aa2ff', '#ff4fd8', '#eef1f5'];
   const KEY = 'mm-graph';
+  const HUES = 'mm-graph-colors';
   const START = ['y = x^2', 'y = a x + 1'];
+  const BOX = [-6, 6, 6, -6];
+  // Ready-made formulas to open and play with (owner, 2026-10-23: the heart graph Reel ends here, so viewers can
+  // try it themselves). Each sets the lines and, where the shape is small, the view.
+  const PRESETS = [
+    { name: 'Зүрх ♥', lines: ['y = (x^2)^(1/3) + 0.9√(3.3 - x^2) sin(aπx)', 'a = 20'], colors: ['#ff4fd8'], box: [-2.6, 3.2, 2.6, -2] },
+    { name: 'Шулуун', lines: ['y = a x + b', 'a = 2', 'b = 1'] },
+    { name: 'Парабол', lines: ['y = a(x - h)^2 + k', 'a = 1', 'h = 0', 'k = 0'] },
+    { name: 'Синус долгион', lines: ['y = a sin(b x)', 'a = 2', 'b = 1'] },
+    { name: 'Тойрог', lines: ['x^2 + y^2 = r^2', 'r = 3'] },
+  ];
 
   const saved = () => {
     try { const v = JSON.parse(localStorage.getItem(KEY)); return Array.isArray(v) && v.length ? v : null; } catch { return null; }
@@ -18,6 +32,14 @@
   let lines = $state(ui.graphSeed ?? saved() ?? START);
   ui.graphSeed = null;
   $effect(() => { try { localStorage.setItem(KEY, JSON.stringify(lines)); } catch {} });
+  // Chosen colours, one per line (null keeps the default for that place).
+  let hues = $state((() => { try { const v = JSON.parse(localStorage.getItem(HUES)); return Array.isArray(v) ? v : []; } catch { return []; } })());
+  $effect(() => { try { localStorage.setItem(HUES, JSON.stringify(hues)); } catch {} });
+  const colorOf = (i) => hues[i] || COLORS[i % COLORS.length];
+  let painting = $state(null); // the line whose colour row is open
+
+  // The view: a preset's own when its lines are still open (so the heart reopens full size), else the default.
+  let box = PRESETS.find((p) => p.box && p.lines[0] === lines[0])?.box ?? BOX;
 
   let parsed = $derived(lines.map(readLine));
   // Sliders: "a = 2" lines set a value; any other letter a line uses gets a slider below the lines.
@@ -51,7 +73,7 @@
     loadJXG().then((JXG) => {
       if (!el) return;
       board = JXG.JSXGraph.initBoard(el, {
-        boundingbox: [-6, 6, 6, -6], keepaspectratio: true, axis: true, showCopyright: false, showNavigation: false,
+        boundingbox: box, keepaspectratio: true, axis: true, showCopyright: false, showNavigation: false,
         pan: { enabled: true, needTwoFingers: false, needShift: false },
         zoom: { enabled: true, wheel: true, pinch: true, needShift: false, min: 0.05, max: 40 },
         defaultAxes: { x: AX, y: AX },
@@ -68,7 +90,7 @@
     for (const e of drawn) board.removeObject(e);
     drawn = [];
     list.forEach((p, i) => {
-      const c = COLORS[i % COLORS.length], look = { strokeColor: c, strokeWidth: 3, highlight: false, fixed: true };
+      const c = colorOf(i), look = { strokeColor: c, strokeWidth: 3, highlight: false, fixed: true };
       try {
         // A plain curve with our own x(t) and y(t): JSXGraph's functiongraph builds x from the text 'x' with its
         // script engine, which the app's Content Security Policy blocks, and then draws nothing.
@@ -106,7 +128,9 @@
     pois = [];
     const was = picked;
     picked = null;
-    for (const p of pointsOfInterest(parsed, $state.snapshot(params), board.getBoundingBox())) {
+    const found = pointsOfInterest(parsed, $state.snapshot(params), board.getBoundingBox());
+    // A fast wave (the heart, sin of a big number) has dozens of highs and lows: dots would hide the curve.
+    for (const p of found.length > 30 ? [] : found) {
       const label = fmtPoint(p);
       const dot = board.create('point', [p.x, p.y], {
         name: label, withLabel: false, size: 3, fillColor: '#8a93a6', strokeColor: '#0a0d14', strokeWidth: 1.5,
@@ -125,14 +149,24 @@
   }
   onDestroy(() => clearTimeout(findTimer));
 
-  function home() { board?.setBoundingBox([-6, 6, 6, -6], true); }
+  function home() { board?.setBoundingBox(box, true); }
+  function usePreset(p) {
+    lines = [...p.lines];
+    hues = [...(p.colors ?? [])];
+    painting = null;
+    active = 0;
+    picked = null;
+    box = p.box ?? BOX;
+    home();
+    track('graph_preset', { name: p.name });
+  }
 
   // ---- editing ----
   let active = $state(0);
   let inputs = [];
   // The tour's "write your own" step starts from one empty line, ready to type in.
   $effect(() => {
-    const clear = () => { lines = ['']; active = 0; requestAnimationFrame(() => inputs[0]?.focus()); };
+    const clear = () => { lines = ['']; hues = []; painting = null; active = 0; requestAnimationFrame(() => inputs[0]?.focus()); };
     addEventListener('graph-clear', clear);
     return () => removeEventListener('graph-clear', clear);
   });
@@ -151,6 +185,8 @@
   }
   function remove(i) {
     lines.splice(i, 1);
+    hues.splice(i, 1);
+    painting = null;
     if (!lines.length) lines.push('');
     active = Math.min(active, lines.length - 1);
   }
@@ -169,6 +205,11 @@
   </div>
   {#if picked}<p class="poi"><b>{picked.label}</b> {picked.kinds.map((k) => NAMES[k]).join(' · ')}</p>{/if}
 
+  <div class="presets" aria-label="Бэлэн томьёо">
+    <span class="plabel">Бэлэн томьёо</span>
+    {#each PRESETS as p}<button class="preset" onclick={() => usePreset(p)}>{p.name}</button>{/each}
+  </div>
+
   <div class="keys" aria-label="Тэмдэг оруулах">
     {#each KEYS as [label, text]}<button class="key" onpointerdown={(e) => e.preventDefault()} onclick={() => insert(text)}>{label}</button>{/each}
   </div>
@@ -177,10 +218,18 @@
     {#each lines as line, i (i)}
       {@const p = parsed[i]}
       <div class="row" class:on={active === i}>
-        <i class="dot" style:background={p.kind === 'slider' || p.kind === 'value' ? 'transparent' : COLORS[i % COLORS.length]}></i>
+        {#if p.kind === 'slider' || p.kind === 'value'}<i class="dot"></i>
+        {:else}<button class="dot" style:background={colorOf(i)} onclick={() => (painting = painting === i ? null : i)}
+            aria-label="{i + 1}-р мөрийн өнгө солих" aria-expanded={painting === i}></button>{/if}
         <input bind:this={inputs[i]} value={line} oninput={(e) => (lines[i] = e.currentTarget.value)} onfocus={() => (active = i)}
           placeholder="y = 2x + 1" autocomplete="off" autocapitalize="off" spellcheck="false" inputmode="text" aria-label="{i + 1}-р мөр" />
         <button class="x" onclick={() => remove(i)} aria-label="Устгах">×</button>
+        {#if painting === i}
+          <div class="pal" role="group" aria-label="Өнгө сонгох">
+            {#each PALETTE as c}<button class="sw" class:on={colorOf(i) === c} style:background={c} aria-label="Өнгө {c}"
+              onclick={() => { hues[i] = c; painting = null; }}></button>{/each}
+          </div>
+        {/if}
         {#if p.kind === 'error'}<p class="msg">{p.msg}</p>
         {:else if p.kind === 'value'}<p class="val">= {valueOf(p)}</p>
         {:else if p.kind === 'slider'}
@@ -215,12 +264,19 @@
   .state :global(.loader) { min-height: 0; }
   .state { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; padding: 20px; color: var(--muted); }
   .home { position: absolute; right: 10px; top: 10px; width: 40px; height: 40px; border-radius: 12px; border: 1px solid var(--line); background: rgba(17, 20, 27, 0.9); color: var(--ink); font-size: 1.2rem; }
+  .presets { display: flex; align-items: center; gap: 6px; overflow-x: auto; scrollbar-width: none; }
+  .plabel { flex: none; color: var(--muted); font-size: 0.8rem; font-weight: 700; padding-right: 2px; }
+  .preset { flex: none; min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid color-mix(in srgb, var(--sun) 45%, var(--line)); background: var(--sun-soft); color: var(--sun); font-weight: 700; white-space: nowrap; }
   .keys { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; }
   .key { flex: none; min-width: 44px; height: 40px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); color: var(--sky); font-family: var(--math); font-size: 1.05rem; }
   .rows { display: grid; gap: 8px; }
-  .row { display: grid; grid-template-columns: 14px minmax(0, 1fr) 40px; align-items: center; gap: 8px; padding: 6px 6px 6px 12px; border-radius: 14px; background: var(--surface); border: 1px solid var(--line); }
+  .row { display: grid; grid-template-columns: 26px minmax(0, 1fr) 40px; align-items: center; gap: 8px; padding: 6px 6px 6px 8px; border-radius: 14px; background: var(--surface); border: 1px solid var(--line); }
   .row.on { border-color: color-mix(in srgb, var(--sky) 55%, var(--line)); }
-  .dot { width: 14px; height: 14px; border-radius: 50%; }
+  .dot { width: 22px; height: 22px; margin: 2px; border-radius: 50%; padding: 0; border: 2px solid rgba(255, 255, 255, 0.18); }
+  i.dot { border: 0; background: transparent; }
+  .pal { grid-column: 1 / 4; display: flex; flex-wrap: wrap; gap: 8px; padding: 4px 2px 2px; }
+  .sw { width: 34px; height: 34px; border-radius: 50%; padding: 0; border: 2px solid rgba(255, 255, 255, 0.15); }
+  .sw.on { border-color: var(--ink); box-shadow: 0 0 0 2px var(--bg, #05070d) inset; }
   .row input:not(.range) { min-width: 0; min-height: 40px; border: 0; outline: 0; background: none; color: var(--ink); font-family: var(--math); font-size: 1.15rem; }
   .x { width: 40px; height: 40px; border: 0; background: none; color: var(--muted); font-size: 1.4rem; }
   .msg, .val, .row .range { grid-column: 2 / 4; }
