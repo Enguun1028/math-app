@@ -1,0 +1,25 @@
+# Uptime check (owner, 2026-10-25): every 30 minutes GitHub opens the live app. If it does not answer with the
+# app page three times in a row, the run fails and GitHub emails the repo owner ("Run failed: Uptime check").
+# Run it by hand from the Actions tab with "Run workflow". GitHub pauses scheduled runs after 60 days without
+# any commit; the Actions tab then shows a button to turn it back on.
+name: Uptime check
+on:
+  schedule:
+    - cron: '7,37 * * * *'
+  workflow_dispatch:
+permissions: {}
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Open the live app
+        run: |
+          url=https://matematikiin-ayalal.pages.dev/
+          for i in 1 2 3; do
+            code=$(curl -sL -o page.html -w '%{http_code}' --max-time 25 "$url" || echo 000)
+            if [ "$code" = 200 ] && grep -q 'матемап' page.html; then echo "OK: $url answered (try $i)"; exit 0; fi
+            echo "Try $i: HTTP $code"; sleep 30
+          done
+          echo "::error::$url is down or not showing the app (last HTTP $code)"
+          exit 1

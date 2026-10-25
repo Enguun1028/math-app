@@ -43,7 +43,12 @@
     group by properties.query order by count() desc limit 10`);
   const reports = await q(`select toUnixTimestamp(timestamp), properties.kind, properties.message, properties.question
     from events where ${real} and event = 'problem_reported' order by timestamp desc limit 10`);
-  const errors = await q(`select properties.$exception_types, count() from events where ${real} and event = '$exception' group by properties.$exception_types`);
+  // Readable error reports from the app (app_error, 2026-10-25): what, where, after which action, which browser.
+  const errors = await q(`select properties.kind, properties.message, properties.page, properties.last_action, properties.in_app,
+      toString(properties.outside), properties.file, properties.line, any(properties.$os), count(), toUnixTimestamp(max(timestamp))
+    from events where ${real} and event = 'app_error'
+    group by properties.kind, properties.message, properties.page, properties.last_action, properties.in_app, properties.outside, properties.file, properties.line
+    order by count() desc limit 15`);
 
   return JSON.stringify({
     days,
@@ -51,6 +56,8 @@
     worst_questions: worst.map(([qq, n, ok, idk]) => `${ok}/${n} right, ${idk} dont_know: ${clean(qq)}`),
     empty_searches: empty.map(([s, n]) => `${n}x ${clean(s)}`),
     reports: reports.map(([t, k, m, qq]) => `${ub(t)} ${k}: ${clean(m)} [${clean(qq)}]`),
-    errors: errors.map(([e, n]) => `${n}x ${clean(e)}`),
+    errors: errors.map(([kind, msg, page, last, inApp, outside, file, line, os, n, t]) =>
+      `${n}x ${kind} | ${clean(msg)} | screen ${clean(page)} | after ${last ?? '-'} | ${os}${inApp ? ' in ' + inApp + ' app' : ''}` +
+      (outside === 'true' ? ' | outside script, not our code' : file ? ` | ${clean(file)}:${line}` : '') + ` | last ${ub(t)}`),
   });
 })();

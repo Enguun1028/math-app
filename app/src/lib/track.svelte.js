@@ -50,8 +50,11 @@ function context() {
   };
 }
 
+let lastAction = null; // the last thing the visitor did, sent with error reports
+
 export function track(event, props = {}) {
   const all = { ...context(), ...props };
+  if (event !== '$pageview' && event !== 'app_error') lastAction = event;
   if (live) window.posthog.capture(event, all);
   else if (import.meta.env.DEV) console.debug('[track]', event, all);
 }
@@ -76,3 +79,36 @@ $effect.root(() => {
   $effect(() => { if (ui.level) track('level_sheet_opened'); });
   $effect(() => { if (route.parts[0] === 't' || route.parts[0] === 'tools') track('tool_opened', { tool: ui.tool }); });
 });
+
+// Readable error reports (owner, 2026-10-25): what broke, on which screen, right after which action, on which
+// phone and browser. PostHog's own exception events stay on; these add the plain facts. "Script error." with
+// no file means a script from another site failed (often the Facebook or Instagram in-app browser): the browser
+// hides its details, so it is marked outside: true. At most 10 reports per visit, each message once.
+const seenErrors = new Set();
+function reportError(kind, err, where = {}) {
+  const message = String(err?.message ?? err ?? '').slice(0, 300) || '(no message)';
+  const key = kind + message;
+  if (seenErrors.has(key) || seenErrors.size >= 10) return;
+  seenErrors.add(key);
+  const ua = navigator.userAgent;
+  track('app_error', {
+    kind, // error, promise, load_failed
+    message,
+    outside: /^Script error\.?$/.test(message) && !where.file,
+    file: where.file ? String(where.file).split('/').pop().split('?')[0] : null,
+    line: where.line ?? null,
+    col: where.col ?? null,
+    stack: String(err?.stack ?? '').split('\n').slice(0, 6).join('\n').slice(0, 800) || null,
+    page: location.hash || '#/',
+    last_action: lastAction,
+    in_app: /Instagram/.test(ua) ? 'instagram' : /FBAN|FBAV|FB_IAB/.test(ua) ? 'facebook' : null,
+    online: navigator.onLine,
+  });
+}
+addEventListener('error', (e) => {
+  const el = e.target;
+  // a script or stylesheet that did not load (capture phase sees these; they do not bubble)
+  if (el && el !== window && (el.tagName === 'SCRIPT' || el.tagName === 'LINK')) return reportError('load_failed', 'Could not load ' + String(el.src || el.href).split('/').pop());
+  if (el === window || !el?.tagName) reportError('error', e.error ?? e.message, { file: e.filename, line: e.lineno, col: e.colno });
+}, true);
+addEventListener('unhandledrejection', (e) => reportError('promise', e.reason));
