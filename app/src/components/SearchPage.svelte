@@ -44,7 +44,9 @@
   // Math keys sit above the phone keyboard; each one types at the cursor.
   const KEYS = [['x²', '^2'], ['√', '√('], ['π', 'π'], ['÷', '÷'], ['( )', '()'], ['=', '='], ['−', '−']];
 
-  onMount(() => setTimeout(() => input?.focus(), 250));
+  // Focus the box by itself only with a mouse (2026-10-31). On a phone a focus that does not come from a tap opens no
+  // keyboard, and iPhone then treats the box as already focused, so tapping it did nothing ("I can't click the search").
+  onMount(() => { if (matchMedia('(hover: hover) and (pointer: fine)').matches) setTimeout(() => input?.focus(), 250); });
 
   // What students look for, including searches that find nothing: sent once typing pauses for 1.5 s.
   $effect(() => {

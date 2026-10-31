@@ -87,7 +87,7 @@
   // The grade map page runs the zoom once it knows where its own centre sits; here we only note where the sphere is.
   let opening = false;
   function sphereGeo(id) {
-    const rim = svg.querySelector(`[data-sphere="${id}"] .rim`);
+    const rim = mapEl.querySelector(`[data-sphere="${id}"] .rim`);
     if (!rim) return null;
     const r = rim.getBoundingClientRect();
     return { x: r.left + r.width / 2, y: r.top + r.height / 2 };
@@ -184,28 +184,31 @@
   <div class="scroller" bind:this={scroller}>
     <!-- Stories sit at the top of the map and scroll away with it, like Instagram (owner: not persistent). -->
     <div class="stories"><HotTopics /></div>
-    <svg bind:this={svg} width={W} height={contentH} role="group" aria-label="Математикийн газрын зураг">
-      <defs>
-        {#each spheres as s}
-          <radialGradient id="g-{s.id}" cx="50%" cy="45%" r="55%">
-            <stop offset="0%" stop-color={sphereLayout[s.id].color} stop-opacity="0.28" />
-            <stop offset="70%" stop-color={sphereLayout[s.id].color} stop-opacity="0.08" />
-            <stop offset="100%" stop-color={sphereLayout[s.id].color} stop-opacity="0.02" />
-          </radialGradient>
-        {/each}
-      </defs>
-
-      <g transform="translate({ox} {oy}) scale({k})" style:--a="{DRIFT_PX / k}px">
+    <!-- Each sphere is its own small picture in an HTML box that drifts (2026-10-31, lag fix): moving a box is done by
+         the graphics chip alone, while drifting groups inside one big SVG made the phone repaint the whole map,
+         all stars and dots, on every frame. Stars and the journey line sit below; titles and the thread above. -->
+    <div class="world" style:height="{contentH}px">
+    <svg bind:this={svg} width={W} height={contentH} aria-hidden="true">
+      <g transform="translate({ox} {oy}) scale({k})">
         {#each stars as st}<circle cx={st.x} cy={st.y} r={st.s} class="star" opacity={st.o} />{/each}
-
         <path d={journey} class="journey" style:stroke-width={2.5 / k} style:stroke-dasharray="{2 / k} {14 / k}" />
-
+      </g>
+    </svg>
+    <div class="spheres" style:--a="{DRIFT_PX}px" role="group" aria-label="Математикийн газрын зураг">
         {#each spheres as s, i (s.id)}
           {@const L = sphereLayout[s.id]}
           {@const st = sphereState(s)}
-          {@const label = s.title}
-          <g class="dx" style:animation-duration="{drift[i].dx}s" style:animation-delay="{drift[i].delay}s">
-            <g class="dy" style:animation-duration="{drift[i].dy}s" style:animation-delay="{drift[i].delay * 1.3}s">
+          {@const P = L.R * 1.45 + 30 / k}
+          <div class="dx" style:left="{ox + (L.x - P) * k}px" style:top="{oy + (L.y - P) * k}px" style:width="{2 * P * k}px" style:height="{2 * P * k}px" style:animation-duration="{drift[i].dx}s" style:animation-delay="{drift[i].delay}s">
+            <div class="dy" style:animation-duration="{drift[i].dy}s" style:animation-delay="{drift[i].delay * 1.3}s">
+              <svg viewBox="{L.x - P} {L.y - P} {2 * P} {2 * P}" width={2 * P * k} height={2 * P * k}>
+              <defs>
+                <radialGradient id="g-{s.id}" cx="50%" cy="45%" r="55%">
+                  <stop offset="0%" stop-color={L.color} stop-opacity="0.28" />
+                  <stop offset="70%" stop-color={L.color} stop-opacity="0.08" />
+                  <stop offset="100%" stop-color={L.color} stop-opacity="0.02" />
+                </radialGradient>
+              </defs>
               <g
                 data-sphere={s.id}
                 class="sphere {st}"
@@ -238,16 +241,25 @@
                   {/if}
                 {/each}
               </g>
-            </g>
-          </g>
+              </svg>
+            </div>
+          </div>
+        {/each}
+    </div>
+    <svg class="over" width={W} height={contentH} aria-hidden="true">
+      <g transform="translate({ox} {oy}) scale({k})">
+        {#each spheres as s (s.id)}
+          {@const L = sphereLayout[s.id]}
+          {@const st = sphereState(s)}
+          {@const label = s.title}
           {@const count = `${s.fresh.length} шинэ · ${s.topics.length - s.fresh.length} гүнзгийрүүлэх`}
           <text x={titleX(L.x, label)} y={L.y - L.R - 34 / k} class="stitle" class:next={st === 'next'} font-size={17 / k} style:stroke-width={6 / k}>{label}</text>
           <text x={titleX(L.x, count) } y={L.y - L.R - 14 / k} class="scount" font-size={12 / k} style:stroke-width={5 / k}>{count}</text>
         {/each}
-
         {#if thread}<path d={thread} class="thread" style:stroke-width={2.2 / k} style:stroke-dasharray="{6 / k} {5 / k}" />{/if}
       </g>
     </svg>
+    </div>
   </div>
 
   <header class="hud-top">
@@ -299,7 +311,13 @@
   /* The phone's own scrolling: momentum and rubber band come from the system. */
   .scroller { position: absolute; inset: 0; overflow-x: hidden; overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior-y: contain; }
   .stories { max-width: 560px; margin: 0 auto; padding: calc(env(safe-area-inset-top, 0px) + 62px) 16px 0; position: relative; z-index: 5; }
-  .scroller svg { display: block; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; }
+  .scroller svg { display: block; overflow: visible; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; }
+  .world { position: relative; }
+  .spheres { position: absolute; inset: 0; pointer-events: none; }
+  .spheres .dx { position: absolute; }
+  .spheres .dy { width: 100%; height: 100%; }
+  .spheres .sphere { pointer-events: auto; }
+  .over { position: absolute; left: 0; top: 0; pointer-events: none; }
   .star { fill: #cfe8ff; }
   .journey { fill: none; stroke: var(--sky); stroke-opacity: 0.35; stroke-linecap: round; }
 

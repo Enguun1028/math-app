@@ -191,6 +191,10 @@ html.moving .scroller, html.moving .topic .scroll { overflow: hidden !important;
 /* Lite mode for weak phones (lib/perf.js): no drifting, floating, pulsing glows, drop shadows or blur.
    Everything stays where it is and looks the same when still; only the motion and soft glows go. */
 .lite :is(.dx, .dy, .bob, .halo, .pulse, .beacon, .fab, .fab::after, .find, .find::after, .nextcard.lit, .nextcard.lit::after, .sphere.reveal .rim, .sphere.reveal .body) { animation: none !important; }
+/* Pseudo-elements never match inside :is(), so the glows drawn with ::before / ::after are listed on their own. */
+:is(.sheet-open, .story-open, .zooming, .morphing) :is(.ib, .fab, .find, .nextcard.lit)::before,
+:is(.sheet-open, .story-open, .zooming, .morphing) :is(.ib, .fab, .find, .nextcard.lit)::after { animation-play-state: paused !important; }
+.lite :is(.ib, .fab, .find, .nextcard.lit)::before, .lite :is(.ib, .fab, .find, .nextcard.lit)::after { animation: none !important; }
 .lite .beacon { filter: none !important; } /* stays as a still ring: it still shows the next step */
 .lite * { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
 .lite :is(svg, .tab svg, .walker) { filter: none !important; }
