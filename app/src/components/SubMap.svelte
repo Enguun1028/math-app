@@ -92,7 +92,12 @@
       // Going back to the main map runs the same zoom in reverse; the map asks for these when it comes back.
       ui.back.measure = measure;
       ui.back.run = (plan) => {
+        // Svelte no longer updates a page that is leaving, so class:morphing never came on and the slice names,
+        // title and hint stayed on screen during the zoom out (owner, 2026-11-01). The class is set by hand.
         morphing = true;
+        pageEl?.classList.add('morphing');
+        // The floating hint sits outside the page box, so it is faded the same way.
+        pageEl?.closest('.layer')?.querySelectorAll('.hint.float').forEach((h) => h.animate([{ opacity: 0 }], { duration: 140, fill: 'forwards' }));
         if (plan) zoomHere(plan, 'out');
         else pageEl?.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 200, easing: 'ease-out', fill: 'forwards' });
       };
