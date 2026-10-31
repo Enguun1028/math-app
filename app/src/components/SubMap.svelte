@@ -166,8 +166,14 @@
     const flush = () => { cancelAnimationFrame(frame); frame = 0; if (pending) { cam = pending; pending = null; } };
     const setCam = (c) => { pending = c; frame ||= requestAnimationFrame(flush); };
     const pair = () => { const [a, b] = [...pts.values()]; return { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2, d: Math.hypot(a.x - b.x, a.y - b.y) }; };
+    // While a finger moves the map (and while it glides after), the icons stop drifting (2026-11-01, scroll lag):
+    // 39 drifting icons made the browser restyle them on every frame of the drag. The pause is not visible while
+    // the whole map moves; the drift goes on from where it was once the map stops.
+    let still = 0;
+    const panning = (on) => { clearTimeout(still); if (on) node.classList.add('panning'); else still = setTimeout(() => node.classList.remove('panning'), 150); };
     const down = (e) => {
       cancelAnimationFrame(glide); cancelAnimationFrame(anim);
+      panning(true);
       if (!pts.size) rect = node.getBoundingClientRect();
       pts.set(e.pointerId, local(e));
       if (pts.size === 1) moved = 0;
@@ -205,11 +211,12 @@
       const slide = (now) => {
         const dt = now - t; t = now;
         vx *= 0.92; vy *= 0.92;
-        if (Math.hypot(vx, vy) < 0.02) return;
+        if (Math.hypot(vx, vy) < 0.02) return panning(false);
         cam = fit({ ...cam, x: cam.x + vx * dt, y: cam.y + vy * dt });
         glide = requestAnimationFrame(slide);
       };
       if (performance.now() - lt < 80) glide = requestAnimationFrame(slide);
+      else panning(false);
     };
     // A drag is not a tap: swallow the click that ends a drag so a topic does not open by accident.
     const click = (e) => { if (moved > 8) { e.stopPropagation(); e.preventDefault(); } };
@@ -231,7 +238,7 @@
     node.addEventListener('wheel', wheel, { passive: false });
     return {
       destroy() {
-        ro.disconnect(); cancelAnimationFrame(glide); cancelAnimationFrame(anim);
+        ro.disconnect(); cancelAnimationFrame(glide); cancelAnimationFrame(anim); clearTimeout(still);
         node.removeEventListener('pointerdown', down);
         removeEventListener('pointermove', move); removeEventListener('pointerup', up); removeEventListener('pointercancel', up);
         node.removeEventListener('click', click, true); node.removeEventListener('wheel', wheel);
@@ -288,7 +295,10 @@
     <div class="pan" bind:this={pan} use:camera>
       <!-- The camera layer: the zoom from the main map scales this, the pan and pinch move what is inside. -->
       <div class="cam" bind:this={camEl}>
-      <svg bind:this={mini} width={S * 2} height={S * 2} style:transform="translate({cam.x}px, {cam.y}px) scale({cam.z})" viewBox="0 0 {S * 2} {S * 2}" class="mini" role="group" aria-label="{s.title}: сэдвүүд">
+      <!-- The pan and pinch move this one plain box (2026-11-01, scroll lag): writing the transform on the SVG itself
+           and on the icon layer made the browser restyle the whole drawing on every frame of a drag. -->
+      <div class="world" style:width="{S * 2}px" style:height="{S * 2}px" style:transform="translate({cam.x}px, {cam.y}px) scale({cam.z})">
+      <svg bind:this={mini} width={S * 2} height={S * 2} viewBox="0 0 {S * 2} {S * 2}" class="mini" role="group" aria-label="{s.title}: сэдвүүд">
         <defs>
           <radialGradient id="ig-{s.id}" cx="50%" cy="50%" r="50%">
             <stop offset="0%" stop-color={s.color} stop-opacity="0.16" />
@@ -334,7 +344,7 @@
         {/each}
       </svg>
       <!-- Topic icons (the same icon bank as the topic card), moved by the same camera as the map under them. -->
-      <div class="icons" style:width="{S * 2}px" style:height="{S * 2}px" style:transform="translate({cam.x}px, {cam.y}px) scale({cam.z})" aria-hidden="true">
+      <div class="icons" style:width="{S * 2}px" style:height="{S * 2}px" aria-hidden="true">
         {#each s.topics as t (t)}
           {@const n = nodes[t]}
           {@const ts = topicState(t)}
@@ -342,6 +352,7 @@
             <TopicIcon id={t} size={RAD.NODE * 2 + 2} known={ts === 'known' || ts === 'faded'} />
           </div>
         {/each}
+      </div>
       </div>
       </div>
       <!-- Slice names: one readable size at every zoom. A name shows while its own spot is on screen and is nudged
@@ -396,7 +407,8 @@
   .page.morphing > :not(.panwrap), .page.morphing :is(.head, .strand, .zoom) { opacity: 0; transform: translateY(6px); transition-duration: 0.14s; }
   .page.morphing .pan { border-color: transparent; }
   .cam { position: absolute; inset: 0; }
-  .icons { position: absolute; left: 0; top: 0; transform-origin: 0 0; pointer-events: none; }
+  .world { position: absolute; left: 0; top: 0; transform-origin: 0 0; will-change: transform; }
+  .icons { position: absolute; left: 0; top: 0; pointer-events: none; }
   .ib { position: absolute; }
   .ib.later { opacity: 0.6; }
   .page.spot .node:not(.next), .page.spot .ib:not(.nx), .page.spot .e, .page.spot .border, .page.spot .strand { opacity: 0.15; transition: opacity 0.6s ease-out; }
@@ -429,9 +441,10 @@
   .zoom button:disabled { opacity: 0.35; }
   /* Life: each circle drifts a few pixels, slowly, like the spheres on the main map. */
   .bob { animation: bob 8s ease-in-out infinite alternate; }
+  .pan:global(.panning) .bob, .pan:global(.panning) .ib::before, .pan:global(.panning) .ib::after { animation-play-state: paused; }
   @keyframes bob { 0% { transform: translate(-2.5px, 1.5px); } 50% { transform: translate(2px, -2px); } 100% { transform: translate(-1px, 2.5px); } }
   .pan:active { cursor: grabbing; }
-  .mini { position: absolute; left: 0; top: 0; transform-origin: 0 0; will-change: transform; display: block; overflow: visible; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; }
+  .mini { position: absolute; left: 0; top: 0; display: block; overflow: visible; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; }
   .ring { fill: none; stroke: var(--c); stroke-opacity: 0.1; }
   .border { stroke: #262C38; stroke-dasharray: 2 6; }
   /* Slice names keep one readable size on screen at every zoom; they stay in place on the map. */
