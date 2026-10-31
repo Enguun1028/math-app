@@ -5,7 +5,7 @@
 // cross-fade where they overlap. Scale runs on a log curve (Z^e), so the zoom speed feels even, like a real camera.
 import { reduced } from './motion.js';
 
-export const ZOOM_IN_MS = 820;
+export const ZOOM_IN_MS = 600; // was 820; owner, 2026-11-01: "the zoom in animation can be a little faster"
 export const ZOOM_OUT_MS = 680;
 // Moves at once, then a long soft landing. A stronger ease-in-out packed most of the zoom into a short burst
 // in the middle, which read as a jump.
